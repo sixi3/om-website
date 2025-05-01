@@ -31,10 +31,10 @@ export function Hero() {
                 height={24}
                 className="rounded-full" // Optional: keep it round
               />
-              <span>India's First RBI-Licensed Account Aggregator</span>
+              <span>India&apos;s First RBI-Licensed Account Aggregator</span>
             </span>
             <h1 className="text-4xl tracking-tighter leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              <span className={metallicBlackTextClasses}>Powering India's</span>{" "}
+              <span className={metallicBlackTextClasses}>Powering India&apos;s</span>{" "}
               <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
                 Consent-Driven
               </span>{" "}

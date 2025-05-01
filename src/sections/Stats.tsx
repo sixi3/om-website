@@ -1,6 +1,5 @@
 import React from "react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
-import { cn } from "@/lib/utils";
 import { GridBackground } from "@/components/ui/grid-background";
 
 // Updated data based on the image
@@ -23,7 +22,7 @@ export function Stats() {
       <div className="container px-4 md:px-6 mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl">
-            <span className={metallicBlackTextClasses}>India's</span>{" "}
+            <span className={metallicBlackTextClasses}>India&apos;s</span>{" "}
             <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
               Largest
             </span>{" "}

@@ -1,6 +1,5 @@
 import React from "react";
 import { TiltCard } from "@/components/ui/tilt-card";
-import Image from "next/image"; // We might use this for avatars if needed, or just background
 import { GridBackground } from "@/components/ui/grid-background"; // Import GridBackground
 
 // Define metallic black class (reuse from SecurityCompliance or move to shared lib later)
