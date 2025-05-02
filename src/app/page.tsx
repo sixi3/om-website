@@ -1,5 +1,8 @@
 import { Hero } from "@/sections/Hero";
+import { WhatIsOneMoney } from "@/sections/WhatIsOneMoney";
+import { UIFeatures } from "@/sections/UIFeatures";
 import { Stats } from "@/sections/Stats";
+import { Solutions } from "@/sections/Solutions";
 import { SecurityCompliance } from "@/sections/SecurityCompliance";
 import { Leadership } from "@/sections/Leadership";
 // import { TrustedBy } from "@/sections/TrustedBy";
@@ -8,13 +11,12 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <WhatIsOneMoney />
+      <UIFeatures />
       <Stats />
+      <Solutions />
       <SecurityCompliance />
       <Leadership />
-      {/* <TrustedBy /> */}
-      <div className="container py-10">
-        <h2>More Sections Coming Soon...</h2>
-      </div>
     </>
   );
 }

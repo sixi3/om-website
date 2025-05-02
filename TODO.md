@@ -28,7 +28,24 @@ This document outlines the steps to create a React website similar in structure 
         *   Styled nav links (spacing, case, letter-spacing, hover effect).
         *   Added chevrons to specific nav links.
         *   Added styled button (metallic/shine) to actions section.
-    *   [x] Implement Footer component (`components/Footer.tsx`) with links and copyright.
+    *   [x] Implement Footer component (`components/Footer.tsx`).
+        *   [x] Structure with top (logo, links, newsletter/contact) and bottom (copyright, social) sections.
+        *   [x] Add logo (`public/om-logo.svg`) to top-left.
+        *   [x] Implement 6-column layout for top section (Logo:1, Links:1x3, Reach Out:2).
+        *   [x] Add column headings (Solutions, Governance, About, Reach Out to Us).
+        *   [x] Add links under Solutions, Governance, About columns.
+        *   [/] Implement Reach Out section (Input, Button, Background glow).
+            *   (Needs Fix) Resolve Shadcn/ui Input/Button component import/addition.
+            *   [x] Styled Input/Button group with background glow (colors: `#00b140` to `#baff29`).
+            *   [x] Updated button text to "Send" and color.
+        *   [x] Add CALL US / EMAIL US details structure.
+            *   [x] Updated contact info (Phone, Email).
+            *   [x] Added Copy icons next to contact details.
+        *   [x] Add horizontal divider.
+        *   [x] Add copyright text structure (bottom-left).
+        *   (Planned) Add social media icons (Lucide: Twitter, Facebook, Instagram, Github) (bottom-right).
+        *   (Planned) Apply final Tailwind CSS for typography, styling refinements.
+        *   (Planned) Ensure responsiveness.
     *   [x] Define global styles and typography (using `globals.css` and Tailwind configuration `tailwind.config.js`).
     *   [x] Configure theme using Shadcn/ui theming.
 
@@ -56,16 +73,47 @@ This document outlines the steps to create a React website similar in structure 
         *   Adjusted padding, alignment, and line height.
         *   Added infinite scroll client logo banner (`react-fast-marquee`).
         *   Added styled label above marquee (with flanking lines).
-    *   [ ] Implement "What is OneMoney?" section (`sections/WhatIsOneMoney.tsx`).
+    *   [x] Implement "What is OneMoney?" section (`sections/WhatIsOneMoney.tsx`).
+        *   Added standard title/subtitle.
+        *   Used Aceternity UI `StickyScroll` component.
+        *   Defined 3 steps (title/description, startTime, endTime).
+        *   Added video element (local source) to sticky right panel.
+        *   Implemented video-driven playback:
+            *   Removed scroll-driven logic (`useScroll`, etc.).
+            *   Added `timeupdate` listener to determine `activeCard` based on video time.
+            *   Removed text container auto-scrolling.
+            *   Enabled autoplay (muted, no controls).
+            *   Added visual progress bar with gradient under each text block, synced to video time within step.
+            *   Added card styling (border, bg, blur) to active text block.
+            *   Added live dot indicator to active card title.
+            *   Increased component height (`h-[50rem]`) and removed internal scroll (`overflow-y-auto`).
+        *   Integrated into `src/app/page.tsx`.
+    *   [x] Implement "UI Features Showcase" section (`sections/UIFeatures.tsx`).
+        *   [x] Add standard title/subtitle.
+        *   [x] Implement 2-column layout (Left: 4 text points, Right: Video).
+        *   [x] Add placeholder text points for features (updated titles).
+        *   [x] Added Lucide icons next to feature titles.
+        *   [x] Add video player using `public/2025-05-01 22-21-31 (1).mp4` (controls, muted).
+        *   [x] Integrated into `src/app/page.tsx`.
     *   [x] Implement "Security and Compliance" section (`sections/SecurityCompliance.tsx`).
     *   [x] Implement Stats section (`sections/Stats.tsx`).
         *   Used Animated Counter for numbers.
         *   Styled title and numbers with metallic effect.
         *   Centered grid layout.
+        *   Added "Unlock access to diverse data sets" label with flanking lines (moved outside container).
+        *   Added 7 static pills below stats (4/3 layout).
+        *   Styled pills with live dot indicator and Lucide icons.
     *   [ ] Implement Leadership section (`sections/Leadership.tsx`) using Cards.
     *   [ ] Implement "Privacy is Your Right" (DPDP Act) section (`sections/Privacy.tsx`).
-    *   [ ] Implement "Solutions for Businesses" section (`sections/Solutions.tsx`) using Cards/Tabs.
-    *   [ ] Integrate all sections into the main page.
+    *   [x] Implement "Solutions for Businesses" section (`sections/Solutions.tsx`).
+        *   Used Aceternity UI Bento Grid (3 items, third spans full width).
+        *   Added Lucide icons (`Landmark`, `ShieldCheck`, `TrendingUp`) with custom color.
+        *   Populated with content for Banking, Insurance, Wealth Management.
+        *   Added centered Plus icon below grid.
+        *   Added two `react-fast-marquee` banners (full-width, opposite directions, second reversed content).
+        *   Populated banners with 17 use-case text pills.
+        *   Enabled `GridBackground` component.
+    *   [x] Integrate all sections into the main page.
 
 6.  **Styling & Responsiveness:**
     *   [ ] Apply Tailwind CSS utility classes to all components and sections.

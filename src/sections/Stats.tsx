@@ -1,6 +1,10 @@
 import React from "react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { GridBackground } from "@/components/ui/grid-background";
+import { 
+  FileText, BanknoteArrowUp, CandlestickChart, ShieldCheck, 
+  LineChart, ReceiptIndianRupee, Briefcase 
+} from 'lucide-react';
 
 // Updated data based on the image
 const statsData = [
@@ -15,9 +19,19 @@ const metallicTextClasses = "font-bold bg-gradient-to-b from-[#3cd070] to-[#00b1
 // Updated neutral shades for darker metallic black effect
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
+const featuresPills = [
+  { text: "Bank Statements", icon: FileText },
+  { text: "Term & Recurring Deposits", icon: BanknoteArrowUp },
+  { text: "Mutual Fund", icon: CandlestickChart },
+  { text: "Insurance", icon: ShieldCheck },
+  { text: "Equities", icon: LineChart },
+  { text: "GSTN Data", icon: ReceiptIndianRupee },
+  { text: "National Pension Scheme", icon: Briefcase },
+];
+
 export function Stats() {
   return (
-    <section className="relative w-full py-32">
+    <section className="relative w-full py-24">
       <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
         <div className="text-center mb-12 md:mb-16">
@@ -50,9 +64,63 @@ export function Stats() {
                 {stat.label}
               </p>
             </div>
+            
           ))}
         </div>
+      </div> {/* End of container div */}
+            
+      {/* Moved Label with flanking lines outside container */} 
+      <div className="w-full px-4 md:px-6 lg:px-8"> {/* Add padding to match container's usual content area */} 
+        <div className="flex items-center gap-4 md:gap-8 mt-12 mb-8">
+          <div className="flex-grow h-px bg-foreground/20"></div> {/* Left Line */} 
+          <h2 className="flex-shrink-0 text-lg font-regular text-foreground/80 tracking-wider uppercase whitespace-nowrap">
+            Unlock access to diverse data sets
+          </h2>
+          <div className="flex-grow h-px bg-foreground/20"></div> {/* Right Line */} 
+        </div>
       </div>
+      {/* Pills Section */}
+      <div className="mt-8 flex flex-col items-center space-y-4 ">
+          {/* Row 1 (4 pills) */}
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4 font-medium">
+            {featuresPills.slice(0, 4).map((pill, index) => {
+              const Icon = pill.icon;
+              return (
+                <div
+                  key={index}
+                  className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300 shadow-sm"
+                >
+                  <span className="relative flex h-2 w-2 mr-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <Icon className="h-4 w-4 mr-2 text-slate-600 dark:text-slate-400" />
+                  {pill.text}
+                </div>
+              );
+            })}
+          </div>
+          {/* Row 2 (3 pills) */}
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+            {featuresPills.slice(4, 7).map((pill, index) => {
+              const Icon = pill.icon;
+              return (
+                <div
+                  key={index + 4}
+                  className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300 shadow-sm"
+                >
+                  <span className="relative flex h-2 w-2 mr-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <Icon className="h-4 w-4 mr-2 text-slate-600 dark:text-slate-400" />
+                  {pill.text}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
     </section>
   );
 }

@@ -15,13 +15,13 @@ const leadershipData = [
   },
   {
     name: "Jagdish Capoor",
-    title: "Board of Advisors - Former Deputy Governor, RBI",
+    title: "Former Deputy Governor, RBI - Board of Advisors",
     // imageUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Placeholder image
     imageUrl: "/JC.png", // Use provided image
   },
   {
     name: "P.H. Ravikumar",
-    title: "Board of Advisors - Founder, CEO of NCDEX",
+    title: "Founder, CEO of NCDEX - Board of Advisors",
     // imageUrl: "https://images.unsplash.com/photo-1521119989659-a83eee488004?q=80&w=1923&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Placeholder image
     imageUrl: "/PH.png", // Use provided image
   },
@@ -73,7 +73,13 @@ export function Leadership() {
                   {leader.name}
                 </h3>
                 <p className="text-md text-white/80">
-                  {leader.title}
+                  {/* Split title and insert line break */}
+                  {leader.title.split(' - ').map((part, i, arr) => (
+                    <React.Fragment key={i}>
+                      {part}
+                      {i < arr.length - 1 && <><br />{' - '}</>}
+                    </React.Fragment>
+                  ))}
                 </p>
               </div>
             </TiltCard>
