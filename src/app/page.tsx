@@ -17,8 +17,8 @@ export default function Home() {
       <Stats />
       <Solutions />
       <SecurityCompliance />
-      <ContactUs />
       <Leadership />
+      <ContactUs />
     </>
   );
 }

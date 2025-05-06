@@ -8,11 +8,12 @@ interface GlowingButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   className?: string;
+  size?: 'default' | 'sm'; // Add size prop
 }
 
 // Keeping the export name the same to avoid breaking imports
 export const GlowingButton = React.forwardRef<HTMLButtonElement, GlowingButtonProps>(
-  ({ children, className, ...props }, ref) => {
+  ({ children, className, size = 'default', ...props }, ref) => {
     const [mousePosition, setMousePosition] = useState({ x: -1, y: -1 });
     const [isHovering, setIsHovering] = useState(false);
     const internalRef = useRef<HTMLButtonElement>(null); // Use internal ref if external ref is not provided
@@ -36,18 +37,26 @@ export const GlowingButton = React.forwardRef<HTMLButtonElement, GlowingButtonPr
 
     const handleMouseLeave = () => {
       setIsHovering(false);
-      setMousePosition({ x: -1, y: -1 }); // Reset position on leave
+      setMousePosition({ x: -1, y: -1 });
+    };
+
+    // Define size-specific classes including font properties
+    const sizeClasses = {
+      default: "px-8 py-2 text-lg uppercase font-semibold",
+      sm: "px-4 py-1.5 text-sm uppercase font-semibold", // Added uppercase and font-semibold
     };
 
     return (
       <button
         ref={buttonRef}
         className={cn(
-          "relative overflow-hidden rounded-sm", // Base: relative, overflow, border radius
-          "px-8 py-2 text-lg uppercase font-semibold border border-[#d2ff61]", // Text/Padding (Adjusted py-2 from previous state)
-          "bg-gradient-to-b from-[#d2ff61] to-[#aadd20]", // Metallic Gradient based onrgb(34, 49, 2)
-          "shadow-md shadow-[#212121]",
-          "transition-all duration-300 ease-in-out", // Transition
+          // Base styles common to all sizes
+          "relative overflow-hidden rounded-sm border border-[#d2ff61]", 
+          "bg-gradient-to-b from-[#d2ff61] to-[#aadd20]",
+          "shadow-md shadow-[#212121]", // Corrected shadow based on your file
+          "transition-all duration-300 ease-in-out",
+          // Apply size-specific classes (which now include text, padding, and font weight/case)
+          sizeClasses[size], 
           className
         )}
         onMouseMove={handleMouseMove}
@@ -59,7 +68,7 @@ export const GlowingButton = React.forwardRef<HTMLButtonElement, GlowingButtonPr
         <span
           className="pointer-events-none absolute inset-0 rounded-md transition-opacity duration-300 ease-in-out"
           style={{
-            opacity: isHovering ? 0.3 : 0, // Control shine visibility/intensity
+            opacity: isHovering ? 0.8 : 0, // Control shine visibility/intensity from your file
             background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, white, transparent 90%)`,
           }}
         />
@@ -67,7 +76,7 @@ export const GlowingButton = React.forwardRef<HTMLButtonElement, GlowingButtonPr
         <span
           className={cn(
             "relative z-10",
-            "text-[#002E11]" // Apply the desired RGB color here
+            "text-[#002E11]" 
           )}
         >
           {children}

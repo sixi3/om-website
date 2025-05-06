@@ -1,5 +1,6 @@
 import React from "react";
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
+import { GridBackground } from "@/components/ui/grid-background";
 
 
 // Updated content - Added startTime and endTime for video segments
@@ -35,8 +36,10 @@ const localVideoSrc = "/NANANAAN1 (1).mp4";
 
 export function WhatIsOneMoney() {
   return (
-    <section className="w-full py-24">
+    <section className="relative w-full py-24">
+      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto mb-12 md:mb-16">
+      
         {/* Title and Subtitle */}
         <div className="text-center">
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">

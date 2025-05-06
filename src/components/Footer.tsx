@@ -1,8 +1,9 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+// Input and Button from Shadcn/ui might become unused, remove if so.
+// import { Input } from "./ui/input"; 
+// import { Button } from "./ui/button";
 import { Copy } from "lucide-react";
 
 export function Footer() {
@@ -81,25 +82,22 @@ export function Footer() {
               Reach Out to Us
             </p>
             <div className="mt-6 space-y-4">
-              {/* Container for Input Group + Background Glow */}
-              <div className="relative w-full max-w-sm">
-                {/* Background Glow Element */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-[#00b140] to-[#baff29] rounded-lg blur opacity-60 dark:opacity-75"></div>
-                {/* Input + Button Group (on top) */}
-                <div className="relative flex w-full items-center overflow-hidden rounded-lg">
-                  <Input
-                    type="email"
-                    placeholder="Enter email address"
-                    className="relative z-10 flex-grow rounded-l-lg rounded-r-none border-none focus:ring-2 focus:ring-ring focus:ring-offset-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 px-4 py-2.5 text-sm h-full"
-                  />
-                  <Button 
-                    type="submit" 
-                    className="relative z-10 rounded-l-none rounded-r-lg bg-[#00b140] text-white hover:bg-neutral-700 dark:bg-black dark:hover:bg-neutral-800 px-6 py-2.5 text-sm font-medium h-full border-l border-transparent dark:border-neutral-700"
-                  >
-                    Send
-                  </Button>
-                </div>
-              </div>
+              {/* Remove existing input group with glow */}
+              {/* Replace with new simplified input group */}
+              <form className="flex w-full max-w-sm rounded-md overflow-hidden border border-slate-200 dark:border-neutral-700 focus-within:ring-2 focus-within:ring-green-500 focus-within:border-green-500 transition-all duration-150">
+                <input
+                  type="email"
+                  placeholder="Enter email address"
+                  className="flex-grow appearance-none bg-transparent px-4 py-2.5 text-sm text-neutral-900 dark:text-neutral-200 placeholder:text-neutral-500 dark:placeholder:text-neutral-400 border-none focus:outline-none focus:ring-0"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="px-5 py-2.5 bg-[#00b140] text-white text-sm font-semibold hover:bg-green-700 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-0"
+                >
+                  Send
+                </button>
+              </form>
               {/* Contact Info */}
               <div className="mt-8 space-y-4">
                 <div>

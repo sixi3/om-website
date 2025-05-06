@@ -1,6 +1,7 @@
 import React from "react";
 import { GridBackground } from "@/components/ui/grid-background"; // Optional background
 import { Settings2, SlidersHorizontal, MonitorSmartphone, Palette } from "lucide-react"; // Added icon imports
+import { TiltCard } from "@/components/ui/tilt-card"; // Import TiltCard
 
 // Copied from Solutions.tsx for consistency
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -8,15 +9,15 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 // Placeholder features data - Added icons
 const features = [
   { title: "Customisable Journeys", description: "Co-create custom journeys or use our tried & tested UI/UX", icon: Settings2 },
+  { title: "Brand Customization", description: "Customisable UI with brand logo, colours, and fonts", icon: Palette },
   { title: "Smart Configuration", description: "Custom configuration and smart routing", icon: SlidersHorizontal },
   { title: "Responsive Design", description: "Responsive Web/SDK journeys", icon: MonitorSmartphone },
-  { title: "Brand Customization", description: "Customisable UI with brand logo, colours, and fonts", icon: Palette },
 ];
 
 export function UIFeatures() {
   return (
     <section className="relative w-full py-24 md:py-32">
-      {/* <GridBackground /> */}
+      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
         {/* Section Title and Subtitle */} 
         <div className="text-center mb-12 md:mb-16">
@@ -36,20 +37,27 @@ export function UIFeatures() {
         {/* 2-Column Layout for Features and Video */} 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center"> {/* Increased gap */}
           {/* Left Column: Feature Points */}
-          <div className="space-y-8"> {/* Increased space between points */}
+          <div 
+            className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8" 
+            style={{ perspective: '1000px' }} // Add perspective here
+          >
             {features.map((feature, index) => {
-              const Icon = feature.icon; // Get icon component
+              const Icon = feature.icon;
               return (
-                <div key={index}>
-                  {/* Added flex container and icon */}
-                  <h3 className="flex items-center text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">
-                    <Icon className="h-5 w-5 mr-2 text-green-600" /> 
-                    {feature.title}
-                  </h3>
-                  <p className="text-slate-600 dark:text-slate-400 pl-7"> {/* Added padding-left to align description */}
+                <TiltCard 
+                  key={index} 
+                  className="rounded-lg border border-slate-200/70 dark:border-slate-800 bg-background/20 dark:bg-neutral-900/30 p-5 sm:p-6 backdrop-blur-lg shadow-lg flex flex-col h-full"
+                >
+                  <div className="flex items-center mb-3">
+                    <Icon className="h-6 w-6 mr-3 text-green-500" /> 
+                    <h3 className="text-lg sm:text-xl font-semibold text-slate-800 dark:text-slate-100">
+                      {feature.title}
+                    </h3>
+                  </div>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
                     {feature.description}
                   </p>
-                </div>
+                </TiltCard>
               );
             })}
           </div>

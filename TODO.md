@@ -51,12 +51,14 @@ This document outlines the steps to create a React website similar in structure 
 
 3.  **Component Development:**
     *   [x] Create `TiltCard` component (`src/components/ui/tilt-card.tsx`).
-    *   [ ] Create reusable Button component (or customize Shadcn/ui Button).
-        *   Note: `src/components/ui/glowing-button.tsx` currently implements the metallic/shine button used in header/hero.
+    *   [x] Create reusable GlowingButton component with size variants (`src/components/ui/glowing-button.tsx`).
+        *   Used in header (small) and hero (default).
     *   [ ] Create Card component (for features, leadership, solutions). // Note: Might use TiltCard instead
     *   [x] Create Animated Counter component (`src/components/ui/animated-counter.tsx`).
     *   [ ] Create Stat Display component. // Maybe merge with Animated Counter or use it within Stats section
     *   [ ] Create Image/Icon components (consider using `next/image` for optimization).
+    *   [x] Create GridBackground component (`src/components/ui/grid-background.tsx`).
+        *   Used in Leadership, SecurityCompliance, Stats, and Solutions sections.
     *   [ ] (Cleanup Later) Review and remove unused dependencies (e.g., three, @react-three/fiber).
 
 4.  **Implement Global Aurora Background:**
@@ -96,6 +98,9 @@ This document outlines the steps to create a React website similar in structure 
         *   [x] Add video player using `public/2025-05-01 22-21-31 (1).mp4` (controls, muted).
         *   [x] Integrated into `src/app/page.tsx`.
     *   [x] Implement "Security and Compliance" section (`sections/SecurityCompliance.tsx`).
+        *   Title: End-to-End Security and Compliance (with highlight styles).
+        *   Uses TiltCard for animated cards.
+        *   Added GridBackground.
     *   [x] Implement Stats section (`sections/Stats.tsx`).
         *   Used Animated Counter for numbers.
         *   Styled title and numbers with metallic effect.
@@ -103,7 +108,12 @@ This document outlines the steps to create a React website similar in structure 
         *   Added "Unlock access to diverse data sets" label with flanking lines (moved outside container).
         *   Added 7 static pills below stats (4/3 layout).
         *   Styled pills with live dot indicator and Lucide icons.
-    *   [ ] Implement Leadership section (`sections/Leadership.tsx`) using Cards.
+        *   Added GridBackground.
+    *   [x] Implement Leadership section (`sections/Leadership.tsx`) using TiltCards.
+        *   Title: Guided By Leadership (with highlight styles).
+        *   Uses TiltCard for animated cards with image backgrounds.
+        *   Added GridBackground.
+        *   Improved title formatting and line breaks for advisor titles.
     *   [x] Implement "Privacy is Your Right" (DPDP Act) section (`sections/Privacy.tsx`).
     *   [x] Create `ContactUs.tsx` Section:
         *   [x] Add standard Title and Subtitle.

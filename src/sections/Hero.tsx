@@ -48,9 +48,9 @@ export function Hero() {
   return (
     <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-start pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4">
-        <div className="flex flex-col items-start space-y-6 text-left max-w-2xl">
+        <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
           <div className="max-w-3xl space-y-4">
-            <span className="inline-flex items-center rounded-full bg-[#FFFFF]/50 backdrop-blur-sm pl-1 pr-3 py-1 text-xs font-semibold text-black mb-4 space-x-2">
+            <span className="inline-flex items-center rounded-full bg-[#FFFFF]/50 backdrop-blur-sm pl-1 pr-3 py-1 text-xs font-semibold text-black mb-4 space-x-2 mx-auto lg:mx-0">
               <Image
                 src="/icons8-medal-94.png" // Assuming image is in /public
                 alt="Medal icon"
@@ -60,7 +60,7 @@ export function Hero() {
               />
               <span>India&apos;s First RBI-Licensed Account Aggregator</span>
             </span>
-            <h1 className="text-4xl tracking-tighter leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
               <span className={metallicBlackTextClasses}>Powering India&apos;s</span>{" "}
               <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
                 Consent-Driven

@@ -69,14 +69,14 @@ export function Stats() {
         </div>
       </div> {/* End of container div */}
             
-      {/* Moved Label with flanking lines outside container */} 
-      <div className="w-full px-4 md:px-6 lg:px-8"> {/* Add padding to match container's usual content area */} 
-        <div className="flex items-center gap-4 md:gap-8 mt-12 mb-8">
-          <div className="flex-grow h-px bg-foreground/20"></div> {/* Left Line */} 
-          <h2 className="flex-shrink-0 text-lg font-regular text-foreground/80 tracking-wider uppercase whitespace-nowrap">
+      {/* Container for the title and lines - remove horizontal padding to allow lines to span full width */} 
+      <div className="w-full">
+        <div className="flex items-center gap-2 sm:gap-4 md:gap-8 mt-12 mb-8">
+          <div className="flex-grow h-px bg-foreground/20"></div>
+          <h2 className="text-sm md:text-base font-regular text-foreground/80 tracking-wider uppercase text-center flex-shrink">
             Unlock access to diverse data sets
           </h2>
-          <div className="flex-grow h-px bg-foreground/20"></div> {/* Right Line */} 
+          <div className="flex-grow h-px bg-foreground/20"></div>
         </div>
       </div>
       {/* Pills Section */}

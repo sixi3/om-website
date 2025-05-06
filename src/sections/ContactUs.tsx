@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { TalkToUsForm } from "@/components/forms/TalkToUsForm";
+import { GridBackground } from "@/components/ui/grid-background";
 
 // Copied from Solutions.tsx for consistency
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -8,6 +9,7 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 export function ContactUs() {
   return (
     <section className="relative w-full py-24 md:py-32">
+      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
         {/* Section Title and Subtitle */} 
         <div className="text-center mb-12 md:mb-16">
@@ -17,7 +19,7 @@ export function ContactUs() {
               Boost
             </span>
             <span className={metallicBlackTextClasses}>
-              Your Financial Services
+              Your Financial Services?
             </span>
           </h2>
           <p className="max-w-[700px] mx-auto text-lg text-slate-700 dark:text-slate-300">
@@ -52,7 +54,7 @@ export function ContactUs() {
           </div>
 
           {/* Right Column: Form */}
-          <div className="bg-background/10 dark:bg-neutral-900 p-6 md:p-8 rounded-lg shadow-lg">
+          <div className="bg-background/10 b dark:bg-neutral-900 p-6 md:p-8 rounded-lg shadow-xl border border-slate-200 backdrop-blur-md">
             <TalkToUsForm /> 
           </div>
         </div>
