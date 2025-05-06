@@ -28,9 +28,6 @@ export const StickyScroll = ({
   // Use useInView hook to track viewport visibility
   const isInView = useInView(ref, { once: true, margin: "-100px 0px -100px 0px" }); // Trigger once, with margin
 
-  const cardLength = content.length;
-
-  // Callback for the timeupdate listener
   const handleTimeUpdate = useCallback(() => {
     const video = videoRef.current;
     if (!video || !content || content.length === 0) return;
@@ -92,21 +89,6 @@ export const StickyScroll = ({
     }
   }, [videoSrc, handleTimeUpdate]); // Re-attach if src or handler changes
 
-  const backgroundColors = [
-    "var(--slate-900)",
-    "var(--black)",
-    "var(--neutral-900)",
-  ];
-  const linearGradients = [
-    "linear-gradient(to bottom right, var(--cyan-500), var(--emerald-500))",
-    "linear-gradient(to bottom right, var(--pink-500), var(--indigo-500))",
-    "linear-gradient(to bottom right, var(--orange-500), var(--yellow-500))",
-  ];
- 
-  const [backgroundGradient, setBackgroundGradient] = useState(
-    linearGradients[0],
-  );
- 
   // Effect to trigger video play when component is in view
   useEffect(() => {
     if (isInView && videoRef.current) {

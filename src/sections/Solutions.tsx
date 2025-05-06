@@ -5,7 +5,8 @@ import { Landmark, ShieldCheck, TrendingUp, Plus } from "lucide-react"; // Updat
 import Marquee from "react-fast-marquee"; // Added import
 
 // Define metallic text classes (copied from Stats.tsx for consistency)
-const metallicTextClasses = "font-bold bg-gradient-to-b from-[#3cd070] to-[#00b140] bg-clip-text text-transparent";
+// Removed unused metallicTextClasses
+// const metallicTextClasses = "font-bold bg-gradient-to-b from-[#3cd070] to-[#00b140] bg-clip-text text-transparent";
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 

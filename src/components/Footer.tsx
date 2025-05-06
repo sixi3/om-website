@@ -3,22 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { Twitter, Facebook, Instagram, Github, Copy } from "lucide-react";
-
-// Simplified footer links based on the reference site
-const footerLinks = {
-  Solutions: [
-    { name: "FIUs", href: "#" },
-    { name: "FIPs", href: "#" },
-    { name: "Consumers", href: "#" },
-  ],
-  Company: [
-    { name: "Use Cases", href: "#" },
-    { name: "Governance", href: "#" },
-    { name: "About", href: "#" },
-    { name: "Contact", href: "#" },
-  ],
-};
+import { Copy } from "lucide-react";
 
 export function Footer() {
   return (
