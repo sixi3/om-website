@@ -31,7 +31,7 @@ const stepsContent = [
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 // Use the local video file from the public directory
-const localVideoSrc = "/2025-05-01 22-21-31 (1).mp4";
+const localVideoSrc = "/NANANAAN1 (1).mp4";
 
 export function WhatIsOneMoney() {
   return (
@@ -46,7 +46,7 @@ export function WhatIsOneMoney() {
             </span>{" "}
             <span className={metallicBlackTextClasses}>Works</span>
           </h2>
-          <p className="max-w-[700px] mx-auto text-lg text-slate-700 dark:text-slate-300">
+          <p className="w-full mx-auto text-lg text-slate-700 dark:text-slate-300">
             Experience a seamless and secure way to manage and share your financial data, all powered by your consent.
           </p>
         </div>

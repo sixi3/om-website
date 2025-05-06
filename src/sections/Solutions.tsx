@@ -3,6 +3,7 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { GridBackground } from "@/components/ui/grid-background";
 import { Landmark, ShieldCheck, TrendingUp, Plus } from "lucide-react"; // Updated icons
 import Marquee from "react-fast-marquee"; // Added import
+import Image from "next/image"; // Ensure Image is imported
 
 // Define metallic text classes (copied from Stats.tsx for consistency)
 // Removed unused metallicTextClasses
@@ -15,7 +16,16 @@ const solutions = [
     id: 1,
     title: "Banking & Lending",
     description: "Streamline loan processing and customer onboarding with secure data access.",
-    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>,
+    header: (
+      <div className="relative flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700"> {/* Added relative and overflow-hidden */} 
+        <Image 
+          src="/BnL.png" 
+          alt="Banking & Lending illustration"
+          fill={true}
+          className="object-cover"
+        />
+      </div>
+    ),
     icon: <Landmark className="h-4 w-4 text-[#00b140]" />,
     className: "md:col-span-1",
   },
@@ -23,7 +33,16 @@ const solutions = [
     id: 2,
     title: "Insurance Underwriting",
     description: "Accelerate underwriting processes with verified financial and identity data.",
-    header: <div className="flex flex-1 w-full h-full min-h-[6rem]ß rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>,
+    header: (
+      <div className="relative flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700"> {/* Added relative and overflow-hidden */} 
+        <Image 
+          src="/Ins.png" 
+          alt="Insurance Underwriting illustration"
+          fill={true}
+          className="object-cover"
+        />
+      </div>
+    ),
     icon: <ShieldCheck className="h-4 w-4 text-[#00b140]" />,
     className: "md:col-span-1",
   },
@@ -31,9 +50,18 @@ const solutions = [
     id: 3,
     title: "Wealth Management",
     description: "Gain a holistic view of client assets for personalized financial planning and advice.",
-    header: <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>,
+    header: (
+      <div className="relative flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700"> {/* Added relative and overflow-hidden */} 
+        <Image 
+          src="/WM.png" 
+          alt="Wealth Management illustration"
+          fill={true}
+          className="object-cover"
+        />
+      </div>
+    ),
     icon: <TrendingUp className="h-4 w-4 text-[#00b140]" />,
-    className: "md:col-span-2",
+    className: "md:col-span-1",
   },
 ];
 
@@ -63,7 +91,7 @@ export function Solutions() {
           </p>
         </div>
 
-        <BentoGrid className="mx-auto max-w-4xl md:auto-rows-[20rem]">
+        <BentoGrid className="mx-auto md:auto-rows-[28rem]">
           {solutions.map((item) => (
             <BentoGridItem
               key={item.id}

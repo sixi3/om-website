@@ -6,6 +6,16 @@ import Image from "next/image";
 import { GlowingButton } from "@/components/ui/glowing-button";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { TalkToUsForm } from "@/components/forms/TalkToUsForm";
 
 const navItems = [
   { name: "Solutions", href: "#", showChevron: true },
@@ -66,10 +76,25 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center space-x-4">
-            <GlowingButton className="h-10 px-4 py-1 text-sm">
-              Talk to Us
-            </GlowingButton>
+          <div className="flex items-center gap-2 md:gap-4">
+            <Dialog>
+              <DialogTrigger asChild>
+                <GlowingButton className="whitespace-nowrap">
+                  Talk to Us
+                </GlowingButton>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[480px]">
+                <DialogHeader>
+                  <DialogTitle>Get in touch with us today!</DialogTitle>
+                  <DialogDescription>
+                    Are you ready to boost your financial services with India’s Biggest Account Aggregator?
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="py-1">
+                  <TalkToUsForm />
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </header>

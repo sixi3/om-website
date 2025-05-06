@@ -104,7 +104,15 @@ This document outlines the steps to create a React website similar in structure 
         *   Added 7 static pills below stats (4/3 layout).
         *   Styled pills with live dot indicator and Lucide icons.
     *   [ ] Implement Leadership section (`sections/Leadership.tsx`) using Cards.
-    *   [ ] Implement "Privacy is Your Right" (DPDP Act) section (`sections/Privacy.tsx`).
+    *   [x] Implement "Privacy is Your Right" (DPDP Act) section (`sections/Privacy.tsx`).
+    *   [x] Create `ContactUs.tsx` Section:
+        *   [x] Add standard Title and Subtitle.
+        *   [x] Implement 2-column layout.
+        *   [x] Left Column: Add text content and image placeholder.
+        *   [x] Right Column: Embed `TalkToUsForm` component directly.
+        *   [x] Apply styling.
+        *   [ ] Ensure responsiveness.
+        *   [x] Integrate into `app/page.tsx`.
     *   [x] Implement "Solutions for Businesses" section (`sections/Solutions.tsx`).
         *   Used Aceternity UI Bento Grid (3 items, third spans full width).
         *   Added Lucide icons (`Landmark`, `ShieldCheck`, `TrendingUp`) with custom color.
@@ -144,4 +152,25 @@ This document outlines the steps to create a React website similar in structure 
 
 11. **Post-Launch:**
     *   [ ] Monitor performance and uptime.
-    *   [ ] Gather feedback and iterate. 
+    *   [ ] Gather feedback and iterate.
+
+12. **Implement "Talk to Us" Modal:**
+    *   [x] Locate/Add Trigger Button (Header & Hero `GlowingButton`).
+    *   [x] Install Dependencies:
+        *   [x] Add Shadcn `Dialog`: `npx shadcn@latest add dialog`.
+        *   [x] Add Shadcn `Textarea`: `npx shadcn@latest add textarea`.
+        *   [x] Verify Aceternity Input/Label deps (e.g., `@radix-ui/react-label` installed).
+    *   [x] Add/Verify Aceternity UI Components:
+        *   [x] Custom `Input` component (`src/components/ui/input.tsx`).
+        *   [x] Custom `Label` component (`src/components/ui/label.tsx`).
+        *   [x] `--shadow-input` variable in `globals.css`.
+    *   [x] Create Form Component (`src/components/forms/TalkToUsForm.tsx`):
+        *   [x] Fields: First Name, Last Name, Work Email, Phone Number (Aceternity Inputs), Comments (Shadcn Textarea).
+        *   [x] Implement form state.
+        *   [x] Implement submit handler (console.log).
+        *   (Needs Styling) Style submit button like `GlowingButton` (rejected direct replacement).
+    *   (Removed) Create Modal Component (`src/components/TalkToUsModal.tsx`).
+    *   [x] Integrate Modal Logic into `Header.tsx` and `Hero.tsx`:
+        *   [x] Wrapped `GlowingButton` trigger with `DialogTrigger`.
+        *   [x] Added `DialogContent` containing `TalkToUsForm`.
+        *   Deleted `TalkToUsModal.tsx`. 

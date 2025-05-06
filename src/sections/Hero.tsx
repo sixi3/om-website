@@ -4,14 +4,41 @@ import React from "react";
 import Image from "next/image"; // Import the Image component
 import { GlowingButton } from "@/components/ui/glowing-button"; // Import GlowingButton
 import Marquee from "react-fast-marquee"; // Import Marquee
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"; // Added Dialog imports
+import { TalkToUsForm } from "@/components/forms/TalkToUsForm"; // Added Form import
 // import { Button } from "@/components/ui/button"; // We'll add this later if needed
 
-// Placeholder logos for the marquee - Increased count to 16
+// Updated client logos array with paths from the public/client-logos directory
 const clientLogos = [
-  { name: "Client 1" }, { name: "Client 2" }, { name: "Client 3" }, { name: "Client 4" },
-  { name: "Client 5" }, { name: "Client 6" }, { name: "Client 7" }, { name: "Client 8" },
-  { name: "Client 9" }, { name: "Client 10" }, { name: "Client 11" }, { name: "Client 12" },
-  { name: "Client 13" }, { name: "Client 14" }, { name: "Client 15" }, { name: "Client 16" },
+  { src: "/client-logos/Frame 5.png", alt: "Client Logo 5" },
+  { src: "/client-logos/Frame 6.png", alt: "Client Logo 6" },
+  { src: "/client-logos/Frame 7.png", alt: "Client Logo 7" },
+  { src: "/client-logos/Frame 8.png", alt: "Client Logo 8" },
+  { src: "/client-logos/Frame 9.png", alt: "Client Logo 9" },
+  { src: "/client-logos/Frame 10.png", alt: "Client Logo 10" },
+  { src: "/client-logos/Frame 11.png", alt: "Client Logo 11" },
+  { src: "/client-logos/Frame 12.png", alt: "Client Logo 12" },
+  { src: "/client-logos/Frame 13.png", alt: "Client Logo 13" },
+  { src: "/client-logos/Frame 14.png", alt: "Client Logo 14" },
+  { src: "/client-logos/Frame 15.png", alt: "Client Logo 15" },
+  { src: "/client-logos/Frame 16.png", alt: "Client Logo 16" },
+  { src: "/client-logos/Frame 17.png", alt: "Client Logo 17" },
+  { src: "/client-logos/Frame 18.png", alt: "Client Logo 18" },
+  { src: "/client-logos/Frame 19.png", alt: "Client Logo 19" },
+  { src: "/client-logos/Frame 20.png", alt: "Client Logo 20" },
+  { src: "/client-logos/Frame 21.png", alt: "Client Logo 21" },
+  { src: "/client-logos/Frame 22.png", alt: "Client Logo 22" },
+  { src: "/client-logos/Frame 23.png", alt: "Client Logo 23" },
+  { src: "/client-logos/Frame 24.png", alt: "Client Logo 24" },
+  { src: "/client-logos/Frame 25.png", alt: "Client Logo 25" },
+  { src: "/client-logos/Frame 26.png", alt: "Client Logo 26" },
 ];
 
 // Define metallic black class here too - Updated neutral shades
@@ -19,9 +46,9 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 
 export function Hero() {
   return (
-    <section className="w-full pt-10 pb-5 md:pt-16 md:pb-8 lg:pt-20 lg:pb-10 xl:pt-24 xl:pb-12 overflow-hidden">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-start space-y-6 text-left mb-24 md:mb-32">
+    <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-start pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4">
+        <div className="flex flex-col items-start space-y-6 text-left max-w-2xl">
           <div className="max-w-3xl space-y-4">
             <span className="inline-flex items-center rounded-full bg-[#FFFFF]/50 backdrop-blur-sm pl-1 pr-3 py-1 text-xs font-semibold text-black mb-4 space-x-2">
               <Image
@@ -44,31 +71,60 @@ export function Hero() {
               Get secure, authentic, and user-consented financial data from your consumers
             </p>
           </div>
-          {/* Replace <a> with GlowingButton */}
-          <GlowingButton>Talk to us</GlowingButton>
+          <Dialog>
+            <DialogTrigger asChild>
+              <GlowingButton>
+                Talk to Us
+              </GlowingButton>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[480px]">
+              <DialogHeader>
+                <DialogTitle>Get in touch with us today!</DialogTitle>
+                <DialogDescription>
+                Are you ready to boost your financial services with India's Biggest Account Aggregator?
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-1">
+                <TalkToUsForm />
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
 
-      {/* Marquee Section */}
-      <div className="w-full">
-        {/* Updated Label structure with flanking lines */}
+      <div className="hidden lg:block relative w-full h-full">
+        <Image 
+          src="/header-graphic.png" 
+          alt="Hero graphic illustrating financial connections"
+          fill={true} 
+          sizes="(min-width: 1024px) 50vw, 0vw" // Takes roughly half the viewport
+          className="object-contain" // Use contain to show the whole image proportionally
+          priority 
+        />
+      </div>
+
+      <div className="lg:col-span-2 w-full mt-16 md:mt-24">
         <div className="flex items-center gap-4 md:gap-8 mb-8">
-          <div className="flex-grow h-px bg-foreground/20"></div> {/* Left Line */}
+          <div className="flex-grow h-px bg-foreground/20"></div>
           <h2 className="flex-shrink-0 text-lg font-regular text-foreground/80 tracking-wider uppercase">
             Trusted By Industry Leaders
           </h2>
-          <div className="flex-grow h-px bg-foreground/20"></div> {/* Right Line */}
+          <div className="flex-grow h-px bg-foreground/20"></div>
         </div>
 
         <Marquee gradient={false} speed={50} pauseOnHover={true}>
           {clientLogos.map((logo, index) => (
             <div
               key={index}
-              className="mx-8 flex h-16 w-32 items-center justify-center text-muted-foreground text-sm"
-              title={logo.name}
+              className="mx-4 flex h-20 items-center justify-center"
             >
-              {/* Replace with actual Image component later */}
-              {logo.name}
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={160}
+                height={80}
+                className="object-contain"
+              />
             </div>
           ))}
         </Marquee>

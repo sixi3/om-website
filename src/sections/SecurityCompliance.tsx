@@ -39,7 +39,7 @@ const securityData = [
 
 export function SecurityCompliance() {
   return (
-    <section className="relative w-full py-32">
+    <section className="relative w-full py-24">
       <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
         {/* Section Title */}
