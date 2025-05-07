@@ -16,16 +16,7 @@ const solutions = [
     id: 1,
     title: "Banking & Lending",
     description: "Streamline loan processing and customer onboarding with secure data access.",
-    header: (
-      <div className="relative flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700"> {/* Added relative and overflow-hidden */} 
-        <Image 
-          src="/BnL.png" 
-          alt="Banking & Lending illustration"
-          fill={true}
-          className="object-cover"
-        />
-      </div>
-    ),
+    videoHeaderSrc: "/b&l.mp4",
     icon: <Landmark className="h-4 w-4 text-[#00b140]" />,
     className: "md:col-span-1",
   },
@@ -33,16 +24,7 @@ const solutions = [
     id: 2,
     title: "Insurance Underwriting",
     description: "Accelerate underwriting processes with verified financial and identity data.",
-    header: (
-      <div className="relative flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700"> {/* Added relative and overflow-hidden */} 
-        <Image 
-          src="/Ins.png" 
-          alt="Insurance Underwriting illustration"
-          fill={true}
-          className="object-cover"
-        />
-      </div>
-    ),
+    videoHeaderSrc: "/insurance.mp4",
     icon: <ShieldCheck className="h-4 w-4 text-[#00b140]" />,
     className: "md:col-span-1",
   },
@@ -50,16 +32,7 @@ const solutions = [
     id: 3,
     title: "Wealth Management",
     description: "Gain a holistic view of client assets for personalized financial planning and advice.",
-    header: (
-      <div className="relative flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700"> {/* Added relative and overflow-hidden */} 
-        <Image 
-          src="/WM.png" 
-          alt="Wealth Management illustration"
-          fill={true}
-          className="object-cover"
-        />
-      </div>
-    ),
+    videoHeaderSrc: "/wm.mp4",
     icon: <TrendingUp className="h-4 w-4 text-[#00b140]" />,
     className: "md:col-span-1",
   },
@@ -97,7 +70,7 @@ export function Solutions() {
               key={item.id}
               title={item.title}
               description={item.description}
-              header={item.header}
+              videoHeaderSrc={item.videoHeaderSrc}
               icon={item.icon}
               className={item.className}
               // You could add a link or button here if needed

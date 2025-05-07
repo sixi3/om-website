@@ -78,8 +78,8 @@ export function Header() {
             <Image
               src="/om-logo.svg"
               alt="OneMoney Logo"
-              width={98}
-              height={23}
+              width={140}
+              height={40}
               priority
             />
           </Link>

@@ -60,7 +60,7 @@ export function Hero() {
               />
               <span>India&apos;s First RBI-Licensed Account Aggregator</span>
             </span>
-            <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
               <span className={metallicBlackTextClasses}>Powering India&apos;s</span>{" "}
               <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
                 Consent-Driven
@@ -92,7 +92,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="hidden lg:block relative w-full h-full">
+      <div className="hidden lg:block relative w-full h-full lg:pr-12 xl:pr-20">
         <Image 
           src="/header-graphic.png" 
           alt="Hero graphic illustrating financial connections"

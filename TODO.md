@@ -124,13 +124,23 @@ This document outlines the steps to create a React website similar in structure 
         *   [ ] Ensure responsiveness.
         *   [x] Integrate into `app/page.tsx`.
     *   [x] Implement "Solutions for Businesses" section (`sections/Solutions.tsx`).
-        *   Used Aceternity UI Bento Grid (3 items, third spans full width).
-        *   Added Lucide icons (`Landmark`, `ShieldCheck`, `TrendingUp`) with custom color.
-        *   Populated with content for Banking, Insurance, Wealth Management.
-        *   Added centered Plus icon below grid.
-        *   Added two `react-fast-marquee` banners (full-width, opposite directions, second reversed content).
-        *   Populated banners with 17 use-case text pills.
-        *   Enabled `GridBackground` component.
+        *   [x] Used Aceternity UI Bento Grid (3 items, third spans full width).
+        *   [x] Added Lucide icons (`Landmark`, `ShieldCheck`, `TrendingUp`) with custom color.
+        *   [x] Populated with content for Banking, Insurance, Wealth Management.
+        *   [x] Added centered Plus icon below grid.
+        *   [x] Added two `react-fast-marquee` banners (full-width, opposite directions, second reversed content).
+        *   [x] Populated banners with 17 use-case text pills.
+        *   [x] Enabled `GridBackground` component.
+        *   [x] **Video Headers & Performance Optimizations:**
+            *   [x] Replaced header image with video for the first Bento item (`/b&l.mp4`).
+            *   [x] Extended to all three Bento items with respective videos.
+            *   [x] Implemented hover-to-play and smooth-rewind functionality for videos in `BentoGridItem`.
+            *   [x] Resolved "use client" directive error for `BentoGridItem` due to `useRef`.
+            *   [x] Removed `loop` attribute from videos to prevent auto-restart on hover.
+            *   [x] Removed upward `translate-y` hover effect from video header area in `BentoGridItem`.
+            *   [x] **Refactored video control logic:** Moved `videoRef`, `rewindAnimationRef`, and hover handlers (`handleMouseEnter`/`handleMouseLeave` for smooth rewind) from `BentoGrid` to be correctly scoped within each `BentoGridItem`.
+            *   [x] **Mobile Performance - Video Hovers:** Added mobile detection (`window.innerWidth < 768`) in `BentoGridItem` to conditionally disable video hover/rewind handlers on smaller screens.
+            *   [x] **Mobile Performance - CSS Hovers:** Conditionally disabled CSS hover animations (`hover:shadow-xl` for the item and `group-hover/bento:translate-x-2` for the text block) in `BentoGridItem` on smaller screens.
     *   [x] Integrate all sections into the main page.
 
 6.  **Styling & Responsiveness:**
