@@ -102,6 +102,7 @@ export const BentoGridItem = ({
               src={videoHeaderSrc}
               muted
               playsInline
+              controls={isMobile}
               className="object-cover w-full h-full"
             />
           </div>
