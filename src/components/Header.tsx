@@ -15,7 +15,7 @@ import {
   Milestone
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog,
   DialogContent,
@@ -69,16 +69,27 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null); // State for open dropdown
   const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null); // State for open mobile submenu
+  const [isSmallScreen, setIsSmallScreen] = useState(false); // State for small screen detection
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
 
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", checkScreenSize);
+
+    // Initial checks
+    handleScroll();
+    checkScreenSize();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", checkScreenSize);
     };
   }, []);
 
@@ -211,7 +222,15 @@ export function Header() {
           <div className="flex items-center gap-2 md:gap-4">
             <Dialog>
               <DialogTrigger asChild>
-                <GlowingButton size="sm" className="whitespace-nowrap">
+                <GlowingButton 
+                  size="sm" 
+                  className={cn(
+                    "whitespace-nowrap transition-opacity duration-300",
+                    isSmallScreen && !isScrolled && "opacity-0 pointer-events-none",
+                    isSmallScreen && isScrolled && "opacity-100 pointer-events-auto",
+                    // On larger screens, defaults to visible (no specific opacity classes needed here)
+                  )}
+                >
                   Talk to Us
                 </GlowingButton>
               </DialogTrigger>
@@ -249,61 +268,57 @@ export function Header() {
             >
               <nav className="flex flex-col">
                 {navItems.map((item) => (
-                  <div key={item.name} className="border-b border-border/10 last:border-b-0">
+                  <div key={item.name} className="py-1">
                     {item.submenu ? (
-                      <button
-                        onClick={() => handleMobileItemClick(item)}
-                        className="w-full group flex items-center justify-between text-foreground/80 hover:text-[#00b140] py-3 text-base"
-                      >
-                        <span className="uppercase tracking-wide">{item.name}</span>
-                        {item.showChevron && (
-                          <ChevronDown
+                      <>
+                        <button
+                          onClick={() => handleMobileItemClick(item)}
+                          className="w-full flex items-center justify-between text-foreground/80 hover:text-foreground py-2 text-left"
+                        >
+                          <span className="uppercase tracking-wide">{item.name}</span>
+                          <ChevronDown 
                             className={cn(
-                              "ml-1 h-4 w-4 group-hover:text-[#00b140] transition-transform duration-200",
-                              openMobileSubmenu === item.name ? "rotate-180" : "rotate-0"
-                            )}
-                           />
-                        )}
-                      </button>
+                              "ml-1 h-4 w-4 transition-transform duration-200", 
+                              openMobileSubmenu === item.name ? "rotate-180" : ""
+                            )} 
+                          />
+                        </button>
+                        <AnimatePresence>
+                          {openMobileSubmenu === item.name && (
+                            <motion.div
+                              variants={submenuVariants}
+                              initial="initial"
+                              animate="animate"
+                              exit="exit"
+                              className="overflow-hidden pl-4"
+                            >
+                              {item.submenu.map((subItem) => {
+                                const Icon = subItem.icon;
+                                return (
+                                  <Link
+                                    key={subItem.name}
+                                    href={subItem.href}
+                                    className="flex items-center text-foreground/70 hover:text-foreground py-2 text-sm"
+                                    onClick={handleMobileSubItemClick} // Close menu on subitem click
+                                  >
+                                    {Icon && <Icon className="mr-2 h-4 w-4" />}
+                                    {subItem.name}
+                                  </Link>
+                                );
+                              })}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </>
                     ) : (
                       <Link
                         href={item.href}
-                        className="group flex items-center text-foreground/80 hover:text-[#00b140] py-3 text-base"
-                        onClick={() => handleMobileItemClick(item)}
+                        className="block text-foreground/80 hover:text-foreground py-2 uppercase tracking-wide"
+                        onClick={() => handleMobileItemClick(item)} // Close menu on direct link click
                       >
-                        <span className="uppercase tracking-wide">{item.name}</span>
+                        {item.name}
                       </Link>
                     )}
-
-                    <AnimatePresence>
-                      {item.submenu && openMobileSubmenu === item.name && (
-                        <motion.div
-                          key={`${item.name}-submenu`}
-                          variants={submenuVariants}
-                          initial="initial"
-                          animate="animate"
-                          exit="exit"
-                          className="overflow-hidden pl-4"
-                        >
-                          <div className="py-2 flex flex-col space-y-1">
-                            {item.submenu.map((subItem) => {
-                              const Icon = subItem.icon;
-                              return (
-                                <Link
-                                  key={subItem.name}
-                                  href={subItem.href}
-                                  className="flex items-center text-foreground/70 hover:text-[#00b140] py-2 text-sm"
-                                  onClick={handleMobileSubItemClick}
-                                >
-                                  {Icon && <Icon className="mr-2 h-4 w-4 flex-shrink-0" />} 
-                                  <span>{subItem.name}</span>
-                                </Link>
-                              );
-                            })}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </div>
                 ))}
               </nav>

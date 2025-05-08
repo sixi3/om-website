@@ -19,20 +19,14 @@ export function Footer() {
             </Link>
           </div>
 
-          {/* Column 2: Solutions Links */}
+          {/* Column 2: Use Cases Links */}
           <div className="md:col-span-1">
             <p className="font-semibold text-foreground uppercase tracking-wider">
-              Solutions
+              Use Cases
             </p>
             <nav className="mt-6 space-y-4 text-sm">
-              <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
-                FIUs
-              </Link>
-              <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
-                FIPs
-              </Link>
-              <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
-                Consumers
+              <Link href="#solutions" className="block text-foreground/80 hover:text-foreground transition">
+                Our Solutions
               </Link>
             </nav>
           </div>
@@ -49,9 +43,6 @@ export function Footer() {
               <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
                 Policies
               </Link>
-              <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
-                Annual Growth
-              </Link>
             </nav>
           </div>
 
@@ -62,16 +53,13 @@ export function Footer() {
             </p>
             <nav className="mt-6 space-y-4 text-sm">
               <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
-                Mission
+                Vision and Mission
               </Link>
               <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
-                Board of Directors
+                Leadership
               </Link>
               <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
-                Achievements
-              </Link>
-              <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
-                Team
+                Timeline and Achievements
               </Link>
             </nav>
           </div>

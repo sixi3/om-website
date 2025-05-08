@@ -173,6 +173,7 @@ This document outlines the steps to create a React website similar in structure 
             *   [x] Ensured header content (video/image) in `BentoGridItem` maintains a consistent aspect ratio (e.g., `aspect-video`) and does not stretch vertically, by adjusting flex properties and adding `aspect-video` to relevant containers.
             *   [x] Changed `justify-between` to `justify-start` in `BentoGridItem` to reduce the vertical gap between the header content and the text content below it.
             *   [x] Removed fixed row height (`md:auto-rows-[28rem]`) from `BentoGrid` in `Solutions.tsx` to allow grid items to hug their content vertically, eliminating excess space at the bottom of items.
+    *   [ ] Implement "TrustedBy" section (`sections/TrustedBy.tsx`) - Currently commented out in `src/app/page.tsx`.
     *   [x] Integrate all sections into the main page.
 
 6.  **Styling & Responsiveness:**

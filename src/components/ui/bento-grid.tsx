@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import React, { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 
 export const BentoGrid = ({
   className,
@@ -29,6 +30,7 @@ export const BentoGridItem = ({
   header,
   icon,
   videoHeaderSrc,
+  mobileHeaderImageSrc,
 }: {
   className?: string;
   title?: string | React.ReactNode;
@@ -36,6 +38,7 @@ export const BentoGridItem = ({
   header?: React.ReactNode;
   icon?: React.ReactNode;
   videoHeaderSrc?: string;
+  mobileHeaderImageSrc?: string;
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -48,14 +51,14 @@ export const BentoGridItem = ({
   }, []);
 
   const handleMouseEnter = () => {
-    if (isMobile) return;
+    if (isMobile && mobileHeaderImageSrc) return;
     if (videoRef.current) {
       videoRef.current.play();
     }
   };
 
   const handleMouseLeave = () => {
-    if (isMobile) return;
+    if (isMobile && mobileHeaderImageSrc) return;
     if (videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
@@ -66,14 +69,24 @@ export const BentoGridItem = ({
     <div
       className={cn(
         "group/bento shadow-xl row-span-1 flex flex-col justify-between space-y-4 rounded-xl border border-slate-200 bg-background/10 backdrop-blur-md p-4 transition duration-200 dark:border-white/[0.2] dark:bg-black dark:shadow-none",
-        !isMobile && "hover:shadow-xl",
+        !(isMobile && mobileHeaderImageSrc) && "hover:shadow-xl",
         className,
       )}
-      onMouseEnter={videoHeaderSrc && !isMobile ? handleMouseEnter : undefined}
-      onMouseLeave={videoHeaderSrc && !isMobile ? handleMouseLeave : undefined}
+      onMouseEnter={videoHeaderSrc && !(isMobile && mobileHeaderImageSrc) ? handleMouseEnter : undefined}
+      onMouseLeave={videoHeaderSrc && !(isMobile && mobileHeaderImageSrc) ? handleMouseLeave : undefined}
     >
       <div className="transition-transform duration-300 ease-in-out flex-1">
-        {videoHeaderSrc ? (
+        {isMobile && mobileHeaderImageSrc ? (
+          <div className="relative flex flex-1 w-full h-full min-h-[2rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
+            <Image
+              src={mobileHeaderImageSrc}
+              alt={typeof title === 'string' ? title : "Header image"}
+              width={1600}
+              height={900}
+              className="object-contain w-full h-full"
+            />
+          </div>
+        ) : videoHeaderSrc ? (
           <div className="relative flex flex-1 w-full h-full min-h-[2rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
             <video
               ref={videoRef}
