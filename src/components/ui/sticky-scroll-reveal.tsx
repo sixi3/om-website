@@ -240,7 +240,7 @@ export const StickyScroll = ({
       >
         {/* Simplified Video Wrapper */}
         <div className={cn(
-          "relative w-full rounded-[2.7rem] overflow-hidden object-cover shadow-xl", // Combined styling
+          "relative w-full rounded-[2.8rem] overflow-hidden object-cover shadow-xl", // Combined styling
           isSmallScreen ? "h-auto aspect-[9/16]" : "h-[43rem]" // Conditional height/aspect
         )}>
           {/* Video Element */}

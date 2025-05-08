@@ -32,7 +32,7 @@ const stepsContent = [
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 // Use the local video file from the public directory
-const localVideoSrc = "/demotest.mp4";
+const localVideoSrc = "/test-1.webm";
 
 export function WhatIsOneMoney() {
   return (

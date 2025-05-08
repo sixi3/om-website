@@ -46,7 +46,7 @@ const navItems: NavItem[] = [
     href: "#", // Main link might not navigate directly if it has a submenu
     showChevron: true,
     submenu: [
-      { name: "Compliance", href: "#", icon: ShieldCheck },
+      { name: "Compliance", href: "/compliance", icon: ShieldCheck },
       { name: "Policies", href: "#", icon: FileText },
     ]
   },
@@ -174,14 +174,18 @@ export function Header() {
                   )}
                 </Link>
                 
-                <AnimatePresence>
-                   {item.submenu && openDropdown === item.name && (
-                     <motion.div
-                       variants={dropdownVariants}
-                       initial="initial"
-                       animate="animate"
-                       exit="exit"
-                       className="absolute top-full left-0 mt-1 w-60 rounded-md shadow-lg bg-background border border-border/40 py-1 z-50"
+                {/* Dropdown Menu - Using CSS Transitions */}
+                {/* <AnimatePresence> */}
+                   {item.submenu && (
+                     <div // Changed from motion.div
+                       // Removed variants, initial, animate, exit props
+                       className={cn(
+                         "absolute top-full left-0 mt-1 w-60 rounded-md shadow-lg bg-background border border-border/40 py-1 z-50",
+                         "transition-[opacity,transform] duration-200 ease-out", // CSS transition
+                         openDropdown === item.name 
+                           ? "opacity-100 visible translate-y-0 pointer-events-auto" 
+                           : "opacity-0 invisible -translate-y-1 pointer-events-none" // Conditional visibility/transform
+                       )}
                      >
                        {item.submenu?.map((subItem) => {
                          const Icon = subItem.icon;
@@ -197,9 +201,9 @@ export function Header() {
                            </Link>
                          );
                        })}
-                     </motion.div>
+                     </div>
                    )}
-                </AnimatePresence>
+                {/* </AnimatePresence> */}
               </div>
             ))}
           </nav>
