@@ -28,6 +28,10 @@ This document outlines the steps to create a React website similar in structure 
         *   Styled nav links (spacing, case, letter-spacing, hover effect).
         *   Added chevrons to specific nav links.
         *   Added styled button (metallic/shine) to actions section.
+        *   [x] Adjusted hamburger menu breakpoint to `lg` (visible on mobile/tablet).
+        *   [x] Ensured logo size is consistent across breakpoints (`flex-shrink-0`).
+        *   [x] Updated "Use Cases" link to `href="#solutions"`.
+        *   [x] Updated "Contact Us" link to `href="#contact-us"`.
     *   [x] Implement Footer component (`components/Footer.tsx`).
         *   [x] Structure with top (logo, links, newsletter/contact) and bottom (copyright, social) sections.
         *   [x] Add logo (`public/om-logo.svg`) to top-left.
@@ -48,6 +52,7 @@ This document outlines the steps to create a React website similar in structure 
         *   (Planned) Ensure responsiveness.
     *   [x] Define global styles and typography (using `globals.css` and Tailwind configuration `tailwind.config.js`).
     *   [x] Configure theme using Shadcn/ui theming.
+    *   [x] Enabled smooth scrolling via `scroll-behavior: smooth` in `globals.css`.
 
 3.  **Component Development:**
     *   [x] Create `TiltCard` component (`src/components/ui/tilt-card.tsx`).
@@ -89,7 +94,21 @@ This document outlines the steps to create a React website similar in structure 
             *   Added card styling (border, bg, blur) to active text block.
             *   Added live dot indicator to active card title.
             *   Increased component height (`h-[50rem]`) and removed internal scroll (`overflow-y-auto`).
-        *   Integrated into `src/app/page.tsx`.
+        *   [x] Integrated into `src/app/page.tsx`.
+        *   [x] **Responsive Design for Smaller Screens (implemented for `<769px`):**
+            *   [x] **State Detection:** Added `isSmallScreen` state to `StickyScroll` component, updates on window resize (breakpoint `<769px`).
+            *   [x] **Layout Change:**
+                *   [x] Conditionally applied a stacked layout (`flex-col`) for screens `<769px`.
+                *   [x] Displayed only the active text card at the top (`order-1`).
+                *   [x] Positioned the video player below the active text card (`order-2`), with adjusted width and aspect ratio for mobile.
+            *   [x] **Carousel Effect for Active Card:**
+                *   [x] Used `AnimatePresence` and `motion.div` from Framer Motion.
+                *   [x] When `activeCard` changes, the new active card slides in from the right, and the old one slides out to the left.
+                *   [x] Ensured only the active card is rendered and animated at a time on small screens.
+            *   [x] **Styling and Refinements:**
+                *   [x] Adjusted main container classes for padding and alignment on small screens.
+                *   [x] Adjusted text card font sizes for better readability on small screens.
+                *   [x] Ensured video player uses an appropriate aspect ratio (`aspect-[9/16]`) on small screens.
     *   [x] Implement "UI Features Showcase" section (`sections/UIFeatures.tsx`).
         *   [x] Add standard title/subtitle.
         *   [x] Implement 2-column layout (Left: 4 text points, Right: Video).
@@ -98,9 +117,16 @@ This document outlines the steps to create a React website similar in structure 
         *   [x] Add video player using `public/2025-05-01 22-21-31 (1).mp4` (controls, muted).
         *   [x] Integrated into `src/app/page.tsx`.
     *   [x] Implement "Security and Compliance" section (`sections/SecurityCompliance.tsx`).
-        *   Title: End-to-End Security and Compliance (with highlight styles).
-        *   Uses TiltCard for animated cards.
-        *   Added GridBackground.
+        *   [x] Title: End-to-End Security and Compliance (with highlight styles).
+        *   [x] Uses TiltCard for animated cards.
+        *   [x] Added GridBackground.
+        *   [x] **Responsive Layout Adjustments:**
+            *   [x] **Main Cards:** Stacked vertically on mobile (`<lg`) and 3-column on large screens (`lg:`).
+            *   [x] **Sub-points within Cards:** 
+                *   Stacked vertically on mobile (`<sm`).
+                *   Arranged horizontally on small tablets (`sm:` to `<md`).
+                *   Stacked vertically again on medium tablets and desktops (`md:` onwards).
+            *   [x] **Dividers:** Visibility of dividers between sub-points adjusted accordingly (visible when stacked, hidden when horizontal).
     *   [x] Implement Stats section (`sections/Stats.tsx`).
         *   Used Animated Counter for numbers.
         *   Styled title and numbers with metallic effect.
@@ -122,6 +148,7 @@ This document outlines the steps to create a React website similar in structure 
         *   [x] Right Column: Embed `TalkToUsForm` component directly.
         *   [x] Apply styling.
         *   [ ] Ensure responsiveness.
+        *   [x] Added `id="contact-us"` for linking.
         *   [x] Integrate into `app/page.tsx`.
     *   [x] Implement "Solutions for Businesses" section (`sections/Solutions.tsx`).
         *   [x] Used Aceternity UI Bento Grid (3 items, third spans full width).
@@ -131,6 +158,7 @@ This document outlines the steps to create a React website similar in structure 
         *   [x] Added two `react-fast-marquee` banners (full-width, opposite directions, second reversed content).
         *   [x] Populated banners with 17 use-case text pills.
         *   [x] Enabled `GridBackground` component.
+        *   [x] Added `id="solutions"` for linking.
         *   [x] **Video Headers & Performance Optimizations:**
             *   [x] Replaced header image with video for the first Bento item (`/b&l.mp4`).
             *   [x] Extended to all three Bento items with respective videos.
@@ -141,6 +169,10 @@ This document outlines the steps to create a React website similar in structure 
             *   [x] **Refactored video control logic:** Moved `videoRef`, `rewindAnimationRef`, and hover handlers (`handleMouseEnter`/`handleMouseLeave` for smooth rewind) from `BentoGrid` to be correctly scoped within each `BentoGridItem`.
             *   [x] **Mobile Performance - Video Hovers:** Added mobile detection (`window.innerWidth < 768`) in `BentoGridItem` to conditionally disable video hover/rewind handlers on smaller screens.
             *   [x] **Mobile Performance - CSS Hovers:** Conditionally disabled CSS hover animations (`hover:shadow-xl` for the item and `group-hover/bento:translate-x-2` for the text block) in `BentoGridItem` on smaller screens.
+        *   [x] **Bento Grid Item Layout Adjustments (Post-Video Implementation):**
+            *   [x] Ensured header content (video/image) in `BentoGridItem` maintains a consistent aspect ratio (e.g., `aspect-video`) and does not stretch vertically, by adjusting flex properties and adding `aspect-video` to relevant containers.
+            *   [x] Changed `justify-between` to `justify-start` in `BentoGridItem` to reduce the vertical gap between the header content and the text content below it.
+            *   [x] Removed fixed row height (`md:auto-rows-[28rem]`) from `BentoGrid` in `Solutions.tsx` to allow grid items to hug their content vertically, eliminating excess space at the bottom of items.
     *   [x] Integrate all sections into the main page.
 
 6.  **Styling & Responsiveness:**

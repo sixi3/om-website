@@ -53,7 +53,7 @@ export const GlowingButton = React.forwardRef<HTMLButtonElement, GlowingButtonPr
           // Base styles common to all sizes
           "relative overflow-hidden rounded-sm border border-[#d2ff61]", 
           "bg-gradient-to-b from-[#d2ff61] to-[#aadd20]",
-          "shadow-md shadow-[#212121]", // Corrected shadow based on your file
+          "shadow-sm shadow-[#212121]", // Corrected shadow based on your file
           "transition-all duration-300 ease-in-out",
           // Apply size-specific classes (which now include text, padding, and font weight/case)
           sizeClasses[size], 

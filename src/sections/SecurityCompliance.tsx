@@ -58,7 +58,7 @@ export function SecurityCompliance() {
 
         {/* Cards Grid - Limited max-width and centered */}
         <div 
-          className="grid grid-cols-1 gap-8 md:grid-cols-3 justify-items-center max-w-5xl mx-auto" 
+          className="grid grid-cols-1 gap-8 lg:grid-cols-3 justify-items-center max-w-5xl mx-auto"
           style={{ perspective: '1000px' }} 
         >
           {securityData.map((item, index) => (
@@ -77,12 +77,12 @@ export function SecurityCompliance() {
                 <h3 className="text-2xl font-bold text-foreground pb-4 mt-4 whitespace-nowrap">
                   {item.title}
                 </h3>
-                <ul className="space-y-2 text-foreground/90 mt-2">
+                <ul className="mt-2 space-y-2 text-foreground/90 sm:flex sm:flex-row sm:space-y-0 sm:space-x-4 md:block md:space-y-2 md:space-x-0">
                   {item.points.map((point, pIndex) => (
                     <React.Fragment key={pIndex}>
                       <li>{point.replace(/_([^_]+)_/g, '$1')}</li>
                       {pIndex < item.points.length - 1 && (
-                        <div className="w-4 h-px bg-border border-slate-800 my-2"></div>
+                        <div className="w-4 h-px bg-border border-slate-800 my-2 sm:hidden md:block"></div>
                       )}
                     </React.Fragment>
                   ))}

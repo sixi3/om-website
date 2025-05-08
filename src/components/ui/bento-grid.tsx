@@ -74,7 +74,7 @@ export const BentoGridItem = ({
     >
       <div className="transition-transform duration-300 ease-in-out flex-1">
         {videoHeaderSrc ? (
-          <div className="relative flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
+          <div className="relative flex flex-1 w-full h-full min-h-[2rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
             <video
               ref={videoRef}
               src={videoHeaderSrc}

@@ -35,7 +35,7 @@ export function UIFeatures() {
         </div>
 
         {/* 2-Column Layout for Features and Video */} 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center"> {/* Increased gap */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center"> {/* Changed md:grid-cols-2 to lg:grid-cols-2 */}
           {/* Left Column: Feature Points */}
           <div 
             className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8" 
@@ -63,12 +63,12 @@ export function UIFeatures() {
           </div>
 
           {/* Right Column: Video Player */}
-          <div className="rounded-lg overflow-hidden border border-border/40 shadow-lg aspect-video bg-neutral-200 dark:bg-neutral-800">
+          <div className="hidden lg:block rounded-lg overflow-hidden border border-border/40 shadow-lg aspect-video bg-neutral-200 dark:bg-neutral-800">
             <video
-              src="/2025-05-01 22-21-31 (1).mp4" // Local video source
+              src="/demotest.mp4" // Local video source
               width="100%"
               height="auto" // Height is handled by aspect ratio
-              controls
+              controls={false}
               muted // Muted for potential autoplay, user can unmute
               playsInline
               preload="metadata"

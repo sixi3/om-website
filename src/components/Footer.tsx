@@ -9,7 +9,7 @@ import { Copy } from "lucide-react";
 export function Footer() {
   return (
     <footer className="border-t border-border/40 bg-background">
-      <div className="container mx-auto pt-8">
+      <div className="container mx-auto px-4 md:px-6 pt-8">
         {/* Top Section: Logo and Columns */}
         <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
           {/* Column 1: Logo */}
