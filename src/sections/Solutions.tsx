@@ -19,6 +19,16 @@ const solutions = [
     videoHeaderSrc: "/b&l.mp4",
     icon: <Landmark className="h-4 w-4 text-[#00b140]" />,
     className: "md:col-span-1",
+    header: (
+      <div className="relative flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700 aspect-video">
+        <Image
+          src="/BnL.png"
+          alt="Banking & Lending"
+          fill
+          style={{ objectFit: "cover" }}
+        />
+      </div>
+    ),
   },
   {
     id: 2,
@@ -27,6 +37,16 @@ const solutions = [
     videoHeaderSrc: "/insurance.mp4",
     icon: <ShieldCheck className="h-4 w-4 text-[#00b140]" />,
     className: "md:col-span-1",
+    header: (
+      <div className="relative flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700 aspect-video">
+        <Image
+          src="/Ins.png"
+          alt="Insurance Underwriting"
+          fill
+          style={{ objectFit: "cover" }}
+        />
+      </div>
+    ),
   },
   {
     id: 3,
@@ -35,6 +55,16 @@ const solutions = [
     videoHeaderSrc: "/wm.mp4",
     icon: <TrendingUp className="h-4 w-4 text-[#00b140]" />,
     className: "md:col-span-1",
+    header: (
+      <div className="relative flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700 aspect-video">
+        <Image
+          src="/WM.png"
+          alt="Wealth Management"
+          fill
+          style={{ objectFit: "cover" }}
+        />
+      </div>
+    ),
   },
 ];
 
@@ -48,7 +78,7 @@ const pillTexts = [
 
 export function Solutions() {
   return (
-    <section className="relative w-full py-24 overflow-hidden">
+    <section className="relative w-full py-24 overflow-hidden min-h-[80vh]">
       {/* Optional: Add GridBackground or other background component if desired */}
       <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
@@ -73,6 +103,7 @@ export function Solutions() {
               videoHeaderSrc={item.videoHeaderSrc}
               icon={item.icon}
               className={item.className}
+              header={item.header}
               // You could add a link or button here if needed
               // Example: title={<a href="#">{item.title}</a>}
             />

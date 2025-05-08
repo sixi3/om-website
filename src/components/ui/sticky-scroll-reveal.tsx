@@ -174,25 +174,33 @@ export const StickyScroll = ({
         </div>
       </div>
 
-      {/* Right side: Sticky Video Player */}
+      {/* Right side: Sticky Container */}
       <div
         className={cn(
-          "sticky top-10 hidden h-80 w-[30rem] overflow-hidden rounded-md lg:block",
+          "sticky top-10 hidden h-[40rem] w-[18rem] lg:block", 
           contentClassName
         )}
       >
-        <video
-          ref={videoRef}
-          src={videoSrc}
-          width="100%"
-          height="100%"
-          muted
-          playsInline
-          preload="metadata"
-          className="h-full w-full object-cover"
-        >
-          Your browser does not support the video tag.
-        </video>
+        {/* Phone Mockup Frame */}
+        <div className="relative w-full h-full rounded-[2.5rem] p-2.5 shadow-xl">
+           {/* Optional: Notch/Speaker area - can be added later if needed */}
+          {/* Screen Area */}
+          <div className="w-full h-full rounded-[1.8rem] overflow-hidden bg-white">
+            {/* Video Element */}
+            <video
+              ref={videoRef}
+              src={videoSrc}
+              width="100%" 
+              height="100%"
+              muted
+              playsInline
+              preload="metadata"
+              className="h-full w-full object-contain"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
       </div>
     </motion.div>
   );

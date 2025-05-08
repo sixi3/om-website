@@ -13,7 +13,7 @@ export const BentoGrid = ({
   return (
     <div
       className={cn(
-        "mx-auto grid max-w-7xl grid-cols-1 gap-4 md:auto-rows-[18rem] md:grid-cols-3",
+        "mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-3",
         className,
       )}
     >
@@ -38,7 +38,6 @@ export const BentoGridItem = ({
   videoHeaderSrc?: string;
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const rewindAnimationRef = useRef<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -50,10 +49,6 @@ export const BentoGridItem = ({
 
   const handleMouseEnter = () => {
     if (isMobile) return;
-    if (rewindAnimationRef.current) {
-      cancelAnimationFrame(rewindAnimationRef.current);
-      rewindAnimationRef.current = null;
-    }
     if (videoRef.current) {
       videoRef.current.play();
     }
@@ -63,24 +58,7 @@ export const BentoGridItem = ({
     if (isMobile) return;
     if (videoRef.current) {
       videoRef.current.pause();
-      
-      const rewind = () => {
-        if (videoRef.current && videoRef.current.currentTime > 0) {
-          videoRef.current.currentTime -= 0.03;
-          if (videoRef.current.currentTime < 0.03 && videoRef.current.currentTime > 0) {
-            videoRef.current.currentTime = 0;
-          }
-          if (videoRef.current.currentTime > 0) {
-            rewindAnimationRef.current = requestAnimationFrame(rewind);
-          } else {
-            rewindAnimationRef.current = null;
-          }
-        } else {
-          if(videoRef.current) videoRef.current.currentTime = 0;
-          rewindAnimationRef.current = null;
-        }
-      };
-      rewindAnimationRef.current = requestAnimationFrame(rewind);
+      videoRef.current.currentTime = 0;
     }
   };
 
@@ -102,8 +80,7 @@ export const BentoGridItem = ({
               src={videoHeaderSrc}
               muted
               playsInline
-              controls={isMobile}
-              className="object-cover w-full h-full"
+              className="object-contain w-full h-full"
             />
           </div>
         ) : (
@@ -112,7 +89,6 @@ export const BentoGridItem = ({
       </div>
       <div className={cn(
         "transition duration-200",
-        !isMobile && "group-hover/bento:translate-x-2"
       )}>
         {icon}
         <div className="mt-2 mb-2 font-bold text-neutral-600 dark:text-neutral-200">
