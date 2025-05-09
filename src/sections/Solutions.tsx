@@ -25,6 +25,7 @@ const solutions = [
           alt="Banking & Lending illustration"
           fill={true}
           className="object-cover"
+          sizes="(max-width: 767px) 90vw, 33vw"
         />
       </div>
     ),
@@ -42,6 +43,7 @@ const solutions = [
           alt="Insurance Underwriting illustration"
           fill={true}
           className="object-cover"
+          sizes="(max-width: 767px) 90vw, 33vw"
         />
       </div>
     ),
@@ -59,6 +61,7 @@ const solutions = [
           alt="Wealth Management illustration"
           fill={true}
           className="object-cover"
+          sizes="(max-width: 767px) 90vw, 33vw"
         />
       </div>
     ),

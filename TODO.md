@@ -80,41 +80,115 @@ This document outlines the steps to create a React website similar in structure 
         *   Adjusted padding, alignment, and line height.
         *   Added infinite scroll client logo banner (`react-fast-marquee`).
         *   Added styled label above marquee (with flanking lines).
-    *   [x] Implement "What is OneMoney?" section (`sections/WhatIsOneMoney.tsx`).
-        *   Added standard title/subtitle.
-        *   Used Aceternity UI `StickyScroll` component.
-        *   Defined 3 steps (title/description, startTime, endTime).
-        *   Added video element (local source) to sticky right panel.
-        *   Implemented video-driven playback:
-            *   Removed scroll-driven logic (`useScroll`, etc.).
-            *   Added `timeupdate` listener to determine `activeCard` based on video time.
-            *   Removed text container auto-scrolling.
-            *   Enabled autoplay (muted, no controls).
-            *   Added visual progress bar with gradient under each text block, synced to video time within step.
-            *   Added card styling (border, bg, blur) to active text block.
-            *   Added live dot indicator to active card title.
-            *   Increased component height (`h-[50rem]`) and removed internal scroll (`overflow-y-auto`).
-        *   [x] Integrated into `src/app/page.tsx`.
-        *   [x] **Responsive Design for Smaller Screens (implemented for `<769px`):**
-            *   [x] **State Detection:** Added `isSmallScreen` state to `StickyScroll` component, updates on window resize (breakpoint `<769px`).
-            *   [x] **Layout Change:**
-                *   [x] Conditionally applied a stacked layout (`flex-col`) for screens `<769px`.
-                *   [x] Displayed only the active text card at the top (`order-1`).
-                *   [x] Positioned the video player below the active text card (`order-2`), with adjusted width and aspect ratio for mobile.
-            *   [x] **Carousel Effect for Active Card:**
-                *   [x] Used `AnimatePresence` and `motion.div` from Framer Motion.
-                *   [x] When `activeCard` changes, the new active card slides in from the right, and the old one slides out to the left.
-                *   [x] Ensured only the active card is rendered and animated at a time on small screens.
-            *   [x] **Styling and Refinements:**
-                *   [x] Adjusted main container classes for padding and alignment on small screens.
-                *   [x] Adjusted text card font sizes for better readability on small screens.
-                *   [x] Ensured video player uses an appropriate aspect ratio (`aspect-[9/16]`) on small screens.
+    *   [ ] **Refactor "What is OneMoney?" to Automated Interactive User Journey Animation (`sections/WhatIsOneMoney.tsx`)**
+        *   [ ] Add standard title/subtitle (if not already present from previous version).
+        *   [x] **0. Refactor Reusable Phone Screen Header/Footer Components:**
+            *   [x] **0.1. Create `PhoneScreenHeader.tsx` (`src/components/ui/PhoneScreenHeader.tsx`):**
+                *   [x] Extract header structure from `AnimatedScreenContent.tsx`.
+                *   [x] Props: `gradientClass?`, `logoSrc?`, `altText?`, `title`, `showBackButton?`, `showMoreButton?`, `activeKey?`, `animateTransition?` (new prop for conditional animation).
+                *   [x] `AnimatedScreenContent.tsx` to use this new component (will use default `animateTransition=true`).
+            *   [x] **0.2. Create `PhoneScreenFooter.tsx` (`src/components/ui/PhoneScreenFooter.tsx`):**
+                *   [x] Extract footer structure from `BrandedConsentScreenBody`.
+                *   [x] Props: `mode`, `infoText?`, `sliderText?`, `sliderAccentColor?`, `buttonText?`, `onButtonClick?`, `isButtonDisabled?`, `buttonAccentColor?`, `showPoweredBy?`, `isSliderProcessing?`, `onSlideAnimationComplete?` (new props for slide control).
+                *   [x] `BrandedConsentScreenBody` to use this new component (conditionally, via `externalFooter={true}`).
+        *   [x] **1. Remove Old StickyScroll and Video Player Implementation:**
+            *   [x] Remove Aceternity UI `StickyScroll` component and its logic.
+            *   [x] Remove the existing `<video>` element.
+        *   [x] **2. Integrate ClayPhoneMockup into the Right Panel:**
+            *   [x] Place `ClayPhoneMockup.tsx` in the right column of `WhatIsOneMoney.tsx`.
+            *   [x] Create `UserJourneyAnimation.tsx` component (`src/components/UserJourneyAnimation.tsx`) as a child of `ClayPhoneMockup.tsx`.
+        *   [x] **3. Design and Implement Screens within `UserJourneyAnimation.tsx` (using extracted Header/Footer):**
+            *   [x] **3.1. Implement Common, Persistent Header and Footer Structure using extracted components:**
+                *   [x] Use `<PhoneScreenHeader />` with:
+                    *   [x] Static "MobilePe" logo (`/mobilepelogo.svg`) and "MobilePe" title.
+                    *   [x] Static MobilePe gradient.
+                    *   [x] `animateTransition={false}` to disable header animations between steps.
+                *   [x] Use `<PhoneScreenFooter />` with props changing based on `currentSubStep`:
+                    *   [x] **OTP Entry Screen:** `mode='button'`, `buttonText='Continue'`, `isButtonDisabled=true` (enables after OTP animation), `infoText` present. Auto-transitions 2s after button enables.
+                    *   [x] **Consent Screen (Initial & Account Deselected steps):** `mode='slider'`, `sliderText='Slide to Approve Consent'`, `infoText` present ("By proceeding...").
+                    *   [x] **Consent Sliding Action:** `mode='slider'`, `sliderText='Slide to Approve Consent'` (text remains, no "Processing..."), `infoText` present. `isSliderProcessing=true` triggers icon slide.
+                    *   [x] **Success Screen:** `mode='none'` (or only `showPoweredBy=true`).
+                *   [x] Central area for animated body content (flex-grow, overflow-y-auto, padding). `screenContentRef` added for scrolling.
+            *   [x] **3.2. Design and Implement Animated Body Content for OTP Login Screen (`OtpEntryScreen.tsx`):**
+                *   [x] Single screen showing static phone number and an OTP display field.
+                *   [x] Animation types digits into the OTP field.
+                *   [x] Footer "Continue" button enables after OTP animation.
+                *   [x] Auto-transitions to `consent-initial` 2 seconds after "Continue" button enables (or if button is clicked).
+            *   [x] **3.3. Design and Implement Animated Body Content for Consent Screen (`JourneyConsentScreen` within `UserJourneyAnimation.tsx`):**
+                *   [x] Uses `BrandedConsentScreenBody` with `externalFooter={true}`.
+                *   [x] **Bank Details:** Displays "HDFC Bank" and `/HDFC.svg` icon.
+                *   [x] Sub-step `consent-initial`: Both accounts selected.
+                *   [x] Sub-step `consent-account-deselected`:
+                    *   [x] After 1s delay (internal to `JourneyConsentScreen`), second account (Current Account) animates to deselected state.
+                    *   [x] `BrandedConsentScreenBody` updated to accept `isAccountADeselected`, `isAccountBDeselected` for this.
+            *   [x] **3.4. Design and Implement Animated Body Content for Consent Action & Success Screen:**
+                *   [x] Sub-step `consent-sliding`: `JourneyConsentScreen` remains visible (no "Processing..." text overlay). Footer icon slides.
+                *   [x] Sub-step `success`: Header Title: "Confirmation". Body: Display "Success Screen Placeholder".
+            *   [x] **3.5. Animation Logic & State Management in `UserJourneyAnimation.tsx`:**
+                *   [x] Uses Framer Motion for transitions between body content sub-steps.
+                *   [x] `currentSubStep` state managed.
+                *   [x] **OTP Flow:** `handleOtpAnimationComplete` enables "Continue", starts 2s timer to `consent-initial`.
+                *   [x] **Consent Flow Timing & Scroll:**
+                    *   `consent-initial` to `consent-account-deselected`: 2s timer.
+                    *   `consent-account-deselected`: After ~1.7s (for deselection visual), scrolls to "VIEW CONSENT DETAILS" button (button in `BrandedConsentScreenBody` given `id="view-consent-details-trigger"`). Then, after 2s delay, transitions to `consent-sliding`.
+                *   [x] **Slider Action:** `PhoneScreenFooter`'s `isSliderProcessing` prop (true when `currentSubStep === 'consent-sliding'`) triggers a one-way slide animation of the icon. `onSlideAnimationComplete` callback transitions to `success` step.
+        *   [x] **4. Update Left Panel Text Cards:**
+            *   [x] Retain three text cards.
+            *   [x] Update card titles/descriptions to match: OTP Login, Consent Review, Action & Confirmation.
+            *   [x] Remove `startTime`/`endTime` props from card content objects.
+        *   [x] **5. Synchronize Left Panel Cards with `UserJourneyAnimation.tsx`:**
+            *   [x] **5.1. State Management:** `WhatIsOneMoney.tsx` to manage `currentActiveCardIndex` (0, 1, or 2).
+            *   [x] **5.2. Animation Orchestration:** `UserJourneyAnimation.tsx` manages its automated sequence. (Note: `async/await` not directly used for step timing, relies on `setTimeout` and callbacks).
+            *   [x] **5.3. Callbacks:** `UserJourneyAnimation.tsx` uses `onStageChange(currentConfig.stageIndex)` to inform parent.
+                *   Card 1 (Index 0) active during OTP Login sub-steps (`otp-entry`).
+                *   Card 2 (Index 1) active during Consent Screen sub-steps (`consent-initial`, `consent-account-deselected`).
+                *   Card 3 (Index 2) active during "Slide to Approve" (`consent-sliding`) and Success Screen (`success`).
+            *   [x] **5.4. Active Card Styling:** Apply active styles (border, background, blur, live dot) to the left panel card corresponding to `currentActiveCardIndex`.
+            *   [x] **5.5. Progress Bars:** Implement progress bars for left panel cards: Animate from 0% to 100% (e.g., using Framer Motion on width) over a short duration (now synced with card active duration) when the corresponding card becomes active.
+        *   [ ] **6. Layout and Styling:**
+            *   [x] Ensure 2-column layout (left: text cards, right: phone mockup).
+            *   [ ] Adjust overall section height, padding, and responsive behavior as needed.
+            *   [x] **Responsive Design for Small Screens (e.g., <450px or `<sm` breakpoint):**
+                *   [x] Modify layout: Active card stacked on top, phone mockup below (for `<md` screens). On `md+`, 2-column layout is used.
+                *   [x] Implement carousel effect for text cards on small screens: Only the active card is visible at a time.
+                *   [x] Use Framer Motion `AnimatePresence` for card transitions on small screens (new card slides in from right, old card slides out to left).
+                *   [x] On larger screens (`md+`), all cards are displayed in a stack, with the active card highlighted (no slide animations between them, just style changes).
+                *   [ ] Ensure `UserJourneyAnimation` (phone mockup) displays correctly and scales appropriately in this stacked layout (Needs Testing/Verification).
+        *   [ ] Integrate the refactored `WhatIsOneMoney.tsx` into `src/app/page.tsx`.
     *   [x] Implement "UI Features Showcase" section (`sections/UIFeatures.tsx`).
         *   [x] Add standard title/subtitle.
         *   [x] Implement 2-column layout (Left: 4 text points, Right: Video).
         *   [x] Add placeholder text points for features (updated titles).
         *   [x] Added Lucide icons next to feature titles.
         *   [x] Add video player using `public/2025-05-01 22-21-31 (1).mp4` (controls, muted).
+        *   [x] **Replaced Video with Interactive Phone Mockup:**
+            *   [x] Created `ClayPhoneMockup.tsx` component (`src/components/ui/ClayPhoneMockup.tsx`).
+            *   [x] Created `AnimatedScreenContent.tsx` component (`src/components/AnimatedScreenContent.tsx`) to display dynamic content within the mockup.
+            *   [x] **Initial Setup (MobilePe):**
+                *   [x] Designed initial screen for "MobilePe" brand.
+                *   [x] Structured header (logo, title, icons) and body (consent title, account selection, consent details, footer/slider).
+            *   [x] **Multi-Brand & Dynamic Content Refactor:**
+                *   [x] Updated `screenData` to hold configurations for multiple brands (MobilePe, Home Bank, WealthPro/Kred).
+                *   [x] Each brand in `screenData` includes: main header logo/title, in-body logo/name, accent color definitions, and specific consent terms.
+                *   [x] Refactored `AnimatedScreenContent` to use a single `BrandedConsentScreenBody` component that dynamically renders content based on props from `screenData`.
+            *   [x] **Granular Animations for Brand Switching:**
+                *   [x] Implemented `useEffect` to cycle through brands automatically.
+                *   [x] Used `AnimatePresence` and `motion` components from Framer Motion.
+                *   [x] Animated main header logo & title (opacity + y-axis movement).
+                *   [x] Animated in-body logo & brand name (opacity + y-axis movement).
+                *   [x] Animated consent term text values (Purpose, Duration, Date Range, Data Fetched) with opacity + y-axis movement.
+                *   [x] Added smooth color transitions (`transition-colors duration-700 ease-in-out`) for accent color changes on buttons and the footer slider icon background.
+            *   [x] **Styling and Layout Adjustments for Mockup Content:**
+                *   [x] Adjusted font sizes, icon sizes, padding, and margins for a compact fit within the phone mockup.
+                *   [x] Refined layout of consent details section (from divs to table, then back to flexbox divs for better styling control).
+                *   [x] Styled the date range display with a background box and a line between dates.
+                *   [x] Ensured footer ("Slide to Approve") is correctly positioned and constrained within the phone mockup.
+                *   [x] Hid scrollbar in the scrollable content area.
+                *   [x] Addressed minor visual issues like table border appearance with `overflow-hidden`.
+            *   [x] **UI Updates for WealthPro (formerly Kred) variant:**
+                *   [x] Renamed Kred to WealthPro.
+                *   [x] Updated logo path (assuming `/kred.svg` is still used or replaced with a WealthPro specific one).
+                *   [x] Updated consent terms for WealthPro.
         *   [x] Integrated into `src/app/page.tsx`.
     *   [x] Implement "Security and Compliance" section (`sections/SecurityCompliance.tsx`).
         *   [x] Title: End-to-End Security and Compliance (with highlight styles).
@@ -123,107 +197,26 @@ This document outlines the steps to create a React website similar in structure 
         *   [x] **Responsive Layout Adjustments:**
             *   [x] **Main Cards:** Stacked vertically on mobile (`<lg`) and 3-column on large screens (`lg:`).
             *   [x] **Sub-points within Cards:** 
-                *   Stacked vertically on mobile (`<sm`).
-                *   Arranged horizontally on small tablets (`sm:` to `<md`).
-                *   Stacked vertically again on medium tablets and desktops (`md:` onwards).
-            *   [x] **Dividers:** Visibility of dividers between sub-points adjusted accordingly (visible when stacked, hidden when horizontal).
-    *   [x] Implement Stats section (`sections/Stats.tsx`).
-        *   Used Animated Counter for numbers.
-        *   Styled title and numbers with metallic effect.
-        *   Centered grid layout.
-        *   Added "Unlock access to diverse data sets" label with flanking lines (moved outside container).
-        *   Added 7 static pills below stats (4/3 layout).
-        *   Styled pills with live dot indicator and Lucide icons.
-        *   Added GridBackground.
-    *   [x] Implement Leadership section (`sections/Leadership.tsx`) using TiltCards.
-        *   Title: Guided By Leadership (with highlight styles).
-        *   Uses TiltCard for animated cards with image backgrounds.
-        *   Added GridBackground.
-        *   Improved title formatting and line breaks for advisor titles.
-    *   [x] Implement "Privacy is Your Right" (DPDP Act) section (`sections/Privacy.tsx`).
-    *   [x] Create `ContactUs.tsx` Section:
-        *   [x] Add standard Title and Subtitle.
-        *   [x] Implement 2-column layout.
-        *   [x] Left Column: Add text content and image placeholder.
-        *   [x] Right Column: Embed `TalkToUsForm` component directly.
-        *   [x] Apply styling.
-        *   [ ] Ensure responsiveness.
-        *   [x] Added `id="contact-us"` for linking.
-        *   [x] Integrate into `app/page.tsx`.
-    *   [x] Implement "Solutions for Businesses" section (`sections/Solutions.tsx`).
-        *   [x] Used Aceternity UI Bento Grid (3 items, third spans full width).
-        *   [x] Added Lucide icons (`Landmark`, `ShieldCheck`, `TrendingUp`) with custom color.
-        *   [x] Populated with content for Banking, Insurance, Wealth Management.
-        *   [x] Added centered Plus icon below grid.
-        *   [x] Added two `react-fast-marquee` banners (full-width, opposite directions, second reversed content).
-        *   [x] Populated banners with 17 use-case text pills.
-        *   [x] Enabled `GridBackground` component.
-        *   [x] Added `id="solutions"` for linking.
-        *   [x] **Video Headers & Performance Optimizations:**
-            *   [x] Replaced header image with video for the first Bento item (`/b&l.mp4`).
-            *   [x] Extended to all three Bento items with respective videos.
-            *   [x] Implemented hover-to-play and smooth-rewind functionality for videos in `BentoGridItem`.
-            *   [x] Resolved "use client" directive error for `BentoGridItem` due to `useRef`.
-            *   [x] Removed `loop` attribute from videos to prevent auto-restart on hover.
-            *   [x] Removed upward `translate-y` hover effect from video header area in `BentoGridItem`.
-            *   [x] **Refactored video control logic:** Moved `videoRef`, `rewindAnimationRef`, and hover handlers (`handleMouseEnter`/`handleMouseLeave` for smooth rewind) from `BentoGrid` to be correctly scoped within each `BentoGridItem`.
-            *   [x] **Mobile Performance - Video Hovers:** Added mobile detection (`window.innerWidth < 768`) in `BentoGridItem` to conditionally disable video hover/rewind handlers on smaller screens.
-            *   [x] **Mobile Performance - CSS Hovers:** Conditionally disabled CSS hover animations (`hover:shadow-xl` for the item and `group-hover/bento:translate-x-2` for the text block) in `BentoGridItem` on smaller screens.
-        *   [x] **Bento Grid Item Layout Adjustments (Post-Video Implementation):**
-            *   [x] Ensured header content (video/image) in `BentoGridItem` maintains a consistent aspect ratio (e.g., `aspect-video`) and does not stretch vertically, by adjusting flex properties and adding `aspect-video` to relevant containers.
-            *   [x] Changed `justify-between` to `justify-start` in `BentoGridItem` to reduce the vertical gap between the header content and the text content below it.
-            *   [x] Removed fixed row height (`md:auto-rows-[28rem]`) from `BentoGrid` in `Solutions.tsx` to allow grid items to hug their content vertically, eliminating excess space at the bottom of items.
-    *   [ ] Implement "TrustedBy" section (`sections/TrustedBy.tsx`) - Currently commented out in `src/app/page.tsx`.
-    *   [x] Integrate all sections into the main page.
+                *   [x] Stacked vertically on mobile (`<sm`).
+                *   [x] Arranged horizontally on small tablets (`
 
-6.  **Styling & Responsiveness:**
-    *   [ ] Apply Tailwind CSS utility classes to all components and sections.
-    *   [ ] Ensure responsiveness across different screen sizes (mobile, tablet, desktop) using Tailwind's responsive modifiers.
-    *   [ ] Refine spacing, alignment, and visual details to match the reference site.
-
-7.  **Content Integration:**
-    *   [ ] Replace placeholder text with actual content.
-    *   [ ] Source and optimize images/icons (ensure proper licensing). Place static assets in the `public` directory.
-    *   [ ] Update navigation links and footer links.
-
-8.  **Animations (Optional):**
-    *   [ ] Add subtle entrance animations to sections using Framer Motion.
-    *   [ ] Add hover effects or micro-interactions where appropriate.
-
-9.  **Testing:**
-    *   [ ] Test responsiveness thoroughly on different devices/browsers.
-    *   [ ] Check for accessibility issues (using browser dev tools or linters).
-    *   [ ] Verify all links and interactions work correctly.
-    *   [ ] Perform basic performance checks (Lighthouse).
-
-10. **Deployment:**
-    *   [ ] Set up a Vercel account.
-    *   [ ] Connect Git repository to Vercel.
-    *   [ ] Configure deployment settings.
-    *   [ ] Deploy the site.
-    *   [ ] Set up custom domain (if applicable).
-
-11. **Post-Launch:**
-    *   [ ] Monitor performance and uptime.
-    *   [ ] Gather feedback and iterate.
-
-12. **Implement "Talk to Us" Modal:**
-    *   [x] Locate/Add Trigger Button (Header & Hero `GlowingButton`).
-    *   [x] Install Dependencies:
-        *   [x] Add Shadcn `Dialog`: `npx shadcn@latest add dialog`.
-        *   [x] Add Shadcn `Textarea`: `npx shadcn@latest add textarea`.
-        *   [x] Verify Aceternity Input/Label deps (e.g., `@radix-ui/react-label` installed).
-    *   [x] Add/Verify Aceternity UI Components:
-        *   [x] Custom `Input` component (`src/components/ui/input.tsx`).
-        *   [x] Custom `Label` component (`src/components/ui/label.tsx`).
-        *   [x] `--shadow-input` variable in `globals.css`.
-    *   [x] Create Form Component (`src/components/forms/TalkToUsForm.tsx`):
-        *   [x] Fields: First Name, Last Name, Work Email, Phone Number (Aceternity Inputs), Comments (Shadcn Textarea).
-        *   [x] Implement form state.
-        *   [x] Implement submit handler (console.log).
-        *   (Needs Styling) Style submit button like `GlowingButton` (rejected direct replacement).
-    *   (Removed) Create Modal Component (`src/components/TalkToUsModal.tsx`).
-    *   [x] Integrate Modal Logic into `Header.tsx` and `Hero.tsx`:
-        *   [x] Wrapped `GlowingButton` trigger with `DialogTrigger`.
-        *   [x] Added `DialogContent` containing `TalkToUsForm`.
-        *   Deleted `TalkToUsModal.tsx`. 
+6.  **Performance Optimization:**
+    *   [x] **Asset Cleanup:**
+        *   [x] Identified and removed unused `public/vercel.svg`.
+        *   [x] Consolidated favicon to `src/app/icon.svg` and removed `public/om-icon.svg`.
+    *   [x] **Component Cleanup:**
+        *   [x] Identified and removed unused `src/components/ui/sticky-scroll-reveal.tsx`.
+        *   [x] Identified and removed unused `src/components/ImageSlideshow.tsx`.
+    *   [x] **Dependency Cleanup:**
+        *   [x] Identified and uninstalled unused `three`, `@react-three/fiber`, and `@types/three`.
+    *   [x] **Image Optimization with `next/image`:**
+        *   [x] Ensured all significant static images (`Bnl.png`, `Ins.png`, `WM.png`, `header-graphic.png`, `contact-us graphic.png`, `PH.png`, `KP.png`, `JC.png`, client logos, etc.) use the `next/image` component.
+        *   [x] Refactored `Leadership.tsx` to use `next/image` instead of CSS background images.
+        *   [x] Added/Verified `sizes` prop for images using `fill={true}` in `Leadership.tsx`, `Solutions.tsx`, and `Hero.tsx` to improve source selection.
+    *   [ ] **Source Image Pre-optimization:**
+        *   [ ] Compress large source PNGs (e.g., `Bnl.png`, `Ins.png`, `WM.png`, `header-graphic.png`, `PH.png`, `KP.png`, `JC.png`) using tools like TinyPNG or Squoosh.
+        *   [ ] Consider converting to WebP format for better compression and serving them directly.
+    *   [ ] **Review `next.config.mjs` for image quality settings.**
+    *   [ ] **Further Profiling (if needed):**
+        *   [ ] Use browser developer tools (Lighthouse, Performance tab) or Vercel Analytics to identify remaining bottlenecks.
+        *   [ ] Investigate code splitting/dynamic imports for non-critical large sections/components.

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image"; // Import next/image
 import { TiltCard } from "@/components/ui/tilt-card";
 import { GridBackground } from "@/components/ui/grid-background"; // Import GridBackground
 
@@ -52,23 +53,22 @@ export function Leadership() {
           {leadershipData.map((leader, index) => (
             <TiltCard
               key={index}
-              className="relative w-80 h-80 rounded-lg overflow-hidden group/card shadow-xl border border-slate-200"
+              className="relative w-80 h-80 rounded-lg overflow-hidden group/card shadow-xl border border-slate-200 dark:border-neutral-700"
             >
-              {/* New div for background image */}
-              <div
-                className="absolute inset-0 w-full h-full rounded-lg"
-                style={{
-                  backgroundImage: `url(${leader.imageUrl})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-              ></div>
+              {/* Use next/image component for background */}
+              <Image
+                src={leader.imageUrl}
+                alt={`Portrait of ${leader.name}`}
+                fill={true}
+                className="object-cover rounded-lg"
+                sizes="320px"
+              />
 
-              {/* Overlay - Change to gradient */}
-              <div className="absolute inset-0 w-full h-full transition-opacity duration-300 bg-gradient-to-b from-transparent via-black/20 to-black/80 rounded-lg z-5"></div>
+              {/* Overlay - ensure it's above the image */}
+              <div className="absolute inset-0 w-full h-full transition-opacity duration-300 bg-gradient-to-b from-transparent via-black/20 to-black/80 rounded-lg z-10"></div>
               
-              {/* Content Area - Ensure it's above the background and overlay */}
-              <div className="relative z-10 flex flex-col justify-end h-full p-6 text-white">
+              {/* Content Area - Ensure it's above the overlay */}
+              <div className="relative z-20 flex flex-col justify-end h-full p-6 text-white">
                 <h3 className="text-2xl font-bold">
                   {leader.name}
                 </h3>
