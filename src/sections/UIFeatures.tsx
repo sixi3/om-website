@@ -2,6 +2,8 @@ import React from "react";
 import { GridBackground } from "@/components/ui/grid-background"; // Optional background
 import { Settings2, SlidersHorizontal, MonitorSmartphone, Palette } from "lucide-react"; // Added icon imports
 import { TiltCard } from "@/components/ui/tilt-card"; // Import TiltCard
+import { ClayPhoneMockup } from "@/components/ui/ClayPhoneMockup"; // Import mockup
+import { AnimatedScreenContent } from "@/components/AnimatedScreenContent"; // Import new component
 
 // Copied from Solutions.tsx for consistency
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -62,20 +64,14 @@ export function UIFeatures() {
             })}
           </div>
 
-          {/* Right Column: Video Player */}
-          <div className="hidden lg:block rounded-lg overflow-hidden border border-border/40 shadow-lg aspect-video bg-neutral-200 dark:bg-neutral-800">
-            <video
-              src="/demotest.mp4" // Local video source
-              width="100%"
-              height="auto" // Height is handled by aspect ratio
-              controls={false}
-              muted // Muted for potential autoplay, user can unmute
-              playsInline
-              preload="metadata"
-              className="w-full h-full" // Ensure video fills container
-            >
-              Your browser does not support the video tag.
-            </video>
+          {/* Right Column: Phone mockup, centered and facing forward */}
+          <div className="hidden lg:flex justify-center items-center"> 
+            {/* Container for scaling the phone mockup */}
+            <div className="w-full max-w-[280px] sm:max-w-[300px] md:max-w-[320px] transform scale-90 sm:scale-100 mx-auto">
+              <ClayPhoneMockup>
+                <AnimatedScreenContent />
+              </ClayPhoneMockup>
+            </div>
           </div>
         </div>
       </div>
