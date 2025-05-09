@@ -21,7 +21,7 @@ const solutions = [
     header: (
       <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
         <Image 
-          src="/BnL.png" 
+          src="/Bnl.png" 
           alt="Banking & Lending illustration"
           fill={true}
           className="object-cover"
