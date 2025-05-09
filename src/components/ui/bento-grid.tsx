@@ -1,8 +1,7 @@
 'use client';
 
 import { cn } from "@/lib/utils";
-import React, { useRef, useState, useEffect } from "react";
-import Image from "next/image";
+import React, { useState, useEffect, useRef } from "react";
 
 export const BentoGrid = ({
   className,
@@ -29,79 +28,37 @@ export const BentoGridItem = ({
   description,
   header,
   icon,
-  videoHeaderSrc,
-  mobileHeaderImageSrc,
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   header?: React.ReactNode;
   icon?: React.ReactNode;
-  videoHeaderSrc?: string;
-  mobileHeaderImageSrc?: string;
 }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false); // Temporarily comment out if not used elsewhere
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  const handleMouseEnter = () => {
-    if (isMobile && mobileHeaderImageSrc) return;
-    if (videoRef.current) {
-      videoRef.current.play();
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (isMobile && mobileHeaderImageSrc) return;
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  };
+  // useEffect(() => { // Temporarily comment out if not used elsewhere
+  //   const checkMobile = () => setIsMobile(window.innerWidth < 768);
+  //   checkMobile();
+  //   window.addEventListener('resize', checkMobile);
+  //   return () => window.removeEventListener('resize', checkMobile);
+  // }, []);
 
   return (
     <div
       className={cn(
-        "group/bento shadow-xl row-span-1 flex flex-col justify-between space-y-4 rounded-xl border border-slate-200 bg-background/10 backdrop-blur-md p-4 transition duration-200 dark:border-white/[0.2] dark:bg-black dark:shadow-none",
-        !(isMobile && mobileHeaderImageSrc) && "hover:shadow-xl",
+        "group/bento shadow-xl row-span-1 flex flex-col justify-start space-y-4 rounded-xl border border-slate-200 bg-background/10 p-4 transition duration-200 dark:border-white/[0.2] dark:bg-black dark:shadow-none",
+        // !isMobile && "hover:shadow-xl", // Removed hover:shadow-xl
         className,
       )}
-      onMouseEnter={videoHeaderSrc && !(isMobile && mobileHeaderImageSrc) ? handleMouseEnter : undefined}
-      onMouseLeave={videoHeaderSrc && !(isMobile && mobileHeaderImageSrc) ? handleMouseLeave : undefined}
     >
-      <div className="transition-transform duration-300 ease-in-out flex-1">
-        {isMobile && mobileHeaderImageSrc ? (
-          <div className="relative flex flex-1 w-full h-full min-h-[2rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
-            <Image
-              src={mobileHeaderImageSrc}
-              alt={typeof title === 'string' ? title : "Header image"}
-              width={1600}
-              height={900}
-              className="object-contain w-full h-full"
-            />
-          </div>
-        ) : videoHeaderSrc ? (
-          <div className="relative flex flex-1 w-full h-full min-h-[2rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
-            <video
-              ref={videoRef}
-              src={videoHeaderSrc}
-              muted
-              playsInline
-              className="object-contain w-full h-full"
-            />
-          </div>
-        ) : (
-          header
-        )}
+      <div className="transition-transform duration-300 ease-in-out">
+        {header}
       </div>
+      
       <div className={cn(
-        "transition duration-200",
+        "transition duration-200"
+        // !isMobile && "group-hover/bento:translate-x-2" // Removed group-hover:translate-x-2
       )}>
         {icon}
         <div className="mt-2 mb-2 font-bold text-neutral-600 dark:text-neutral-200">

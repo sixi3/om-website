@@ -3,6 +3,7 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { GridBackground } from "@/components/ui/grid-background";
 import { Landmark, ShieldCheck, TrendingUp, Plus } from "lucide-react"; // Updated icons
 import Marquee from "react-fast-marquee"; // Added import
+import Image from "next/image"; // Ensure Image is imported
 // Image import from next/image is not strictly needed here anymore if not used directly in this file
 // import Image from "next/image"; 
 
@@ -17,8 +18,16 @@ const solutions = [
     id: 1,
     title: "Banking & Lending",
     description: "Streamline loan processing and customer onboarding with secure data access.",
-    videoHeaderSrc: "/b&l.mp4",
-    mobileHeaderImageSrc: "/BnL.png", // Added mobile image src
+    header: (
+      <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
+        <Image 
+          src="/BnL.png" 
+          alt="Banking & Lending illustration"
+          fill={true}
+          className="object-cover"
+        />
+      </div>
+    ),
     icon: <Landmark className="h-4 w-4 text-[#00b140]" />,
     className: "md:col-span-1",
   },
@@ -26,8 +35,16 @@ const solutions = [
     id: 2,
     title: "Insurance Underwriting",
     description: "Accelerate underwriting processes with verified financial and identity data.",
-    videoHeaderSrc: "/insurance.mp4",
-    mobileHeaderImageSrc: "/Ins.png", // Added mobile image src
+    header: (
+      <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
+        <Image 
+          src="/Ins.png" 
+          alt="Insurance Underwriting illustration"
+          fill={true}
+          className="object-cover"
+        />
+      </div>
+    ),
     icon: <ShieldCheck className="h-4 w-4 text-[#00b140]" />,
     className: "md:col-span-1",
   },
@@ -35,8 +52,16 @@ const solutions = [
     id: 3,
     title: "Wealth Management",
     description: "Gain a holistic view of client assets for personalized financial planning and advice.",
-    videoHeaderSrc: "/wm.mp4",
-    mobileHeaderImageSrc: "/WM.png", // Added mobile image src
+    header: (
+      <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
+        <Image 
+          src="/WM.png" 
+          alt="Wealth Management illustration"
+          fill={true}
+          className="object-cover"
+        />
+      </div>
+    ),
     icon: <TrendingUp className="h-4 w-4 text-[#00b140]" />,
     className: "md:col-span-1",
   },
@@ -74,11 +99,9 @@ export function Solutions() {
               key={item.id}
               title={item.title}
               description={item.description}
-              videoHeaderSrc={item.videoHeaderSrc}
-              mobileHeaderImageSrc={item.mobileHeaderImageSrc} // Pass the mobile image src
+              header={item.header}
               icon={item.icon}
               className={item.className}
-              // header prop is no longer passed for these items
             />
           ))}
         </BentoGrid>
