@@ -1,7 +1,8 @@
 "use client"; // Mark Hero as a Client Component
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image"; // Import the Image component
+import dynamic from 'next/dynamic'; // Import dynamic
 import { GlowingButton } from "@/components/ui/glowing-button"; // Import GlowingButton
 import Marquee from "react-fast-marquee"; // Import Marquee
 import {
@@ -44,7 +45,19 @@ const clientLogos = [
 // Define metallic black class here too - Updated neutral shades
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
+// Dynamically import Lottie component
+const DynamicLottie = dynamic(() => import('lottie-react'), { ssr: false });
+
 export function Hero() {
+  const [animationData, setAnimationData] = useState<object | null>(null);
+
+  useEffect(() => {
+    fetch('/header-animation.json')
+      .then(response => response.json())
+      .then(data => setAnimationData(data))
+      .catch(error => console.error("Error fetching Lottie animation:", error));
+  }, []);
+
   return (
     <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-start pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4">
@@ -93,14 +106,21 @@ export function Hero() {
       </div>
 
       <div className="hidden lg:block relative w-full h-full lg:pr-12 xl:pr-20">
-        <Image 
+        {/* <Image 
           src="/header-graphic.png" 
           alt="Hero graphic illustrating financial connections"
           fill={true} 
           sizes="(min-width: 1024px) 50vw, 0vw" // Takes roughly half the viewport
           className="object-contain" // Use contain to show the whole image proportionally
           priority 
-        />
+        /> */}
+        {animationData && (
+          <DynamicLottie 
+            animationData={animationData} 
+            loop={true} 
+            className="w-full object-contain h-auto xl:h-[500px]" // Adjust styling as needed
+          />
+        )}
       </div>
 
       <div className="lg:col-span-2 w-full mt-16 md:mt-24">

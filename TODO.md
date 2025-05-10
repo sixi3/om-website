@@ -220,3 +220,44 @@ This document outlines the steps to create a React website similar in structure 
     *   [ ] **Further Profiling (if needed):**
         *   [ ] Use browser developer tools (Lighthouse, Performance tab) or Vercel Analytics to identify remaining bottlenecks.
         *   [ ] Investigate code splitting/dynamic imports for non-critical large sections/components.
+
+7.  **Asset Hosting & Advanced Deployment:**
+    *   **A. Host Static Assets on AWS S3:**
+        *   [ ] **1. Create an S3 Bucket:**
+            *   [ ] Sign in to AWS Management Console and navigate to S3.
+            *   [ ] Create a new bucket (e.g., `onemoney-assets` or `assets.onemoney.in`), choose region.
+            *   [ ] Decide on public access strategy (direct vs. CloudFront).
+        *   [ ] **2. Upload Assets to S3:**
+            *   [ ] Identify all static assets (images in `public/`, Lottie JSONs, etc.).
+            *   [ ] Organize and upload assets to the S3 bucket (e.g., `images/`, `lottie/` folders).
+        *   [ ] **3. Configure Asset Serving:**
+            *   [ ] **Option 1 (Direct S3):** Configure bucket policies/ACLs for public read. Note S3 object URLs.
+            *   [ ] **Option 2 (CloudFront - Recommended):** 
+                *   [ ] Create CloudFront distribution with S3 bucket as origin (consider OAI).
+                *   [ ] Configure cache behaviors, HTTPS.
+                *   [ ] Optionally, set up a custom CNAME for assets (e.g., `assets.onemoney.in`). Note CloudFront/CNAME URL.
+        *   [ ] **4. Update Website Code:**
+            *   [ ] Replace local asset paths in components with S3/CloudFront URLs.
+            *   [ ] Use `NEXT_PUBLIC_ASSET_PREFIX` environment variable for the base asset URL.
+        *   [ ] **5. Testing:**
+            *   [ ] Verify all assets load correctly from S3/CloudFront locally and on Vercel.
+
+    *   **B. Deploy to Vercel with Custom Domain (`www.onemoney.in`):**
+        *   [ ] **1. Vercel Project Configuration:**
+            *   [ ] Log in to Vercel, navigate to `om-website-ten` project settings -> "Domains".
+        *   [ ] **2. Add Custom Domain:**
+            *   [ ] Add `www.onemoney.in`.
+            *   [ ] Note DNS records provided by Vercel.
+        *   [ ] **3. Configure Apex Domain (Recommended):**
+            *   [ ] Add `onemoney.in` in Vercel domains.
+            *   [ ] Set up recommended redirect (e.g., apex to `www` or vice-versa).
+        *   [ ] **4. Update DNS Records at Registrar:**
+            *   [ ] Log in to your domain registrar for `onemoney.in`.
+            *   [ ] Add/update DNS records as per Vercel's instructions (CNAME for `www`, A record for apex, TXT for verification if needed).
+        *   [ ] **5. Propagation and Verification:**
+            *   [ ] Wait for DNS propagation.
+            *   [ ] Vercel will verify and issue SSL.
+        *   [ ] **6. Set Production Domain:**
+            *   [ ] Ensure `www.onemoney.in` (or preferred version) is the production domain in Vercel.
+        *   [ ] **7. Testing:**
+            *   [ ] Access `https://www.onemoney.in` and test redirects.

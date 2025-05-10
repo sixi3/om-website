@@ -109,10 +109,12 @@ export function Solutions() {
           ))}
         </BentoGrid>
 
-        {/* Added Circle with Plus Icon */}
-        <div className="flex justify-center my-4"> {/* Centering container with margin */} 
-          <div className="flex items-center justify-center h-12 w-12 rounded-full border border-slate-200 bg-background/10 backdrop-blur-md dark:border-neutral-700">
-            <Plus className="h-6 w-6 text-slate-800 dark:text-neutral-400" />
+        {/* Replaced Circle with Plus Icon with a text pill */}
+        <div className="flex justify-center my-8"> {/* Adjusted margin for the new pill */}
+          <div
+            className="inline-block backdrop-blur-md rounded-full dark:border-neutral-700 px-6 py-3 text-sm font-medium text-slate-600 dark:bg-neutral-800 dark:text-neutral-300"
+          >
+            AND MANY MORE
           </div>
         </div>
 

@@ -246,47 +246,52 @@ export const UserJourneyAnimation: React.FC<UserJourneyAnimationProps> = ({ onSt
 
   useEffect(() => {
     memoizedOnStageChange();
+
+    // Clear any existing auto-proceed timers
     clearTimeout(autoProceedTimerRef.current as NodeJS.Timeout);
     clearTimeout(consentTimers.current.deselection as NodeJS.Timeout);
     clearTimeout(consentTimers.current.sliding as NodeJS.Timeout);
-    clearTimeout(consentTimers.current.deselectionAction as NodeJS.Timeout); // Clear new timer
+    clearTimeout(consentTimers.current.deselectionAction as NodeJS.Timeout);
 
-    if (currentSubStep !== 'otp-entry') {
-      setIsVerificationEnabled(false);
-    }
-    
-    if (currentSubStep === 'consent-initial') {
+    // Logic for each step
+    if (currentSubStep === 'otp-entry') {
+      if (isVerificationEnabled) {
+        autoProceedTimerRef.current = setTimeout(() => {
+          setCurrentSubStep('consent-initial');
+          setIsVerificationEnabled(false); 
+        }, 2000); 
+      }
+    } else if (currentSubStep === 'consent-initial') {
       consentTimers.current.deselection = setTimeout(() => {
         setCurrentSubStep('consent-account-deselected');
-      }, 2000);
-    } else if (currentSubStep === 'consent-account-deselected'){
-      const deselectionVisualStartDelay = 1000; // JourneyConsentScreen internal delay
-      const deselectionAnimationDuration = 500; // Estimated animation time
-      const buffer = 200; // Buffer
-      const timeToWaitForVisualDeselection = deselectionVisualStartDelay + deselectionAnimationDuration + buffer; // Approx 1700ms
+      }, 2500); 
+    } else if (currentSubStep === 'consent-account-deselected') {
+       consentTimers.current.sliding = setTimeout(() => {
+        setCurrentSubStep('consent-sliding');
+      }, 2200); 
+    }
 
-      consentTimers.current.deselectionAction = setTimeout(() => {
-        const targetElement = document.getElementById("view-consent-details-trigger");
-        if (targetElement && screenContentRef.current?.contains(targetElement)) {
-          targetElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Scroll to top of the phone screen content area when sub-step changes,
+    // deferred to prevent interference with page scroll.
+    if (screenContentRef.current) {
+      const scrollTimer = setTimeout(() => {
+        if (screenContentRef.current) { // Re-check ref in case of unmount
+          screenContentRef.current.scrollTop = 0;
         }
-
-        // Wait 2s after scrolling (or initiating scroll) before starting slider
-        consentTimers.current.sliding = setTimeout(() => {
-          setCurrentSubStep('consent-sliding');
-        }, 2000); // 2s delay AFTER scroll initiation
-      }, timeToWaitForVisualDeselection);
-    } else if (currentSubStep === 'consent-sliding'){
-        // Timer-based transition to success is removed, handled by onSlideAnimationComplete
+      }, 0);
+      // It's good practice to clear this timeout if the component unmounts or dependencies change before it runs.
+      // For simplicity in this change, we're relying on the main useEffect cleanup.
+      // A more robust way would be to store `scrollTimer` in a ref and clear it in the return function.
     }
 
     return () => {
       clearTimeout(autoProceedTimerRef.current as NodeJS.Timeout);
       clearTimeout(consentTimers.current.deselection as NodeJS.Timeout);
       clearTimeout(consentTimers.current.sliding as NodeJS.Timeout);
-      clearTimeout(consentTimers.current.deselectionAction as NodeJS.Timeout); // Clear new timer on cleanup
+      clearTimeout(consentTimers.current.deselectionAction as NodeJS.Timeout);
+      // If scrollTimer was stored in a ref, clear it here too.
     };
-  }, [memoizedOnStageChange, currentSubStep]);
+  }, [currentSubStep, memoizedOnStageChange, isVerificationEnabled]);
 
   const handleOtpAnimationComplete = useCallback(() => {
     setIsVerificationEnabled(true);

@@ -42,6 +42,7 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 export function WhatIsOneMoney() {
   const [currentActiveCardIndex, setCurrentActiveCardIndex] = useState(0);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [hasBeenInView, setHasBeenInView] = useState(false);
 
   const handleStageChange = useCallback((index: number) => {
     setCurrentActiveCardIndex(index);
@@ -60,7 +61,14 @@ export function WhatIsOneMoney() {
   }, []);
 
   return (
-    <section className="relative w-full py-16 md:py-24">
+    <motion.section 
+      className="relative w-full py-16 md:py-24"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      onViewportEnter={() => setHasBeenInView(true)}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+    >
       <GridBackground />
       <div className="container px-4 md:px-6 mx-auto mb-12 md:mb-16">
       
@@ -91,7 +99,7 @@ export function WhatIsOneMoney() {
                 <motion.div
                   key={currentActiveCardIndex} 
                   initial={{ x: "100%", opacity: 0 }}
-                  animate={{ x: "0%", opacity: 1 }}
+                  animate={hasBeenInView ? { x: "0%", opacity: 1 } : { x: "100%", opacity: 0 }}
                   exit={{ x: "-100%", opacity: 0 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                   className={cn(
@@ -113,8 +121,8 @@ export function WhatIsOneMoney() {
                     <motion.div 
                       className="h-full bg-green-500"
                       initial={{ width: "0%" }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: progressBarFillDurations[currentActiveCardIndex], ease: "easeInOut" }}
+                      animate={hasBeenInView ? { width: "100%" } : { width: "0%" }}
+                      transition={{ duration: hasBeenInView ? progressBarFillDurations[currentActiveCardIndex] : 0, ease: "easeInOut" }}
                     />
                   </div>
                 </motion.div>
@@ -163,8 +171,8 @@ export function WhatIsOneMoney() {
                       <motion.div 
                         className="h-full bg-green-500"
                         initial={{ width: "0%" }}
-                        animate={{ width: isActive ? "100%" : "0%" }}
-                        transition={{ duration: isActive ? progressBarFillDurations[index] : 0.3, ease: "easeInOut" }}
+                        animate={hasBeenInView && isActive ? { width: "100%" } : { width: "0%" }}
+                        transition={{ duration: hasBeenInView && isActive ? progressBarFillDurations[index] : 0, ease: "easeInOut" }}
                       />
                     </div>
                   </div>
@@ -177,10 +185,10 @@ export function WhatIsOneMoney() {
         {/* Right Column / Bottom on small: Phone Mockup - order-2 on small, md:order-none */}
         <div className="w-full sticky top-28 flex justify-center items-start py-8 md:py-0 md:order-none">
           <ClayPhoneMockup>
-            <UserJourneyAnimation onStageChange={handleStageChange} />
+            {hasBeenInView && <UserJourneyAnimation onStageChange={handleStageChange} />}
           </ClayPhoneMockup>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 } 
