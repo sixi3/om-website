@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { GlowingButton } from "@/components/ui/glowing-button";
 import { 
@@ -68,8 +68,10 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null); // State for open dropdown
+  const dropdownTimerRef = useRef<NodeJS.Timeout | null>(null); // Ref for dropdown close timer
   const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null); // State for open mobile submenu
-  const [isSmallScreen, setIsSmallScreen] = useState(false); // State for small screen detection
+  const [isSmallScreen, setIsSmallScreen] = useState(true); // Default to true
+  const [isExtraSmallScreen, setIsExtraSmallScreen] = useState(true); // Default to true
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,6 +80,7 @@ export function Header() {
 
     const checkScreenSize = () => {
       setIsSmallScreen(window.innerWidth < 768);
+      setIsExtraSmallScreen(window.innerWidth < 350);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -141,6 +144,25 @@ export function Header() {
     exit: { height: 0, opacity: 0, transition: { duration: 0.2, ease: "easeInOut" } }
   };
 
+  const DROPDOWN_DELAY = 200; // milliseconds
+
+  const handleMouseEnterDropdown = (itemName: string) => {
+    if (dropdownTimerRef.current) {
+      clearTimeout(dropdownTimerRef.current);
+      dropdownTimerRef.current = null;
+    }
+    setOpenDropdown(itemName);
+  };
+
+  const handleMouseLeaveDropdownArea = () => {
+    if (dropdownTimerRef.current) {
+      clearTimeout(dropdownTimerRef.current);
+    }
+    dropdownTimerRef.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, DROPDOWN_DELAY);
+  };
+
   return (
     <div className="fixed top-0 left-0 right-0 z-50 p-3 pointer-events-none">
       <header
@@ -167,8 +189,8 @@ export function Header() {
               <div 
                 key={item.name}
                 className="relative"
-                onMouseEnter={() => item.submenu && setOpenDropdown(item.name)}
-                onMouseLeave={() => item.submenu && setOpenDropdown(null)}
+                onMouseEnter={() => item.submenu && handleMouseEnterDropdown(item.name)}
+                onMouseLeave={() => item.submenu && handleMouseLeaveDropdownArea()}
               >
                 <Link
                   href={item.href}
@@ -188,15 +210,16 @@ export function Header() {
                 {/* Dropdown Menu - Using CSS Transitions */}
                 {/* <AnimatePresence> */}
                    {item.submenu && (
-                     <div // Changed from motion.div
-                       // Removed variants, initial, animate, exit props
+                     <div 
                        className={cn(
                          "absolute top-full left-0 mt-1 w-60 rounded-md shadow-lg bg-background border border-border/40 py-1 z-50",
-                         "transition-[opacity,transform] duration-200 ease-out", // CSS transition
+                         "transition-[opacity,transform] duration-200 ease-out",
                          openDropdown === item.name 
                            ? "opacity-100 visible translate-y-0 pointer-events-auto" 
-                           : "opacity-0 invisible -translate-y-1 pointer-events-none" // Conditional visibility/transform
+                           : "opacity-0 invisible -translate-y-1 pointer-events-none"
                        )}
+                       onMouseEnter={() => handleMouseEnterDropdown(item.name)} // Keep open if mouse enters dropdown
+                       onMouseLeave={handleMouseLeaveDropdownArea} // Start timer if mouse leaves dropdown
                      >
                        {item.submenu?.map((subItem) => {
                          const Icon = subItem.icon;
@@ -226,9 +249,9 @@ export function Header() {
                   size="sm" 
                   className={cn(
                     "whitespace-nowrap transition-opacity duration-300",
-                    isSmallScreen && !isScrolled && "opacity-0 pointer-events-none",
-                    isSmallScreen && isScrolled && "opacity-100 pointer-events-auto",
-                    // On larger screens, defaults to visible (no specific opacity classes needed here)
+                    isExtraSmallScreen ? "hidden" : "",
+                    !isExtraSmallScreen && isSmallScreen && !isScrolled && "opacity-0 pointer-events-none",
+                    !isExtraSmallScreen && isSmallScreen && isScrolled && "opacity-100 pointer-events-auto"
                   )}
                 >
                   Talk to Us
@@ -264,7 +287,7 @@ export function Header() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="lg:hidden absolute top-full left-0 right-0 bg-background/90 backdrop-blur-md border-t border-white/20 shadow-lg rounded-b-lg py-4 px-4"
+              className="lg:hidden absolute top-full left-0 right-0 bg-background/10 backdrop-blur-md border-t border-white/20 shadow-lg rounded-b-lg py-4 px-4"
             >
               <nav className="flex flex-col">
                 {navItems.map((item) => (

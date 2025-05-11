@@ -62,7 +62,7 @@ export const PhoneScreenFooter: React.FC<PhoneScreenFooterProps> = ({
   };
 
   return (
-    <div className={cn("bg-white dark:bg-neutral-800 p-3 shadow-[0_-2px_5px_rgba(0,0,0,0.05)] dark:shadow-[0_-2px_5px_rgba(0,0,0,0.2)] rounded-t-lg", className)}>
+    <div className={cn("bg-white dark:bg-neutral-800 p-2 shadow-[0_-2px_5px_rgba(0,0,0,0.05)] dark:shadow-[0_-2px_5px_rgba(0,0,0,0.2)] rounded-t-lg", className)}>
       {infoText && (
         <p className="text-[8px] text-center text-slate-500 dark:text-slate-400 mb-1.5 px-2">
           {infoText}

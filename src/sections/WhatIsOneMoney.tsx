@@ -43,9 +43,21 @@ export function WhatIsOneMoney() {
   const [currentActiveCardIndex, setCurrentActiveCardIndex] = useState(0);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [hasBeenInView, setHasBeenInView] = useState(false);
+  const [targetAnimationStage, setTargetAnimationStage] = useState<number | null>(null);
+  const [progressKeySuffix, setProgressKeySuffix] = useState(0); // For resetting progress bars
 
   const handleStageChange = useCallback((index: number) => {
     setCurrentActiveCardIndex(index);
+  }, []);
+
+  const handleAnimationJumpComplete = useCallback(() => {
+    setTargetAnimationStage(null);
+  }, []);
+
+  const handleCardClick = useCallback((index: number) => {
+    setCurrentActiveCardIndex(index);
+    setTargetAnimationStage(index);
+    setProgressKeySuffix(prev => prev + 1); // Force progress bar re-animation
   }, []);
 
   // Durations for progress bar fill animations (in seconds)
@@ -136,11 +148,12 @@ export function WhatIsOneMoney() {
                 return (
                   <div 
                     key={index} 
+                    onClick={() => handleCardClick(index)}
                     className={cn(
-                      "p-6 rounded-lg transition-all duration-300 ease-in-out",
+                      "p-6 rounded-lg transition-all duration-300 ease-in-out cursor-pointer",
                       isActive 
                         ? "bg-background/10 backdrop-blur-md dark:bg-neutral-800 shadow-md border border-slate-200 dark:border-neutral-700"
-                        : "border border-transparent" 
+                        : "border border-transparent hover:border-slate-200 hover:bg-background/10 backdrop-blur-md dark:hover:border-neutral-600"
                     )}
                   >
                     <h3 
@@ -169,6 +182,7 @@ export function WhatIsOneMoney() {
                       isActive ? "bg-slate-300 dark:bg-neutral-700" : "bg-transparent"
                       )}>
                       <motion.div 
+                        key={`progress-${index}-${progressKeySuffix}`}
                         className="h-full bg-green-500"
                         initial={{ width: "0%" }}
                         animate={hasBeenInView && isActive ? { width: "100%" } : { width: "0%" }}
@@ -185,7 +199,13 @@ export function WhatIsOneMoney() {
         {/* Right Column / Bottom on small: Phone Mockup - order-2 on small, md:order-none */}
         <div className="w-full sticky top-28 flex justify-center items-start py-8 md:py-0 md:order-none">
           <ClayPhoneMockup>
-            {hasBeenInView && <UserJourneyAnimation onStageChange={handleStageChange} />}
+            {hasBeenInView && 
+              <UserJourneyAnimation 
+                onStageChange={handleStageChange} 
+                disableAutoTransitions={false}
+                jumpToStage={targetAnimationStage}
+                onJumpComplete={handleAnimationJumpComplete}
+              />}
           </ClayPhoneMockup>
         </div>
       </div>

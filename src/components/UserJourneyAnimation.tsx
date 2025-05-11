@@ -6,11 +6,22 @@ import { cn } from '@/lib/utils';
 import { PhoneScreenHeader } from './ui/PhoneScreenHeader';
 import { PhoneScreenFooter } from './ui/PhoneScreenFooter';
 import { BrandedConsentScreenBody, AccentColors, ConsentTerms, BrandedConsentScreenBodyProps } from './AnimatedScreenContent';
+import Image from 'next/image';
+import { Download } from 'lucide-react';
 
-// JourneyInput and JourneyButton are no longer used in this component, can be removed.
+// Define MobilePe specific accent colors here for the journey
+const mobilePeJourneyAccentColors: AccentColors = {
+  text: 'text-purple-800 dark:text-purple-400',
+  border: 'border-purple-800',
+  backgroundLight: 'bg-purple-50 dark:bg-purple-900/30',
+  sliderButtonBackground: 'bg-purple-800',
+};
 
 interface UserJourneyAnimationProps {
   onStageChange?: (stageIndex: number) => void;
+  disableAutoTransitions?: boolean;
+  jumpToStage?: number | null;
+  onJumpComplete?: () => void;
 }
 
 // Updated JourneySubStep: Merged OTP steps
@@ -22,37 +33,38 @@ interface OtpEntryScreenProps {
   onOtpAnimationComplete: () => void; // Callback when OTP auto-fill is done
 }
 
-const OtpEntryScreen: React.FC<OtpEntryScreenProps> = ({ phoneNumber, onOtpAnimationComplete }) => {
+const OtpEntryScreen: React.FC<OtpEntryScreenProps> = React.memo(({ phoneNumber, onOtpAnimationComplete }) => {
   const [displayedOtp, setDisplayedOtp] = useState("");
-  const demoOtp = "123456"; // Target OTP
+  const otpRef = useRef<string>(""); // Use a ref to store the OTP for the current render cycle
 
   useEffect(() => {
-    setDisplayedOtp(""); // Reset OTP display on mount or when key changes
+    // Generate a random 6-digit OTP
+    const randomOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    otpRef.current = randomOtp;
+    setDisplayedOtp(""); // Reset OTP display
+
     let currentIndex = 0;
     const fillInterval = setInterval(() => {
-      if (currentIndex < demoOtp.length) {
-        const charToAdd = demoOtp[currentIndex];
-        // Defensive check: Ensure charToAdd is not undefined (should not happen with correct bounds)
+      if (currentIndex < otpRef.current.length) {
+        const charToAdd = otpRef.current[currentIndex];
         if (charToAdd !== undefined) { 
           setDisplayedOtp(prev => prev + charToAdd);
           currentIndex++;
         } else {
-          // This case should ideally not be reached if logic is correct
           console.error("OTP animation error: charToAdd is undefined");
           clearInterval(fillInterval);
-          onOtpAnimationComplete(); // Still call complete to unblock UI
+          onOtpAnimationComplete(); 
         }
       } else {
         clearInterval(fillInterval);
         onOtpAnimationComplete();
       }
-    }, 400); // Animation speed: 400ms per digit
+    }, 400); 
 
     return () => {
       clearInterval(fillInterval);
     };
-  // onOtpAnimationComplete is memoized by parent. demoOtp is constant.
-  }, [onOtpAnimationComplete, demoOtp]);
+  }, [onOtpAnimationComplete]);
 
   const commonInputStyle = "flex h-10 items-center rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm dark:border-neutral-600";
   const lightModeTextStyle = "text-slate-700"; // Base text color for light mode
@@ -62,16 +74,25 @@ const OtpEntryScreen: React.FC<OtpEntryScreenProps> = ({ phoneNumber, onOtpAnima
 
   return (
     <motion.div 
-      className="w-full p-6 flex flex-col items-center justify-center flex-grow space-y-5"
+      className="w-full p-4 flex flex-col items-center justify-start flex-grow"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="text-center w-full max-w-xs">
-        {/* Title is now in PhoneScreenHeader */}
-        <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">
-          Enter the 6-digit OTP sent to your mobile number.
+      <div className="text-center w-full max-w-xs mb-3">
+        <div className="mb-2">
+          <Image 
+            src="/3d-isometric-security-customizable-authentication-and-access-control-1 2.png" 
+            alt="Secure Login Illustration" 
+            width={100}
+            height={100}
+            className="mx-auto"
+          />
+        </div>
+        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Login to OneMoney</h2>
+        <p className="text-xs text-slate-600 dark:text-slate-300 mb-1">
+          Verify your mobile to share your account data
         </p>
       </div>
       
@@ -81,7 +102,7 @@ const OtpEntryScreen: React.FC<OtpEntryScreenProps> = ({ phoneNumber, onOtpAnima
         </label>
         <div 
           id="phoneDisplayFixed"
-          className={cn(commonInputStyle, lightModeBgStyle, "dark:bg-neutral-800", lightModeTextStyle, darkModeTextStyle, "text-slate-500 dark:text-slate-400 bg-slate-100")}
+          className={cn(commonInputStyle, lightModeBgStyle, "dark:bg-neutral-800", lightModeTextStyle, darkModeTextStyle, "text-slate-500 dark:text-slate-400 bg-slate-50")}
         >
           {phoneNumber}
         </div>
@@ -94,14 +115,19 @@ const OtpEntryScreen: React.FC<OtpEntryScreenProps> = ({ phoneNumber, onOtpAnima
         </label>
         <div 
           id="otpDisplay"
-          className={cn(commonInputStyle, lightModeBgStyle, darkModeBgStyle, lightModeTextStyle, darkModeTextStyle, "justify-start relative overflow-hidden min-h-[2.5rem]")}
+          className={cn(
+            commonInputStyle, 
+            "bg-slate-50 dark:bg-neutral-800", 
+            "text-slate-500 dark:text-slate-400", 
+            "justify-start relative overflow-hidden"
+          )}
           aria-live="polite"
           aria-label={`OTP value: ${displayedOtp}`}
         >
-          <span className="tracking-[0.2em] text-base font-medium"> 
-            {demoOtp.split('').map((digit, index) => (
+          <span className="tracking-[0.2em]">
+            {otpRef.current.split('').map((digit, index) => (
               <span key={index} className={cn(index < displayedOtp.length ? 'opacity-100' : 'opacity-30')}>
-                {index < displayedOtp.length ? displayedOtp[index] : '·'} 
+                {index < displayedOtp.length ? displayedOtp[index] : '#'} 
               </span>
             ))}
           </span>
@@ -109,7 +135,7 @@ const OtpEntryScreen: React.FC<OtpEntryScreenProps> = ({ phoneNumber, onOtpAnima
       </div>
     </motion.div>
   );
-};
+});
 
 // Modified JourneyConsentScreen component for deselection animation
 interface JourneyConsentScreenProps {
@@ -117,16 +143,12 @@ interface JourneyConsentScreenProps {
   // onDeselectionComplete?: () => void; // If UserJourneyAnimation needs to know
 }
 
-const JourneyConsentScreen: React.FC<JourneyConsentScreenProps> = ({ currentSubStep }) => {
+const JourneyConsentScreen: React.FC<JourneyConsentScreenProps> = React.memo(({ currentSubStep }) => {
   // State to manage deselection of the *second* account (Current Account)
   const [isCurrentAccountDeselected, setIsCurrentAccountDeselected] = useState(false);
 
-  const journeyAccentColors: AccentColors = {
-    text: 'text-sky-600 dark:text-sky-400',
-    border: 'border-sky-500',
-    backgroundLight: 'bg-sky-50 dark:bg-sky-900/30',
-    sliderButtonBackground: 'bg-sky-600', 
-  };
+  // Use the defined MobilePe accent colors
+  const journeyAccentColors: AccentColors = mobilePeJourneyAccentColors;
 
   const journeyConsentTerms: ConsentTerms = {
     purpose: "Account Verification for Service Setup",
@@ -170,7 +192,7 @@ const JourneyConsentScreen: React.FC<JourneyConsentScreenProps> = ({ currentSubS
       <BrandedConsentScreenBody {...brandedBodyProps} />
     </motion.div>
   );
-};
+});
 
 interface StepConfig {
   headerTitle: string;
@@ -189,7 +211,7 @@ const journeyConfig: Record<JourneySubStep, StepConfig> = {
     footerMode: 'button',
     footerButtonText: 'Continue',
     footerIsDisabled: true, 
-    footerInfoText: 'An OTP is being auto-filled for verification.',
+    footerInfoText: "OneMoney is India's first RBI-regulated account aggregator",
     stageIndex: 0,
   },
   'consent-initial': {
@@ -197,7 +219,7 @@ const journeyConfig: Record<JourneySubStep, StepConfig> = {
     footerMode: 'slider',
     footerSliderText: 'Slide to Approve Consent',
     footerInfoText: 'By proceeding, you agree to share your financial statement.',
-    footerSliderAccentColor: 'bg-sky-600',
+    footerSliderAccentColor: mobilePeJourneyAccentColors.sliderButtonBackground,
     stageIndex: 1,
   },
   'consent-account-deselected': {
@@ -205,7 +227,7 @@ const journeyConfig: Record<JourneySubStep, StepConfig> = {
     footerMode: 'slider',
     footerSliderText: 'Slide to Approve Consent',
     footerInfoText: 'By proceeding, you agree to share your financial statement.',
-    footerSliderAccentColor: 'bg-sky-600',
+    footerSliderAccentColor: mobilePeJourneyAccentColors.sliderButtonBackground,
     stageIndex: 1,
   },
   'consent-sliding': { 
@@ -213,7 +235,7 @@ const journeyConfig: Record<JourneySubStep, StepConfig> = {
     footerMode: 'slider',
     footerSliderText: 'Slide to Approve Consent',
     footerInfoText: 'By proceeding, you agree to share your financial statement.',
-    footerSliderAccentColor: 'bg-sky-600',
+    footerSliderAccentColor: mobilePeJourneyAccentColors.sliderButtonBackground,
     stageIndex: 2,
   },
   'success': {
@@ -223,15 +245,53 @@ const journeyConfig: Record<JourneySubStep, StepConfig> = {
   },
 };
 
-export const UserJourneyAnimation: React.FC<UserJourneyAnimationProps> = ({ onStageChange }) => {
+export const UserJourneyAnimation: React.FC<UserJourneyAnimationProps> = ({ 
+  onStageChange, 
+  disableAutoTransitions = false, 
+  jumpToStage,
+  onJumpComplete
+}) => {
   const [currentSubStep, setCurrentSubStep] = useState<JourneySubStep>('otp-entry');
   const [isVerificationEnabled, setIsVerificationEnabled] = useState(false);
   const autoProceedTimerRef = useRef<NodeJS.Timeout | null>(null);
   const consentTimers = useRef<{ deselection?: NodeJS.Timeout, sliding?: NodeJS.Timeout, deselectionAction?: NodeJS.Timeout }>({}); // Added deselectionAction timer
   const screenContentRef = useRef<HTMLDivElement>(null); // Ref for the scrollable content area
+  const scrollTimerRef = useRef<NodeJS.Timeout | null>(null); // Ref for the scroll timer
 
   const currentConfig = journeyConfig[currentSubStep];
   const actualFooterIsDisabled = currentSubStep === 'otp-entry' ? !isVerificationEnabled : currentConfig.footerIsDisabled;
+
+  // Effect to handle jumping to a specific stage
+  useEffect(() => {
+    if (jumpToStage !== null && jumpToStage !== undefined) {
+      // Clear all existing timers first
+      clearTimeout(autoProceedTimerRef.current as NodeJS.Timeout);
+      clearTimeout(consentTimers.current.deselection as NodeJS.Timeout);
+      clearTimeout(consentTimers.current.sliding as NodeJS.Timeout);
+      clearTimeout(consentTimers.current.deselectionAction as NodeJS.Timeout);
+      if (scrollTimerRef.current) {
+        clearTimeout(scrollTimerRef.current);
+      }
+
+      // Reset relevant states
+      setIsVerificationEnabled(false);
+      // Potentially reset other states if they persist across stages and shouldn't
+
+      let targetSubStep: JourneySubStep = 'otp-entry';
+      if (jumpToStage === 0) {
+        targetSubStep = 'otp-entry';
+      } else if (jumpToStage === 1) {
+        targetSubStep = 'consent-initial';
+      } else if (jumpToStage === 2) {
+        targetSubStep = 'consent-sliding'; // Or 'success' if preferred, but sliding shows action
+      }
+      setCurrentSubStep(targetSubStep);
+
+      if (onJumpComplete) {
+        onJumpComplete(); // Signal parent that jump has been processed
+      }
+    }
+  }, [jumpToStage, onJumpComplete]);
 
   const memoizedOnStageChange = useCallback(() => {
     if (onStageChange) {
@@ -255,26 +315,34 @@ export const UserJourneyAnimation: React.FC<UserJourneyAnimationProps> = ({ onSt
 
     // Logic for each step
     if (currentSubStep === 'otp-entry') {
-      if (isVerificationEnabled) {
+      if (isVerificationEnabled && !disableAutoTransitions) {
         autoProceedTimerRef.current = setTimeout(() => {
           setCurrentSubStep('consent-initial');
           setIsVerificationEnabled(false); 
         }, 2000); 
       }
     } else if (currentSubStep === 'consent-initial') {
-      consentTimers.current.deselection = setTimeout(() => {
-        setCurrentSubStep('consent-account-deselected');
-      }, 2500); 
+      if (!disableAutoTransitions) {
+        consentTimers.current.deselection = setTimeout(() => {
+          setCurrentSubStep('consent-account-deselected');
+        }, 2500); 
+      }
     } else if (currentSubStep === 'consent-account-deselected') {
-       consentTimers.current.sliding = setTimeout(() => {
-        setCurrentSubStep('consent-sliding');
-      }, 2200); 
+      if (!disableAutoTransitions) {
+        consentTimers.current.sliding = setTimeout(() => {
+          setCurrentSubStep('consent-sliding');
+        }, 2200); 
+      }
     }
 
     // Scroll to top of the phone screen content area when sub-step changes,
     // deferred to prevent interference with page scroll.
     if (screenContentRef.current) {
-      const scrollTimer = setTimeout(() => {
+      // Clear any existing scroll timer before setting a new one
+      if (scrollTimerRef.current) {
+        clearTimeout(scrollTimerRef.current);
+      }
+      scrollTimerRef.current = setTimeout(() => {
         if (screenContentRef.current) { // Re-check ref in case of unmount
           screenContentRef.current.scrollTop = 0;
         }
@@ -290,16 +358,21 @@ export const UserJourneyAnimation: React.FC<UserJourneyAnimationProps> = ({ onSt
       clearTimeout(consentTimers.current.sliding as NodeJS.Timeout);
       clearTimeout(consentTimers.current.deselectionAction as NodeJS.Timeout);
       // If scrollTimer was stored in a ref, clear it here too.
+      if (scrollTimerRef.current) {
+        clearTimeout(scrollTimerRef.current);
+      }
     };
-  }, [currentSubStep, memoizedOnStageChange, isVerificationEnabled]);
+  }, [currentSubStep, memoizedOnStageChange, isVerificationEnabled, disableAutoTransitions]);
 
   const handleOtpAnimationComplete = useCallback(() => {
     setIsVerificationEnabled(true);
     clearTimeout(autoProceedTimerRef.current as NodeJS.Timeout);
-    autoProceedTimerRef.current = setTimeout(() => {
-      setCurrentSubStep('consent-initial');
-    }, 2000); // Changed from 3000ms to 2000ms
-  }, []); 
+    if (!disableAutoTransitions) {
+      autoProceedTimerRef.current = setTimeout(() => {
+        setCurrentSubStep('consent-initial');
+      }, 2000); // Changed from 3000ms to 2000ms
+    }
+  }, [disableAutoTransitions]);
 
   // This function now primarily serves the OTP button, slider is automated.
   const handleFooterAction = useCallback(() => {
@@ -307,15 +380,24 @@ export const UserJourneyAnimation: React.FC<UserJourneyAnimationProps> = ({ onSt
       clearTimeout(autoProceedTimerRef.current as NodeJS.Timeout);
       setCurrentSubStep('consent-initial'); 
     }
-    // Slider action is now fully automated by useEffect timers.
-    // Kept else-if structure in case of future manual override needs for slider.
-    // else if (currentSubStep === 'consent-initial' || currentSubStep === 'consent-account-deselected') {
-    //   clearTimeout(consentTimers.current.deselection as NodeJS.Timeout);
-    //   clearTimeout(consentTimers.current.sliding as NodeJS.Timeout);
-    //   setCurrentSubStep('consent-sliding');
-    //   consentTimers.current.sliding = setTimeout(() => setCurrentSubStep('success'), 1500);
-    // }
   }, [currentSubStep, isVerificationEnabled]);
+
+  const handleRestartJourney = useCallback(() => {
+    // Clear all existing timers
+    clearTimeout(autoProceedTimerRef.current as NodeJS.Timeout);
+    clearTimeout(consentTimers.current.deselection as NodeJS.Timeout);
+    clearTimeout(consentTimers.current.sliding as NodeJS.Timeout);
+    clearTimeout(consentTimers.current.deselectionAction as NodeJS.Timeout);
+    if (scrollTimerRef.current) {
+      clearTimeout(scrollTimerRef.current);
+    }
+
+    // Reset relevant states
+    setIsVerificationEnabled(false);
+    // Set currentSubStep to the beginning
+    setCurrentSubStep('otp-entry');
+    // The main useEffect watching currentSubStep will handle calling onStageChange
+  }, []); // No dependencies needed as it's resetting to initial state constants
 
   const renderScreenContent = () => {
     switch (currentSubStep) {
@@ -331,7 +413,51 @@ export const UserJourneyAnimation: React.FC<UserJourneyAnimationProps> = ({ onSt
         // The footer will indicate processing via its slide animation.
         return <JourneyConsentScreen key="consent-screen" currentSubStep={currentSubStep} />;
       case 'success':
-         return <motion.div key="success" className="p-4 text-center flex-grow flex items-center justify-center">Success Screen Placeholder</motion.div>;
+         return (
+          <motion.div 
+            key="success"
+            className="p-4 text-center flex-grow flex flex-col items-center justify-center space-y-4"
+            initial={{ opacity: 0, scale: 0.9 }} 
+            animate={{ opacity: 1, scale: 1 }} 
+            transition={{ duration: 0.3 }}
+          >
+            <Image 
+              src="/success-screen (1).png" 
+              alt="Consent Approved Illustration" 
+              width={80} 
+              height={80} 
+              className="mx-auto mb-2"
+            />
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Consent Approved</h2>
+            <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">Thank you for sharing consent.</p>
+            <a
+              href="#"
+              download="Account_Statement.xlsx"
+              className={cn(
+                "group inline-flex items-center justify-center px-5 py-2.5 rounded-md shadow-sm border border-slate-200 dark:border-neutral-600",
+                "bg-slate-50 dark:to-neutral-800",
+                "text-sm font-medium text-slate-700 dark:text-slate-200",
+                "hover:from-slate-200 hover:to-slate-400 dark:hover:from-neutral-600 dark:hover:to-neutral-700",
+                "active:bg-slate-300 active:to-slate-200 dark:active:from-neutral-800 dark:active:to-neutral-700",
+                "transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:focus:ring-offset-neutral-900"
+              )}
+            >
+              <Download className="w-4 h-4 mr-2 text-slate-600 dark:text-slate-300 group-hover:text-slate-700 dark:group-hover:text-slate-100" />
+             Download Data
+            </a>
+            <button
+              onClick={handleRestartJourney}
+              className={cn(
+                "mt-4 text-sm font-medium",
+                mobilePeJourneyAccentColors.text, // Use accent color for the text
+                "hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-neutral-900",
+                mobilePeJourneyAccentColors.text.replace("text-", "focus:ring-") // Dynamically create focus ring color
+              )}
+            >
+              Restart Journey
+            </button>
+          </motion.div>
+        );
       default:
         return <motion.div key={currentSubStep} className="p-4 text-center flex-grow flex items-center justify-center">Screen for {currentSubStep}</motion.div>;
     }
@@ -347,7 +473,7 @@ export const UserJourneyAnimation: React.FC<UserJourneyAnimationProps> = ({ onSt
         activeKey={currentSubStep}
         animateTransition={false}
         showBackButton={currentSubStep !== 'otp-entry'} 
-        showMoreButton={false} 
+        showMoreButton={true}
       />
       
       <div ref={screenContentRef} className="flex-grow overflow-y-auto relative flex flex-col">
@@ -366,7 +492,7 @@ export const UserJourneyAnimation: React.FC<UserJourneyAnimationProps> = ({ onSt
         buttonText={currentConfig.footerButtonText}
         onButtonClick={handleFooterAction} 
         isButtonDisabled={actualFooterIsDisabled} 
-        buttonAccentColor="bg-green-600 text-white" 
+        buttonAccentColor="bg-[#5A2989] text-white"
         showPoweredBy={true}
       />
     </div>

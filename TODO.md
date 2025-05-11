@@ -103,6 +103,7 @@ This document outlines the steps to create a React website similar in structure 
                     *   [x] Static "MobilePe" logo (`/mobilepelogo.svg`) and "MobilePe" title.
                     *   [x] Static MobilePe gradient.
                     *   [x] `animateTransition={false}` to disable header animations between steps.
+                    *   [x] `showMoreButton={false}` (Now `true` to match `AnimatedScreenContent.tsx`)
                 *   [x] Use `<PhoneScreenFooter />` with props changing based on `currentSubStep`:
                     *   [x] **OTP Entry Screen:** `mode='button'`, `buttonText='Continue'`, `isButtonDisabled=true` (enables after OTP animation), `infoText` present. Auto-transitions 2s after button enables.
                     *   [x] **Consent Screen (Initial & Account Deselected steps):** `mode='slider'`, `sliderText='Slide to Approve Consent'`, `infoText` present ("By proceeding...").
@@ -121,9 +122,10 @@ This document outlines the steps to create a React website similar in structure 
                 *   [x] Sub-step `consent-account-deselected`:
                     *   [x] After 1s delay (internal to `JourneyConsentScreen`), second account (Current Account) animates to deselected state.
                     *   [x] `BrandedConsentScreenBody` updated to accept `isAccountADeselected`, `isAccountBDeselected` for this.
+                *   [x] Updated accent color to MobilePe purple.
             *   [x] **3.4. Design and Implement Animated Body Content for Consent Action & Success Screen:**
                 *   [x] Sub-step `consent-sliding`: `JourneyConsentScreen` remains visible (no "Processing..." text overlay). Footer icon slides.
-                *   [x] Sub-step `success`: Header Title: "Confirmation". Body: Display "Success Screen Placeholder".
+                *   [x] Sub-step `success`: Header Title: "Confirmation". Body: `[x] Styled with image, title, description, and download button.`
             *   [x] **3.5. Animation Logic & State Management in `UserJourneyAnimation.tsx`:**
                 *   [x] Uses Framer Motion for transitions between body content sub-steps.
                 *   [x] `currentSubStep` state managed.
@@ -143,8 +145,11 @@ This document outlines the steps to create a React website similar in structure 
                 *   Card 1 (Index 0) active during OTP Login sub-steps (`otp-entry`).
                 *   Card 2 (Index 1) active during Consent Screen sub-steps (`consent-initial`, `consent-account-deselected`).
                 *   Card 3 (Index 2) active during "Slide to Approve" (`consent-sliding`) and Success Screen (`success`).
+            *   [x] `UserJourneyAnimation.tsx` updated to support `jumpToStage` prop to start from a specific stage.
+            *   [x] `WhatIsOneMoney.tsx` updated to trigger `jumpToStage` on card click.
+            *   [x] Made cards clickable to control animation stage and restart relevant animation sequence in `UserJourneyAnimation.tsx`.
             *   [x] **5.4. Active Card Styling:** Apply active styles (border, background, blur, live dot) to the left panel card corresponding to `currentActiveCardIndex`.
-            *   [x] **5.5. Progress Bars:** Implement progress bars for left panel cards: Animate from 0% to 100% (e.g., using Framer Motion on width) over a short duration (now synced with card active duration) when the corresponding card becomes active.
+            *   [x] **5.5. Progress Bars:** Implement progress bars for left panel cards: Animate from 0% to 100% (e.g., using Framer Motion on width) over a short duration (now synced with card active duration) when the corresponding card becomes active. Progress bars also reset on click.
         *   [ ] **6. Layout and Styling:**
             *   [x] Ensure 2-column layout (left: text cards, right: phone mockup).
             *   [ ] Adjust overall section height, padding, and responsive behavior as needed.
@@ -213,6 +218,25 @@ This document outlines the steps to create a React website similar in structure 
         *   [x] Ensured all significant static images (`Bnl.png`, `Ins.png`, `WM.png`, `header-graphic.png`, `contact-us graphic.png`, `PH.png`, `KP.png`, `JC.png`, client logos, etc.) use the `next/image` component.
         *   [x] Refactored `Leadership.tsx` to use `next/image` instead of CSS background images.
         *   [x] Added/Verified `sizes` prop for images using `fill={true}` in `Leadership.tsx`, `Solutions.tsx`, and `Hero.tsx` to improve source selection.
+    *   [x] **React Component-Level Optimizations (for `UserJourneyAnimation` and `AnimatedScreenContent`):**
+        *   [x] **`UserJourneyAnimation.tsx` Optimizations:**
+            *   [x] **Memoize Child Components:**
+                *   [x] Wrap `OtpEntryScreen` with `React.memo`.
+                *   [x] Wrap `JourneyConsentScreen` with `React.memo`.
+            *   [x] **Refactor `scrollTimer` for Robustness:**
+                *   [x] Create `scrollTimerRef` using `useRef` for the scroll `setTimeout`.
+                *   [x] Ensure `scrollTimerRef.current` is cleared in `useEffect` cleanup.
+            *   [x] **Review `useCallback` Dependencies:**
+                *   [x] Verify dependency arrays for `useCallback` hooks.
+        *   [x] **`AnimatedScreenContent.tsx` Optimizations:**
+            *   [x] **Memoize Child Components:**
+                *   [x] Wrap `BrandedConsentScreenBody` with `React.memo`.
+                *   [x] *Consideration:* If `PhoneScreenHeader` is pure and not memoized, memoize it.
+            *   [ ] **`BrandedConsentScreenBody` Internal Review (Lower Priority):**
+                *   [ ] Assess `useMemo` for `accountAStyles`/`BStyles`.
+        *   [x] **General Review (React Optimizations):**
+            *   [x] Confirm stable and unique `key` props for `motion.*` components.
+            *   [x] Double-check `useEffect` cleanup functions for timers/subscriptions.
     *   [ ] **Source Image Pre-optimization:**
         *   [ ] Compress large source PNGs (e.g., `Bnl.png`, `Ins.png`, `WM.png`, `header-graphic.png`, `PH.png`, `KP.png`, `JC.png`) using tools like TinyPNG or Squoosh.
         *   [ ] Consider converting to WebP format for better compression and serving them directly.
@@ -261,3 +285,53 @@ This document outlines the steps to create a React website similar in structure 
             *   [ ] Ensure `www.onemoney.in` (or preferred version) is the production domain in Vercel.
         *   [ ] **7. Testing:**
             *   [ ] Access `https://www.onemoney.in` and test redirects.
+
+7.  **Integrate Email Service for "Talk to Us" Form (using Resend):**
+    *   [ ] **1. Resend Account Setup:**
+        *   [ ] Sign up for a free Resend account at [resend.com](https://resend.com).
+        *   [ ] Add and verify your domain(s) in Resend.
+            *   Start with the domain you'll use for the `FROM` address (e.g., a personal domain if you own one, or the domain your company email will eventually use).
+            *   Resend will provide DNS records (TXT, CNAME, etc.) to add to your domain's DNS settings.
+        *   [ ] Obtain your Resend API Key.
+    *   [ ] **2. Project Setup:**
+        *   [ ] Install the Resend SDK: `npm install resend` (or `yarn add resend`).
+        *   [ ] Create/update `.env.local` in your project root with:
+            *   `RESEND_API_KEY=your_resend_api_key_here`
+            *   `TO_EMAIL_ADDRESS=your_personal_test_email@example.com` (for initial testing)
+            *   `FROM_EMAIL_ADDRESS=notifications@yourverifieddomain.com` (use a verified domain)
+        *   [ ] Add these environment variables to your Vercel project settings for deployment.
+        *   [ ] Ensure `.env.local` is in your `.gitignore`.
+    *   [ ] **3. Create Next.js API Route (App Router):**
+        *   [ ] Create the file `src/app/api/send-contact-email/route.ts`.
+        *   [ ] Implement the API route logic:
+            *   Import `Resend`.
+            *   Initialize Resend with the API key from `process.env.RESEND_API_KEY`.
+            *   Handle POST requests.
+            *   Read form data (`firstName`, `lastName`, `email`, `phone`, `comments`) from the request body.
+            *   Construct the email content (HTML or text).
+            *   Use `resend.emails.send()` to send the email:
+                *   `from`: `process.env.FROM_EMAIL_ADDRESS`
+                *   `to`: `process.env.TO_EMAIL_ADDRESS`
+                *   `subject`: "New Contact Form Submission from [Name]"
+                *   `html`/`text`: Formatted user data.
+            *   Return appropriate JSON responses (success or error).
+    *   [ ] **4. Update `TalkToUsForm.tsx` Frontend:**
+        *   [ ] Modify the `handleSubmit` function.
+        *   [ ] On form submission, prevent default behavior.
+        *   [ ] Make a `POST` request to `/api/send-contact-email` with the `formData`.
+        *   [ ] Include `Content-Type: application/json` header.
+        *   [ ] `JSON.stringify` the `formData` for the body.
+        *   [ ] Handle the response:
+            *   Display success message to the user.
+            *   Clear the form on success.
+            *   Display error message if sending fails.
+        *   [ ] Add state for loading/submission status (e.g., to disable the button while sending).
+    *   [ ] **5. Testing:**
+        *   [ ] Test the form thoroughly on your local development environment.
+        *   [ ] Check your personal email for incoming messages.
+        *   [ ] Test error handling (e.g., try submitting without required fields if your API route has validation).
+        *   [ ] Deploy to Vercel and test the live form.
+    *   [ ] **6. Switch to Company Email (Later):**
+        *   [ ] Once testing is successful, update the `TO_EMAIL_ADDRESS` environment variable (locally and on Vercel) to your company's email address.
+        *   [ ] If your `FROM_EMAIL_ADDRESS` needs to change to an official company email (e.g., `contact@company.com`), ensure that new domain/email is also verified in Resend.
+        *   [ ] Retest.

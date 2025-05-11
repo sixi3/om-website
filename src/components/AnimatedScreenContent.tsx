@@ -43,7 +43,7 @@ export interface BrandedConsentScreenBodyProps extends ScreenBodyProps {
 // const headerData = [ ... ];
 
 // Export BrandedConsentScreenBody component
-export const BrandedConsentScreenBody: React.FC<BrandedConsentScreenBodyProps> = ({ 
+const OriginalBrandedConsentScreenBody: React.FC<BrandedConsentScreenBodyProps> = ({ 
   accentColors, 
   consentTerms, 
   bodyLogoSrc, 
@@ -232,6 +232,8 @@ export const BrandedConsentScreenBody: React.FC<BrandedConsentScreenBodyProps> =
   );
 };
 
+export const BrandedConsentScreenBody = React.memo(OriginalBrandedConsentScreenBody);
+
 const screenData = [
   {
     id: 'mobilepe',
@@ -243,10 +245,10 @@ const screenData = [
     bodyLogoSrc: '/mobilepelogo.svg',
     bodyBankName: 'MOBILEPE',
     accentColors: {
-      text: 'text-purple-600 dark:text-purple-400',
-      border: 'border-purple-500',
+      text: 'text-purple-800 dark:text-purple-400',
+      border: 'border-purple-800',
       backgroundLight: 'bg-purple-50 dark:bg-purple-900/30',
-      sliderButtonBackground: 'bg-purple-600',
+      sliderButtonBackground: 'bg-purple-800',
     },
     consentTerms: {
       purpose: "Income Verification",

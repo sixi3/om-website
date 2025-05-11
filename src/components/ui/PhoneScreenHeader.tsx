@@ -25,7 +25,7 @@ const headerItemVariants = {
   exit: { opacity: 0, y: -10, transition: { duration: 0.3, ease: "easeInOut" } },
 };
 
-export const PhoneScreenHeader: React.FC<PhoneScreenHeaderProps> = ({
+const OriginalPhoneScreenHeader: React.FC<PhoneScreenHeaderProps> = ({
   logoSrc,
   altText,
   title,
@@ -86,4 +86,6 @@ export const PhoneScreenHeader: React.FC<PhoneScreenHeaderProps> = ({
       {showMoreButton && <MoreVertical className="h-5 w-5 flex-shrink-0 z-10" />}
     </div>
   );
-}; 
+};
+
+export const PhoneScreenHeader = React.memo(OriginalPhoneScreenHeader); 
