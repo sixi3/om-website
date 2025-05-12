@@ -37,10 +37,10 @@ export function Footer() {
               Governance
             </p>
             <nav className="mt-6 space-y-4 text-sm">
-              <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
+              <Link href="/compliance" className="block text-foreground/80 hover:text-foreground transition">
                 Compliance
               </Link>
-              <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
+              <Link href="/policies" className="block text-foreground/80 hover:text-foreground transition">
                 Policies
               </Link>
             </nav>
@@ -52,10 +52,10 @@ export function Footer() {
               About
             </p>
             <nav className="mt-6 space-y-4 text-sm">
-              <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
+              <Link href="/vision-mission" className="block text-foreground/80 hover:text-foreground transition">
                 Vision and Mission
               </Link>
-              <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
+              <Link href="/leadership" className="block text-foreground/80 hover:text-foreground transition">
                 Leadership
               </Link>
               <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
