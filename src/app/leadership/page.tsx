@@ -115,6 +115,7 @@ export default function LeadershipPage() {
                     fill={true}
                     className="object-cover rounded-lg"
                     sizes="(max-width: 768px) 320px, 384px"
+                    quality={80}
                   />
                   <div className="absolute inset-0 w-full h-full transition-opacity duration-300 bg-gradient-to-b from-transparent via-black/20 to-black/80 rounded-lg z-10"></div>
                   <div className="relative z-20 flex flex-col justify-end h-full p-6 text-white">

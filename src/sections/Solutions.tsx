@@ -26,6 +26,7 @@ const solutions = [
           fill={true}
           className="object-cover"
           sizes="(max-width: 767px) 90vw, 33vw"
+          quality={80}
         />
       </div>
     ),
@@ -44,6 +45,7 @@ const solutions = [
           fill={true}
           className="object-cover"
           sizes="(max-width: 767px) 90vw, 33vw"
+          quality={80}
         />
       </div>
     ),
@@ -62,6 +64,7 @@ const solutions = [
           fill={true}
           className="object-cover"
           sizes="(max-width: 767px) 90vw, 33vw"
+          quality={80}
         />
       </div>
     ),

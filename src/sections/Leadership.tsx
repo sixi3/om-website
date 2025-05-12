@@ -61,7 +61,8 @@ export function Leadership() {
                 alt={`Portrait of ${leader.name}`}
                 fill={true}
                 className="object-cover rounded-lg"
-                sizes="320px"
+                sizes="(max-width: 768px) 320px, 320px"
+                quality={80}
               />
 
               {/* Overlay - ensure it's above the image */}

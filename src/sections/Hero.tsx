@@ -142,8 +142,10 @@ export function Hero() {
                 src={logo.src}
                 alt={logo.alt}
                 width={160}
-                height={80}
+                height={45}
                 className="object-contain"
+                sizes="160px"
+                quality={80}
               />
             </div>
           ))}
