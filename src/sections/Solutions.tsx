@@ -1,7 +1,7 @@
 import React from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { GridBackground } from "@/components/ui/grid-background";
-import { Landmark, ShieldCheck, TrendingUp, Plus } from "lucide-react"; // Updated icons
+import { Landmark, ShieldCheck, TrendingUp, Plus, ChevronDown } from "lucide-react"; // Changed to ChevronDown
 import Marquee from "react-fast-marquee"; // Added import
 import Image from "next/image"; // Ensure Image is imported
 // Image import from next/image is not strictly needed here anymore if not used directly in this file
@@ -112,9 +112,11 @@ export function Solutions() {
         {/* Replaced Circle with Plus Icon with a text pill */}
         <div className="flex justify-center my-8"> {/* Adjusted margin for the new pill */}
           <div
-            className="inline-block backdrop-blur-md rounded-full dark:border-neutral-700 px-6 py-3 text-sm font-medium text-slate-600 dark:bg-neutral-800 dark:text-neutral-300"
+            className="inline-flex items-center backdrop-blur-md rounded-full dark:border-neutral-700 px-6 py-3 text-sm font-medium text-slate-600 dark:bg-neutral-800 dark:text-neutral-300"
           >
+            <ChevronDown className="h-4 w-4 mr-2 text-slate-500 dark:text-neutral-400" />
             AND MANY MORE
+            <ChevronDown className="h-4 w-4 ml-2 text-slate-500 dark:text-neutral-400" />
           </div>
         </div>
 

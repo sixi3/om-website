@@ -129,7 +129,7 @@ export function WhatIsOneMoney() {
                   <p className="text-slate-600 dark:text-slate-300">
                     {stepsContent[currentActiveCardIndex].description}
                   </p>
-                  <div className="mt-4 h-2 rounded-full overflow-hidden bg-slate-300 dark:bg-neutral-700">
+                  <div className="mt-4 h-2 rounded-full overflow-hidden bg-background/50 backdrop-blur-md dark:bg-neutral-700">
                     <motion.div 
                       className="h-full bg-green-500"
                       initial={{ width: "0%" }}

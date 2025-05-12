@@ -47,7 +47,7 @@ const navItems: NavItem[] = [
     showChevron: true,
     submenu: [
       { name: "Compliance", href: "/compliance", icon: ShieldCheck },
-      { name: "Policies", href: "#", icon: FileText },
+      { name: "Policies", href: "/policies", icon: FileText },
     ]
   },
   { 
@@ -55,8 +55,8 @@ const navItems: NavItem[] = [
     href: "#", 
     showChevron: true,
     submenu: [
-      { name: "Vision and Mission", href: "#", icon: Target },
-      { name: "Leadership", href: "#", icon: Users },
+      { name: "Vision and Mission", href: "/vision-mission", icon: Target },
+      { name: "Leadership", href: "/leadership", icon: Users },
       { name: "Timeline and Achievements", href: "#", icon: Milestone },
     ] 
   },
