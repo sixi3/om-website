@@ -91,7 +91,7 @@ export function Solutions() {
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
             <span className={metallicBlackTextClasses}>Tailored Solutions for</span>{" "}
             <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
-              All Usecases
+              All Use Cases
             </span>
           </h2>
           <p className="w-full mx-auto text-lg text-slate-700 dark:text-slate-300">

@@ -58,7 +58,7 @@ export function Footer() {
               <Link href="/leadership" className="block text-foreground/80 hover:text-foreground transition">
                 Leadership
               </Link>
-              <Link href="#" className="block text-foreground/80 hover:text-foreground transition">
+              <Link href="/timeline" className="block text-foreground/80 hover:text-foreground transition">
                 Timeline and Achievements
               </Link>
             </nav>

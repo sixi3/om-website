@@ -57,11 +57,11 @@ const navItems: NavItem[] = [
     submenu: [
       { name: "Vision and Mission", href: "/vision-mission", icon: Target },
       { name: "Leadership", href: "/leadership", icon: Users },
-      { name: "Timeline and Achievements", href: "#", icon: Milestone },
+      { name: "Timeline and Achievements", href: "/timeline", icon: Milestone },
     ] 
   },
-  { name: "Use Cases", href: "#solutions" }, 
-  { name: "Contact Us", href: "#contact-us" }, 
+  { name: "Use Cases", href: "/#solutions" }, 
+  { name: "Contact Us", href: "/#contact-us" }, 
 ];
 
 export function Header() {
