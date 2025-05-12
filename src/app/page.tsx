@@ -12,9 +12,9 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Stats />
       <WhatIsOneMoney />
       <UIFeatures />
-      <Stats />
       <Solutions />
       <SecurityCompliance />
       <Leadership />
