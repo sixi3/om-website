@@ -50,12 +50,31 @@ const DynamicLottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export function Hero() {
   const [animationData, setAnimationData] = useState<object | null>(null);
+  const [showMarquee, setShowMarquee] = useState(false); // State for marquee visibility
 
   useEffect(() => {
+    let timerId: NodeJS.Timeout; // For cleanup
     fetch('/header-animation.json')
       .then(response => response.json())
-      .then(data => setAnimationData(data))
-      .catch(error => console.error("Error fetching Lottie animation:", error));
+      .then(data => {
+        setAnimationData(data);
+        timerId = setTimeout(() => {
+          setShowMarquee(true); 
+        }, 300); // 300ms delay, adjust as needed
+      })
+      .catch(error => {
+        console.error("Error fetching Lottie animation:", error);
+        // Fallback: still show marquee after a delay even if Lottie fails, to prevent content being permanently hidden
+        timerId = setTimeout(() => {
+          setShowMarquee(true); 
+        }, 300); 
+      });
+
+    return () => {
+      if (timerId) {
+        clearTimeout(timerId); // Cleanup the timer if the component unmounts
+      }
+    };
   }, []);
 
   return (
@@ -123,33 +142,39 @@ export function Hero() {
         )}
       </div>
 
-      <div className="lg:col-span-2 w-full mt-16 md:mt-24">
-        <div className="flex items-center gap-4 md:gap-8 mb-8">
-          <div className="flex-grow h-px bg-foreground/20"></div>
-          <h2 className="flex-shrink-0 text-lg font-regular text-foreground/80 tracking-wider uppercase">
-            Trusted By Industry Leaders
-          </h2>
-          <div className="flex-grow h-px bg-foreground/20"></div>
-        </div>
-
-        <Marquee gradient={false} speed={50} pauseOnHover={true}>
-          {clientLogos.map((logo, index) => (
-            <div
-              key={index}
-              className="mx-4 flex h-20 items-center justify-center"
-            >
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                width={160}
-                height={45}
-                className="object-contain"
-                sizes="160px"
-                quality={80}
-              />
+      {/* Marquee section container: Always rendered to reserve space */}
+      <div className="lg:col-span-2 w-full mt-16 md:mt-24 min-h-[180px]"> {/* Added min-h-[180px] */}
+        {/* Conditionally render the content INSIDE the container */}
+        {showMarquee && (
+          <>
+            <div className="flex items-center gap-4 md:gap-8 mb-8">
+              <div className="flex-grow h-px bg-foreground/20"></div>
+              <h2 className="flex-shrink-0 text-lg font-regular text-foreground/80 tracking-wider uppercase">
+                Trusted By Industry Leaders
+              </h2>
+              <div className="flex-grow h-px bg-foreground/20"></div>
             </div>
-          ))}
-        </Marquee>
+
+            <Marquee gradient={false} speed={50} pauseOnHover={true}>
+              {clientLogos.map((logo, index) => (
+                <div
+                  key={index}
+                  className="mx-4 flex h-20 items-center justify-center"
+                >
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={160}
+                    height={45}
+                    className="object-contain"
+                    sizes="160px"
+                    quality={80}
+                  />
+                </div>
+              ))}
+            </Marquee>
+          </>
+        )}
       </div>
     </section>
   );

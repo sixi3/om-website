@@ -54,7 +54,7 @@ export const AuroraBackground = ({
   return (
     <div
       className={cn(
-        "relative transition-bg min-h-screen bg-transparent", // Note: transition-bg might not be relevant anymore
+        "relative min-h-screen bg-transparent", 
         className
       )}
       {...props}
@@ -63,32 +63,40 @@ export const AuroraBackground = ({
         className="absolute inset-0 overflow-hidden pointer-events-none"
         style={
           {
-            // Gradient definitions like --aurora, --white-gradient, --dark-gradient are REMOVED from here.
-            // Only color definitions remain.
             "--primary-green": "#00b140",
             "--intermediate-green": "#5cd67d",
             "--lime-green": "#baff29",
-            "--black": "#000",
-            "--white": "#fff",
+            "--white": "#fff", // Renamed from --black for clarity if needed, or keep as --black if css vars are fixed
             "--transparent": "transparent",
+            // Removed --black as we don't need a separate dark gradient definition
           } as React.CSSProperties
         }
       >
         <div
           className={cn(
             "pointer-events-none absolute -inset-[10px]",
+            // CSS variable definitions for gradients
             "[--aurora:repeating-linear-gradient(100deg,var(--primary-green)_10%,var(--intermediate-green)_15%,var(--lime-green)_20%,var(--intermediate-green)_25%,var(--primary-green)_30%)]",
-            "[--dark-gradient:repeating-linear-gradient(100deg,var(--black)_0%,#000_7%,var(--transparent)_10%,var(--transparent)_12%,var(--black)_16%)]",
-            "[--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--white)_16%)]", // White gradient still defined if needed elsewhere, but not used for light mode background image
-            // Light mode: Use only the aurora gradient for full color vibrancy
-            "[background-image:var(--aurora)]",
-            // Dark mode: Continue to use the dark gradient layered with aurora
-            "dark:[background-image:var(--dark-gradient),var(--aurora)]",
-            "[background-size:150%]", // This might need adjustment if only one gradient is used for light mode
+            // No --dark-gradient needed
+            "[--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--white)_16%)]",
+            
+            // Main background layers (single mode)
+            "[background-image:var(--white-gradient),var(--aurora)]",
+            
+            "[background-size:300%,_200%]",
             "[background-position:50%_50%,50%_50%]",
             "opacity-50",
             "blur-[5px] xl:blur-none",
-            "dark:invert-0",
+            "invert", // Added invert class for light mode interaction with mix-blend-difference
+            
+            // After pseudo-element for mix-blend-difference effect (single mode)
+            "after:content-['']",
+            "after:absolute after:inset-0",
+            "after:[background-image:var(--white-gradient),var(--aurora)]", 
+            // No dark mode for after pseudo-element
+            "after:[background-size:200%,_100%]", 
+            "after:mix-blend-difference",
+            
             showRadialGradient &&
               "[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]"
           )}
