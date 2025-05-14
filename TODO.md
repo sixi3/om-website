@@ -335,3 +335,50 @@ This document outlines the steps to create a React website similar in structure 
         *   [ ] Once testing is successful, update the `TO_EMAIL_ADDRESS` environment variable (locally and on Vercel) to your company's email address.
         *   [ ] If your `FROM_EMAIL_ADDRESS` needs to change to an official company email (e.g., `contact@company.com`), ensure that new domain/email is also verified in Resend.
         *   [ ] Retest.
+
+## 8. Website Restructure: Multi-Product Landing Page
+
+*   [x] **Objective:** Create a new main landing page and move the existing OneMoney site into its own section.
+*   [x] **Router Type:** Confirmed App Router.
+
+*   [x] **Step 1: Modify `src/app/page.tsx` (New Main Landing Page)**
+    *   [x] Transform `src/app/page.tsx` into the new top-level landing page. This page will be relatively simple initially.
+    *   [x] Add three buttons to this page:
+        *   [x] "OneMoney" (linking to `/onemoney`)
+        *   [x] "Moneyone" (linking to `/moneyone`)
+        *   [x] "Equal" (linking to `/equal`)
+    *   [x] Ensure this page uses a simplified layout, potentially by adjusting `src/app/layout.tsx` or ensuring it doesn't inherit `OneMoney`-specific navigation.
+
+*   [ ] **Step 2: Create and Populate `src/app/onemoney/` (Relocating the OneMoney Site)**
+    *   [x] **2.1. Create `onemoney` Directory Structure:**
+        *   [x] Create `src/app/onemoney/`.
+        *   [x] Create `src/app/onemoney/components/`.
+        *   [x] Create `src/app/onemoney/sections/`.
+    *   [x] **2.2. Move `OneMoney` Homepage Content:**
+        *   [x] Create `src/app/onemoney/page.tsx`.
+        *   [x] Move the original content of `src/app/page.tsx` (the current OneMoney homepage) into `src/app/onemoney/page.tsx`.
+    *   [x] **2.3. Move `OneMoney` Components and Sections:**
+        *   [x] Move relevant components from `src/components/` (e.g., `Header.tsx`, `Footer.tsx`, specific UI elements) to `src/app/onemoney/components/`.
+        *   [x] Move all sections from `src/sections/` (e.g., `Hero.tsx`, `WhatIsOneMoney.tsx`) to `src/app/onemoney/sections/`.
+    *   [x] **2.4. Move `OneMoney` Sub-Pages:**
+        *   [x] Move `src/app/compliance/` to `src/app/onemoney/compliance/`.
+        *   [x] Move `src/app/leadership/` to `src/app/onemoney/leadership/`.
+        *   [x] Move `src/app/policies/` to `src/app/onemoney/policies/`.
+        *   [x] Move `src/app/timeline/` to `src/app/onemoney/timeline/`.
+        *   [x] Move `src/app/vision-mission/` to `src/app/onemoney/vision-mission/`.
+    *   [x] **2.5. Update Import Paths and Internal Links:**
+        *   [x] Systematically review and update all `import` statements in `src/app/onemoney/page.tsx`, and within all moved components, sections, and sub-pages to reflect their new locations (e.g., from `../../components` to `./components` or adjusting `@/` aliases).
+        *   [x] Update all internal navigation links (e.g., in `Header.tsx`, `Footer.tsx`, and page content) to include the `/onemoney` prefix (e.g., `/compliance` becomes `/onemoney/compliance`).
+
+*   [x] **Step 3: Create Placeholder Pages for New Product Sections**
+    *   [x] Create `src/app/moneyone/page.tsx` as a placeholder.
+    *   [x] Create `src/app/equal/page.tsx` as a placeholder.
+    *   [ ] Optionally, create `src/app/moneyone/layout.tsx` and `src/app/equal/layout.tsx` if they need distinct layouts from the main landing page.
+
+*   [x] **Step 4: Review and Update Layouts (`layout.tsx`)**
+    *   [x] **4.1. Root Layout (`src/app/layout.tsx`):**
+        *   [x] Review `src/app/layout.tsx`. Simplify it if it contains `OneMoney`-specific elements (like the detailed `Header` or `Footer`). This layout will apply to the new main landing page, `/moneyone`, and `/equal`.
+    *   [x] **4.2. `OneMoney` Layout (`src/app/onemoney/layout.tsx`):**
+        *   [x] Create `src/app/onemoney/layout.tsx`.
+        *   [x] This layout should import and use the `Header.tsx` and `Footer.tsx` that were moved to `src/app/onemoney/components/`.
+        *   [x] Ensure this layout properly wraps all content under `/onemoney/*`.

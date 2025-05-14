@@ -1,87 +1,36 @@
-import dynamic from 'next/dynamic';
-import { Hero } from "@/sections/Hero";
-// import { WhatIsOneMoney } from "@/sections/WhatIsOneMoney"; // Commented out static import
-// import { UIFeatures } from "@/sections/UIFeatures"; // Commented out static import
-// import { Stats } from "@/sections/Stats"; // Commented out static import
-// import { Solutions } from "@/sections/Solutions"; // Commented out static import
-// import { SecurityCompliance } from "@/sections/SecurityCompliance"; // Commented out static import
-// import { ContactUs } from "@/sections/ContactUs"; // Commented out static import
-// import { Leadership } from "@/sections/Leadership"; // Commented out static import
-// import { TrustedBy } from "@/sections/TrustedBy";
+import Link from 'next/link';
 
-// Dynamically import the Stats component
-const Stats = dynamic(() => 
-  import('@/sections/Stats').then(mod => mod.Stats),
-  { 
-    loading: () => <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading Stats...</p></div>,
-  }
-);
-
-// Dynamically import the WhatIsOneMoney component
-const WhatIsOneMoney = dynamic(() => 
-  import('@/sections/WhatIsOneMoney').then(mod => mod.WhatIsOneMoney),
-  { 
-    loading: () => <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading What is OneMoney...</p></div>,
-    // Assuming WhatIsOneMoney.tsx has a named export 'WhatIsOneMoney'
-  }
-);
-
-// Dynamically import the UIFeatures component
-const UIFeatures = dynamic(() => 
-  import('@/sections/UIFeatures').then(mod => mod.UIFeatures),
-  { 
-    loading: () => <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading UI Features...</p></div>,
-    // Assuming UIFeatures.tsx has a named export 'UIFeatures'
-  }
-);
-
-// Dynamically import the Solutions component
-const Solutions = dynamic(() => 
-  import('@/sections/Solutions').then(mod => mod.Solutions),
-  { 
-    loading: () => <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading Solutions...</p></div>,
-    // Assuming Solutions.tsx has a named export 'Solutions'
-  }
-);
-
-// Dynamically import the SecurityCompliance component
-const SecurityCompliance = dynamic(() => 
-  import('@/sections/SecurityCompliance').then(mod => mod.SecurityCompliance),
-  { 
-    loading: () => <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading Security & Compliance...</p></div>,
-    // Assuming SecurityCompliance.tsx has a named export 'SecurityCompliance'
-  }
-);
-
-// Dynamically import the Leadership component
-const Leadership = dynamic(() => 
-  import('@/sections/Leadership').then(mod => mod.Leadership),
-  { 
-    loading: () => <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading Leadership...</p></div>,
-    // Assuming Leadership.tsx has a named export 'Leadership'
-  }
-);
-
-// Dynamically import the ContactUs component
-const ContactUs = dynamic(() => 
-  import('@/sections/ContactUs').then(mod => mod.ContactUs),
-  { 
-    loading: () => <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading Contact Us...</p></div>,
-    // Assuming ContactUs.tsx has a named export 'ContactUs'
-  }
-);
-
-export default function Home() {
+export default function LandingPage() {
   return (
-    <>
-      <Hero />
-      <Stats />
-      <WhatIsOneMoney />
-      <UIFeatures />
-      <Solutions />
-      <SecurityCompliance />
-      <Leadership />
-      <ContactUs />
-    </>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4">
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+          Welcome to Our Platform
+        </h1>
+        <p className="text-xl text-gray-300">
+          Choose your destination
+        </p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+        <Link href="/onemoney" passHref>
+          <button className="w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-bold py-6 px-4 rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-400 text-2xl">
+            OneMoney
+          </button>
+        </Link>
+        <Link href="/moneyone" passHref>
+          <button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-6 px-4 rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-orange-400 text-2xl">
+            Moneyone
+          </button>
+        </Link>
+        <Link href="/equal" passHref>
+          <button className="w-full bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-bold py-6 px-4 rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-pink-400 text-2xl">
+            Equal
+          </button>
+        </Link>
+      </div>
+      <p className="mt-12 text-sm text-gray-500">
+        More exciting products coming soon!
+      </p>
+    </div>
   );
 }
