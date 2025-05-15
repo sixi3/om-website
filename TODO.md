@@ -382,3 +382,47 @@ This document outlines the steps to create a React website similar in structure 
         *   [x] Create `src/app/onemoney/layout.tsx`.
         *   [x] This layout should import and use the `Header.tsx` and `Footer.tsx` that were moved to `src/app/onemoney/components/`.
         *   [x] Ensure this layout properly wraps all content under `/onemoney/*`.
+
+## 9. Create Global Header Component
+
+*   [x] **Objective:** Create a unified, adaptable header component that can be used across all product pages (OneMoney, MoneyOne, Equal) while maintaining visual consistency.
+
+*   [x] **Step 1: Create Global Header Component Structure**
+    *   [x] Create `src/components/global/GlobalHeader.tsx` as a client component (`"use client"`)
+    *   [x] Create `src/components/global/GlobalHeader.types.ts` for type definitions
+    *   [x] Move common styling and functionality from `src/app/onemoney/components/Header.tsx`
+    *   [x] Add product-aware theming with configurable colors/gradients
+
+*   [x] **Step 2: Make Header Configurable**
+    *   [x] Add props for:
+        *   [x] `productName`: To identify which product is active (e.g., "onemoney", "moneyone", "equal")
+        *   [x] `logoSrc`: Path to the product logo
+        *   [x] `accentColor`: Primary brand color (e.g., OneMoney green, etc.)
+        *   [x] `navigationItems`: Array of navigation items specific to the product
+        *   [x] `talkToUsFormComponent`: Optional component for the TalkToUs dialog
+    *   [x] Create default themes for each product (color schemes, hover effects)
+
+*   [x] **Step 3: Create Product-Specific Header Components**
+    *   [x] Create `src/app/onemoney/components/ProductHeader.tsx` that imports GlobalHeader
+        *   [x] Configure with OneMoney-specific navigation and styling
+    *   [x] Create similar components for MoneyOne and Equal (directly in their layouts for now)
+
+*   [x] **Step 4: Integrate TalkToUs Dialog**
+    *   [x] Extract `TalkToUsForm.tsx` to a more global location if needed
+    *   [x] Make form configurable for different product contexts
+    *   [x] Allow product-specific email destinations
+
+*   [x] **Step 5: Update OneMoney Layout**
+    *   [x] Modify `src/app/onemoney/layout.tsx` to use the new ProductHeader
+    *   [x] Ensure styling remains consistent with current implementation
+
+*   [x] **Step 6: Create Layouts for Other Products**
+    *   [x] Create/update `src/app/moneyone/layout.tsx` using the GlobalHeader
+    *   [x] Create/update `src/app/equal/layout.tsx` using the GlobalHeader
+    *   [x] Configure with appropriate navigation items
+
+*   [ ] **Step 7: Mobile Responsiveness and Testing**
+    *   [ ] Verify mobile menu behavior across all product headers
+    *   [ ] Test dropdown navigation on all products
+    *   [ ] Ensure consistent responsive behavior
+    *   [ ] Test across different screen sizes

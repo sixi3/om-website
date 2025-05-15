@@ -1,11 +1,20 @@
 import React from "react";
-import { Header } from "./components/Header";
+import type { Metadata } from "next";
+import { OneMoneyHeader } from "./components/ProductHeader";
 import { Footer } from "./components/Footer";
 import { AuroraBackground } from "./components/ui/aurora-background";
 import { cn } from "@/lib/utils"; // Assuming this path is still valid or will be adjusted if needed.
 
 // If DM_Sans is specific to OneMoney, it should be here.
 // For now, assuming dmSans is still global from the root layout.
+
+export const metadata: Metadata = {
+  title: "OneMoney - Account Aggregator",
+  description: "A secure financial data-sharing ecosystem",
+  icons: {
+    icon: "/onemoney-icon.png",
+  },
+};
 
 export default function OneMoneyLayout({
   children,
@@ -17,7 +26,7 @@ export default function OneMoneyLayout({
     // We might need to adjust dmSans.variable if it's not globally applied anymore.
     <AuroraBackground>
       <div className={cn("min-h-screen bg-transparent font-sans antialiased flex flex-col")}>
-        <Header />
+        <OneMoneyHeader />
         <main className="flex-grow relative z-10">{children}</main>
         <Footer />
       </div>
