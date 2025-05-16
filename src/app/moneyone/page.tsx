@@ -1,11 +1,20 @@
 import React from "react";
 import { Hero } from "./sections/Hero";
-import { AuroraBackground } from "@/app/onemoney/components/ui/aurora-background";
+import { WhatIsMoneyOne } from "./sections/WhatIsMoneyOne";
+import { Solutions } from "./sections/Solutions";
+import { Products } from "./sections/Products";
+import { Services } from "./sections/Services";
+import { ContactUs } from "./sections/ContactUs";
 
 export default function MoneyOnePage() {
   return (
-    <AuroraBackground>
+    <>
       <Hero />
-    </AuroraBackground>
+      <WhatIsMoneyOne />
+      <Products />
+      <Solutions />
+      <Services />
+      <ContactUs />
+    </>
   );
 } 

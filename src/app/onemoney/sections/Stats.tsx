@@ -60,7 +60,7 @@ export function Stats() {
                 )}
                 <span className={metallicTextClasses}>{stat.suffix}</span>
               </div>
-              <p className="text-lg font-semibold text-slate-800 pt-2">
+              <p className="text-lg font-semibold text-slate-600 pt-2">
                 {stat.label}
               </p>
             </div>
@@ -88,7 +88,7 @@ export function Stats() {
               return (
                 <div
                   key={index}
-                  className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300 shadow-sm"
+                  className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
                 >
                   <span className="relative flex h-2 w-2 mr-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -107,7 +107,7 @@ export function Stats() {
               return (
                 <div
                   key={index + 4}
-                  className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300 shadow-sm"
+                  className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
                 >
                   <span className="relative flex h-2 w-2 mr-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>

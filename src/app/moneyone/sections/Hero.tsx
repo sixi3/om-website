@@ -53,7 +53,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-start pt-24 pb-12 md:pt-32 md:pb-16">
+    <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-start pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4">
         <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
           <div className="max-w-3xl space-y-4">
@@ -99,38 +99,50 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Updated right column for the single offset image */}
-      <div className="hidden lg:flex lg:items-center lg:justify-center relative w-full h-full min-h-[400px] md:min-h-[500px] lg:min-h-full lg:pl-8 xl:pl-0">
-        {/* Container for positioning and perspective - updated aspect ratio */}
-        <div className="relative w-[clamp(400px,80%,700px)] xl:w-[clamp(500px,80%,800px)] aspect-[20/13] group perspective-[1500px]">
-          {/* Back Image */}
-          <Image
-            src="/moneyone-screenshot-large.png" // <-- REMEMBER TO REPLACE THIS WITH YOUR IMAGE PATH
-            alt="MoneyOne Product Screenshot - Background Layer 2"
-            fill
-            className="object-contain rounded-lg shadow-xl transition-transform duration-500 ease-out group-hover:rotate-y-1 group-hover:scale-100 transform scale-90 rotate-y-2 rotate-z-2 translate-x-0 translate-y-0 md:translate-x-2 md:translate-y-2 lg:translate-x-4 lg:translate-y-4 z-10"
-            sizes="(min-width: 1280px) 720px, (min-width: 1024px) 630px, 70vw"
-            priority
+      {/* Right column with Lottie Animation */}
+      <div className="hidden lg:block relative w-full h-full lg:pr-12 xl:pr-20">
+        {animationData && (
+          <DynamicLottie 
+            animationData={animationData} 
+            loop={true} 
+            className="w-full object-contain h-auto xl:h-[500px]" // Style similar to onemoney/Hero.tsx
           />
-          {/* Middle Image */}
-          <Image
-            src="/moneyone-screenshot-large.png" // <-- REMEMBER TO REPLACE THIS WITH YOUR IMAGE PATH
-            alt="MoneyOne Product Screenshot - Background Layer 1"
-            fill
-            className="object-contain rounded-lg shadow-xl transition-transform duration-500 ease-out group-hover:rotate-y-1 group-hover:scale-103 transform scale-95 rotate-y-3 -rotate-z-0 translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-3 lg:translate-x-8 lg:translate-y-6 z-20"
-            sizes="(min-width: 1280px) 760px, (min-width: 1024px) 665px, 75vw"
-            priority
-          />
-          {/* Front Image */}
-          <Image
-            src="/moneyone-screenshot-large.png" // <-- REMEMBER TO REPLACE THIS WITH YOUR IMAGE PATH
-            alt="MoneyOne Product Screenshot"
-            fill
-            className="object-contain rounded-lg shadow-2xl transition-transform duration-500 ease-out group-hover:rotate-y-2 group-hover:scale-105 transform rotate-y-4 -rotate-z-1 translate-x-4 translate-y-4 md:translate-x-8 md:translate-y-6 lg:translate-x-12 lg:translate-y-8 z-30"
-            sizes="(min-width: 1280px) 800px, (min-width: 1024px) 700px, 80vw"
-            priority
-          />
-        </div>
+        )}
+      </div>
+
+      {/* Marquee section container: Always rendered to reserve space */}
+      <div className="lg:col-span-2 w-full mt-16 md:mt-24 min-h-[180px]"> {/* Added min-h-[180px] */}
+        {/* Conditionally render the content INSIDE the container */}
+        {showMarquee && (
+          <>
+            <div className="flex items-center gap-4 md:gap-8 mb-8">
+              <div className="flex-grow h-px bg-foreground/20"></div>
+              <h2 className="flex-shrink-0 text-lg font-regular text-foreground/80 tracking-wider uppercase">
+                Trusted By Industry Leaders
+              </h2>
+              <div className="flex-grow h-px bg-foreground/20"></div>
+            </div>
+
+            <Marquee gradient={false} speed={50} pauseOnHover={true}>
+              {clientLogos.map((logo, index) => (
+                <div
+                  key={index}
+                  className="mx-4 flex h-20 items-center justify-center"
+                >
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={160}
+                    height={45}
+                    className="object-contain"
+                    sizes="160px"
+                    quality={80}
+                  />
+                </div>
+              ))}
+            </Marquee>
+          </>
+        )}
       </div>
     </section>
   );

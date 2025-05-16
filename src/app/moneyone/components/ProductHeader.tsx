@@ -30,7 +30,7 @@ export function MoneyOneHeader() {
   return (
     <GlobalHeader
       productName="moneyone"
-      logoSrc="/moneyone-logo.svg"
+      logoSrc="/moneyone-header.svg"
       logoAlt="MoneyOne Logo"
       logoWidth={140}
       logoHeight={40}
