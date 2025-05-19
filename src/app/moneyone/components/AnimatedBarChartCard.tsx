@@ -1,28 +1,50 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { motion, useAnimation, Variants } from 'framer-motion';
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, useAnimation, Variants, AnimatePresence } from 'framer-motion';
 import { BarChart, BarElementSlotProps } from '@mui/x-charts/BarChart';
 import { axisClasses } from '@mui/x-charts/ChartsAxis';
 
 interface AnimatedBarChartCardProps {
   onAnimationComplete?: () => void;
+  disableAutoRotate?: boolean;
 }
 
-// Tab types and their labels (from AnimatedLineGraphCard)
+// Updated Tab types and their labels
 const tabs = [
-  { id: 'week', label: 'Last Week' },
-  { id: 'month', label: 'Last Month' },
-  { id: 'sixMonths', label: 'Last 6 Months' },
+  { id: 'successRate', label: 'Success Rate' },
+  { id: 'failureRate', label: 'Failure Rate' },
 ];
 
-const initialBankData = [
-  { bank: 'SBI', requested: 10000, delivered: 9500 },
-  { bank: 'HDFC', requested: 9000, delivered: 8500 },
-  { bank: 'ICICI', requested: 8000, delivered: 7000 },
-  { bank: 'RBL', requested: 7000, delivered: 6000 },
-  { bank: 'BoB', requested: 6000, delivered: 5000 }, // Bank of Baroda
-].sort((a, b) => b.delivered - a.delivered); // Ensure descending by delivered
+const bankDataBase = [
+  // Data for Success Rate (current graph - using 'week' data as a base)
+  { bank: 'SBI', category: 'successRate', requested: 10000, delivered: 9500 },
+  { bank: 'HDFC', category: 'successRate', requested: 9000, delivered: 8500 },
+  { bank: 'ICICI', category: 'successRate', requested: 8000, delivered: 7000 },
+  { bank: 'RBL', category: 'successRate', requested: 7000, delivered: 6000 },
+  { bank: 'BoB', category: 'successRate', requested: 6000, delivered: 5000 },
+
+  // Data for Failure Rate (new banks and data)
+  { bank: 'ABC Bank', category: 'failureRate', requested: 10000, delivered: 7000 },
+  { bank: 'XYZ Bank', category: 'failureRate', requested: 9000, delivered: 5000 },
+  { bank: 'JKL Bank', category: 'failureRate', requested: 8000, delivered: 3000 },
+  { bank: 'EFG Bank', category: 'failureRate', requested: 7000, delivered: 6000 },
+  { bank: 'LMN Bank', category: 'failureRate', requested: 6000, delivered: 2000 },
+
+];
+
+const getChartDataForTab = (tabId: string, zeroed: boolean = false) => {
+  const data = bankDataBase.filter(d => d.category === tabId);
+  if (zeroed) {
+    return data.map(item => ({ ...item, requested: 0, delivered: 0 })).sort((a,b) => b.requested - a.requested); // Sort by requested for consistency if delivered is zero
+  }
+  // For failure rate, maybe sort by the magnitude of failure, or just keep consistent by requested or delivered.
+  // For now, let's sort by delivered for success, and by delivered (ascending to show worst first) or requested for failure.
+  if (tabId === 'failureRate') {
+    return data.sort((a, b) => a.delivered - b.delivered); // Example: show highest failure (lowest delivered) first
+  } 
+  return data.sort((a, b) => b.delivered - a.delivered); // Original sort for success rate
+};
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95 },
@@ -44,71 +66,89 @@ const headerItemVariants: Variants = {
 
 const barChartContainerAnimationDelay = 0.5; // Base delay for chart container to start animating
 
-const barChartVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { delay: barChartContainerAnimationDelay, duration: 0.5 }, // Simplified transition for container
-  },
+// Variants for the chart content switching (opacity fade)
+const chartContentVariants: Variants = {
+  initial: { opacity: 0, x: 20 },
+  animate: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  exit: { opacity: 0, x: -20, transition: { duration: 0.2, ease: "easeIn" } },
 };
 
-// Custom Bar component for top radius
-const BarWithTopRadius = React.forwardRef<SVGPathElement, any>(
-  function BarWithTopRadius(props, ref) {
-    const { 
-      x, y, width, height, 
-      color: seriesColor, 
-      ownerState, 
-      dataIndex,
-      seriesId,
-      formattedValue,
-      xOrigin,
-      yOrigin,
-      skipAnimation,
-      ...other
-    } = props;
-    const radius = 5;
-    const barColor = seriesColor || (ownerState && ownerState.color) || 'currentColor';
+// Updated BarWithTopRadius to correctly type props and avoid spreading internal MUI props
+const BarWithTopRadius = React.forwardRef<
+  SVGPathElement,
+  any // Reverted to any to bypass linter errors for now
+>(function BarWithTopRadius(props, ref) {
+  const { 
+    x, y, width, height, 
+    color: seriesColor, // from series
+    ownerState,      // for potential theme or other stateful styling from MUI
+    // Explicitly destructure known MUI internal/slot props to prevent them from being spread to the <path> element
+    dataIndex,
+    seriesId,
+    formattedValue,
+    xOrigin,
+    yOrigin,
+    skipAnimation,
+    // We accept `other` but will only spread known SVG attributes if necessary, or just pass ref and minimal style props
+    ...other 
+  } = props;
+  const radius = 5;
+  // Ensure barColor has a fallback if seriesColor or ownerState.color is not available
+  const barColor = seriesColor || (ownerState && ownerState.color) || 'currentColor';
 
-    if (height === undefined || width === undefined || x === undefined || y === undefined || height <= 0 || width <= 0) {
-      return null; // Don't render if dimensions are invalid or zero/negative
-    }
-
-    const path = 
-      `M ${x},${y + radius}` +
-      ` Q ${x},${y} ${x + radius},${y}` +
-      ` L ${x + width - radius},${y}` +
-      ` Q ${x + width},${y} ${x + width},${y + radius}` +
-      ` L ${x + width},${y + height}` +
-      ` L ${x},${y + height}` +
-      ` Z`;
-
-    return <path d={path} fill={barColor} ref={ref} {...other} />;
+  // Do not render if dimensions are invalid or effectively zero (height might be 0 during animation)
+  if (height === undefined || width === undefined || x === undefined || y === undefined || width <= 0) { // allow height to be 0
+    return null; 
   }
-);
 
-export const AnimatedBarChartCard = ({ onAnimationComplete }: AnimatedBarChartCardProps) => {
-  const controls = useAnimation();
-  const [activeTab, setActiveTab] = useState('week');
-  const [chartData, setChartData] = useState(initialBankData);
+  const actualHeight = Math.max(0, height); // Ensure height is not negative, can be 0
+
+  // If actualHeight is 0, we could return null or a 0-height path, depending on desired visual for animation start
+  if (actualHeight === 0) {
+      // Optionally return null to not render a 0-height bar, or draw a horizontal line
+      // For simplicity, let's allow the path to be drawn with 0 height which should be visually empty or a line
+  }
+
+  const path = 
+    `M ${x},${y + radius}` +
+    ` Q ${x},${y} ${x + radius},${y}` +
+    ` L ${x + width - radius},${y}` +
+    ` Q ${x + width},${y} ${x + width},${y + radius}` +
+    ` L ${x + width},${y + actualHeight}` +
+    ` L ${x},${y + actualHeight}` +
+    ` Z`;
+
+  return <path d={path} fill={barColor} ref={ref} {...other} />;
+});
+
+export const AnimatedBarChartCard = ({ onAnimationComplete, disableAutoRotate = false }: AnimatedBarChartCardProps) => {
+  const cardControls = useAnimation();
+  const [activeTab, setActiveTab] = useState(tabs[0].id);
+  const [chartData, setChartData] = useState(() => getChartDataForTab(tabs[0].id));
   const [clientLastUpdated, setClientLastUpdated] = useState('');
   const [isClient, setIsClient] = useState(false);
+  const [cycleCount, setCycleCount] = useState(0);
+
+  const tabAnimationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const mountedRef = useRef(false); // Initialize to false, set to true once mounted and client-side
 
   useEffect(() => {
-    // This effect runs once on the client after hydration
     setIsClient(true);
     setClientLastUpdated(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' }));
-  }, []);
+    mountedRef.current = true; // Explicitly set to true when component has mounted on client
+    
+    // Optional: Log to confirm this runs as expected when shown via InteractiveShowcase
+    // console.log('[BarChart] Initial useEffect: isClient=true, mountedRef.current=true');
 
-  // TODO: Add logic to update chartData based on activeTab if necessary
-  // For now, data is static
-
-  const changeTab = (tabId: string) => {
-    setActiveTab(tabId);
-    // Potentially fetch/filter data for the new tab
-    // For this example, we'll just re-animate or could show static data
-    // If data changes, ensure the chart updates and re-animates if desired.
-  };
+    return () => {
+      mountedRef.current = false;
+      if (tabAnimationTimeoutRef.current) {
+        clearTimeout(tabAnimationTimeoutRef.current);
+        tabAnimationTimeoutRef.current = null; // Clear timer on unmount
+      }
+      // console.log('[BarChart] Unmounted');
+    };
+  }, []); // Empty dependency array ensures this runs once on mount and cleanup on unmount
 
   const seriesData = [
     { dataKey: 'requested', label: 'Data Requested', color: '#3b82f6' },
@@ -116,22 +156,86 @@ export const AnimatedBarChartCard = ({ onAnimationComplete }: AnimatedBarChartCa
   ];
 
   // Calculate delays for animations
-  const legendAnimationDelayStart = barChartContainerAnimationDelay + 0.5; // Start after chart container animation
+  const legendAnimationDelayStart = barChartContainerAnimationDelay + 0.2; // After chart content animates in
   const footerAnimationDelayStart = legendAnimationDelayStart + (seriesData.length * 0.15) + 0.1; // Start after legend animation
-  const totalOnCompleteDelay = footerAnimationDelayStart + 0.3 + 500; // Ensure onAnimationComplete fires after all visual elements
+  // Note: totalOnCompleteDelay is now managed by the tab cycling logic for the external onAnimationComplete
 
   useEffect(() => {
-    const animateSequence = async () => {
-      await controls.start('visible');
-      if (onAnimationComplete) {
-        setTimeout(() => {
-          onAnimationComplete();
-          console.log('AnimatedBarChartCard: Animation complete.');
-        }, totalOnCompleteDelay);
+    cardControls.start('visible'); // Card entrance animation
+  }, [cardControls]);
+
+  // Effect to update chart data when activeTab or isClient changes
+  useEffect(() => {
+    if (!mountedRef.current || !isClient) return;
+    setChartData(getChartDataForTab(activeTab, false));
+  }, [activeTab, isClient]); // Depends on activeTab and isClient
+
+  // Effect for auto-rotation and onAnimationComplete callback
+  useEffect(() => {
+    // console.log(`[BarChart] Auto-rotation effect check: isClient=${isClient}, mounted=${mountedRef.current}, activeTab=${activeTab}, disableAutoRotate=${disableAutoRotate}, cycleCount=${cycleCount}`);
+    if (!mountedRef.current || !isClient) {
+      // console.log('[BarChart] Auto-rotation PREVENTED: not mounted or not client.');
+      return; 
+    }
+
+    if (tabAnimationTimeoutRef.current) {
+      clearTimeout(tabAnimationTimeoutRef.current);
+      tabAnimationTimeoutRef.current = null; 
+    }
+    // console.log('[BarChart] Cleared existing timer for auto-rotation.');
+
+    const currentTabDisplayDuration = 3000;
+
+    if (disableAutoRotate) {
+      // console.log('[BarChart] Auto-rotation DISABLED.');
+      if (cycleCount === 0 && onAnimationComplete) {
+        // console.log('[BarChart] Setting timer for onAnimationComplete (disableAutoRotate=true)');
+        tabAnimationTimeoutRef.current = setTimeout(() => {
+          if (mountedRef.current) {
+            // console.log('[BarChart] Firing onAnimationComplete (disableAutoRotate=true)');
+            onAnimationComplete();
+            setCycleCount(1); 
+          }
+        }, currentTabDisplayDuration);
+      }
+      return; 
+    }
+
+    // console.log('[BarChart] Setting timer for NEXT TAB auto-rotation.');
+    tabAnimationTimeoutRef.current = setTimeout(() => {
+      if (!mountedRef.current) {
+        // console.log('[BarChart] Auto-rotation callback SKIPPED: unmounted before fire.');
+        return;
+      }
+      // console.log(`[BarChart] Auto-rotation TIMER FIRED. Current activeTab: ${activeTab}`);
+
+      const currentIndex = tabs.findIndex(tab => tab.id === activeTab);
+      let nextIndex = (currentIndex + 1) % tabs.length;
+      
+      let currentCycle = cycleCount;
+      if (nextIndex === 0) { 
+        currentCycle = cycleCount + 1;
+        setCycleCount(currentCycle); 
+        // console.log(`[BarChart] Cycle completed. New cycleCount: ${currentCycle}`);
+      }
+
+      if (currentCycle === 1 && nextIndex === 0 && onAnimationComplete) {
+        // console.log('[BarChart] Firing onAnimationComplete (full cycle).');
+        onAnimationComplete();
+      }
+      
+      // console.log(`[BarChart] Switching to next tab: ${tabs[nextIndex].id}`);
+      setActiveTab(tabs[nextIndex].id);
+    }, currentTabDisplayDuration);
+
+    return () => {
+      if (tabAnimationTimeoutRef.current) {
+        clearTimeout(tabAnimationTimeoutRef.current);
+        tabAnimationTimeoutRef.current = null;
+        // console.log('[BarChart] Auto-rotation timer CLEARED (cleanup of effect).');
       }
     };
-    animateSequence();
-  }, [controls, onAnimationComplete, totalOnCompleteDelay]);
+  }, [activeTab, disableAutoRotate, onAnimationComplete, cycleCount, isClient, mountedRef.current]); // Added mountedRef.current to dependencies
 
   const formatYAxisLabel = (value: number): string => {
     if (value >= 10000000) {
@@ -152,24 +256,22 @@ export const AnimatedBarChartCard = ({ onAnimationComplete }: AnimatedBarChartCa
         fill: '#475569', // text-slate-600 from user's change
       },
       valueFormatter: formatYAxisLabel,
-    }],
-    series: seriesData.map(s => ({ dataKey: s.dataKey, color: s.color })),
-    height: 300,
-    margin: { top: 20, right: 20, bottom: 20, left: 5 }, // Adjusted for centering
-    sx: {
-      [`.${axisClasses.left} .${axisClasses.label}`]: {
-        transform: 'translate(-20px, 0)',
-      },
-      // General .MuiChartsAxis-tickLabel styling removed as it's now specific to yAxis/xAxis tickLabelStyle
-      ".MuiChartsAxis-line": {
-        stroke: '#e2e8f0',
-        strokeOpacity: 0.9,
-      },
-      ".MuiChartsAxis-tick": {
-        stroke: '#e2e8f0',
-        strokeOpacity: 0.9,
+      sx: {
+        [`.${axisClasses.left} .${axisClasses.label}`]: {
+          transform: 'translate(-20px, 0)',
+        },
+        ".MuiChartsAxis-line": {
+          stroke: '#e2e8f0', // slate-300
+          strokeOpacity: 0.8,
+        },
+        ".MuiChartsAxis-tick": {
+          stroke: '#e2e8f0', // slate-300
+          strokeOpacity: 0.8,
+        }
       }
-    },
+    }],
+    height: 300,
+    margin: { top: 20, right: 20, bottom: 20, left: 5 },
   };
 
   const legendItemVariants: Variants = {
@@ -190,12 +292,27 @@ export const AnimatedBarChartCard = ({ onAnimationComplete }: AnimatedBarChartCa
     }
   };
 
+  // Manual tab change function for button clicks
+  const handleManualTabChange = (tabId: string) => {
+    if (!mountedRef.current) return;
+    // Clear any ongoing automatic tab switching timer
+    if (tabAnimationTimeoutRef.current) {
+      clearTimeout(tabAnimationTimeoutRef.current);
+      tabAnimationTimeoutRef.current = null;
+    }
+    // Reset cycleCount on manual change. This ensures that if auto-rotate is re-enabled or was never disabled,
+    // the onAnimationComplete for a full cycle is correctly triggered after the next full auto-cycle.
+    // It also helps if disableAutoRotate=true, then user clicks, then disableAutoRotate becomes false.
+    setCycleCount(0); 
+    setActiveTab(tabId);
+  };
+
   return (
     <motion.div
       className="bg-background/70 backdrop-blur-md dark:bg-neutral-900 rounded-xl shadow-lg overflow-hidden max-w-xl mx-auto flex flex-col"
       variants={cardVariants}
       initial="hidden"
-      animate={controls}
+      animate={cardControls}
     >
       {/* Header Section */}
       <div className="p-4 border-b border-slate-200 dark:border-neutral-800">
@@ -212,7 +329,7 @@ export const AnimatedBarChartCard = ({ onAnimationComplete }: AnimatedBarChartCa
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => changeTab(tab.id)}
+                  onClick={() => handleManualTabChange(tab.id)}
                   className={`px-3 py-1 text-xs font-medium rounded-full transition-all ${
                     activeTab === tab.id
                       ? "bg-white dark:bg-neutral-700 text-green-600 dark:text-green-400 shadow-sm"
@@ -238,18 +355,60 @@ export const AnimatedBarChartCard = ({ onAnimationComplete }: AnimatedBarChartCa
         </p>
       </motion.div>
 
-      {/* Bar Chart Section */}
-      <motion.div
-        className="pt-2 pb-0" // Removed px-4 from chart container
-        variants={barChartVariants}
-      >
-        <BarChart
-          dataset={chartData}
-          xAxis={[{ scaleType: 'band', dataKey: 'bank', tickLabelStyle: { fontFamily: 'DM Sans, sans-serif', fontSize: '12px', fill: '#475569'} }]}
-          {...chartSetting}
-          slots={{ bar: BarWithTopRadius }}
-        />
-      </motion.div>
+      {/* Bar Chart Section with AnimatePresence */}
+      <div className="pt-2 pb-0 min-h-[320px]"> {/* Added min-h to prevent layout shift during transitions */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab} // This key is crucial for AnimatePresence to detect changes
+            variants={chartContentVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="w-full min-h-[320px]" // Ensure consistent height during transitions
+          >
+            {isClient && chartData && chartData.length > 0 && (
+              <BarChart
+                dataset={chartData}
+                xAxis={[{ 
+                  scaleType: 'band', 
+                  dataKey: 'bank',
+                  tickLabelStyle: { 
+                    fontFamily: 'DM Sans, sans-serif',
+                    fontSize: '12px',
+                    fill: '#475569' // text-slate-600
+                  },
+                  sx: {
+                    ".MuiChartsAxis-line": {
+                      stroke: '#e2e8f0', // slate-300
+                      strokeOpacity: 0.8,
+                    },
+                    ".MuiChartsAxis-tick": {
+                      stroke: '#e2e8f0', // slate-300
+                      strokeOpacity: 0.8,
+                    }
+                  }
+                }]}
+                series={seriesData.map(s => ({ 
+                  dataKey: s.dataKey, 
+                  label: s.label, 
+                  color: s.color,
+                }))}
+                {...chartSetting}
+                slots={{ bar: BarWithTopRadius }}
+                borderRadius={5} 
+                skipAnimation={false}
+                hideLegend
+              />
+            )}
+            {/* Basic fallback if no data or not client yet */}
+            {(!isClient || !chartData || chartData.length === 0) && (
+              <div className="w-full min-h-[320px] flex items-center justify-center">
+                <p className="text-slate-500">Loading chart data...</p>
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
       {/* Custom Legend Section */}
       <motion.div 
@@ -296,8 +455,8 @@ export const AnimatedBarChartCard = ({ onAnimationComplete }: AnimatedBarChartCa
             Last updated: {isClient ? clientLastUpdated : '...'}
           </div>
           <div className="text-xs font-medium text-green-600 dark:text-green-400">
-            {isClient && (activeTab === 'week' ? '+15% growth' : 
-                         activeTab === 'month' ? '+22% growth' : '+30% growth')}
+            {isClient && (activeTab === 'successRate' ? 'SBI Bank displayed performance gain of 15%.' : 
+                         activeTab === 'failureRate' ? 'XYZ Bank displayed performance decline of 10%.' : '')}
           </div>
         </motion.div>
       </div>

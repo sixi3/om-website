@@ -117,9 +117,7 @@ export function Solutions() {
           <div
             className="inline-flex items-center backdrop-blur-md rounded-full dark:border-neutral-700 px-6 py-3 text-sm font-medium text-slate-600 dark:bg-neutral-800 dark:text-neutral-300"
           >
-            <ChevronDown className="h-4 w-4 mr-2 text-slate-500 dark:text-neutral-400" />
-            AND MANY MORE
-            <ChevronDown className="h-4 w-4 ml-2 text-slate-500 dark:text-neutral-400" />
+            + AND MANY MORE
           </div>
         </div>
 

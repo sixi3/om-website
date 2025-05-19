@@ -1,24 +1,30 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, useAnimation, Variants } from 'framer-motion'; // Placeholder for the consent icon
 
 interface AnimatedPieChartCardProps {
   onAnimationComplete?: () => void;
+  disableAutoRotate?: boolean;
 }
 
-const newPieData = [
-  { name: 'Approved', value: 500, color: '#22c55e' }, // Emerald 500 (Green)
-  { name: 'Pending', value: 250, color: '#3b82f6' },  // Blue 500
-  { name: 'Rejected', value: 200, color: '#ef4444' }, // Red 500
-  { name: 'Expired', value: 50, color: '#f97316' },   // Orange 500
+const overallConsentsData = [
+  { name: 'Approved', value: 62783, color: '#22c55e' }, // Emerald 500 (Green)
+  { name: 'Pending', value: 27467, color: '#3b82f6' },  // Blue 500
+  { name: 'Rejected', value: 8299, color: '#ef4444' }, // Red 500
+  { name: 'Expired', value: 5679, color: '#f97316' },   // Orange 500
+];
+
+const dataDeliveryData = [
+  { name: 'Received', value: 85432, color: '#00754B' },
+  { name: 'Pending', value: 15234, color: '#3DADFB' },    
+  { name: 'Failed', value: 3012, color: '#FF7C7B' }, 
 ];
 
 // Tab types and their labels (from AnimatedLineGraphCard)
 const tabs = [
-  { id: 'week', label: 'Last Week' },
-  { id: 'month', label: 'Last Month' },
-  { id: 'sixMonths', label: 'Last 6 Months' }
+  { id: 'consent', label: 'Overall Consents' },
+  { id: 'data', label: 'Data Delivery' },
 ];
 
 const getDonutSlicePath = (
@@ -118,148 +124,209 @@ const legendItemVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
 };
 
-export const AnimatedPieChartCard = ({ onAnimationComplete }: AnimatedPieChartCardProps) => {
-  const controls = useAnimation();
-  const [pieData, setPieData] = useState(newPieData);
-  const totalValue = pieData.reduce((sum, item) => sum + item.value, 0);
-  const [activeTab, setActiveTab] = useState('week'); // Default tab
+export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = false }: AnimatedPieChartCardProps) => {
+  const cardControls = useAnimation();
+  const chartControls = useAnimation();
+  const [activeTab, setActiveTab] = useState(tabs[0].id);
+  const [currentPieData, setCurrentPieData] = useState(overallConsentsData);
+  const [animationCycle, setAnimationCycle] = useState(0);
 
-  const changeTab = (tabId: string) => {
-    setActiveTab(tabId);
-    // Add logic here if pie chart data should change based on tab
-    // For now, it just changes the active tab visually.
+  const totalValue = currentPieData.reduce((sum, item) => sum + item.value, 0);
+  const tabSwitchTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const onCompleteTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const getAnimationDelay = (baseDelay: number) => {
+    return animationCycle > 0 ? baseDelay * 0.5 : baseDelay; 
   };
 
   useEffect(() => {
-    const animateSequence = async () => {
-      await controls.start('visible');
-      if (onAnimationComplete) {
-        const lastLegendItemAnimationEnd = 1.5 + (pieData.length -1) * 0.15 + 0.3;
-        setTimeout(() => {
+    const lastLegendItemIndex = currentPieData.length - 1;
+    const sliceAnimationEnd = getAnimationDelay(0.6 + lastLegendItemIndex * 0.15 + 0.5);
+    const centerLabelAnimationEnd = getAnimationDelay(1.2 + 0.5);
+    const legendAnimationEnd = getAnimationDelay(1.5 + lastLegendItemIndex * 0.15 + 0.3);
+    const maxAnimationDuration = Math.max(sliceAnimationEnd, centerLabelAnimationEnd, legendAnimationEnd);
+
+    const animateCardAndChart = async () => {
+      await cardControls.start('visible');
+      await chartControls.start('visible');
+      
+      if (tabSwitchTimerRef.current) clearTimeout(tabSwitchTimerRef.current);
+      if (onCompleteTimerRef.current) clearTimeout(onCompleteTimerRef.current);
+
+      if (activeTab === 'consent' && !disableAutoRotate) {
+        tabSwitchTimerRef.current = setTimeout(() => {
+          setActiveTab('data');
+          setCurrentPieData(dataDeliveryData);
+          setAnimationCycle(prev => prev + 1);
+        }, (maxAnimationDuration + 0.5) * 1000);
+      } else if (activeTab === 'data' && onAnimationComplete) {
+        onCompleteTimerRef.current = setTimeout(() => {
           onAnimationComplete();
-          // console.log('AnimatedPieChartCard: onAnimationComplete would have been called here.');
-        }, lastLegendItemAnimationEnd * 1000 + 200);
+        }, (maxAnimationDuration + 0.2) * 1000);
+      } else if (disableAutoRotate && onAnimationComplete) {
+        onCompleteTimerRef.current = setTimeout(() => {
+          onAnimationComplete();
+        }, (maxAnimationDuration + 0.2) * 1000);
       }
     };
-    animateSequence();
-  }, [controls, onAnimationComplete, pieData.length]);
 
-  const svgSize = 220; // Adjusted for a more compact look like the screenshot
-  const outerRadius = svgSize / 2 - 10; // Outer radius of the donut
-  const innerRadius = outerRadius * 0.6;  // Inner radius, making it a donut
-  const paddingAngle = 2; // Degrees of padding between slices
+    animateCardAndChart();
+
+    return () => {
+      if (tabSwitchTimerRef.current) clearTimeout(tabSwitchTimerRef.current);
+      if (onCompleteTimerRef.current) clearTimeout(onCompleteTimerRef.current);
+    };
+  }, [cardControls, chartControls, activeTab, disableAutoRotate, onAnimationComplete, animationCycle]);
+
+  const svgSize = 280;
+  const outerRadius = svgSize / 2 - 10;
+  const innerRadius = outerRadius * 0.6;
+  const paddingAngle = 2;
   const centerX = svgSize / 2;
   const centerY = svgSize / 2;
   let cumulativeAngle = 90;
+
+  const centerLabelText = activeTab === 'consent' ? ['TOTAL', 'CONSENTS'] : ['TOTAL DATA', 'REQUESTED'];
+
+  const numLegendItems = currentPieData.length;
+  let smGridColsResponsiveClass = 'sm:grid-cols-4'; // Default for 4 or more items
+  if (numLegendItems === 1) {
+    smGridColsResponsiveClass = 'sm:grid-cols-1';
+  } else if (numLegendItems === 2) {
+    smGridColsResponsiveClass = 'sm:grid-cols-2';
+  } else if (numLegendItems === 3) {
+    smGridColsResponsiveClass = 'sm:grid-cols-3';
+  }
 
   return (
     <motion.div
       className="bg-background/70 backdrop-blur-md dark:bg-neutral-900 rounded-xl shadow-lg overflow-hidden max-w-xl mx-auto flex flex-col"
       variants={cardVariants}
       initial="hidden"
-      animate={controls}
+      animate={cardControls}
     >
-      {/* Updated Header Section based on AnimatedLineGraphCard */}
       <div className="p-4 border-b border-slate-200 dark:border-neutral-800">
         <div className="flex justify-between items-center">
           <motion.h3
             custom={0}
             variants={headerItemVariants}
+            initial="hidden"
+            animate={cardControls}
             className="text-lg font-medium text-slate-800 dark:text-neutral-200"
           >
-            Consent Distribution
+            {activeTab === 'consent' ? 'Consent Distribution' : 'Data Delivery Overview'}
           </motion.h3>
-          <div className="flex">
+          <motion.div initial="hidden" animate={cardControls} custom={1} variants={headerItemVariants} className="flex">
             <div className="flex space-x-1 bg-slate-400/10 backdrop-blur-md dark:bg-neutral-800 rounded-full p-0.5">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => changeTab(tab.id)}
+                  onClick={() => {
+                    if (disableAutoRotate || activeTab === tab.id) return;
+                  }}
+                  disabled={!disableAutoRotate && activeTab !== tab.id}
                   className={`px-3 py-1 text-xs font-medium rounded-full transition-all ${
                     activeTab === tab.id
                       ? "bg-white dark:bg-neutral-700 text-green-600 dark:text-green-400 shadow-sm"
                       : "text-slate-600 dark:text-neutral-400 hover:bg-white/50 dark:hover:bg-neutral-700/50"
-                  }`}
+                  } ${(!disableAutoRotate && activeTab !== tab.id) ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   {tab.label}
                 </button>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       <motion.div
-        custom={1}
+        custom={activeTab === 'consent' ? 1 : 2}
         variants={headerItemVariants}
-        className="px-4 pt-3 mb-4" // Added mb-4 for spacing, similar to LineGraphCard's structure
+        initial="hidden"
+        animate={cardControls}
+        className="px-4 pt-3 mb-4"
       >
         <p className="text-sm text-slate-600 dark:text-neutral-400">
-          Understand overall distribution of consents raised
+          {activeTab === 'consent' 
+            ? 'Understand overall distribution of consents raised' 
+            : 'Understand distribution of requested data '}
         </p>
       </motion.div>
 
-      {/* Donut Chart and Center Label - Ensure top margin is adjusted if needed */}
-      <div className="relative flex justify-center items-center mb-6 px-4"> {/* Added px-4 for consistency if content inside needs padding */}
-        <svg width={svgSize} height={svgSize} viewBox={`0 0 ${svgSize} ${svgSize}`} className="transform -rotate-90">
-          <title>Overall Consents Distribution</title>
-          {pieData.map((slice, index) => {
-            const sliceAngle = (slice.value / totalValue) * 360;
-            const startAngle = cumulativeAngle;
-            const endAngle = cumulativeAngle + sliceAngle;
-            const pathData = getDonutSlicePath(centerX, centerY, outerRadius, innerRadius, startAngle, endAngle, paddingAngle);
-            cumulativeAngle = endAngle;
-            return (
-              <motion.path
-                key={slice.name}
-                d={pathData}
-                fill={slice.color}
-                variants={sliceVariants}
-                custom={index}
-              />
-            );
-          })}
-        </svg>
-        <motion.div 
-          className="absolute flex flex-col items-center justify-center text-center"
-          variants={centerLabelVariants}
-        >
-          <span className="text-xs text-slate-500 dark:text-neutral-400">CONSENTS</span>
-          <span className="text-xs text-slate-500 dark:text-neutral-400">RAISED</span>
-          <span className="text-3xl font-bold text-slate-800 dark:text-neutral-200 mt-1">
-            {totalValue.toLocaleString()}
-          </span>
-        </motion.div>
-      </div>
-
-      {/* Legend Section */}
-      <motion.div 
-        className="w-full grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-3 p-4 md:pl-10 pb-4" // Added px-4 and pb-4 for consistency
-        variants={legendContainerVariants}
-      >
-        {pieData.map((slice, index) => (
-          <motion.div 
-            key={`legend-${slice.name}`}
-            className="flex flex-col items-start"
-            variants={legendItemVariants}
+      <motion.div animate={chartControls} key={`chart-cycle-${animationCycle}`} className="contents">
+        <div className="relative flex justify-center items-center mb-6 px-4">
+          <motion.svg 
+            key={`svg-${activeTab}-${animationCycle}`} 
+            width={svgSize} 
+            height={svgSize} 
+            viewBox={`0 0 ${svgSize} ${svgSize}`} 
+            className="transform -rotate-90"
+            initial="hidden"
+            animate="visible"
           >
-            <div className="flex items-center mb-0.5">
-              <span 
-                className="w-2.5 h-2.5 rounded-xs mr-1.5 flex-shrink-0"
-                style={{ backgroundColor: slice.color }}
-              ></span>
-              <span className="text-xs text-slate-600 dark:text-neutral-400">
-                {slice.name}
-              </span>
-            </div>
-            <span className="text-base font-bold text-slate-800 dark:text-neutral-200">
-              {slice.value.toLocaleString()}
-              <span className="text-xs font-normal text-slate-500 dark:text-neutral-500 ml-1">
-                ({(slice.value / totalValue * 100).toFixed(0)}%)
-              </span>
+            <title>{activeTab === 'consent' ? 'Overall Consents Distribution' : 'Data Delivery Status'}</title>
+            {currentPieData.map((slice, index) => {
+              const sliceAngle = (slice.value / totalValue) * 360;
+              const startAngle = cumulativeAngle;
+              const endAngle = cumulativeAngle + sliceAngle;
+              const pathData = getDonutSlicePath(centerX, centerY, outerRadius, innerRadius, startAngle, endAngle, paddingAngle);
+              cumulativeAngle = endAngle;
+              return (
+                <motion.path
+                  key={`${slice.name}-${animationCycle}`}
+                  d={pathData}
+                  fill={slice.color}
+                  variants={sliceVariants}
+                  custom={index}
+                  initial="hidden" animate="visible"
+                />
+              );
+            })}
+          </motion.svg>
+          <motion.div 
+            key={`centerlabel-${activeTab}-${animationCycle}`}
+            className="absolute flex flex-col items-center justify-center text-center"
+            variants={centerLabelVariants}
+            initial="hidden" animate="visible"
+          >
+            <span className="text-[11px] text-slate-500 font-medium dark:text-neutral-400">{centerLabelText[0]}</span>
+            <span className="text-[11px] text-slate-500 font-medium dark:text-neutral-400">{centerLabelText[1]}</span>
+            <span className="text-2xl font-bold text-slate-700 dark:text-neutral-200 mt-1">
+              {totalValue.toLocaleString()}
             </span>
           </motion.div>
-        ))}
+        </div>
+
+        <motion.div 
+          key={`legend-${activeTab}-${animationCycle}`}
+          className={`w-full grid grid-cols-2 ${smGridColsResponsiveClass} gap-x-4 gap-y-3 p-4 md:pl-10 pb-4`}
+          variants={legendContainerVariants}
+          initial="hidden" animate="visible"
+        >
+          {currentPieData.map((slice, index) => (
+            <motion.div 
+              key={`legend-item-${slice.name}-${animationCycle}`}
+              className="flex flex-col items-center"
+              variants={legendItemVariants}
+            >
+              <div className="flex items-center mb-0.5">
+                <span 
+                  className="w-2.5 h-2.5 rounded-xs mr-1.5 flex-shrink-0"
+                  style={{ backgroundColor: slice.color }}
+                ></span>
+                <span className="text-sm text-slate-600 font-medium dark:text-neutral-400">
+                  {slice.name}
+                </span>
+              </div>
+              <span className="text-base font-bold text-slate-800 dark:text-neutral-200">
+                {slice.value.toLocaleString()}
+                <span className="text-xs font-normal text-slate-500 dark:text-neutral-500 ml-1">
+                  ({(slice.value / totalValue * 100).toFixed(0)}%)
+                </span>
+              </span>
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
     </motion.div>
   );
