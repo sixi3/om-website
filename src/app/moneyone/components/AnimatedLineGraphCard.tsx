@@ -29,7 +29,16 @@ const tabs = [
   { id: 'sixMonths', label: 'Last 6 Months' }
 ];
 
-export const LineGraphCard = () => {
+// Define props type for the component
+interface LineGraphCardProps {
+  onAnimationComplete?: () => void;
+  disableAutoRotate?: boolean;
+}
+
+export const LineGraphCard = ({ 
+  onAnimationComplete: onExternalAnimationComplete, 
+  disableAutoRotate = false 
+}: LineGraphCardProps) => {
   const [activeTab, setActiveTab] = useState('week');
   const [animationCompleted, setAnimationCompleted] = useState(false);
   const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -98,7 +107,8 @@ export const LineGraphCard = () => {
 
   // Auto rotate tabs after animation completes
   useEffect(() => {
-    if (animationCompleted && isClient) { 
+    // Only auto-rotate if not disabled and animation has completed
+    if (animationCompleted && isClient && !disableAutoRotate) { 
       animationTimeoutRef.current = setTimeout(() => {
         const currentIndex = tabs.findIndex(tab => tab.id === activeTab);
         const nextIndex = (currentIndex + 1) % tabs.length;
@@ -111,7 +121,14 @@ export const LineGraphCard = () => {
         clearTimeout(animationTimeoutRef.current);
       }
     };
-  }, [animationCompleted, activeTab, isClient]);
+  }, [animationCompleted, activeTab, isClient, disableAutoRotate]);
+
+  // Effect to call external onAnimationComplete when appropriate
+  useEffect(() => {
+    if (animationCompleted && onExternalAnimationComplete && disableAutoRotate) {
+      onExternalAnimationComplete();
+    }
+  }, [animationCompleted, onExternalAnimationComplete, disableAutoRotate]);
 
   // Animation controls
   const pathVariants = {
@@ -195,8 +212,8 @@ export const LineGraphCard = () => {
   // Create area path for secondary line (gradient fill)
   const secondaryAreaPath = `${secondaryLinePath} L ${padding + chartWidth},${height - padding} L ${padding},${height - padding} Z`;
 
-  // Animation completion handler
-  const onAnimationComplete = () => {
+  // Animation completion handler for Framer Motion (internal)
+  const handleInternalAnimationComplete = () => {
     if(isClient) setAnimationCompleted(true);
   };
 
@@ -442,7 +459,7 @@ export const LineGraphCard = () => {
                   variants={pathVariants}
                   initial="hidden"
                   animate="visible"
-                  onAnimationComplete={onAnimationComplete}
+                  onAnimationComplete={handleInternalAnimationComplete}
                 />
                 
                 {/* Data points for primary (green) line */}

@@ -150,7 +150,17 @@ This document outlines the steps to create a React website similar in structure 
             *   [x] Made cards clickable to control animation stage and restart relevant animation sequence in `UserJourneyAnimation.tsx`.
             *   [x] **5.4. Active Card Styling:** Apply active styles (border, background, blur, live dot) to the left panel card corresponding to `currentActiveCardIndex`.
             *   [x] **5.5. Progress Bars:** Implement progress bars for left panel cards: Animate from 0% to 100% (e.g., using Framer Motion on width) over a short duration (now synced with card active duration) when the corresponding card becomes active. Progress bars also reset on click.
-        *   [ ] **6. Layout and Styling:**
+        *   [x] **6. Interactive Showcase of Animated Components:**
+            *   [x] Create `InteractiveShowcase.tsx` to manage the sequence of animated charts.
+            *   [x] Implement `AnimatedLineGraphCard.tsx` with `onAnimationComplete` callback.
+            *   [x] Implement `AnimatedPieChartCard.tsx` with SVG-based donut chart and animations.
+            *   [x] Create header for `AnimatedPieChartCard.tsx` to match style of `AnimatedLineGraphCard.tsx`.
+            *   [x] Add duration tabs to `AnimatedPieChartCard.tsx` header.
+            *   [ ] Create `AnimatedSankeyChartCard.tsx` (placeholder exists).
+            *   [x] Set up `onAnimationComplete` handling to trigger transitions between charts.
+            *   [x] Test and refine chart sequence transitions.
+            *   [x] Integrate `InteractiveShowcase` into `WhatIsMoneyOne.tsx`.
+        *   [ ] **7. Layout and Styling:**
             *   [x] Ensure 2-column layout (left: text cards, right: phone mockup).
             *   [ ] Adjust overall section height, padding, and responsive behavior as needed.
             *   [x] **Responsive Design for Small Screens (e.g., <450px or `<sm` breakpoint):**
@@ -448,3 +458,60 @@ This document outlines the steps to create a React website similar in structure 
     *   [x] Add decorative images for "Advanced Analytics" and "Nudges and Insights" services
     *   [x] Integrate responsive layout adjustments for different screen sizes
     *   [x] Add to `src/app/moneyone/page.tsx` in correct position before ContactUs section
+
+## 11. MoneyOne Interactive Demo/Showcase Section
+
+*   **Objective:** Create a sequence of animated components to showcase different data visualization and interaction capabilities. The components will be displayed one after another upon completion of the previous animation.
+*   **Display Order (Updated):**
+    1.  Animated Line Graph (existing `AnimatedLineGraphCard.tsx`)
+    2.  Animated Pie Chart
+    3.  Animated Bar Chart
+*   **Implementation Steps (Revised Hybrid Approach):**
+    *   [x] **1. Create Skeleton Parent Orchestration Component (`src/app/moneyone/components/InteractiveShowcase.tsx`):**
+        *   [x] Basic state to manage the active component index/ID.
+        *   [x] Placeholder logic for switching components based on completion.
+        *   [x] Use Framer Motion's `AnimatePresence` for managing component mounting/unmounting.
+    *   [x] **2. Adapt Existing Animated Line Graph Card (`src/app/moneyone/components/AnimatedLineGraphCard.tsx`):**
+        *   [x] Add an `onAnimationComplete?: () => void;` prop.
+        *   [x] Add a `disableAutoRotate?: boolean;` prop (to control its internal tab-switching behavior when part of the showcase).
+        *   [x] Modify its animation completion logic:
+            *   [x] If `disableAutoRotate` is true, `onAnimationComplete` should be called after the initial graph animation finishes.
+            *   [x] If `disableAutoRotate` is false (or not provided), `onAnimationComplete` might be called after one full cycle of tab rotations, or based on a specific interaction if preferred for standalone use. Decide and document this behavior. For the showcase, we'll likely use `disableAutoRotate={true}`.
+        *   [x] Test this card in isolation with the new props to ensure the callback fires correctly.
+    *   [x] **3. Integrate Adapted Line Graph into `InteractiveShowcase.tsx` (as a Test):**
+        *   [x] Initially, make `InteractiveShowcase` display `AnimatedLineGraphCard` (e.g., as the second item in the sequence, after a placeholder for the form).
+        *   [x] Implement logic in `InteractiveShowcase` to listen to `onAnimationComplete` from the line graph.
+        *   [x] Upon completion, the orchestrator should advance to a placeholder for the *next* card in sequence (e.g., Pie Chart).
+        *   [x] This step validates the core `onAnimationComplete` callback mechanism and basic state transitions in the orchestrator.
+    *   [ ] **4. Develop Animated Pie Chart Component (`src/app/moneyone/components/AnimatedPieChartCard.tsx`):**
+        *   [ ] Design an animated pie chart card, styled consistently.
+        *   [ ] Use SVG and Framer Motion for animations (e.g., slices drawing in, percentages appearing, legend items fading in).
+        *   [ ] The component must have an `onAnimationComplete?: () => void;` prop.
+        *   [ ] Test in isolation.
+    *   [ ] **5. Integrate `AnimatedPieChartCard` into `InteractiveShowcase.tsx`:**
+        *   [ ] Add to the sequence after `AnimatedLineGraphCard`.
+    *   [ ] **6. Develop Animated Bar Chart Component (`src/app/moneyone/components/AnimatedBarChartCard.tsx`):**
+        *   [ ] Design an animated bar chart card, styled consistently.
+        *   [ ] Header text: "FIP Data Health" with tab filters (Last Week, Last Month, Last 6 Months) like `AnimatedLineGraphCard.tsx`.
+        *   [ ] Chart will display 5 banks (SBI, HDFC, ICICI, RBL, Bank of Baroda) in descending order.
+        *   [ ] Each bank will have two bars: "Data Requested" and "Data Delivered".
+        *   [ ] Implement using MUI Charts (`@mui/x-charts`).
+        *   [ ] Implement animations for bars appearing/growing, values appearing, etc.
+        *   [ ] The component must have an `onAnimationComplete?: () => void;` prop.
+        *   [ ] Test in isolation.
+    *   [ ] **7. Integrate `AnimatedBarChartCard` into `InteractiveShowcase.tsx`:**
+        *   [ ] Add to the sequence after `AnimatedPieChartCard`, completing the set of animated components.
+    *   [ ] **8. Finalize Orchestration Logic & Transitions in `InteractiveShowcase.tsx`:**
+        *   [ ] Ensure the display order (Line Graph -> Pie -> Bar) is robustly implemented.
+        *   [ ] Refine Framer Motion `AnimatePresence` transitions for smooth and visually appealing card changes (e.g., fade in/out, slide in/out).
+        *   [ ] Implement the desired behavior after the Bar chart finishes (e.g., loop back to the start, or stop).
+    *   [x] **9. Integrate `InteractiveShowcase.tsx` into MoneyOne Page:**
+        *   [x] Add the `InteractiveShowcase.tsx` component to `src/app/moneyone/page.tsx` in a suitable section. (Specifically, it was added to `src/app/moneyone/sections/WhatIsMoneyOne.tsx`)
+        *   [x] Ensure proper styling, layout, and responsiveness for the showcase area on the page.
+    *   [ ] **10. Key Considerations / Safety Nets for Smooth Implementation:**
+        *   [ ] **Robust State Management & Callbacks:** Ensure `InteractiveShowcase.tsx` has clear state logic and that `onAnimationComplete` callbacks from child components are reliable and called exactly once per intended sequence.
+        *   [ ] **Isolate and Conquer:** Develop and thoroughly test each animated card (Form, Pie, Bar, and adapted Line Graph) in isolation before integrating into the `InteractiveShowcase`.
+        *   [ ] **Performance Mindfulness:** Optimize SVGs/charts, use `React.memo` where appropriate, and test animation performance, especially for more complex charts.
+        *   [ ] **Consistent Styling:** Define a common base style/structure for all cards to ensure visual unity.
+        *   [ ] **Controlled Looping/End State:** Clearly define and implement the behavior after the final chart (loop, stop, etc.) in the orchestrator.
+        *   [ ] **Effective `AnimatePresence` Usage:** Ensure correct `key` props and configuration for smooth enter/exit animations managed by Framer Motion.

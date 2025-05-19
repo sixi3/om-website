@@ -8,7 +8,7 @@ import {
   FileText, BanknoteArrowUp, CandlestickChart, ShieldCheck, 
   LineChart, ReceiptIndianRupee, Briefcase 
 } from 'lucide-react';
-import { LineGraphCard } from '../components/AnimatedLineGraphCard';
+import { InteractiveShowcase } from '../components/InteractiveShowcase';
 
 // Styling classes (consistent with other sections)
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -62,10 +62,11 @@ export function WhatIsMoneyOne() {
           </p>
         </div>
 
-        {/* Custom Line Graph Animation */}
-        <div className="flex justify-center items-center my-12 md:my-16">
-          <div className="w-full max-w-md md:max-w-lg lg:max-w-xl">
-            <LineGraphCard />
+        {/* Custom Line Graph Animation replaced with InteractiveShowcase */}
+          <div className="flex justify-center items-center my-12 md:my-16">
+            <div className="w-full max-w-md md:max-w-lg lg:max-w-xl">
+            {/* <LineGraphCard /> */}
+            <InteractiveShowcase /> 
           </div>
         </div>
             
@@ -143,4 +144,4 @@ export function WhatIsMoneyOne() {
 
     </motion.section>
   );
-}
+} 
