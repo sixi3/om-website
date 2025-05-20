@@ -270,7 +270,7 @@ export const AnimatedBarChartCard = ({ onAnimationComplete, disableAutoRotate = 
         }
       }
     }],
-    height: 300,
+    height: 240,
     margin: { top: 20, right: 20, bottom: 20, left: 5 },
   };
 
@@ -356,7 +356,7 @@ export const AnimatedBarChartCard = ({ onAnimationComplete, disableAutoRotate = 
       </motion.div>
 
       {/* Bar Chart Section with AnimatePresence */}
-      <div className="pt-2 pb-0 min-h-[320px]"> {/* Added min-h to prevent layout shift during transitions */}
+      <div className="pt-2 pb-0 min-h-[240px]"> {/* Reduced from min-h-[320px] */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab} // This key is crucial for AnimatePresence to detect changes
@@ -364,7 +364,7 @@ export const AnimatedBarChartCard = ({ onAnimationComplete, disableAutoRotate = 
             initial="initial"
             animate="animate"
             exit="exit"
-            className="w-full min-h-[320px]" // Ensure consistent height during transitions
+            className="w-full min-h-[240px]" // Reduced from min-h-[320px]
           >
             {isClient && chartData && chartData.length > 0 && (
               <BarChart
@@ -391,7 +391,7 @@ export const AnimatedBarChartCard = ({ onAnimationComplete, disableAutoRotate = 
                 series={seriesData.map(s => ({ 
                   dataKey: s.dataKey, 
                   label: s.label, 
-                  color: s.color,
+                  color: (activeTab === 'failureRate' && s.dataKey === 'delivered') ? '#BD423F' : s.color,
                 }))}
                 {...chartSetting}
                 slots={{ bar: BarWithTopRadius }}
@@ -402,7 +402,7 @@ export const AnimatedBarChartCard = ({ onAnimationComplete, disableAutoRotate = 
             )}
             {/* Basic fallback if no data or not client yet */}
             {(!isClient || !chartData || chartData.length === 0) && (
-              <div className="w-full min-h-[320px] flex items-center justify-center">
+              <div className="w-full min-h-[240px] flex items-center justify-center"> {/* Reduced from min-h-[320px] */}
                 <p className="text-slate-500">Loading chart data...</p>
               </div>
             )}
@@ -434,7 +434,7 @@ export const AnimatedBarChartCard = ({ onAnimationComplete, disableAutoRotate = 
             variants={legendItemVariants} // Apply item variants here
           >
             <svg width="12" height="12" viewBox="0 0 16 16">
-              <circle cx="8" cy="8" r="5" fill="none" stroke={item.color} strokeWidth="3" />
+              <circle cx="8" cy="8" r="5" fill="none" stroke={(activeTab === 'failureRate' && item.dataKey === 'delivered') ? '#BD423F' : item.color} strokeWidth="3" />
             </svg>
             <span className="text-xs text-slate-600 dark:text-neutral-400 font-medium">
               {item.label}

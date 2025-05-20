@@ -335,9 +335,11 @@ export const LineGraphCard = ({
               <span className="text-xs font-medium text-blue-700 dark:text-blue-400">Total Raised</span>
             </div>
             <div className="mt-1">
-              <span className={`text-2xl font-bold text-blue-600 dark:text-blue-300 ${animatingCount ? 'transition-all duration-75' : ''}`}>
-                {displayedRaised.toLocaleString()}
-              </span>
+              <div className="flex flex-col">
+                <span className={`lg:text-2xl text-base font-bold text-blue-600 dark:text-blue-400 ${animatingCount ? 'transition-all duration-75' : ''}`}>
+                  {displayedRaised.toLocaleString()}
+                </span>
+              </div>
             </div>
           </div>
           
@@ -347,9 +349,11 @@ export const LineGraphCard = ({
               <span className="text-xs font-medium text-green-700 dark:text-green-400">Total Approved</span>
             </div>
             <div className="mt-1">
-              <span className={`text-2xl font-bold text-green-600 dark:text-green-300 ${animatingCount ? 'transition-all duration-75' : ''}`}>
-                {displayedApproved.toLocaleString()}
-              </span>
+              <div className="flex flex-col">
+                <span className={`lg:text-2xl text-base font-bold text-green-600 dark:text-green-400 ${animatingCount ? 'transition-all duration-75' : ''}`}>
+                  {displayedApproved.toLocaleString()}
+                </span>
+              </div>
             </div>
           </div>
         </div>

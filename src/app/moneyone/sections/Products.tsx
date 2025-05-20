@@ -29,7 +29,7 @@ const moneyOneMetallicTextClasses = "font-bold bg-gradient-to-b from-[#3cd070] t
 
 // Helper for the title pill (with Star)
 const TitlePill = ({ text }: { text: string }) => (
-  <span className="ml-2 whitespace-nowrap rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700 flex items-center">
+  <span className="ml-2 whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md px-2.5 py-1 text-xs font-medium text-green-700 flex items-center border border-green-200">
     {text}
   </span>
 );
@@ -49,7 +49,7 @@ const FeaturePill = ({ text, icon, className }: FeaturePillProps) => (
 
 // Content for Feature Pills (to avoid repetition in productsData)
 const finProFeaturePills = (
-  <div className="grid grid-cols-2 md:flex w-full gap-2 mt-4 mb-1">
+  <div className="grid grid-cols-2 lg:flex w-full gap-2 mt-4 mb-1">
     <FeaturePill text="Advanced Insights" icon={<Lightbulb className="h-3.5 w-3.5 mr-1.5 text-green-700" />} className="md:flex-1" />
     <FeaturePill text="Manual/Auto Data Fetch" icon={<DatabaseZap className="h-3.5 w-3.5 mr-1.5 text-green-700" />} className="md:flex-1" />
     <FeaturePill text="Custom Consent Flows" icon={<Workflow className="h-3.5 w-3.5 mr-1.5 text-green-700" />} className="col-span-2 md:flex-1" />
@@ -57,7 +57,7 @@ const finProFeaturePills = (
 );
 
 const finShareFeaturePills = (
-  <div className="grid grid-cols-2 md:flex w-full gap-2 mt-4 mb-1">
+  <div className="grid grid-cols-2 lg:flex w-full gap-2 mt-4 mb-1">
     <FeaturePill text="ReBIT-Compliant APIs" icon={<ShieldCheck className="h-3.5 w-3.5 mr-1.5 text-green-700" />} className="md:flex-1" />
     <FeaturePill text="FIU-Based Data Analysis" icon={<PieChart className="h-3.5 w-3.5 mr-1.5 text-green-700" />} className="md:flex-1" />
     <FeaturePill text="Custom Consent Flows" icon={<Workflow className="h-3.5 w-3.5 mr-1.5 text-green-700" />} className="col-span-2 md:flex-1" />
@@ -83,7 +83,7 @@ const productsData = [
     header: (
       <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
         <Image 
-          src="/Bnl.png" // Placeholder image
+          src="/finpro-image.png" // Placeholder image
           alt="FinPro illustration"
           fill={true}
           className="object-cover"
@@ -105,14 +105,14 @@ const productsData = [
     ),
     description: (
       <>
-        A specialised solution for FIPs to manage, secure, and share consent-based financial data while tracking consent and ensuring data governance
+        A specialised solution for FIPs to manage, secure, and share consent-based financial data while tracking consent and ensuring highest levels of data governance
         {finShareFeaturePills}
       </>
     ),
     header: (
       <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
         <Image 
-          src="/Ins.png" // Placeholder image
+          src="/finpro-image.png" // Placeholder image
           alt="FinShare illustration"
           fill={true}
           className="object-cover"

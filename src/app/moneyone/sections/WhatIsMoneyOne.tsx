@@ -68,18 +68,18 @@ export function WhatIsMoneyOne() {
         </div>
 
         {/* "AND MANY MORE" Header - Placed inside the container */}
-        <div className="flex justify-center my-2"> 
+        <div className="flex justify-center">
           <div
             className="inline-flex items-center backdrop-blur-md dark:border-neutral-700 px-6 py-3 text-sm font-medium text-slate-600 dark:bg-neutral-800 dark:text-neutral-300"
           >
-            + AND MANY MORE CAPABILITIES
+            + MANY MORE FEATURES
           </div>
         </div>
             
       </div> {/* End of the main container div */}
 
       {/* Marquee Banner - Placed OUTSIDE the container for full width */}
-      <div className="mt-8 w-full mb-4"> {/* Added mb for spacing before section end */}
+      <div className="mt-12 w-full mb-4">
         <Marquee gradient={false} speed={40} pauseOnHover={true} direction="left">
           {moneyOneFeaturesPillTexts.map((text, index) => (
             <div

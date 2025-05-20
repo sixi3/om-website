@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, useAnimation, Variants } from 'framer-motion'; // Placeholder for the consent icon
+import { motion, useAnimation, Variants, Transition, TargetAndTransition } from 'framer-motion'; // Placeholder for the consent icon
 
 interface AnimatedPieChartCardProps {
   onAnimationComplete?: () => void;
@@ -130,10 +130,20 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const [currentPieData, setCurrentPieData] = useState(overallConsentsData);
   const [animationCycle, setAnimationCycle] = useState(0);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const totalValue = currentPieData.reduce((sum, item) => sum + item.value, 0);
   const tabSwitchTimerRef = useRef<NodeJS.Timeout | null>(null);
   const onCompleteTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 768); // md breakpoint
+    };
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   const getAnimationDelay = (baseDelay: number) => {
     return animationCycle > 0 ? baseDelay * 0.5 : baseDelay; 
@@ -178,8 +188,8 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
     };
   }, [cardControls, chartControls, activeTab, disableAutoRotate, onAnimationComplete, animationCycle]);
 
-  const svgSize = 280;
-  const outerRadius = svgSize / 2 - 10;
+  const svgSize = isSmallScreen ? 180 : 280;
+  const outerRadius = svgSize / 2 - (isSmallScreen ? 8 : 10);
   const innerRadius = outerRadius * 0.6;
   const paddingAngle = 2;
   const centerX = svgSize / 2;
@@ -198,9 +208,45 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
     smGridColsResponsiveClass = 'sm:grid-cols-3';
   }
 
+  const currentSliceVariants: Variants = {
+    ...sliceVariants,
+    visible: (i: number) => {
+      const baseVisible = (sliceVariants.visible as (custom: any) => TargetAndTransition)(i);
+      return {
+        ...baseVisible,
+        transition: {
+          ...(baseVisible.transition as Transition),
+          delay: getAnimationDelay(0.6 + i * 0.15),
+        },
+      };
+    },
+  };
+
+  const currentCenterLabelVariants: Variants = {
+    ...centerLabelVariants,
+    visible: {
+      ...(centerLabelVariants.visible as TargetAndTransition),
+      transition: {
+        ...((centerLabelVariants.visible as TargetAndTransition).transition as Transition),
+        delay: getAnimationDelay(1.2),
+      },
+    },
+  };
+
+  const currentLegendContainerVariants: Variants = {
+    ...legendContainerVariants,
+    visible: {
+      ...(legendContainerVariants.visible as TargetAndTransition),
+      transition: {
+        ...((legendContainerVariants.visible as TargetAndTransition).transition as Transition),
+        delayChildren: getAnimationDelay(1.5),
+      },
+    },
+  };
+
   return (
     <motion.div
-      className="bg-background/70 backdrop-blur-md dark:bg-neutral-900 rounded-xl shadow-lg overflow-hidden max-w-xl mx-auto flex flex-col"
+      className="bg-background/70 backdrop-blur-md dark:bg-neutral-900 rounded-xl shadow-lg overflow-hidden max-w-xl mx-auto flex flex-col h-full"
       variants={cardVariants}
       initial="hidden"
       animate={cardControls}
@@ -222,7 +268,19 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
                 <button
                   key={tab.id}
                   onClick={() => {
-                    if (disableAutoRotate || activeTab === tab.id) return;
+                    if (disableAutoRotate || activeTab === tab.id) {
+                      if (activeTab !== tab.id) {
+                        if (tabSwitchTimerRef.current) clearTimeout(tabSwitchTimerRef.current);
+                        if (onCompleteTimerRef.current) clearTimeout(onCompleteTimerRef.current);
+                        setActiveTab(tab.id);
+                        setCurrentPieData(tab.id === 'consent' ? overallConsentsData : dataDeliveryData);
+                        setAnimationCycle(prev => prev + 1);
+                      }
+                    } else {
+                      // If auto-rotate is ON, and user clicks a DIFFERENT tab, it's disabled.
+                      // This case might need refinement if we want to allow clicks during auto-rotation to interrupt and switch.
+                      // For now, simplest is to disable clicks on other tabs if auto-rotate is on.
+                    }
                   }}
                   disabled={!disableAutoRotate && activeTab !== tab.id}
                   className={`px-3 py-1 text-xs font-medium rounded-full transition-all ${
@@ -273,10 +331,10 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
               cumulativeAngle = endAngle;
               return (
                 <motion.path
-                  key={`${slice.name}-${animationCycle}`}
+                  key={`${slice.name}-${activeTab}-${animationCycle}`}
                   d={pathData}
                   fill={slice.color}
-                  variants={sliceVariants}
+                  variants={currentSliceVariants}
                   custom={index}
                   initial="hidden" animate="visible"
                 />
@@ -286,7 +344,7 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
           <motion.div 
             key={`centerlabel-${activeTab}-${animationCycle}`}
             className="absolute flex flex-col items-center justify-center text-center"
-            variants={centerLabelVariants}
+            variants={currentCenterLabelVariants}
             initial="hidden" animate="visible"
           >
             <span className="text-[11px] text-slate-500 font-medium dark:text-neutral-400">{centerLabelText[0]}</span>
@@ -300,12 +358,12 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
         <motion.div 
           key={`legend-${activeTab}-${animationCycle}`}
           className={`w-full grid grid-cols-2 ${smGridColsResponsiveClass} gap-x-4 gap-y-3 p-4 md:pl-10 pb-4`}
-          variants={legendContainerVariants}
+          variants={currentLegendContainerVariants}
           initial="hidden" animate="visible"
         >
           {currentPieData.map((slice, index) => (
             <motion.div 
-              key={`legend-item-${slice.name}-${animationCycle}`}
+              key={`legend-item-${slice.name}-${activeTab}-${animationCycle}`}
               className="flex flex-col items-center"
               variants={legendItemVariants}
             >
