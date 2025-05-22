@@ -38,7 +38,7 @@ export const ServiceBentoCard = ({
       <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100">{title}</h3>
       <p className={cn(
           "text-base text-slate-600 dark:text-slate-300 leading-relaxed",
-          isWide ? "max-w-[70%]" : "max-w-[85%]" // Adjust text width based on card width
+          isWide ? "max-w-[70%]" : "max-w-[95%]" // Adjust text width based on card width
         )}
       >
         {description}
@@ -47,9 +47,15 @@ export const ServiceBentoCard = ({
       {imageSrc && (
         <div className={cn(
           "absolute pointer-events-none select-none",
+          // Mobile-first (smaller screens, <lg): All cards top-right with unified position and size
+          "top-[-30px] right-[-40px] w-32 h-32",
+
+          // Larger screens (lg and up): Apply original isWide logic with lg prefixes
           isWide 
-            ? "bottom-[-120px] right-[-100px] w-44 h-44 lg:w-72 lg:h-72" // Large image at bottom right for wide cards
-            : "top-[-40] right-[-30] w-20 h-20 lg:w-40 lg:h-40" // Small image at top right for narrow cards
+            // Wide cards on large screens:
+            ? "lg:top-auto lg:left-auto lg:bottom-[-120px] lg:right-[-100px] lg:w-72 lg:h-72"
+            // Narrow cards on large screens:
+            : "lg:top-[-50px] lg:right-[-50px] lg:w-40 lg:h-40"
         )}>
           <Image
             src={imageSrc}

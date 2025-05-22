@@ -297,7 +297,7 @@ export const LineGraphCard = ({
     >
       <div className="p-4 border-b border-slate-200 dark:border-neutral-800">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-medium text-slate-800 dark:text-neutral-200">Consent Trend</h3>
+          <h3 className="text-md lg:text-lg font-medium text-slate-800 dark:text-neutral-200">Consent Trend</h3>
           
           <div className="flex">
             <div className="flex space-x-1 bg-slate-400/10 backdrop-blur-md dark:bg-neutral-800 rounded-full p-0.5">

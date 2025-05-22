@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { GridBackground } from "@/app/onemoney/components/ui/grid-background"; // Reusing from onemoney for now
 import { motion } from "framer-motion";
 import Image from "next/image"; // Import next/image
@@ -27,7 +27,7 @@ const tabsData: TabData[] = [
     introContent: (
       <>
         <h3 className="text-2xl font-semibold mb-4 text-slate-800 dark:text-slate-200 sm:text-xl text-center lg:text-left ">Wealth Management for MFDs, Securities Brokerages and AMCs</h3>
-        <h4 className="text-lg font-medium mb-2 text-slate-700 dark:text-slate-300 md:text-sm text-center lg:text-left">Enhance your services and give your users valuable insights into their investment portfolios through the Account Aggregator Ecosystem and MoneyOne's TSP. Key features include:</h4>
+        <h4 className="text-md lg:text-lg font-medium mb-2 text-slate-700 dark:text-slate-300 md:text-sm text-center lg:text-left">Enhance your services and give your users valuable insights into their investment portfolios through the Account Aggregator Ecosystem and MoneyOne's TSP. Key features include:</h4>
       </>
     ),
     accordionItems: [
@@ -46,7 +46,7 @@ const tabsData: TabData[] = [
     introContent: (
       <>
         <h3 className="text-2xl font-semibold mb-4 text-slate-800 dark:text-slate-200 sm:text-xl text-center lg:text-left ">Optimize Lending Processes</h3>
-        <h4 className="text-lg font-medium mb-2 text-slate-700 dark:text-slate-300 sm:text-md text-center lg:text-left">Streamline every step of the lending lifecycle, from application to collection, with data-driven insights. Our solutions cover:</h4>
+        <h4 className="text-md lg:text-lg font-medium mb-2 text-slate-700 dark:text-slate-300 md:text-sm text-center lg:text-left">Streamline every step of the lending lifecycle, from application to collection, with data-driven insights. Our solutions cover:</h4>
       </>
     ),
     accordionItems: [
@@ -65,7 +65,7 @@ const tabsData: TabData[] = [
     introContent: (
       <>
         <h3 className="text-2xl font-semibold mb-4 text-slate-800 dark:text-slate-200 sm:text-xl text-center lg:text-left ">Data-Driven Financial Advisory</h3>
-        <h4 className="text-lg font-medium mb-2 text-slate-700 dark:text-slate-300 sm:text-md text-center lg:text-left">Empower advisors to provide holistic and proactive financial guidance with consolidated data and advanced analytics. Our platform enables:</h4>
+        <h4 className="text-md lg:text-lg font-medium mb-2 text-slate-700 dark:text-slate-300 md:text-sm text-center lg:text-left">Empower advisors to provide holistic and proactive financial guidance with consolidated data and advanced analytics. Our platform enables:</h4>
       </>
     ),
     accordionItems: [
@@ -81,7 +81,7 @@ const tabsData: TabData[] = [
     introContent: (
       <>
         <h3 className="text-2xl font-semibold mb-4 text-slate-800 dark:text-slate-200 sm:text-xl text-center lg:text-left ">Enhance Brokerage Operations</h3>
-        <h4 className="text-lg font-medium mb-2 text-slate-700 dark:text-slate-300 sm:text-md text-center lg:text-left">Equip brokers with tools for streamlined operations, better client service, and improved compliance. Key capabilities include:</h4>
+        <h4 className="text-md lg:text-lg font-medium mb-2 text-slate-700 dark:text-slate-300 md:text-sm text-center lg:text-left">Equip brokers with tools for streamlined operations, better client service, and improved compliance. Key capabilities include:</h4>
       </>
     ),
     accordionItems: [
@@ -96,8 +96,58 @@ const tabsData: TabData[] = [
 
 export function Solutions() {
   const [activeTab, setActiveTab] = useState<string>(tabsData[0].id);
+  const tabsContainerRef = useRef<HTMLDivElement>(null);
+  const hasAutoScrolled = useRef<boolean>(false);
 
   const currentTabContent = tabsData.find(tab => tab.id === activeTab);
+
+  // Auto-scroll effect for mobile
+  useEffect(() => {
+    const checkIfMobile = () => window.innerWidth < 640; // sm breakpoint
+    
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+      
+      if (entry.isIntersecting && checkIfMobile() && !hasAutoScrolled.current && tabsContainerRef.current) {
+        // Set flag to prevent repeated animations
+        hasAutoScrolled.current = true;
+        
+        const container = tabsContainerRef.current;
+        const scrollWidth = container.scrollWidth;
+        const clientWidth = container.clientWidth;
+        
+        // First scroll to right to show the last tab
+        setTimeout(() => {
+          container.scrollTo({
+            left: scrollWidth - clientWidth,
+            behavior: 'smooth'
+          });
+          
+          // Then scroll back to the beginning after a delay
+          setTimeout(() => {
+            container.scrollTo({
+              left: 0,
+              behavior: 'smooth'
+            });
+          }, 1200);
+        }, 800);
+      }
+    };
+    
+    const observer = new IntersectionObserver(handleIntersection, { 
+      threshold: 0.5 
+    });
+    
+    if (tabsContainerRef.current) {
+      observer.observe(tabsContainerRef.current);
+    }
+    
+    return () => {
+      if (tabsContainerRef.current) {
+        observer.unobserve(tabsContainerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <motion.section 
@@ -125,7 +175,10 @@ export function Solutions() {
 
         {/* Tab Buttons Container */}
         <div className="flex justify-center mb-4">
-          <div className="flex overflow-x-auto py-2 space-x-4 sm:space-x-2 sm:dark:bg-slate-700 sm:p-2 sm:rounded-lg sm:bg-[#F6F6F7] sm:backdrop-blur-md [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div 
+            ref={tabsContainerRef}
+            className="flex overflow-x-auto py-2 space-x-4 sm:space-x-2 sm:dark:bg-slate-700 sm:p-2 sm:rounded-lg sm:bg-[#F6F6F7] sm:backdrop-blur-md [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          >
             {tabsData.map((tab) => (
               <button
                 key={tab.id}

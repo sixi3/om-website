@@ -126,7 +126,6 @@ const legendItemVariants: Variants = {
 
 export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = false }: AnimatedPieChartCardProps) => {
   const cardControls = useAnimation();
-  const chartControls = useAnimation();
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const [currentPieData, setCurrentPieData] = useState(overallConsentsData);
   const [animationCycle, setAnimationCycle] = useState(0);
@@ -158,7 +157,6 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
 
     const animateCardAndChart = async () => {
       await cardControls.start('visible');
-      await chartControls.start('visible');
       
       if (tabSwitchTimerRef.current) clearTimeout(tabSwitchTimerRef.current);
       if (onCompleteTimerRef.current) clearTimeout(onCompleteTimerRef.current);
@@ -186,7 +184,7 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
       if (tabSwitchTimerRef.current) clearTimeout(tabSwitchTimerRef.current);
       if (onCompleteTimerRef.current) clearTimeout(onCompleteTimerRef.current);
     };
-  }, [cardControls, chartControls, activeTab, disableAutoRotate, onAnimationComplete, animationCycle]);
+  }, [cardControls, activeTab, disableAutoRotate, onAnimationComplete, animationCycle]);
 
   const svgSize = isSmallScreen ? 180 : 280;
   const outerRadius = svgSize / 2 - (isSmallScreen ? 8 : 10);
@@ -199,13 +197,23 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
   const centerLabelText = activeTab === 'consent' ? ['TOTAL', 'CONSENTS'] : ['TOTAL DATA', 'REQUESTED'];
 
   const numLegendItems = currentPieData.length;
-  let smGridColsResponsiveClass = 'sm:grid-cols-4'; // Default for 4 or more items
+  // Base classes for the legend grid
+  let legendGridClasses = 'grid-cols-2'; // Default to 2 columns for very small screens
+  let smGridColsResponsiveClass = 'sm:grid-cols-4'; // Default for sm screens and up, for 4 or more items
+
   if (numLegendItems === 1) {
+    legendGridClasses = 'grid-cols-1';
     smGridColsResponsiveClass = 'sm:grid-cols-1';
   } else if (numLegendItems === 2) {
+    legendGridClasses = 'grid-cols-2';
     smGridColsResponsiveClass = 'sm:grid-cols-2';
   } else if (numLegendItems === 3) {
-    smGridColsResponsiveClass = 'sm:grid-cols-3';
+    legendGridClasses = 'grid-cols-3'; // Use 3 columns by default for 3 items
+    smGridColsResponsiveClass = 'sm:grid-cols-3'; // Maintain 3 columns for sm screens as well
+  } else if (numLegendItems >= 4) {
+    // For 4 or more items, default to 2 cols on smallest, then 4 on sm+ (or as per existing logic)
+    legendGridClasses = 'grid-cols-2'; // Or could be grid-cols-2 for very small, then sm:grid-cols-4
+    smGridColsResponsiveClass = 'sm:grid-cols-4'; 
   }
 
   const currentSliceVariants: Variants = {
@@ -258,7 +266,7 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
             variants={headerItemVariants}
             initial="hidden"
             animate={cardControls}
-            className="text-lg font-medium text-slate-800 dark:text-neutral-200"
+            className="text-md lg:text-lg font-medium text-slate-800 dark:text-neutral-200"
           >
             {activeTab === 'consent' ? 'Consent Distribution' : 'Data Delivery Overview'}
           </motion.h3>
@@ -311,7 +319,7 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
         </p>
       </motion.div>
 
-      <motion.div animate={chartControls} key={`chart-cycle-${animationCycle}`} className="contents">
+      <motion.div key={`chart-cycle-${animationCycle}`} className="contents">
         <div className="relative flex justify-center items-center mb-6 px-4">
           <motion.svg 
             key={`svg-${activeTab}-${animationCycle}`} 
@@ -347,9 +355,9 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
             variants={currentCenterLabelVariants}
             initial="hidden" animate="visible"
           >
-            <span className="text-[11px] text-slate-500 font-medium dark:text-neutral-400">{centerLabelText[0]}</span>
-            <span className="text-[11px] text-slate-500 font-medium dark:text-neutral-400">{centerLabelText[1]}</span>
-            <span className="text-2xl font-bold text-slate-700 dark:text-neutral-200 mt-1">
+            <span className="text-[8px] lg:text-[12px] text-slate-500 font-medium dark:text-neutral-400">{centerLabelText[0]}</span>
+            <span className="text-[8px] lg:text-[12px] text-slate-500 font-medium dark:text-neutral-400">{centerLabelText[1]}</span>
+            <span className="text-md lg:text-2xl font-bold text-slate-700 dark:text-neutral-200 mt-1">
               {totalValue.toLocaleString()}
             </span>
           </motion.div>
@@ -357,7 +365,7 @@ export const AnimatedPieChartCard = ({ onAnimationComplete, disableAutoRotate = 
 
         <motion.div 
           key={`legend-${activeTab}-${animationCycle}`}
-          className={`w-full grid grid-cols-2 ${smGridColsResponsiveClass} gap-x-4 gap-y-3 p-4 md:pl-10 pb-4`}
+          className={`w-full grid ${legendGridClasses} ${smGridColsResponsiveClass} gap-x-4 gap-y-3 p-4 md:pl-10 pb-4`}
           variants={currentLegendContainerVariants}
           initial="hidden" animate="visible"
         >

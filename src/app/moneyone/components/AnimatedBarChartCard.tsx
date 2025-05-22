@@ -320,7 +320,7 @@ export const AnimatedBarChartCard = ({ onAnimationComplete, disableAutoRotate = 
           <motion.h3
             custom={0}
             variants={headerItemVariants}
-            className="text-lg font-medium text-slate-800 dark:text-neutral-200"
+            className="text-md lg:text-lg font-medium text-slate-800 dark:text-neutral-200"
           >
             FIP Data Health
           </motion.h3>
@@ -454,7 +454,7 @@ export const AnimatedBarChartCard = ({ onAnimationComplete, disableAutoRotate = 
           <div className="text-xs text-slate-500 dark:text-neutral-400">
             Last updated: {isClient ? clientLastUpdated : '...'}
           </div>
-          <div className="text-xs font-medium text-green-600 dark:text-green-400">
+          <div className={`text-xs text-right font-medium ${activeTab === 'failureRate' ? 'text-[#BD423F]' : 'text-green-600 dark:text-green-400'}`}>
             {isClient && (activeTab === 'successRate' ? 'SBI Bank displayed performance gain of 15%.' : 
                          activeTab === 'failureRate' ? 'XYZ Bank displayed performance decline of 10%.' : '')}
           </div>

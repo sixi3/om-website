@@ -49,7 +49,7 @@ const FeaturePill = ({ text, icon, className }: FeaturePillProps) => (
 
 // Content for Feature Pills (to avoid repetition in productsData)
 const finProFeaturePills = (
-  <div className="grid grid-cols-2 lg:flex w-full gap-2 mt-4 mb-1">
+  <div className="grid grid-cols-2 xl:flex w-full gap-2 mt-4 mb-1">
     <FeaturePill text="Advanced Insights" icon={<Lightbulb className="h-3.5 w-3.5 mr-1.5 text-green-700" />} className="md:flex-1" />
     <FeaturePill text="Manual/Auto Data Fetch" icon={<DatabaseZap className="h-3.5 w-3.5 mr-1.5 text-green-700" />} className="md:flex-1" />
     <FeaturePill text="Custom Consent Flows" icon={<Workflow className="h-3.5 w-3.5 mr-1.5 text-green-700" />} className="col-span-2 md:flex-1" />
@@ -57,7 +57,7 @@ const finProFeaturePills = (
 );
 
 const finShareFeaturePills = (
-  <div className="grid grid-cols-2 lg:flex w-full gap-2 mt-4 mb-1">
+  <div className="grid grid-cols-2 xl:flex w-full gap-2 mt-4 mb-1">
     <FeaturePill text="ReBIT-Compliant APIs" icon={<ShieldCheck className="h-3.5 w-3.5 mr-1.5 text-green-700" />} className="md:flex-1" />
     <FeaturePill text="FIU-Based Data Analysis" icon={<PieChart className="h-3.5 w-3.5 mr-1.5 text-green-700" />} className="md:flex-1" />
     <FeaturePill text="Custom Consent Flows" icon={<Workflow className="h-3.5 w-3.5 mr-1.5 text-green-700" />} className="col-span-2 md:flex-1" />
