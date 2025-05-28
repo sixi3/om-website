@@ -20,10 +20,11 @@ const leadershipPageContent = [
           <p className="text-lg font-semibold">Key Contributions & Expertise:</p>
         </div>
         <p>
-          As the CEO & Founder of OneMoney & MoneyOne, A. Krishna Prasad drives the vision and strategy for India's leading financial data-sharing platform. His focus is on leveraging technology to enhance financial inclusion and transparency.
-        </p>
-        <p className="mt-2 italic">
-          (Further details about A. Krishna Prasad's specific contributions and extensive expertise in the fintech domain will be updated here.)
+        A Krishna Prasad (alias “KP”), is an entrepreneur, founder of two ventures, active mentor for two
+others. An engineer-MBA, Gold Medals in Economics and Finance, deep experience in the
+domains of Finance, Operations and Technology, an abiding commitment to corporate governance.
+Extensive experience in international business, negotiating and finalizing partnerships, JVs and
+corporate development. The career summary and present activities are summarized below.
         </p>
       </>
     ),
