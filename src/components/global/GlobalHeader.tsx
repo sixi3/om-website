@@ -311,9 +311,9 @@ export function GlobalHeader({
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[525px] max-h-[90vh] overflow-y-auto bg-background/90 backdrop-blur-sm">
                   <DialogHeader>
-                    <DialogTitle>Talk to Us</DialogTitle>
+                    <DialogTitle>Get in touch with us today!</DialogTitle>
                     <DialogDescription>
-                      Fill out the form below and we'll get back to you as soon as possible.
+                      Are you ready to boost your financial services with India's Biggest Account Aggregator?
                     </DialogDescription>
                   </DialogHeader>
                   {talkToUsFormComponent}
@@ -400,9 +400,9 @@ export function GlobalHeader({
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[525px] max-h-[90vh] overflow-y-auto bg-background/90 backdrop-blur-sm">
                     <DialogHeader>
-                      <DialogTitle>Talk to Us</DialogTitle>
+                      <DialogTitle>Get in touch with us today!</DialogTitle>
                       <DialogDescription>
-                        Fill out the form below and we'll get back to you as soon as possible.
+                        Are you ready to boost your financial services with India's Biggest Account Aggregator?
                       </DialogDescription>
                     </DialogHeader>
                     {talkToUsFormComponent}

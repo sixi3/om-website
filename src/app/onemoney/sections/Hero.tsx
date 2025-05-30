@@ -82,13 +82,12 @@ export function Hero() {
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4">
         <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
           <div className="max-w-3xl space-y-4">
-            <span className="inline-flex items-center rounded-full bg-[#FFFFF]/50 backdrop-blur-sm pl-1 pr-3 py-1 text-xs font-semibold text-black mb-4 space-x-2 mx-auto lg:mx-0">
+            <span className="inline-flex items-center pl-1 pr-3 py-1 text-md font-semibold text-slate-800 mb-4 space-x-2 mx-auto lg:mx-0">
               <Image
                 src="/icons8-medal-94.png" // Assuming image is in /public
                 alt="Medal icon"
                 width={24} // Adjusted size to fit better with text-xs
                 height={24}
-                className="rounded-full" // Optional: keep it round
               />
               <span>India&apos;s First RBI-Licensed Account Aggregator</span>
             </span>
@@ -109,7 +108,7 @@ export function Hero() {
                 Talk to Us
               </GlowingButton>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[480px]">
+            <DialogContent className="sm:max-w-[525px]">
               <DialogHeader>
                 <DialogTitle>Get in touch with us today!</DialogTitle>
                 <DialogDescription>

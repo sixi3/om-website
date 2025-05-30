@@ -63,6 +63,22 @@ export function WhatIsOneMoney() {
   // Durations for progress bar fill animations (in seconds)
   const progressBarFillDurations = [4.4, 5.7, 3.0];
 
+  // Effect to handle looping - restart animation after the last card finishes
+  useEffect(() => {
+    if (!hasBeenInView || targetAnimationStage !== null) return;
+    
+    // If we're on the last card (index 2), set up a timer to loop back to the first card
+    if (currentActiveCardIndex === 2) {
+      const loopTimer = setTimeout(() => {
+        setCurrentActiveCardIndex(0);
+        setTargetAnimationStage(0);
+        setProgressKeySuffix(prev => prev + 1); // Force progress bar re-animation
+      }, progressBarFillDurations[2] * 1000 + 500); // Add 500ms buffer after last card finishes
+
+      return () => clearTimeout(loopTimer);
+    }
+  }, [currentActiveCardIndex, hasBeenInView, targetAnimationStage, progressBarFillDurations]);
+
   useEffect(() => {
     const checkScreenSize = () => {
       setIsSmallScreen(window.innerWidth < 768); // md breakpoint is 768px

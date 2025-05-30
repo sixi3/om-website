@@ -17,6 +17,17 @@ const Stats = dynamic(() =>
   }
 );
 
+
+
+// Dynamically import the Leadership component
+const Leadership = dynamic(() => 
+  import('./sections/Leadership').then(mod => mod.Leadership),
+  { 
+    loading: () => <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading Leadership...</p></div>,
+    // Assuming Leadership.tsx has a named export 'Leadership'
+  }
+);
+
 // Dynamically import the WhatIsOneMoney component
 const WhatIsOneMoney = dynamic(() => 
   import('./sections/WhatIsOneMoney').then(mod => mod.WhatIsOneMoney),
@@ -53,15 +64,6 @@ const SecurityCompliance = dynamic(() =>
   }
 );
 
-// Dynamically import the Leadership component
-const Leadership = dynamic(() => 
-  import('./sections/Leadership').then(mod => mod.Leadership),
-  { 
-    loading: () => <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading Leadership...</p></div>,
-    // Assuming Leadership.tsx has a named export 'Leadership'
-  }
-);
-
 // Dynamically import the ContactUs component
 const ContactUs = dynamic(() => 
   import('./sections/ContactUs').then(mod => mod.ContactUs),
@@ -76,11 +78,11 @@ export default function Home() {
     <>
       <Hero />
       <Stats />
+      <Leadership />
       <WhatIsOneMoney />
       <UIFeatures />
       <Solutions />
       <SecurityCompliance />
-      <Leadership />
       <ContactUs />
     </>
   );

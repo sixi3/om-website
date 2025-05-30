@@ -430,32 +430,7 @@ export const UserJourneyAnimation: React.FC<UserJourneyAnimationProps> = ({
             />
             <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Consent Approved</h2>
             <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">Thank you for sharing consent.</p>
-            <a
-              href="#"
-              download="Account_Statement.xlsx"
-              className={cn(
-                "group inline-flex items-center justify-center px-5 py-2.5 rounded-md shadow-sm border border-slate-200 dark:border-neutral-600",
-                "bg-slate-50 dark:to-neutral-800",
-                "text-sm font-medium text-slate-700 dark:text-slate-200",
-                "hover:from-slate-200 hover:to-slate-400 dark:hover:from-neutral-600 dark:hover:to-neutral-700",
-                "active:bg-slate-300 active:to-slate-200 dark:active:from-neutral-800 dark:active:to-neutral-700",
-                "transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:focus:ring-offset-neutral-900"
-              )}
-            >
-              <Download className="w-4 h-4 mr-2 text-slate-600 dark:text-slate-300 group-hover:text-slate-700 dark:group-hover:text-slate-100" />
-             Download Data
-            </a>
-            <button
-              onClick={handleRestartJourney}
-              className={cn(
-                "mt-4 text-sm font-medium",
-                mobilePeJourneyAccentColors.text, // Use accent color for the text
-                "hover:underline focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-neutral-900",
-                mobilePeJourneyAccentColors.text.replace("text-", "focus:ring-") // Dynamically create focus ring color
-              )}
-            >
-              Restart Journey
-            </button>
+            
           </motion.div>
         );
       default:
