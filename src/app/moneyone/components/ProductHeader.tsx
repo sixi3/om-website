@@ -4,7 +4,7 @@ import React from "react";
 import { GlobalHeader } from "@/components/global/GlobalHeader";
 import { NavItem } from "@/components/global/GlobalHeader.types";
 import { Building, LineChart, UsersRound, FileBox } from "lucide-react";
-import { TalkToUsForm } from "./forms/TalkToUsForm";
+import { TalkToUsForm } from "../../onemoney/components/forms/TalkToUsForm";
 
 // Define MoneyOne-specific navigation items based on the image
 const navItems: NavItem[] = [
