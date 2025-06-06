@@ -4,12 +4,20 @@ import React, { useState } from "react";
 import { GridBackground } from "@/app/onemoney/components/ui/grid-background";
 import { motion } from "framer-motion";
 import { InteractiveShowcase } from '../components/InteractiveShowcase';
-import { ChevronDown } from 'lucide-react';
+import { SmartRoutingShowcase } from '../components/SmartRoutingShowcase';
+import { CustomisableUIShowcase } from '../components/CustomisableUIShowcase';
+import { NudgesInsightsShowcase } from '../components/NudgesInsightsShowcase';
 import Marquee from 'react-fast-marquee';
 
 // Styling classes (consistent with other sections)
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
+const tabsData = [
+  { id: 'analytics', title: 'Analytics' },
+  { id: 'smart-routing', title: 'Smart Routing' },
+  { id: 'customisable-ui', title: 'Customisable UI' },
+  { id: 'nudges-insights', title: 'Nudges/Insights' },
+];
 
 // Pill texts for the marquee (derived from previous featuresPills)
 const moneyOneFeaturesPillTexts = [
@@ -31,15 +39,15 @@ const moneyOneFeaturesPillTexts = [
 ];
 
 export function WhatIsMoneyOne() {
-  const [hasBeenInView, setHasBeenInView] = useState(false); // This state variable might become unused if AnimatedCounter was its only user for triggering animations.
-                                                            // For now, keeping it as InteractiveShowcase or other elements might use it.
+  const [hasBeenInView, setHasBeenInView] = useState(false);
+  const [activeTab, setActiveTab] = useState(tabsData[0].id);
 
   return (
     <motion.section 
       className="relative w-full py-12 md:py-12 overflow-hidden"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      onViewportEnter={() => setHasBeenInView(true)} // Keep for potential other uses or main section animation trigger
+      onViewportEnter={() => setHasBeenInView(true)}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
@@ -60,23 +68,43 @@ export function WhatIsMoneyOne() {
           </p>
         </div>
 
-        {/* Custom Line Graph Animation replaced with InteractiveShowcase */}
-          <div className="flex justify-center items-center my-8">
-            <div className="w-full">
-            <InteractiveShowcase /> 
+        {/* Tab Buttons Container */}
+        <div className="flex justify-center mb-8">
+          <div 
+            className="flex overflow-x-auto py-2 space-x-2 sm:space-x-2 sm:dark:bg-slate-700 sm:p-2 sm:rounded-lg sm:bg-[#F6F6F7] sm:backdrop-blur-md [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          >
+            {tabsData.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-4 py-2 text-sm sm:text-base font-medium rounded-md transition-colors duration-200 ease-in-out focus:outline-none whitespace-nowrap 
+                  ${activeTab === tab.id 
+                    ? "bg-white border border-slate-200 dark:border-slate-700 dark:bg-slate-800 text-slate-700 dark:text-sky-400 shadow-md" 
+                    : "text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 hover:bg-slate-100/50 dark:hover:bg-slate-700/50 sm:border-transparent sm:hover:bg-slate-100 sm:dark:hover:bg-slate-600"
+                  }
+                `}
+              >
+                {tab.title}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* "AND MANY MORE" Header - Placed inside the container */}
-        <div className="flex justify-center">
-          <div
-            className="inline-flex items-center backdrop-blur-md dark:border-neutral-700 px-6 py-3 text-sm font-medium text-slate-600 dark:bg-neutral-800 dark:text-neutral-300"
-          >
-            + MANY MORE FEATURES
-          </div>
-        </div>
+        {/* Tab Content Area */}
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="w-full"
+        >
+          {activeTab === 'analytics' && <InteractiveShowcase />}
+          {activeTab === 'smart-routing' && <SmartRoutingShowcase />}
+          {activeTab === 'customisable-ui' && <CustomisableUIShowcase />}
+          {activeTab === 'nudges-insights' && <NudgesInsightsShowcase />}
+        </motion.div>
             
-      </div> {/* End of the main container div */}
+      </div>
 
       {/* Marquee Banner - Placed OUTSIDE the container for full width */}
       <div className="mt-12 w-full mb-4">

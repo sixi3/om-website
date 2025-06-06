@@ -29,7 +29,7 @@ const moneyOneMetallicTextClasses = "font-bold bg-gradient-to-b from-[#3cd070] t
 
 // Helper for the title pill (with Star)
 const TitlePill = ({ text }: { text: string }) => (
-  <span className="ml-2 whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md px-2.5 py-1 text-xs font-medium text-green-700 flex items-center border border-green-200">
+  <span className="ml-2 whitespace-nowrap rounded-full bg-background backdrop-blur-md px-2.5 py-1 text-xs font-medium text-slate-700 flex items-center border border-slate-200">
     {text}
   </span>
 );

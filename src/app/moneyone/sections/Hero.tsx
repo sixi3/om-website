@@ -57,7 +57,7 @@ export function Hero() {
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4">
         <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
           <div className="max-w-3xl space-y-4">
-            <span className="inline-flex items-center rounded-full bg-[#FFFFF]/50 backdrop-blur-sm pl-1 pr-3 py-1 text-xs font-semibold text-black mb-4 space-x-2 mx-auto lg:mx-0">
+            <span className="inline-flex items-center rounded-full bg-[#FFFFF]/50 backdrop-blur-sm pl-1 pr-3 py-1 text-md font-semibold text-black mb-4 space-x-2 mx-auto lg:mx-0">
               <Image
                 src="/icons8-medal-94.png" 
                 alt="MoneyOne icon"

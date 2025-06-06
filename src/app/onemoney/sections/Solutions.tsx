@@ -16,7 +16,7 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 const solutions = [
   {
     id: 1,
-    title: "Banking & Lending",
+    title: "Loan & Insurance Underwriting",
     description: "Streamline loan processing and customer onboarding with secure data access.",
     header: (
       <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
@@ -35,13 +35,13 @@ const solutions = [
   },
   {
     id: 2,
-    title: "Insurance Underwriting",
-    description: "Accelerate underwriting processes with verified financial and identity data.",
+    title: "Personal Finance Management",
+    description: "Manage your personal finances with ease and get personalised financial advice.",
     header: (
       <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
         <Image 
-          src="/Ins.png" 
-          alt="Insurance Underwriting illustration"
+          src="/PFM.png" 
+          alt="Personal Finance Management illustration"
           fill={true}
           className="object-cover"
           sizes="(max-width: 767px) 90vw, 33vw"
