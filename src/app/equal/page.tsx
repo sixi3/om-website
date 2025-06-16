@@ -13,7 +13,6 @@ export default function EqualPage() {
       <WhatMakesEqualDifferent />
       <UseCaseGrid />
       <ProductShowcase />
-      <Solutions />
       <TrustSecurity />
       {/* Other sections will be added here */}
     </div>

@@ -3,6 +3,8 @@ import { UseCaseGrid } from "../sections/UseCaseGrid";
 import { GlowingButton } from '@/app/onemoney/components/ui/glowing-button';
 import { GridBackground } from '@/app/onemoney/components/ui/grid-background';
 import { CheckCircle } from 'lucide-react';
+import { UseCaseLayout } from '../components/UseCaseLayout';
+import { useCasesData, UseCase } from '../data/useCases';
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold rounded-md";
@@ -65,28 +67,60 @@ const industryCompliance = [
 ];
 
 export default function SolutionsPage() {
+  const hrmsData = useCasesData.find((uc: UseCase) => uc.id === 'hrms');
+  const gigData = useCasesData.find((uc: UseCase) => uc.id === 'gig-economy');
+  const bfsiData = useCasesData.find((uc: UseCase) => uc.id === 'bfsi');
+  const staffingData = useCasesData.find((uc: UseCase) => uc.id === 'staffing');
+
   return (
     <div className="relative">
       <GridBackground />
-      <section className="relative w-full py-12 md:py-20">
-        <div className="container px-4 md:px-6 mx-auto text-center mb-12 md:mb-16">
-          <h2 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl mb-6">
-            <span className={metallicBlackTextClasses}>Solutions for Every Industry, Role, and Risk Profile</span>
-          </h2>
-          <p className="mx-auto text-xl text-slate-700 dark:text-slate-300 max-w-3xl mb-8">
-            Equal's modular architecture and intelligent routing make it suitable for enterprises, platforms, and startups alike.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <GlowingButton>
-              Explore Industry Templates
-            </GlowingButton>
-            <GlowingButton className="bg-transparent border border-[#d2ff61] text-[#d2ff61] hover:bg-[#d2ff61]/10">
-              Schedule Use Case Consultation
-            </GlowingButton>
-          </div>
-        </div>
-        <UseCaseGrid />
-      </section>
+      {hrmsData && hrmsData.whyLove && hrmsData.capabilities && (
+        <UseCaseLayout
+          id={hrmsData.id}
+          heroHeadline={hrmsData.heroHeadline}
+          heroSubheadline={hrmsData.heroSubheadline}
+          ctas={hrmsData.ctas}
+          whySection={{ title: "Why HR Teams Love This", points: hrmsData.whyLove }}
+          capabilities={hrmsData.capabilities}
+          platforms={hrmsData.platforms}
+          dev={hrmsData.dev}
+          bottomCta={hrmsData.bottomCta}
+        />
+      )}
+      {gigData && gigData.whyMatters && gigData.designedForScale &&(
+         <UseCaseLayout
+          id={gigData.id}
+          heroHeadline={gigData.heroHeadline}
+          heroSubheadline={gigData.heroSubheadline}
+          ctas={gigData.ctas}
+          whySection={{ title: "Why It Matters", points: gigData.whyMatters }}
+          capabilities={gigData.designedForScale}
+          bottomCta={gigData.bottomCta}
+        />
+      )}
+      {bfsiData && bfsiData.builtFor && typeof bfsiData.builtFor[0] === 'string' && bfsiData.features && (
+        <UseCaseLayout
+          id={bfsiData.id}
+          heroHeadline={bfsiData.heroHeadline}
+          heroSubheadline={bfsiData.heroSubheadline}
+          ctas={bfsiData.ctas}
+          whySection={{ title: "Built for BFSI", points: bfsiData.builtFor as string[] }}
+          capabilities={bfsiData.features}
+          bottomCta={bfsiData.bottomCta}
+        />
+      )}
+      {staffingData && staffingData.whyUse && staffingData.coreBenefits &&(
+        <UseCaseLayout
+          id={staffingData.id}
+          heroHeadline={staffingData.heroHeadline}
+          heroSubheadline={staffingData.heroSubheadline}
+          ctas={staffingData.ctas}
+          whySection={{ title: "Why Staffing Firms Use Equal", points: staffingData.whyUse }}
+          capabilities={staffingData.coreBenefits}
+          bottomCta={staffingData.bottomCta}
+        />
+      )}
     </div>
   );
 }
