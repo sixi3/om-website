@@ -564,4 +564,162 @@ This document outlines the steps to create a React website similar in structure 
     *   ... (all old sub-items under point 2 to 10 can be considered superseded by the new plan above) ...
     *   ~[ ] **10. Key Considerations / Safety Nets for Smooth Implementation:**~
 
-(Ensure the rest of the TODO.md file, like section 12 onwards, remains unchanged)
+## 12. Equal Website Implementation
+
+*   [ ] **Objective:** Create a comprehensive website for Equal, a digital identity verification platform, following a similar structure to OneMoney and MoneyOne.
+
+*   [x] **Step 1: Create Basic Structure**
+    *   [x] Create `src/app/equal/page.tsx` as the main page
+    *   [x] Create `src/app/equal/layout.tsx` with appropriate header/footer
+    *   [x] **Borrow:** Import and configure the shared `GlobalHeader` and `GlobalFooter` components already used by OneMoney & MoneyOne, passing Equal-specific theme props (logo, accentColor, nav items).
+    *   [x] Create `src/app/equal/components/` directory for Equal-specific components (extend/reuse existing UI components where possible)
+    *   [x] Create `src/app/equal/sections/` directory for page sections (mirror structure of OneMoney & MoneyOne)
+
+*   [x] **Step 2: Implement Hero Section**
+    *   [x] Create `src/app/equal/sections/Hero.tsx`
+    *   [x] **Borrow:** Clone the Hero component pattern used in OneMoney (`sections/Hero.tsx`) and adapt copy, colors, CTA style, and background visuals to Equal branding.
+    *   [x] Design hero with headline "India's Most Comprehensive Digital Identity Verification Platform"
+    *   [x] Add subheading about transforming background checks into real-time trust infrastructure
+    *   [x] Include testimonial quote from Fortune 500 CHRO
+    *   [x] Add "Book a Demo" CTA button (reuse `GlowingButton` component)
+    *   [x] Implement client logo marquee (reuse from OneMoney Hero)
+
+*   [x] **Step 3: Implement "What Makes Equal Different" Section**
+    *   [x] Create `src/app/equal/sections/WhatMakesEqualDifferent.tsx`
+    *   [x] **Borrow:** Use MoneyOne's three-column features/pillars component as the base; replace icons/text for Equal's three pillars.
+    *   [x] Design 3-pillar comparison layout with animations similar to MoneyOne feature cards
+    *   [x] Add visual elements to illustrate each pillar (reuse `TiltCard` or `ServiceBentoCard` styles)
+
+*   [x] **Step 4: Implement Use Case Grid**
+    *   [x] Create `src/app/equal/sections/UseCaseGrid.tsx`
+    *   [x] **Borrow:** Adapt MoneyOne's Services/UseCase grid (Bento style) for a 6-card layout; reuse `ServiceBentoCard` styles for consistency.
+    *   [x] Design 6-use case grid layout (HRMS Integration, Gig Economy Hiring, BFSI, Staffing & Contract, Platform Trust & Safety, Tech-Forward Startups)
+    *   [x] Create `src/app/equal/components/ui/UseCaseCard.tsx` for consistent card styling (extend `ServiceBentoCard` if possible)
+    *   [x] Implement hover effects and animations similar to MoneyOne cards
+    *   [x] Add "Schedule a Free Use Case Mapping Call" CTA (reuse `GlowingButton`)
+
+*   [x] **Step 5: Implement Product Showcase Section**
+    *   [x] Create `src/app/equal/sections/ProductShowcase.tsx`
+    *   [x] **Borrow:** Repurpose MoneyOne's tabbed `InteractiveShowcase` pattern (cards left, content right) to switch between Identity Verification Gateway & Equal Console.
+    *   [x] Design tabbed interface for two main products
+    *   [x] Create `src/app/equal/components/ui/ProductTab.tsx` (extend existing `SolutionTab`/`ProductTab` components)
+    *   [x] Implement content for each product tab (reuse icon/text block components, animated lists)
+    *   [x] Add appropriate CTAs (reuse button styles)
+
+*   [x] **Step 6: Implement Solutions Section**
+    *   [x] Create `src/app/equal/sections/Solutions.tsx`
+    *   [x] **Borrow:** Use MoneyOne's Solutions tabbed component (with horizontal tabs & animated indicator) for four solutions; adapt data.
+    *   [x] Design tabbed interface for HRMS Integration, Gig Economy, Financial Services, Staffing
+    *   [x] Create/extend `SolutionTab.tsx` for navigation
+    *   [x] Implement content for each solution tab (reuse layout, images, animation patterns)
+
+*   [x] **Step 7: Implement Trust & Security Section**
+    *   [x] Create `src/app/equal/sections/TrustSecurity.tsx`
+    *   [x] **Borrow:** Duplicate OneMoney's Security & Compliance section structure (title with highlight, TiltCards, GridBackground) and update content/badges.
+    *   [x] Add architecture layer, audit & monitoring tools, industry compliance tabs, and CTA using existing card & grid components.
+
+*   [ ] **Step 8: Implement Interactive Demo Section**
+    *   [ ] Create `src/app/equal/sections/InteractiveDemo.tsx`
+    *   [ ] **Borrow:** Reuse OneMoney's `UserJourneyAnimation` & `ClayPhoneMockup` components; swap screen data to show Equal's document upload & verification flow.
+    *   [ ] Add explanatory text cards (clone pattern from OneMoney `WhatIsOneMoney` left-panel cards) and sync with animation stages.
+
+*   [ ] **Step 9: Implement Contact Section**
+    *   [ ] Create `src/app/equal/sections/ContactUs.tsx`
+    *   [ ] **Borrow:** Clone MoneyOne's ContactUs/TalkToUs form section; adjust accent colors & email logic.
+    *   [ ] Design contact form fields, validation, and Resend API integration (reuse existing API route).
+
+*   [ ] **Step 10: Implement Footer**
+    *   [ ] Create `src/app/equal/components/Footer.tsx`
+    *   [ ] **Borrow:** Copy OneMoney global footer structure; update links & branding for Equal.
+    *   [ ] Maintain social links component for consistency.
+
+*   [ ] **Step 11: Performance Optimization**
+    *   [ ] Optimize images and assets
+    *   [ ] Implement lazy loading for sections
+    *   [ ] Ensure smooth animations without performance impact
+    *   [ ] Test and optimize for different devices and screen sizes
+
+*   [ ] **Step 12: Testing and Deployment**
+    *   [ ] Test all interactive elements
+    *   [ ] Verify responsive behavior across devices
+    *   [ ] Check accessibility compliance
+    *   [ ] Deploy to production environment
+
+## 13. Equal Sub-Pages Implementation
+
+*   [ ] **Objective:** Create detailed sub-pages for Equal's products and solutions, providing in-depth information and interactive demos.
+
+*   [ ] **Step 1: Product Sub-Pages**
+    *   [x] **1.1. Identity Verification Gateway Page (`/equal/products/identity-gateway`)**
+        *   [x] Create page layout with hero section
+        *   [x] Add interactive demo of document upload flow
+        *   [x] Implement feature breakdown with icons and descriptions
+        *   [x] Add integration examples and API documentation preview
+        *   [x] Include case studies and success metrics
+        *   [x] Add "Get Started" CTA section
+
+    *   [x] **1.2. Equal Console Page (`/equal/products/console`)**
+        *   [x] Create page layout with hero section
+        *   [x] Add interactive dashboard preview
+        *   [x] Implement feature breakdown with screenshots
+        *   [x] Add integration examples with HRMS platforms
+        *   [x] Include reporting and analytics section
+        *   [x] Add "Book Demo" CTA section
+
+*   [ ] **Step 2: Solution Sub-Pages**
+    *   [ ] **2.1. HRMS Integration Page (`/equal/solutions/hrms-integration`)**
+        *   [ ] Create page layout with hero section
+        *   [ ] Add integration flow diagram
+        *   [ ] List supported HRMS platforms
+        *   [ ] Include implementation guide
+        *   [ ] Add case studies from enterprise customers
+        *   [ ] Add "Contact Sales" CTA section
+
+    *   [ ] **2.2. Gig Economy Page (`/equal/solutions/gig-economy`)**
+        *   [ ] Create page layout with hero section
+        *   [ ] Add mobile-first verification flow demo
+        *   [ ] Include WhatsApp integration examples
+        *   [ ] Add real-time verification metrics
+        *   [ ] Include case studies from gig platforms
+        *   [ ] Add "Start Free Trial" CTA section
+
+    *   [ ] **2.3. Financial Services Page (`/equal/solutions/financial-services`)**
+        *   [ ] Create page layout with hero section
+        *   [ ] Add compliance framework overview
+        *   [ ] Include RBI/PMLA requirements checklist
+        *   [ ] Add risk scoring methodology
+        *   [ ] Include case studies from banks/NBFCs
+        *   [ ] Add "Schedule Compliance Review" CTA section
+
+    *   [ ] **2.4. Staffing Page (`/equal/solutions/staffing`)**
+        *   [ ] Create page layout with hero section
+        *   [ ] Add bulk verification workflow demo
+        *   [ ] Include vendor management features
+        *   [ ] Add reporting and analytics section
+        *   [ ] Include case studies from staffing firms
+        *   [ ] Add "Request Pricing" CTA section
+
+*   [ ] **Step 3: Shared Components & Features**
+    *   [ ] Create reusable components for:
+        *   [ ] Interactive demos
+        *   [ ] Feature comparison tables
+        *   [ ] Integration code snippets
+        *   [ ] Case study cards
+        *   [ ] CTA sections
+    *   [ ] Implement consistent navigation between sub-pages
+    *   [ ] Add breadcrumb navigation
+    *   [ ] Ensure responsive design across all pages
+
+*   [ ] **Step 4: Performance & SEO**
+    *   [ ] Optimize images and assets
+    *   [ ] Implement proper meta tags for each page
+    *   [ ] Add structured data for better SEO
+    *   [ ] Ensure fast loading times
+    *   [ ] Implement proper caching strategies
+
+*   [ ] **Step 5: Testing & Deployment**
+    *   [ ] Test all interactive elements
+    *   [ ] Verify responsive behavior
+    *   [ ] Check accessibility compliance
+    *   [ ] Test cross-browser compatibility
+    *   [ ] Deploy to production environment

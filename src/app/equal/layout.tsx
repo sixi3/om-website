@@ -1,15 +1,33 @@
 import React from "react";
 import type { Metadata } from "next";
 import { GlobalHeader } from "@/components/global/GlobalHeader";
+import { GlobalHeaderProps } from "@/components/global/GlobalHeader.types";
 import { cn } from "@/lib/utils";
+import { AuroraBackground } from '@/app/onemoney/components/ui/aurora-background';
 
 // Placeholder for Equal nav items
-const navItems = [
-  { name: "Invest", href: "/equal/invest" },
-  { name: "Learn", href: "/equal/learn" },
-  { name: "Community", href: "/equal/community" },
-  { name: "Support", href: "/equal/support" },
+const equalNavItems = [
+  { name: 'Use Cases', href: '/equal/solutions' },
+  { name: 'Products', href: '/equal/products', showChevron: true, submenu: [
+    { name: 'Identity Verification Gateway', href: '/equal/products/identity-gateway' },
+    { name: 'Equal Console', href: '/equal/products/console' },
+  ]},
+  { name: 'Trust & Security', href: '/equal/trust-security' },
 ];
+
+const equalTheme: GlobalHeaderProps['theme'] = {
+  accentColor: '#00b140', // A placeholder green
+  accentHoverColor: '#baff29',
+  buttonTextColor: '#000000',
+};
+
+const EqualFooter = () => (
+  <footer className="bg-gray-900 text-white py-8">
+    <div className="container mx-auto text-center">
+      <p>&copy; {new Date().getFullYear()} Equal. All rights reserved.</p>
+    </div>
+  </footer>
+);
 
 export const metadata: Metadata = {
   title: "Equal - Financial Equality Platform",
@@ -21,25 +39,21 @@ export const metadata: Metadata = {
 
 export default function EqualLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <div className={cn("min-h-screen bg-gradient-to-br from-orange-900/20 to-amber-700/10 font-sans antialiased flex flex-col")}>
+    <AuroraBackground>
       <GlobalHeader
         productName="equal"
-        logoSrc="/equal-logo.svg" // Need to create this asset
+        logoSrc="/equal-logo.svg" // Placeholder logo path
         logoAlt="Equal Logo"
-        navItems={navItems}
+        navItems={equalNavItems}
+        theme={equalTheme}
+        talkToUsButtonText="Book a Demo"
       />
       <main className="flex-grow relative z-10 pt-20">{children}</main>
-      <footer className="py-6 border-t border-orange-800/10 bg-background/30 backdrop-blur-sm mt-auto">
-        <div className="container">
-          <p className="text-center text-sm text-foreground/60">
-            © {new Date().getFullYear()} Equal. All rights reserved.
-          </p>
-        </div>
-      </footer>
-    </div>
+      <EqualFooter />
+    </AuroraBackground>
   );
 } 
