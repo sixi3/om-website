@@ -31,7 +31,7 @@ export interface GlobalHeaderProps {
   logoHeight?: number;       // Height of the logo in px
   navItems: NavItem[];       // Navigation items specific to the product
   theme?: HeaderTheme;       // Theme configuration (will use defaults if not provided)
-  talkToUsFormComponent?: ReactNode; // Custom form component for the "Talk to Us" dialog
+  talkToUsFormComponent?: React.ReactNode; // Custom form component for the "Talk to Us" dialog
   talkToUsButtonText?: string; // Text to display on the "Talk to Us" button
 }
 

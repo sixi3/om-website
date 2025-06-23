@@ -4,6 +4,7 @@ import { GlobalHeader } from "@/components/global/GlobalHeader";
 import { GlobalHeaderProps } from "@/components/global/GlobalHeader.types";
 import { cn } from "@/lib/utils";
 import { AuroraBackground } from '@/app/onemoney/components/ui/aurora-background';
+import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 
 // Placeholder for Equal nav items
 const equalNavItems = [
@@ -51,6 +52,7 @@ export default function EqualLayout({
         navItems={equalNavItems}
         theme={equalTheme}
         talkToUsButtonText="Book a Demo"
+        talkToUsFormComponent={<TalkToUsForm />}
       />
       <main className="flex-grow relative z-10 pt-20">{children}</main>
       <EqualFooter />

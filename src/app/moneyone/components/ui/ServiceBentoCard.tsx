@@ -37,7 +37,7 @@ export const ServiceBentoCard = ({
       {icon && <div className="text-[#00b140] dark:text-sky-400 mb-2">{icon}</div>}
       <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100">{title}</h3>
       <p className={cn(
-          "text-base text-slate-600 dark:text-slate-300 leading-relaxed",
+          "text-lg text-slate-600 dark:text-slate-300 leading-relaxed",
           isWide ? "max-w-[70%]" : "max-w-[95%]" // Adjust text width based on card width
         )}
       >

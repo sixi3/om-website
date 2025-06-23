@@ -723,3 +723,32 @@ This document outlines the steps to create a React website similar in structure 
     *   [ ] Check accessibility compliance
     *   [ ] Test cross-browser compatibility
     *   [ ] Deploy to production environment
+
+## 14. Equal Hero Section Interactive Animation
+
+*   [x] **Objective:** Create an interactive, animated phone mockup for the Equal hero section that showcases brand-specific UI variations.
+
+*   [x] **Step 1: Create Green Metallic Phone Mockup**
+    *   [x] Create `src/app/equal/components/ui/GreenMetallicPhoneMockup.tsx`.
+    *   [x] Duplicate and modify `ClayPhoneMockup.tsx`.
+    *   [x] Apply a green metallic gradient using Tailwind CSS.
+
+*   [x] **Step 2: Develop Modular Screen UI Components**
+    *   [x] Create `src/app/equal/components/ui/BrandedVerificationScreen.tsx` as the main screen container.
+    *   [x] Create `src/app/equal/components/ui/VerificationScreenHeader.tsx` (Props: logo, title, subtitle, backgroundColor).
+    *   [x] Create `src/app/equal/components/ui/VerificationList.tsx` (Props: verificationItems array).
+    *   [x] Create `src/app/equal/components/ui/VerificationScreenFooter.tsx` (Props: buttonColor, etc.).
+    *   [x] Source or create necessary icons (Aadhaar, PAN, etc.) and place them in `public/icons/`. (Used placeholders)
+
+*   [x] **Step 3: Define Brand-Specific Data**
+    *   [x] Create a `brandData.ts` file (e.g., in `src/app/equal/data/`).
+    *   [x] Define a data structure (array of objects) to hold configurations for each brand (headerLogo, title, subtitle, colors, verificationItems).
+
+*   [x] **Step 4: Create Animator Component**
+    *   [x] Create `src/app/equal/components/AnimatedVerificationFlow.tsx`.
+    *   [x] Implement state logic to cycle through brand configurations from `brandData.ts`.
+    *   [x] Use Framer Motion to animate transitions between brand UIs.
+
+*   [x] **Step 5: Final Integration**
+    *   [x] Place `AnimatedVerificationFlow.tsx` inside `GreenMetallicPhoneMockup.tsx`.
+    *   [x] Integrate the complete component into `src/app/equal/sections/Hero.tsx`.

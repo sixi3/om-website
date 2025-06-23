@@ -255,74 +255,64 @@ export function GlobalHeader({
               >
                 <Link
                   href={item.href}
-                  className="group flex items-center text-foreground/60 transition-colors py-2"
+                  className="flex items-center text-foreground/80 hover:text-foreground transition-colors"
                 >
-                  <span className="group-hover:text-[var(--accent-color)] uppercase tracking-wide">{item.name}</span>
-                  {item.showChevron && (
-                    <ChevronDown 
-                      className={cn(
-                        "ml-1 h-4 w-4 group-hover:text-[var(--accent-color)] transition-transform duration-200",
-                        openDropdown === item.name ? "rotate-180" : "rotate-0"
-                      )} 
-                    />
-                  )}
+                  {item.name}
+                  {item.showChevron && <ChevronDown className="ml-1 h-4 w-4" />}
                 </Link>
-                
+
                 {item.submenu && (
-                  <div 
-                    className={cn(
-                      "absolute top-full left-0 mt-1 w-60 rounded-md shadow-lg bg-background border border-border/40 py-1 z-50",
-                      "transition-[opacity,transform] duration-200 ease-out will-change-transform",
-                      openDropdown === item.name 
-                        ? "opacity-100 visible translate-y-0 pointer-events-auto" 
-                        : "opacity-0 invisible -translate-y-1 pointer-events-none"
+                  <AnimatePresence>
+                    {openDropdown === item.name && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute left-0 mt-2 w-56 origin-top-left rounded-md shadow-lg bg-background ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      >
+                        <div className="py-1">
+                          {item.submenu.map((subItem) => (
+                            <DropdownItem key={subItem.name} subItem={subItem} onClick={handleDropdownItemClick} />
+                          ))}
+                        </div>
+                      </motion.div>
                     )}
-                    onMouseEnter={() => handleMouseEnterDropdown(item.name)}
-                    onMouseLeave={handleMouseLeaveDropdownArea}
-                  >
-                    {item.submenu?.map((subItem) => (
-                      <DropdownItem 
-                        key={subItem.name}
-                        subItem={subItem} 
-                        onClick={handleDropdownItemClick} 
-                      />
-                    ))}
-                  </div>
+                  </AnimatePresence>
                 )}
               </div>
             ))}
           </nav>
-
-          <div className="flex items-center gap-2 md:gap-4">
-            {talkToUsFormComponent && (
-              <Dialog>
-                <DialogTrigger asChild>
-                  <GlowingButton 
-                    size="sm" 
-                    className={cn(
-                      "whitespace-nowrap", 
-                      isSmallScreen ? "hidden" : "flex"
-                    )}
-                    style={cssVars}
-                    disabled={isExtraSmallScreen}
-                  >
-                    {talkToUsButtonText}
-                  </GlowingButton>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[525px] max-h-[90vh] overflow-y-auto bg-background/90 backdrop-blur-sm">
-                  <DialogHeader>
-                    <DialogTitle>Get in touch with us today!</DialogTitle>
-                    <DialogDescription>
-                      Are you ready to boost your financial services with India's Biggest Account Aggregator?
-                    </DialogDescription>
-                  </DialogHeader>
-                  {talkToUsFormComponent}
-                </DialogContent>
-              </Dialog>
+          
+          <div className="flex items-center ml-auto">
+            {/* "Talk to Us" button - always visible */}
+            {talkToUsButtonText && (
+              <div className="hidden lg:block">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <GlowingButton
+                      className="h-10 px-6 font-semibold"
+                      style={cssVars}
+                    >
+                      {talkToUsButtonText}
+                    </GlowingButton>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[525px] max-h-[90vh] overflow-y-auto bg-background/90 backdrop-blur-sm">
+                    <DialogHeader>
+                      <DialogTitle>Get in touch with us today!</DialogTitle>
+                      <DialogDescription>
+                        Are you ready to boost your financial services with India&apos;s Biggest Account Aggregator?
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="py-4">
+                      {talkToUsFormComponent ? talkToUsFormComponent : <p className="text-center text-foreground/70">(Demo form will be here)</p>}
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
             )}
 
             <button
-              className="lg:hidden p-2 text-foreground/60 hover:text-foreground focus:outline-none"
+              className="lg:hidden text-foreground/80 hover:text-foreground transition-colors"
               onClick={toggleMobileMenu}
               aria-label="Toggle mobile menu"
             >
@@ -386,34 +376,40 @@ export function GlobalHeader({
                 </div>
               ))}
             </nav>
-            {talkToUsFormComponent && (
-              <div className="border-t border-border/40 p-4">
+            <div className="mt-6 flex flex-col space-y-2">
+              {talkToUsButtonText && (
                 <Dialog>
                   <DialogTrigger asChild>
-                    <GlowingButton 
-                      size="sm" 
-                      className="w-full"
-                      style={cssVars}
+                    <button
+                      className="w-full h-12 flex items-center justify-center bg-gray-200 text-gray-700 rounded-md font-semibold text-lg transition"
+                      onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {talkToUsButtonText}
-                    </GlowingButton>
+                    </button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[525px] max-h-[90vh] overflow-y-auto bg-background/90 backdrop-blur-sm">
-                    <DialogHeader>
-                      <DialogTitle>Get in touch with us today!</DialogTitle>
-                      <DialogDescription>
-                        Are you ready to boost your financial services with India's Biggest Account Aggregator?
-                      </DialogDescription>
+                  <DialogContent className="p-0 max-w-sm">
+                    <DialogHeader className="p-4 border-b">
+                      <DialogTitle>{talkToUsButtonText}</DialogTitle>
                     </DialogHeader>
-                    {talkToUsFormComponent}
+                    <div className="p-4">
+                      {talkToUsFormComponent}
+                    </div>
                   </DialogContent>
                 </Dialog>
-              </div>
-            )}
+              )}
+              <button
+                className="w-full h-12 flex items-center justify-center bg-gray-100 text-gray-600 rounded-md font-semibold text-lg"
+              >
+                {/* Placeholder for the button */}
+              </button>
+            </div>
           </motion.div>
         )}
         </AnimatePresence>
       </header>
     </div>
   );
-} 
+}
+
+// Ensure the file is treated as a module
+export {}; 

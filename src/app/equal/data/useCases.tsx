@@ -30,7 +30,7 @@ export const useCasesData: UseCase[] = [
   {
     id: "hrms",
     title: "HRMS Integration",
-    icon: <Building size={32} strokeWidth={2} />,
+    icon: <Building size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "Seamless Background Verification Inside Your HRMS",
     heroSubheadline: "Enable real-time background checks directly within platforms like Darwinbox, Workday, and SAP — no switching, no delays.",
     ctas: [
@@ -60,7 +60,7 @@ export const useCasesData: UseCase[] = [
   {
     id: "gig-economy",
     title: "Gig Economy Hiring",
-    icon: <Factory size={32} strokeWidth={2} />,
+    icon: <Factory size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "Verify and Activate Your Gig Workforce in Real-Time",
     heroSubheadline: "Purpose-built for delivery, ride-share, logistics, and marketplace onboarding.",
     ctas: [
@@ -96,7 +96,7 @@ export const useCasesData: UseCase[] = [
   {
     id: "bfsi",
     title: "Financial Services (BFSI)",
-    icon: <HeartHandshake size={32} strokeWidth={2} />,
+    icon: <HeartHandshake size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "Compliance-First Verification Engine for Banks & NBFCs",
     heroSubheadline: "Audit-ready. RBI-compliant. Fast. A single-layer solution for onboarding regulated workforce.",
     ctas: [
@@ -127,7 +127,7 @@ export const useCasesData: UseCase[] = [
   {
     id: "staffing",
     title: "Staffing & Contract Roles",
-    icon: <Users size={32} strokeWidth={2} />,
+    icon: <Users size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "High-Volume Contract Staffing Needs a Modern Verification Engine",
     heroSubheadline: "From logistics to retail, reduce BGV time from 7–10 days to <24 hours.",
     ctas: [

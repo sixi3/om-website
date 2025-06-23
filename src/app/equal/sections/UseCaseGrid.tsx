@@ -1,8 +1,10 @@
 'use client';
 import React from "react";
-import { BentoGrid } from "@/app/onemoney/components/ui/bento-grid"; 
-import { ServiceBentoCard } from "@/app/moneyone/components/ui/ServiceBentoCard";
+import Image from "next/image";
+import Link from "next/link";
+import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid"; 
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { GlowingButton } from "@/app/onemoney/components/ui/glowing-button";
 import { useCasesData } from "../data/useCases";
 
@@ -31,21 +33,53 @@ export function UseCaseGrid() {
             </p>
         </div>
 
-        <BentoGrid className="gap-4 md:grid-cols-3">
+        <BentoGrid className="gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {useCasesData.map((item) => (
-            <ServiceBentoCard
+            <BentoGridItem
               key={item.id}
-              title={item.title}
-              description={item.heroHeadline}
-              icon={item.icon}
+              className="group/bento flex flex-col transition-shadow duration-300 hover:shadow-2xl"
+              title={
+                <div className="flex flex-col">
+                  <span className="mb-2">{item.icon}</span>
+                  <span className="text-lg font-semibold">{item.title}</span>
+                </div>
+              }
+              header={
+                <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
+                  <Image 
+                    src="/placeholder.png" // Replace with actual images
+                    alt={item.title}
+                    fill={true}
+                    className="object-cover"
+                    sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 22vw"
+                    quality={80}
+                  />
+                </div>
+              }
+              description={
+                <div className="flex-grow flex flex-col justify-between">
+                  <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                    {item.heroHeadline}
+                  </p>
+                  <Link href={`/equal/solutions/${item.id}`} passHref>
+                    <span className="mt-auto inline-flex items-center justify-center rounded-full bg-[#00b140] px-4 py-2 text-sm font-semibold text-white shadow-lg">
+                      Learn More
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover/bento:translate-x-1" />
+                    </span>
+                  </Link>
+                </div>
+              }
             />
           ))}
         </BentoGrid>
 
         <div className="text-center mt-12">
-            <GlowingButton>
-                Schedule a Free Use Case Mapping Call
-            </GlowingButton>
+            <Link href="#" passHref>
+                <span className="group inline-flex items-center justify-center rounded-full bg-[#00b140] px-6 py-3 text-base font-semibold text-white shadow-lg">
+                    Schedule a Free Use Case Mapping Call
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
+                </span>
+            </Link>
         </div>
       </div>
     </motion.section>

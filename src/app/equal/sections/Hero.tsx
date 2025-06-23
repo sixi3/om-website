@@ -12,8 +12,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/app/onemoney/components/ui/dialog";
-// Placeholder for a future form component
-// import { BookDemoForm } from "../components/forms/BookDemoForm"; 
+import { GreenMetallicPhoneMockup } from "../components/ui/GreenMetallicPhoneMockup";
+import { AnimatedVerificationFlow } from "../components/AnimatedVerificationFlow";
+import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
+const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+
 
 const clientLogos = [
   { src: "/client-logos/Frame 5.png", alt: "Client Logo 5" },
@@ -41,15 +44,22 @@ export function Hero() {
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4">
         <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
           <div className="max-w-3xl space-y-4">
-            <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900">
-              India's Most Comprehensive Identity Verification Platform
+          <span className="inline-flex items-center pl-1 pr-3 py-1 text-md font-semibold text-slate-800 mb-4 space-x-2 mx-auto lg:mx-0">
+              <Image
+                src="/icons8-medal-94.png" // Assuming image is in /public
+                alt="Medal icon"
+                width={24} // Adjusted size to fit better with text-xs
+                height={24}
+              />
+              <span>India&apos;s Most Advanced Identity Verification Platform</span>
+            </span>
+            <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
+              <span className={metallicBlackTextClasses}>Powering India&apos;s</span>{" "}
+              <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
+                Consent-Driven
+              </span>{" "}
+              <span className={metallicBlackTextClasses}>Financial Ecosystem</span>
             </h1>
-            <p className="text-md text-foreground/80 max-w-2xl mb-2 ">
-              Transform background checks into real-time trust infrastructure. Verify anyone, anywhere, instantly with AI-powered precision.
-            </p>
-            <p className="text-sm text-foreground/60 italic max-w-2xl">
-              "Equal reduced our hiring time by 75%." — CHRO, Fortune 500 Company
-            </p>
           </div>
           <Dialog>
             <DialogTrigger asChild>
@@ -65,21 +75,30 @@ export function Hero() {
                 </DialogDescription>
               </DialogHeader>
               <div className="py-4">
-                {/* <BookDemoForm /> */}
-                <p className="text-center text-foreground/70">(Demo form will be here)</p>
+                <TalkToUsForm />
               </div>
             </DialogContent>
           </Dialog>
         </div>
       </div>
 
-      <div className="hidden lg:block relative w-full h-full lg:pr-12 xl:pr-20">
-        <div className="w-full h-[400px] bg-gradient-to-br from-green-400/20 via-blue-500/20 to-purple-400/20 rounded-lg flex items-center justify-center">
-            <p className="text-foreground/40 text-lg">Visual Placeholder</p>
+      <div className="hidden lg:block relative w-full h-full">
+        <div className="absolute -left-10 top-[50%] -translate-y-1/2 w-[800px] h-[600px] z-0">
+            <Image
+                src="/console-graphic.png"
+                alt="Equal Console Graphic"
+                fill
+                className="object-contain"
+            />
+        </div>
+        <div className="absolute top-[60%] -translate-y-1/2 right-[10%] z-10 scale-90">
+            <GreenMetallicPhoneMockup>
+              <AnimatedVerificationFlow />
+            </GreenMetallicPhoneMockup>
         </div>
       </div>
 
-      <div className="lg:col-span-2 w-full mt-16 md:mt-24 min-h-[180px]">
+      <div className="lg:col-span-2 w-full mt-40 min-h-[180px]">
         {showMarquee && (
           <>
             <div className="flex items-center gap-4 md:gap-8 mb-8">

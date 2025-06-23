@@ -2,7 +2,7 @@
 import React from "react";
 import { BentoGrid } from "@/app/onemoney/components/ui/bento-grid"; 
 import { ServiceBentoCard } from "@/app/moneyone/components/ui/ServiceBentoCard";
-import { Network, Plug, BrainCircuit } from "lucide-react"; 
+import { Network, Plug, BrainCircuit, ShieldCheck } from "lucide-react"; 
 import { motion } from "framer-motion";
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -14,7 +14,9 @@ const pillarsData = [
     title: "Aggregator of Aggregators",
     description: "50+ data partners, real-time failover, and smart routing to ensure the highest success rates.",
     icon: <Network size={32} strokeWidth={2} />,
-    className: "md:col-span-1",
+    className: "md:col-span-2",
+    imageSrc: "",
+    imageAlt: "Aggregator of Aggregators",
   },
   {
     id: "integration",
@@ -22,6 +24,8 @@ const pillarsData = [
     description: "Native HRMS embedding, workflow automation, and white-labeled delivery for a seamless experience.",
     icon: <Plug size={32} strokeWidth={2} />,
     className: "md:col-span-1",
+    imageSrc: "",
+    imageAlt: "Integration-First Design",
   },
   {
     id: "ai-layer",
@@ -29,6 +33,17 @@ const pillarsData = [
     description: "Advanced risk scoring, continuous monitoring, and predictive hiring insights powered by AI.",
     icon: <BrainCircuit size={32} strokeWidth={2} />,
     className: "md:col-span-1",
+    imageSrc: "",
+    imageAlt: "AI Intelligence Layer",
+  },
+  {
+    id: "compliance",
+    title: "Compliance-First Approach",
+    description: "RBI-licensed, GDPR-compliant, and ISO-certified to ensure the highest standards of security and privacy.",
+    icon: <ShieldCheck size={32} strokeWidth={2} />,
+    className: "md:col-span-2",
+    imageSrc: "",
+    imageAlt: "Compliance-First Approach",
   },
 ];
 
@@ -51,7 +66,7 @@ export function WhatMakesEqualDifferent() {
           </h2>
         </div>
 
-        <BentoGrid className="gap-4 md:grid-cols-3"> 
+        <BentoGrid className="gap-4">
           {pillarsData.map((item) => (
             <ServiceBentoCard
               key={item.id}
@@ -59,6 +74,8 @@ export function WhatMakesEqualDifferent() {
               description={item.description}
               icon={item.icon}
               className={item.className}
+              imageSrc={item.imageSrc}
+              imageAlt={item.imageAlt}
             />
           ))}
         </BentoGrid>
