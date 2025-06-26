@@ -7,7 +7,7 @@ export interface UseCase {
   icon: React.ReactNode;
   heroHeadline: string;
   heroSubheadline: string;
-  bestFor: string;
+  bestFor: string[];
   ctas: { text: string; href: string }[];
   problems?: string[];
   approach?: string[];
@@ -47,7 +47,7 @@ export const useCasesData: UseCase[] = [
     icon: <Building size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "Seamless Background Verification Inside Your HRMS",
     heroSubheadline: "Enable real-time background checks directly within platforms like Darwinbox, Workday, and SAP — no switching, no delays.",
-    bestFor: "For Large enterprises with existing HR tech stacks",
+    bestFor: ["Large enterprises", "Existing HR tech stacks", "MSME's"],
     ctas: [
       { text: "See HRMS Flow Demo", href: "#" }
     ],
@@ -83,7 +83,7 @@ export const useCasesData: UseCase[] = [
     icon: <Factory size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "Verify and Activate Your Gig Workforce in Real-Time",
     heroSubheadline: "Purpose-built for delivery, ride-share, logistics, and marketplace onboarding.",
-    bestFor: " For Delivery platforms, marketplaces, ride-share apps",
+    bestFor: ["Delivery platforms", "Marketplaces", "Ride-share apps"],
     ctas: [
        { text: "Try Gig Worker Demo", href: "#" }
     ],
@@ -125,7 +125,7 @@ export const useCasesData: UseCase[] = [
     icon: <HeartHandshake size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "Compliance-First Verification Engine for Banks & NBFCs",
     heroSubheadline: "Audit-ready. RBI-compliant. Fast. A single-layer solution for onboarding regulated workforce.",
-    bestFor: "Banks, NBFCs, insurance firms, fintech lenders",
+    bestFor: ["Banks & NBFCs", "Insurance firms", "Fintech lenders"],
     ctas: [
       { text: "Download BFSI Compliance Sheet", href: "#" }
     ],
@@ -147,6 +147,13 @@ export const useCasesData: UseCase[] = [
       "Wealth/Investment advisory firms"
     ],
     integratesWith: ["Darwinbox", "Local CRMs", "Custom HR tools"],
+    capabilities: [
+      { feature: "RBI & SEBI-Grade Compliance", description: "Built-in workflows that adhere to the latest RBI, SEBI, and PMLA guidelines for employee and agent verification." },
+      { feature: "Continuous AML/Sanctions Monitoring", description: "Automated, ongoing checks against global and domestic sanctions, PEP, and adverse media lists to ensure continuous compliance." },
+      { feature: "Secure Data Vault", description: "ISO 27001 and SOC 2 certified data handling with encryption at rest and in transit, ensuring audit-readiness and data privacy." },
+      { feature: "Comprehensive Financial Health Checks", description: "Integrate CIBIL, ITR, and other financial history checks to assess the financial integrity of high-risk roles." },
+      { feature: "Immutable Audit Logs", description: "Generate tamper-proof logs for every verification action, providing a clear and defensible audit trail for regulators." }
+    ],
     bottomCta: { text: "Don't just meet compliance. Lead with it.", button: "Explore Financial Verification Suite", href: "#" },
   },
   {
@@ -155,7 +162,7 @@ export const useCasesData: UseCase[] = [
     icon: <Users size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "High-Volume Contract Staffing Needs a Modern Verification Engine",
     heroSubheadline: "From logistics to retail, reduce BGV time from 7–10 days to <24 hours.",
-    bestFor: "For Logistics firms, temp staffing agencies, high-churn businesses",
+    bestFor: ["Logistics firms", "Temp staffing agencies", "High-churn businesses"],
     ctas: [
       { text: "Watch Staffing Workflow Video", href: "#" }
     ],
