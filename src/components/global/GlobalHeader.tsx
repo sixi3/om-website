@@ -233,19 +233,23 @@ export function GlobalHeader({
         )}
         style={cssVars}
       >
-        <div className="flex h-16 items-center justify-between px-4">
-          <Link href={`/${productName}/`} className="mr-6 flex items-center space-x-2 flex-shrink-0">
-            <Image
-              src={logoSrc}
-              alt={logoAlt}
-              width={logoWidth}
-              height={logoHeight}
-              priority
-              className="will-change-transform"
-            />
-          </Link>
+        <div className="flex h-16 items-center px-4">
+          {/* Left: Logo */}
+          <div className="flex-shrink-0">
+            <Link href={`/${productName}/`} className="flex items-center space-x-2">
+              <Image
+                src={logoSrc}
+                alt={logoAlt}
+                width={logoWidth}
+                height={logoHeight}
+                priority
+                className="will-change-transform"
+              />
+            </Link>
+          </div>
 
-          <nav className="hidden lg:flex items-center gap-x-6 lg:gap-x-10 text-sm font-medium">
+          {/* Center: Navigation */}
+          <nav className="hidden lg:flex items-center justify-center flex-1 gap-x-6 lg:gap-x-10 text-sm font-medium">
             {navItems.map((item) => (
               <div 
                 key={item.name}
@@ -283,7 +287,8 @@ export function GlobalHeader({
             ))}
           </nav>
           
-          <div className="flex items-center ml-auto">
+          {/* Right: Button and Mobile Menu */}
+          <div className="flex items-center flex-shrink-0">
             {/* "Talk to Us" button - always visible */}
             {talkToUsButtonText && (
               <div className="hidden lg:block">

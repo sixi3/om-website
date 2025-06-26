@@ -752,3 +752,38 @@ This document outlines the steps to create a React website similar in structure 
 *   [x] **Step 5: Final Integration**
     *   [x] Place `AnimatedVerificationFlow.tsx` inside `GreenMetallicPhoneMockup.tsx`.
     *   [x] Integrate the complete component into `src/app/equal/sections/Hero.tsx`.
+
+## 15. Equal Use Case Overlay Card Section (Scroll-Driven)
+
+- [ ] **Design & Planning**
+    - [ ] Define the data structure for use cases (headline, content, etc.).
+    - [ ] Decide on the visual style for the card stack and the outer headline/subheadline/CTA area.
+
+- [ ] **Component Structure**
+    - [ ] Create a parent `UseCaseOverlaySection` component.
+    - [ ] Place the `heroHeadline`, `heroSubheadline`, and CTAs outside the card stack, with their own animation container.
+    - [ ] Create a `UseCaseCard` component for each use case.
+
+- [ ] **Layout & Positioning**
+    - [ ] Stack all cards in the same position using absolute/fixed positioning and z-index.
+    - [ ] Only the top/active card is fully visible; previous cards are covered (not animated out).
+
+- [ ] **Scroll Detection & State**
+    - [ ] Use Intersection Observer or scroll position to determine which card should be active.
+    - [ ] Update the active card index as the user scrolls.
+
+- [ ] **Card Overlay Animation**
+    - [ ] Animate the incoming card to fade/scale in over the previous card (no slide out).
+    - [ ] Ensure the previous card remains underneath (not removed from DOM).
+
+- [ ] **Headline/Subheadline/CTA Animation**
+    - [ ] Animate the headline/subheadline/CTA area separately (e.g., fade/slide in on section enter, fade/slide out on section exit).
+
+- [ ] **Responsiveness & Accessibility**
+    - [ ] Ensure the layout works on all screen sizes.
+    - [ ] Make sure keyboard navigation and screen readers can access all content.
+
+- [ ] **Testing & Polish**
+    - [ ] Test scroll and overlay behavior across browsers/devices.
+    - [ ] Refine animation timing and easing for smoothness.
+    - [ ] Add any desired progress indicators or visual cues.

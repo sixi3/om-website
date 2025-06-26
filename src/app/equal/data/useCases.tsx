@@ -1,5 +1,5 @@
 import React from "react";
-import { Building, Factory, HeartHandshake, Users } from "lucide-react"; 
+import { Building, Factory, HeartHandshake, Users, Globe, FlaskConical } from "lucide-react"; 
 
 export interface UseCase {
   id: string;
@@ -7,14 +7,28 @@ export interface UseCase {
   icon: React.ReactNode;
   heroHeadline: string;
   heroSubheadline: string;
+  bestFor: string;
   ctas: { text: string; href: string }[];
+  problems?: string[];
+  approach?: string[];
+  features?: { feature: string; description: string; }[] | string[];
+  integrations?: string;
+  results?: string;
+  metrics?: string;
+  before?: string[];
+  after?: string[];
+  bonus?: string;
+  challenges?: string[];
+  delivers?: string[];
+  examples?: string;
+  needs?: string[];
+  solution?: string[];
   whyLove?: string[];
   whyMatters?: string[];
   builtFor?: string[] | { feature: string; description: string; }[];
   whyUse?: string[];
   capabilities?: { feature: string; description: string }[];
   designedForScale?: { feature: string; description: string }[];
-  features?: { feature: string; description: string }[];
   coreBenefits?: { feature: string; description: string }[];
   platforms?: string[];
   dev?: string[];
@@ -33,15 +47,21 @@ export const useCasesData: UseCase[] = [
     icon: <Building size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "Seamless Background Verification Inside Your HRMS",
     heroSubheadline: "Enable real-time background checks directly within platforms like Darwinbox, Workday, and SAP — no switching, no delays.",
+    bestFor: "For Large enterprises with existing HR tech stacks",
     ctas: [
-      { text: "See Integration Demo", href: "#" },
-      { text: "Download HRMS Implementation Guide", href: "#" },
+      { text: "See HRMS Flow Demo", href: "#" }
     ],
-    whyLove: [
-      "Native HRMS embedding: Not just an API, it lives inside your HRMS interface.",
-      "Pre-Offer & Post-Offer Support: Initiate verification at any hiring stage.",
-      "Zero Workflow Disruption: Keep your team in the tools they already use."
+    problems: [
+      "BGV delays due to workflow switching",
+      "Multiple vendor touchpoints",
+      "Untrackable onboarding progress"
     ],
+    approach: [
+      "Embed directly into Darwinbox, SAP, or Workday",
+      "Pre- and post-offer checks triggered inside HRMS",
+      "Auto-consolidated BGV reports"
+    ],
+    integrations: "Darwinbox, Oracle, Zoho, SAP SuccessFactors",
     capabilities: [
       { feature: "Pre-Offer BGV", description: "Collect candidate documents early, verify post-offer to reduce delays." },
       { feature: "Auto-Consolidated Reports", description: "All results auto-organized in one dashboard within your HRMS." },
@@ -63,15 +83,21 @@ export const useCasesData: UseCase[] = [
     icon: <Factory size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "Verify and Activate Your Gig Workforce in Real-Time",
     heroSubheadline: "Purpose-built for delivery, ride-share, logistics, and marketplace onboarding.",
+    bestFor: " For Delivery platforms, marketplaces, ride-share apps",
     ctas: [
-      { text: "Try Bulk Verification Demo", href: "#" },
-      { text: "View API Docs", href: "#" },
+       { text: "Try Gig Worker Demo", href: "#" }
     ],
-    whyMatters: [
-      "< 2-second ID verifications",
-      "Mobile-optimized for gig workers",
-      "Continuous monitoring for platform trust"
+    problems: [
+      "High attrition, fast onboarding cycles",
+      "Safety compliance pressure",
+      "Low digital literacy among workers"
     ],
+    approach: [
+      "WhatsApp-first BGV flow",
+      "Real-time driving license, RC, criminal, and ID check",
+      "Auto-routing based on geography"
+    ],
+    results: "Reduce onboarding TAT from 5 days to under 24 hours",
     designedForScale: [
       { feature: "Bulk Onboarding", description: "Handle 10,000+ verifications/day with unlimited scale." },
       { feature: "Mobile UX", description: "Fully responsive on smartphones with WhatsApp integration." },
@@ -99,22 +125,21 @@ export const useCasesData: UseCase[] = [
     icon: <HeartHandshake size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "Compliance-First Verification Engine for Banks & NBFCs",
     heroSubheadline: "Audit-ready. RBI-compliant. Fast. A single-layer solution for onboarding regulated workforce.",
+    bestFor: "Banks, NBFCs, insurance firms, fintech lenders",
     ctas: [
-      { text: "Explore Compliance Features", href: "#" },
-      { text: "Download BFSI Playbook", href: "#" },
+      { text: "Download BFSI Compliance Sheet", href: "#" }
     ],
-    builtFor: [
-      "RBI + PMLA-ready documentation",
-      "Risk scoring for financial roles",
-      "Fully encrypted, zero-trust security model"
+    problems: [
+      "Compliance risk and audit failures",
+      "Manual BGV recordkeeping",
+      "Delay in sales rep deployment"
     ],
     features: [
-      { feature: "CIBIL & Financial Checks", description: "Deep credit history, income, and account validation." },
-      { feature: "Sanctions & Watchlists", description: "Global AML screening built-in." },
-      { feature: "Dual-stage Verification", description: "Pre-offer and post-offer check workflows." },
-      { feature: "Exception Handling Console", description: "Auto-resolution and escalation via Equal dashboard." },
-      { feature: "Audit Trails", description: "Every check logged for traceability." },
+      "CIBIL, PAN, Aadhaar, income tax and sanctions checks",
+      "RBI/PMLA-compliant verification flows",
+      "Real-time exception resolution"
     ],
+    metrics: "50% faster onboarding, 25% OpEx savings",
     clients: [
       "Banks (private/public)",
       "Insurance companies",
@@ -130,15 +155,21 @@ export const useCasesData: UseCase[] = [
     icon: <Users size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "High-Volume Contract Staffing Needs a Modern Verification Engine",
     heroSubheadline: "From logistics to retail, reduce BGV time from 7–10 days to <24 hours.",
+    bestFor: "For Logistics firms, temp staffing agencies, high-churn businesses",
     ctas: [
-      { text: "Watch Staffing Workflow Demo", href: "#" },
-      { text: "Schedule Bulk Integration Call", href: "#" },
+      { text: "Watch Staffing Workflow Video", href: "#" }
     ],
-    whyUse: [
-      "All-in-one document collection and verification",
-      "Bulk upload via dashboard or API",
-      "Intelligent vendor routing and fallback logic"
+    before: [
+      "7–10 day turnarounds",
+      "Separate vendors for address, education, criminal checks",
+      "Manual consolidation of PDFs"
     ],
+    after: [
+      "One dashboard for uploads and verifications",
+      "Consolidated digital reports",
+      "Bulk download support for enterprise clients"
+    ],
+    bonus: "Client-specific branding, workflows, and billing",
     coreBenefits: [
       { feature: "Single Upload Flow", description: "One console to upload, verify, and manage checks." },
       { feature: "Document Auto-routing", description: "Platform auto-assigns checks to most efficient partner." },

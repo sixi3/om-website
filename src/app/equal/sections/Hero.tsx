@@ -15,8 +15,41 @@ import {
 import { GreenMetallicPhoneMockup } from "../components/ui/GreenMetallicPhoneMockup";
 import { AnimatedVerificationFlow } from "../components/AnimatedVerificationFlow";
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
+
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
+// Testimonial Card Component
+const TestimonialCard = () => (
+  <div className="relative bg-background/50 backdrop-blur-sm border border-slate-200/50 rounded-2xl p-6 shadow-lg transition-all duration-300 max-w-xl mx-auto lg:mx-0">
+    <div className="flex items-start space-x-4">
+      <div className="flex-shrink-0">
+        <Image
+            src="/test-avatar.png"
+            alt="Testimonial author avatar"
+            width={48}
+            height={48}
+            className="rounded-full"
+        />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-slate-700 text-sm leading-relaxed italic">
+          "Equal has transformed our verification process. The accuracy and speed are unmatched, and our customers love the seamless experience."
+        </p>
+        <div className="mt-4 flex items-center justify-between">
+          <div>
+            <p className="text-sm font-semibold text-slate-900">Rahul Sharma</p>
+            <p className="text-xs text-slate-500">CTO, FinTech Solutions</p>
+          </div>
+          <div className="w-16 h-8 bg-slate-100 rounded flex items-center justify-center">
+            <span className="text-xs text-slate-400 font-medium">LOGO</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="absolute -top-2 -left-2 w-4 h-4 bg-gradient-to-br from-green-500 to-green-600 rounded-full opacity-20"></div>
+    <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-gradient-to-br from-green-400 to-green-500 rounded-full opacity-20"></div>
+  </div>
+);
 
 const clientLogos = [
   { src: "/client-logos/Frame 5.png", alt: "Client Logo 5" },
@@ -40,7 +73,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-start pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
+    <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-start pt-12 pb-12 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4">
         <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
           <div className="max-w-3xl space-y-4">
@@ -53,13 +86,18 @@ export function Hero() {
               />
               <span>India&apos;s Most Advanced Identity Verification Platform</span>
             </span>
-            <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-              <span className={metallicBlackTextClasses}>Powering India&apos;s</span>{" "}
+            <h1 className="text-5xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-5xl xl:text-8xl">
+              <span className={metallicBlackTextClasses}>The</span>{" "}
               <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
-                Consent-Driven
+                Future
               </span>{" "}
-              <span className={metallicBlackTextClasses}>Financial Ecosystem</span>
+              <span className={metallicBlackTextClasses}>of</span> 
+              <br />
+              <span className={metallicBlackTextClasses}>Identity</span>
             </h1>
+            <p className="font-medium text-lg sm:text-md text-slate-600 dark:text-slate-300 mb-8">
+            India's largest businesses use Equal to solve their identity needs enabling Trust, Convenience & Consent.
+            </p>
           </div>
           <Dialog>
             <DialogTrigger asChild>
@@ -79,6 +117,10 @@ export function Hero() {
               </div>
             </DialogContent>
           </Dialog>
+        </div>
+        {/* Testimonial Card */}
+        <div className="mb-8 mt-12">
+          <TestimonialCard />
         </div>
       </div>
 

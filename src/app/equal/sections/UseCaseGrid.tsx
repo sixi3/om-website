@@ -9,12 +9,12 @@ import { GlowingButton } from "@/app/onemoney/components/ui/glowing-button";
 import { useCasesData } from "../data/useCases";
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
-const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold rounded-md";
+const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
 
 export function UseCaseGrid() {
   return (
     <motion.section
-      className="relative w-full py-12"
+      className="relative w-full py-20 md:py-24"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -62,7 +62,7 @@ export function UseCaseGrid() {
                     {item.heroHeadline}
                   </p>
                   <Link href={`/equal/solutions/${item.id}`} passHref>
-                    <span className="mt-auto inline-flex items-center justify-center rounded-full bg-[#00b140] px-4 py-2 text-sm font-semibold text-white shadow-lg">
+                    <span className="mt-auto inline-flex items-center justify-center rounded-full bg-background/30 backdrop-blur-md border border-[#00b140]/20 dark:border-neutral-700 px-4 py-2 text-sm font-medium text-[#00b140] group-hover/bento:bg-[#00b140] group-hover/bento:text-white transition-colors duration-300">
                       Learn More
                       <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover/bento:translate-x-1" />
                     </span>
@@ -72,15 +72,6 @@ export function UseCaseGrid() {
             />
           ))}
         </BentoGrid>
-
-        <div className="text-center mt-12">
-            <Link href="#" passHref>
-                <span className="group inline-flex items-center justify-center rounded-full bg-[#00b140] px-6 py-3 text-base font-semibold text-white shadow-lg">
-                    Schedule a Free Use Case Mapping Call
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
-                </span>
-            </Link>
-        </div>
       </div>
     </motion.section>
   );
