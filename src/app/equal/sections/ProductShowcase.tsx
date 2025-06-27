@@ -28,7 +28,7 @@ const productsData = [
       { icon: <FileCheck />, text: 'Smart Document Parsing (OCR & AI)' },
       { icon: <ShieldCheck />, text: 'Secure Consent Capture with Audit Trails' },
     ],
-    cta: { text: 'Learn About Gateway', href: '#' },
+    cta: { text: 'Learn About Gateway', href: '/equal/products/identity-gateway' },
   },
   {
     id: 'console',
@@ -43,7 +43,7 @@ const productsData = [
         { icon: <LinkIcon />, text: 'Export to Darwinbox, Workday, SAP' },
         { icon: <Settings />, text: 'Connect BI dashboards (PowerBI, Tableau)' },
     ],
-    cta: { text: 'Learn About Console', href: '#' },
+    cta: { text: 'Learn About Console', href: '/equal/products/console' },
   },
 ];
 
@@ -96,6 +96,7 @@ export function ProductShowcase() {
   
   return (
     <motion.section 
+      id="products"
       className="relative w-full py-12 md:py-20"
       onViewportEnter={() => setHasBeenInView(true)}
       viewport={{ once: true, amount: 0.2 }}

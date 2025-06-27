@@ -1,13 +1,27 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Send, UploadCloud, FileCheck, ShieldCheck, Link, Settings, CheckCircle, XCircle, FileText, GraduationCap, CreditCard, MapPin, UserCheck, Code, Webhook, Terminal } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Send, UploadCloud, FileCheck, ShieldCheck, Link, Settings, CheckCircle, XCircle, FileText, GraduationCap, CreditCard, MapPin, UserCheck, Code, Webhook, Terminal, Car, Share2, Scale, Globe, AlertTriangle, Map, Briefcase, Building, Users, Vote } from 'lucide-react';
 import { GlowingButton } from '@/app/onemoney/components/ui/glowing-button';
 import { GridBackground } from '@/app/onemoney/components/ui/grid-background';
+import { GreenMetallicPhoneMockup } from '../../components/ui/GreenMetallicPhoneMockup';
+import { AnimatedVerificationFlow } from '../../components/AnimatedVerificationFlow';
+import { BentoGrid, BentoGridItem } from '@/app/onemoney/components/ui/bento-grid';
+import Marquee from "react-fast-marquee";
+import { UseCaseGrid } from '../../sections/UseCaseGrid';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import radarAnimation from '../../../../../public/radar.json';
+
+// Dynamically import Lottie to avoid SSR issues
+const Lottie = dynamic(() => import('lottie-react'), { 
+  ssr: false,
+  loading: () => <div className="w-[800px] h-[800px] opacity-80" /> // Placeholder during loading
+});
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
-const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold rounded-md";
+const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
 
 const problemSolutions = [
   {
@@ -56,6 +70,41 @@ const keyFeatures = [
     description: "Digital signature with time-stamped logs. Optional check-level consent for regulated industries. Hosted on secure HTTPS with audit trails.",
     icon: <ShieldCheck className="w-6 h-6" />,
   }
+];
+
+// First row of verification types
+const verificationTypesRow1 = [
+  { name: "Aadhaar", icon: <FileText className="w-6 h-6" /> },
+  { name: "PAN Basic", icon: <FileText className="w-6 h-6" /> },
+  { name: "PAN Advanced", icon: <Link className="w-6 h-6" /> },
+  { name: "Bank Account Validation", icon: <CreditCard className="w-6 h-6" /> },
+  { name: "Voter ID", icon: <Vote className="w-6 h-6" /> },
+  { name: "Driving License", icon: <Car className="w-6 h-6" /> },
+  { name: "Vehicle RC", icon: <Car className="w-6 h-6" /> },
+  { name: "ESIC", icon: <ShieldCheck className="w-6 h-6" /> },
+  { name: "Social Media", icon: <Share2 className="w-6 h-6" /> },
+  { name: "Criminal Court", icon: <Scale className="w-6 h-6" /> },
+  { name: "Police Verification", icon: <ShieldCheck className="w-6 h-6" /> },
+  { name: "Global Database", icon: <Globe className="w-6 h-6" /> },
+  { name: "Payslip", icon: <FileText className="w-6 h-6" /> },
+  { name: "Bank Statement", icon: <CreditCard className="w-6 h-6" /> },
+];
+
+// Second row of verification types
+const verificationTypesRow2 = [
+  { name: "Credit Check", icon: <CreditCard className="w-6 h-6" /> },
+  { name: "Credit Default Database", icon: <AlertTriangle className="w-6 h-6" /> },
+  { name: "Permanent Address", icon: <MapPin className="w-6 h-6" /> },
+  { name: "Current Address", icon: <MapPin className="w-6 h-6" /> },
+  { name: "Digital Address", icon: <Map className="w-6 h-6" /> },
+  { name: "Education", icon: <GraduationCap className="w-6 h-6" /> },
+  { name: "Employment & Conduct", icon: <Briefcase className="w-6 h-6" /> },
+  { name: "Self-Employment", icon: <Building className="w-6 h-6" /> },
+  { name: "PF UAN Advanced", icon: <FileText className="w-6 h-6" /> },
+  { name: "CV Validation", icon: <FileCheck className="w-6 h-6" /> },
+  { name: "Directorship Check", icon: <Users className="w-6 h-6" /> },
+  { name: "Right to Work", icon: <UserCheck className="w-6 h-6" /> },
+  { name: "Professional Reference", icon: <Users className="w-6 h-6" /> },
 ];
 
 const verificationOptions = [
@@ -122,252 +171,597 @@ const useCases = [
 ];
 
 const developerFeatures = [
-  "REST API to trigger gateway & receive updates",
-  "Webhook push notifications on document upload or verification status",
-  "Field-level configuration for each check",
-  "JavaScript SDK and hosted environments"
+  {
+    title: "REST API Integration",
+    description: "Trigger gateway & receive real-time updates via comprehensive REST API endpoints",
+    icon: <Code className="w-6 h-6" />,
+  },
+  {
+    title: "Webhook Notifications", 
+    description: "Push notifications on document upload or verification status changes",
+    icon: <Webhook className="w-6 h-6" />,
+  },
+  {
+    title: "Field-Level Configuration",
+    description: "Granular control and customization for each verification check",
+    icon: <Settings className="w-6 h-6" />,
+  },
+  {
+    title: "JavaScript SDK",
+    description: "Ready-to-use SDK and hosted environments for rapid development",
+    icon: <Terminal className="w-6 h-6" />,
+  }
 ];
 
+// Verification Card Component
+const   VerificationCard = ({ name, icon }: { name: string; icon: React.ReactNode }) => (
+  <div className="relative w-48 h-48 bg-background/10 backdrop-blur-md border border-[#00b140]/20 rounded-2xl p-4 mx-4 flex-shrink-0 shadow-md">
+    <div className="absolute top-4 left-4">
+      <div className="p-3 rounded-full bg-[#00b140] text-white">
+        {icon}
+      </div>
+    </div>
+    <div className="absolute bottom-4 right-4 px-2 text-right">
+      <span className="text-md font-medium text-slate-800 leading-tight">{name}</span>
+    </div>
+  </div>
+);
+
+// Animated Verification Circle Component
+const AnimatedVerificationCircle = ({ 
+  icon, 
+  name, 
+  position, 
+  delay, 
+  isVisible 
+}: { 
+  icon: React.ReactNode; 
+  name: string; 
+  position: { x: number; y: number }; 
+  delay: number;
+  isVisible: boolean;
+}) => (
+  <AnimatePresence mode="wait">
+    {isVisible && (
+      <motion.div
+        initial={{ scale: 0, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ 
+          scale: 0.3, 
+          opacity: 0, 
+          y: -30,
+          transition: { 
+            duration: 1.2,
+            ease: [0.4, 0.0, 0.2, 1],
+            delay: 0.1
+          }
+        }}
+        transition={{ 
+          delay,
+          duration: 0.6,
+          type: "spring",
+          stiffness: 180,
+          damping: 18
+        }}
+        className="absolute z-40"
+        style={{
+          left: `${position.x}%`,
+          top: `${position.y}%`,
+          transform: 'translate(-50%, -50%)'
+        }}
+      >
+        <div className="relative">
+          <div className="w-16 h-16 bg-background/50 backdrop-blur-md rounded-full flex items-center justify-center shadow-xl border border-[#00b140]/20">
+            <div className="text-[#00b140] text-lg">
+              {icon}
+            </div>
+          </div>
+          <div className="absolute -bottom-9 left-1/2 transform -translate-x-1/2 whitespace-nowrap z-40">
+            <span className="text-xs font-semibold text-slate-700 bg-background/50 backdrop-blur-md px-2 py-1 rounded-full shadow-md border border-slate-200/50 backdrop-blur-sm">
+              {name}
+            </span>
+          </div>
+        </div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
+
+// Radar Verification Display Component
+const RadarVerificationDisplay = () => {
+  const [currentWave, setCurrentWave] = useState(0);
+  const [usedPositions, setUsedPositions] = useState<Set<string>>(new Set());
+  const [currentPositions, setCurrentPositions] = useState<Array<{x: number, y: number}>>([]);
+  
+  // Combine all verification types
+  const allVerifications = [...verificationTypesRow1, ...verificationTypesRow2];
+
+  // Define sectors around the phone mockup for even distribution
+  const generateSectorPositions = (currentUsed: Set<string>, existingPositions: Array<{x: number, y: number}> = []) => {
+    // Define sectors well clear of the phone mockup center (avoiding 30-70% center area)
+    // Constrained to stay within hero container bounds with very safe margins
+    const leftSectors = [
+      { name: 'top-left', xRange: [15, 28], yRange: [12, 28] },
+      { name: 'left', xRange: [8, 25], yRange: [40, 60] },
+      { name: 'bottom-left', xRange: [15, 28], yRange: [72, 88] }
+    ];
+
+    const rightSectors = [
+      { name: 'top-right', xRange: [72, 85], yRange: [12, 28] },
+      { name: 'right', xRange: [75, 92], yRange: [40, 60] },
+      { name: 'bottom-right', xRange: [72, 85], yRange: [72, 88] }
+    ];
+
+    // Ensure balanced distribution: 3 from left, 3 from right (6 total)
+    const shuffledLeft = [...leftSectors].sort(() => Math.random() - 0.5);
+    const shuffledRight = [...rightSectors].sort(() => Math.random() - 0.5);
+    const shuffledSectors = [...shuffledLeft, ...shuffledRight].sort(() => Math.random() - 0.5);
+    
+    const generatePositionInSector = (sector: typeof leftSectors[0], attempts: number = 0): {position: {x: number, y: number}, positionKey: string} => {
+      if (attempts > 30) {
+        // Fallback to any position in sector
+        const x = sector.xRange[0] + Math.random() * (sector.xRange[1] - sector.xRange[0]);
+        const y = sector.yRange[0] + Math.random() * (sector.yRange[1] - sector.yRange[0]);
+        return {
+          position: { x: Math.round(x), y: Math.round(y) },
+          positionKey: `fallback-${sector.name}-${Math.random()}`
+        };
+      }
+
+      const x = sector.xRange[0] + Math.random() * (sector.xRange[1] - sector.xRange[0]);
+      const y = sector.yRange[0] + Math.random() * (sector.yRange[1] - sector.yRange[0]);
+      const position = { x: Math.round(x), y: Math.round(y) };
+      
+      // Check minimum distance from existing positions in current wave
+      const minDistance = 45; // Further increased minimum distance between circles
+      const tooClose = existingPositions.some(existing => {
+        const distance = Math.sqrt(Math.pow(position.x - existing.x, 2) + Math.pow(position.y - existing.y, 2));
+        return distance < minDistance;
+      });
+
+      // Additional check: ensure no overlap with phone mockup area (much larger buffer)
+      const phoneX = 50, phoneY = 50;
+      const phoneDistance = Math.sqrt(Math.pow(position.x - phoneX, 2) + Math.pow(position.y - phoneY, 2));
+      const phoneTooClose = phoneDistance < 40; // Much larger phone buffer
+
+      // Extra safety: ensure circles stay within their designated sectors and don't cross into center
+      const centerTooClose = (position.x > 30 && position.x < 70) && (position.y > 30 && position.y < 70);
+
+      if (tooClose || phoneTooClose || centerTooClose) {
+        return generatePositionInSector(sector, attempts + 1);
+      }
+
+      // Check if this position has been used recently
+      const positionKey = `${Math.floor(position.x / 8) * 8}-${Math.floor(position.y / 8) * 8}`;
+      if (currentUsed.has(positionKey)) {
+        return generatePositionInSector(sector, attempts + 1);
+      }
+
+      return { position, positionKey };
+    };
+
+    return shuffledSectors.map(sector => generatePositionInSector(sector));
+  };
+
+  // Generate positions when wave changes
+  useEffect(() => {
+    const itemsPerWave = 6;
+    let updatedUsedPositions = new Set(usedPositions);
+
+    // Clear used positions if we've used too many
+    if (updatedUsedPositions.size > 24) {
+      updatedUsedPositions = new Set();
+    }
+
+    // Generate evenly distributed positions
+    const sectorResults = generateSectorPositions(updatedUsedPositions);
+    const newPositions = sectorResults.map(result => result.position);
+    
+    // Update used positions
+    sectorResults.forEach(result => {
+      updatedUsedPositions.add(result.positionKey);
+    });
+
+    setCurrentPositions(newPositions);
+    setUsedPositions(updatedUsedPositions);
+  }, [currentWave]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWave(prev => (prev + 1) % 8); // 8 waves to cycle through more positions
+    }, 4000); // Increased interval to 4 seconds for smoother transitions
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  const getVisibleVerifications = () => {
+    const itemsPerWave = 6; // Show 6 circles at a time
+    const startIndex = (currentWave * itemsPerWave) % allVerifications.length;
+    
+    return Array.from({ length: itemsPerWave }, (_, index) => {
+      const verificationIndex = (startIndex + index) % allVerifications.length;
+      return {
+        ...allVerifications[verificationIndex],
+        position: currentPositions[index] || { x: 20, y: 20 },
+        delay: index * 0.3, // Slightly longer delay between appearances
+        isVisible: true
+      };
+    });
+  };
+
+  return (
+    <div className="absolute inset-0 w-full h-full">
+      {getVisibleVerifications().map((verification, index) => (
+        <AnimatedVerificationCircle
+          key={`${currentWave}-${index}`}
+          icon={verification.icon}
+          name={verification.name}
+          position={verification.position}
+          delay={verification.delay}
+          isVisible={verification.isVisible}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Horizontal Point List Component
+const HorizontalPointList = ({ items, textColor, enableMarquee = false }: { items: (string | undefined)[], textColor: string, enableMarquee?: boolean }) => {
+    const validItems = items.filter(Boolean);
+    if (validItems.length === 0) return null;
+
+    const content = validItems.map((point, idx) => (
+        <React.Fragment key={idx}>
+            <span className="whitespace-nowrap">{point}</span>
+            {idx < validItems.length - 1 && <span className="text-slate-600 mx-2">&bull;</span>}
+        </React.Fragment>
+    ));
+
+    if (enableMarquee) {
+        return (
+            <div className="w-full overflow-hidden">
+                <Marquee gradient={false} speed={30} pauseOnHover={true}>
+                    <div className={`flex items-center gap-x-4 text-sm font-medium text-[16px] ${textColor} mr-8`}>
+                        {content}
+                        <span className="text-slate-600 mx-2">&bull;</span>
+                    </div>
+                </Marquee>
+            </div>
+        );
+    }
+
+    return (
+        <div className={`flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm font-medium text-[16px] ${textColor}`}>
+            {content}
+        </div>
+    );
+};
+
+// Developer features data structure updated above
+
 export default function IdentityGatewayPage() {
+  const [activeTab, setActiveTab] = useState<string>("integration");
+
+  // Tab data
+  const tabsData = [
+    { id: "integration", title: "Integration Modes" },
+    { id: "developer", title: "Developer Features" }
+  ];
+
+  // With/Without Equal data
+  const withoutEqual = [
+    "Collecting IDs via email, WhatsApp, Excel is error-prone and untrackable",
+    "Manual back-and-forth with candidates delays onboarding", 
+    "Inconsistent documents = low verification success rate"
+  ];
+
+  const withEqual = [
+    "Unified digital gateway with pre-built flows",
+    "Real-time document capture and status tracking",
+    "Built-in validations and auto-format checks"
+  ];
+
   return (
     <div className="relative">
       <GridBackground />
       
       {/* Hero Section */}
-      <section className="relative w-full py-12 md:py-20">
-        <div className="container px-4 md:px-6 mx-auto">
-          <div className="text-center mb-12 md:mb-16">
-            <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl mb-6">
-              <span className={metallicBlackTextClasses}>One Gateway to Verify All</span>{" "}
-              <span className={highlightBgClass}>Candidate Identities — Instantly</span>
-            </h1>
-            <p className="mx-auto text-xl text-slate-700 dark:text-slate-300 max-w-3xl mb-8">
-              Equal's Identity Verification Gateway (IDG) is your digital front door for onboarding. 
-              Collect, verify, and confirm identity documents from any user in real-time — no coding, no chasing.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-center pt-12 pb-12 min-h-screen lg:min-h-[700px] overflow-hidden">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 py-24">
+          <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
+            <div className="max-w-3xl space-y-4">
+              <span className="inline-flex items-center pl-1 pr-3 py-1 text-md font-semibold text-slate-800 mb-4 space-x-2 mx-auto lg:mx-0">
+                <Image
+                  src="/icons8-medal-94.png"
+                  alt="Medal icon"
+                  width={24}
+                  height={24}
+                />
+                <span>India&apos;s Only Smart Identity Gateway</span>
+              </span>
+              <h1 className="text-3xl tracking-tight leading-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-6xl">
+                <span className={metallicBlackTextClasses}>One Gateway to Verify</span>
+                {" "}<span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
+                  Candidate Identities
+                </span>
+                <br />
+                <span className={metallicBlackTextClasses}>— Instantly</span>
+              </h1>
+              <p className="font-medium text-lg sm:text-md text-slate-600 dark:text-slate-300 mb-4">
+                Equal's Identity Verification Gateway (IDG) is your digital front door for onboarding. 
+                Collect, verify, and confirm identity documents from any user in real-time — no coding, no chasing.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4">
               <GlowingButton>
-                Try Live Gateway Demo
-              </GlowingButton>
-              <GlowingButton className="bg-transparent border border-[#d2ff61] text-[#d2ff61] hover:bg-[#d2ff61]/10">
-                View Technical Documentation
+                Try Gateway Demo
               </GlowingButton>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Problem-Solution Section */}
-      <section className="relative w-full py-12 md:py-20">
-        <div className="container px-4 md:px-6 mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className={metallicBlackTextClasses}>Why Use</span>{" "}
-            <span className={highlightBgClass}>Equal's ID Gateway?</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {problemSolutions.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="p-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-background/10 backdrop-blur-md"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  {item.problemIcon}
-                  <p className="text-slate-600 dark:text-slate-300">
-                    {item.problem}
-                  </p>
-                </div>
-                <div className="flex items-start gap-4">
-                  {item.solutionIcon}
-                  <p className="text-slate-800 dark:text-white font-medium">
-                    {item.solution}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+        <div className="hidden lg:flex relative w-full h-full items-center justify-center -ml-16">
+          {/* Radar Animation Background */}
+          <div className="absolute inset-0 flex items-center justify-center z-0">
+            <Lottie
+              animationData={radarAnimation}
+              loop={true}
+              autoplay={true}
+              style={{
+                width: '800px',
+                height: '800px',
+                opacity: 0.8
+              }}
+            />
+          </div>
+          
+          {/* Animated Verification Circles */}
+          <div className="absolute inset-0 z-5">
+            <RadarVerificationDisplay />
+          </div>
+          
+          {/* Phone Mockup */}
+          <div className="relative z-30">
+            <GreenMetallicPhoneMockup>
+              <AnimatedVerificationFlow />
+            </GreenMetallicPhoneMockup>
           </div>
         </div>
       </section>
 
-      {/* Key Features Section */}
-      <section className="relative w-full py-12 md:py-20">
-        <div className="container px-4 md:px-6 mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className={metallicBlackTextClasses}>Key Features of the</span>{" "}
-            <span className={highlightBgClass}>Identity Gateway</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {keyFeatures.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="p-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-background/10 backdrop-blur-md"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-2 rounded-lg bg-green-500/10 text-green-500">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold text-slate-800 dark:text-white">
-                    {feature.title}
-                  </h3>
-                </div>
-                <p className="text-slate-600 dark:text-slate-300">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+        <section className="relative w-full py-12 md:py-20">
+         <div className="container px-4 md:px-6 mx-auto">
+           <div className="text-center mb-12">
+             <h2 className="text-5xl font-bold mb-6">
+               <span className={metallicBlackTextClasses}>Transform Your</span>{" "}
+               <span className={highlightBgClass}>HR Onboarding</span>{" "}
+               <span className={metallicBlackTextClasses}>Process</span>
+             </h2>
+             <p className="mx-auto text-xl text-slate-700 dark:text-slate-300 max-w-6xl">
+               Equal's Identity Gateway automates document collection and verification, reducing onboarding time from weeks to hours while ensuring compliance.
+             </p>
+           </div>
+                     <div className="space-y-6">
+             {/* First Row - 2 Cards */}
+             <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4">
+               {keyFeatures.slice(0, 2).map((feature, index) => (
+                 <BentoGridItem
+                   key={index}
+                   icon={
+                     <div className="p-3 rounded-lg bg-[#00b140] text-[#baff29] inline-block mb-2">
+                       {feature.icon}
+                     </div>
+                   }
+                   title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{feature.title}</span>}
+                   description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{feature.description}</span>}
+                 />
+               ))}
+             </BentoGrid>
+             
+             {/* Second Row - 3 Cards */}
+             <BentoGrid className="grid-cols-1 md:grid-cols-3 gap-4">
+               {keyFeatures.slice(2, 5).map((feature, index) => (
+                 <BentoGridItem
+                   key={index + 2}
+                   icon={
+                     <div className="p-3 rounded-lg bg-[#00b140] text-[#baff29] inline-block mb-2">
+                       {feature.icon}
+                     </div>
+                   }
+                   title={<span className="text-xl font-bold text-slate-900 dark:text-slate-100">{feature.title}</span>}
+                   description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{feature.description}</span>}
+                 />
+               ))}
+             </BentoGrid>
+           </div>
         </div>
       </section>
 
-      {/* Verification Options Section */}
+            {/* World of IDs Section */}
       <section className="relative w-full py-12 md:py-20">
         <div className="container px-4 md:px-6 mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className={metallicBlackTextClasses}>Built-In</span>{" "}
-            <span className={highlightBgClass}>Verification Options</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {verificationOptions.map((option, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="p-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-background/10 backdrop-blur-md"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-2 rounded-lg bg-green-500/10 text-green-500">
-                    {option.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold text-slate-800 dark:text-white">
-                    {option.category}
-                  </h3>
-                </div>
-                <ul className="space-y-2">
-                  {option.checks.map((check, checkIndex) => (
-                    <li key={checkIndex} className="text-slate-600 dark:text-slate-300">
-                      • {check}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
+          <div className="text-center mb-12">
+            <h2 className="text-5xl font-bold mb-6">
+              <span className={metallicBlackTextClasses}>Equal's</span>{" "}
+              <span className={highlightBgClass}>World</span>{" "}
+              <span className={metallicBlackTextClasses}>of IDs</span>
+            </h2>
+            <p className="mx-auto text-xl text-slate-700 dark:text-slate-300 max-w-6xl">
+              Equal's Identity Gateway automates document collection and verification, reducing onboarding time from weeks to hours while ensuring compliance.
+            </p>
           </div>
         </div>
-      </section>
 
-      {/* Integration Options Section */}
-      <section className="relative w-full py-12 md:py-20">
-        <div className="container px-4 md:px-6 mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className={metallicBlackTextClasses}>Integration</span>{" "}
-            <span className={highlightBgClass}>Options</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {integrationOptions.map((option, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="p-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-background/10 backdrop-blur-md"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-2 rounded-lg bg-green-500/10 text-green-500">
-                    {option.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold text-slate-800 dark:text-white">
-                    {option.title}
-                  </h3>
-                </div>
-                <p className="text-slate-600 dark:text-slate-300">
-                  {option.description}
-                </p>
-              </motion.div>
+        {/* First Marquee - Full Width */}
+        <div className="mb-2">
+          <Marquee gradient={false} speed={80} pauseOnHover={true} className="py-2">
+            {[...verificationTypesRow1, ...verificationTypesRow1].map((type, index) => (
+              <VerificationCard key={`row1-${index}`} name={type.name} icon={type.icon} />
             ))}
-          </div>
+          </Marquee>
+        </div>
+
+        {/* Second Marquee - Full Width - Reverse Direction */}
+        <div className="py-4">
+          <Marquee gradient={false} speed={80} pauseOnHover={true} direction="right" className="py-2">
+            {[...verificationTypesRow2, ...verificationTypesRow2].map((type, index) => (
+              <VerificationCard key={`row2-${index}`} name={type.name} icon={type.icon} />
+            ))}
+          </Marquee>
         </div>
       </section>
 
       {/* Use Cases Section */}
-      <section className="relative w-full py-12 md:py-20">
-        <div className="container px-4 md:px-6 mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className={metallicBlackTextClasses}>Use</span>{" "}
-            <span className={highlightBgClass}>Cases</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {useCases.map((useCase, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="p-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-background/10 backdrop-blur-md"
-              >
-                <p className="text-slate-600 dark:text-slate-300">
-                  {useCase}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <UseCaseGrid />
 
-      {/* Developer Features Section */}
+      {/* Integration & Developer Features Tabbed Section */}
       <section className="relative w-full py-12 md:py-20">
         <div className="container px-4 md:px-6 mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            <span className={metallicBlackTextClasses}>Developer</span>{" "}
-            <span className={highlightBgClass}>Features</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {developerFeatures.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="p-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-background/10 backdrop-blur-md"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="p-2 rounded-lg bg-green-500/10 text-green-500">
-                    <Terminal className="w-6 h-6" />
-                  </div>
-                  <p className="text-slate-600 dark:text-slate-300">
-                    {feature}
-                  </p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
+              <span className={metallicBlackTextClasses}>Build & Deploy with</span>{" "}
+              <span className={highlightBgClass}>Equal</span>
+            </h2>
+            <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-4xl">
+              Choose from multiple integration modes and leverage powerful developer tools to implement Equal's Identity Gateway in your workflow.
+            </p>
+          </div>
+
+          {/* Tab Indicator */}
+          <div className="flex justify-center mb-8">
+            <div className="flex items-center gap-2 p-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm">
+              {tabsData.map((tab) => (
+                <div
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`relative px-6 py-3 text-sm sm:text-base font-medium rounded-full cursor-pointer transition-colors duration-300 ${
+                    activeTab === tab.id
+                      ? "text-white"
+                      : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
+                  }`}
+                >
+                  {activeTab === tab.id && (
+                    <motion.div
+                      layoutId="active-integration-tab"
+                      className="absolute inset-0 bg-[#00b140] rounded-full z-0"
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{tab.title}</span>
                 </div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="relative w-full py-12 md:py-20">
-        <div className="container px-4 md:px-6 mx-auto text-center">
-          <h2 className="text-2xl font-semibold mb-6 text-slate-800 dark:text-white">
-            From Aadhaar to address – verify it all in under 5 minutes.
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <GlowingButton>
-              Try Gateway Demo
-            </GlowingButton>
-            <GlowingButton className="bg-transparent border border-[#d2ff61] text-[#d2ff61] hover:bg-[#d2ff61]/10">
-              Request SDK Access
-            </GlowingButton>
+          {/* Tab Content */}
+          <div className="w-full mx-auto border border-[#00b140]/30 bg-linear-to-br from-background/90 to-[#baff29]/20 backdrop-blur-lg rounded-xl overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+            {activeTab === "integration" ? (
+              <>
+                <div className="p-8">
+                  <div className="text-center mb-8">
+                    <h3 className="text-2xl tracking-tight leading-tight sm:text-3xl md:text-4xl mb-4">
+                      <span className={metallicBlackTextClasses}>Multiple Ways to Integrate</span>
+                    </h3>
+                    <p className="mx-auto text-base text-slate-700 dark:text-slate-300 max-w-7xl">
+                      From zero-code solutions to full API integration, choose the method that best fits your technical requirements.
+                    </p>
+                  </div>
+                  
+                  <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4">
+                    {integrationOptions.map((option, index) => (
+                      <BentoGridItem
+                        key={index}
+                        icon={
+                          <div className="p-3 rounded-lg bg-[#00b140] text-white inline-block mb-2">
+                            {option.icon}
+                          </div>
+                        }
+                        title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{option.title}</span>}
+                        description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{option.description}</span>}
+                      />
+                    ))}
+                  </BentoGrid>
+                </div>
+                
+                {/* Before and After Banners */}
+                <div className="grid grid-cols-1">
+                  <div className="relative overflow-hidden bg-linear-to-r from-[#ce4257]/10 to-[#720026]/20 dark:bg-red-500/10 border-t border-[#720026]/20 pt-2 pb-4 text-center">
+                    <h3 className="text-md font-medium tracking-widest text-[#bc4749] uppercase mb-2">WITHOUT EQUAL</h3>
+                    <HorizontalPointList items={withoutEqual} textColor="text-[#bc4749] dark:text-red-300" enableMarquee={true} />
+                    <Image 
+                      src="/thumbs-up.png"
+                      alt="Thumbs Down"
+                      width={100}
+                      height={100}
+                      className="absolute -top-2 -right-4 -z-10 rotate-180 opacity-20 xl:opacity-80"
+                    />
+                  </div>
+                  <div className="relative overflow-hidden bg-linear-to-l from-[#40916c]/20 to-[#2d6a4f]/20 dark:bg-green-500/10 pt-2 pb-4 text-center border-t border-[#2d6a4f]/20">
+                    <h3 className="text-md font-medium tracking-wider text-[#386641] uppercase mb-2 mt-1">WITH EQUAL</h3>
+                    <HorizontalPointList items={withEqual} textColor="text-[#386641] dark:text-green-300" />
+                    <Image 
+                      src="/thumbs-up.png"
+                      alt="Thumbs Up"
+                      width={100}
+                      height={100}
+                      className="absolute -bottom-2 -left-4 -z-10 opacity-20 xl:opacity-100"
+                    />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="px-8 pt-8 pb-8">
+                  <div className="text-center mb-8">
+                    <h3 className="text-2xl tracking-tight leading-tight sm:text-3xl md:text-4xl mb-4">
+                      <span className={metallicBlackTextClasses}>Developer-First Platform</span>
+                    </h3>
+                    <p className="mx-auto text-base text-slate-700 dark:text-slate-300 max-w-5xl mb-8">
+                      Built with developers in mind, Equal provides comprehensive APIs, SDKs, and tools for seamless integration.
+                    </p>
+                  </div>
+                  
+                  {/* Developer Features Grid */}
+                  <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4">
+                    {developerFeatures.map((feature, index) => (
+                      <BentoGridItem
+                        key={index}
+                        icon={
+                          <div className="p-3 rounded-lg bg-[#00b140] text-white inline-block mb-2">
+                            {feature.icon}
+                          </div>
+                        }
+                        title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{feature.title}</span>}
+                        description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{feature.description}</span>}
+                      />
+                    ))}
+                  </BentoGrid>
+                </div>
+                
+                {/* Developer Code Example - Edge to Edge */}
+                <div className="overflow-hidden h-100 relative mt-8">
+                  <Image
+                    src="/dev-image.png"
+                    alt="Developer API Code Example"
+                    width={400}
+                    height={300}
+                    className="w-full h-auto object-cover object-bottom px-32"
+                    sizes="(max-width: 768px) 80vw, (max-width: 1200px) 60vw, 50vw"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/20 via-black/10 to-transparent pointer-events-none"></div>
+                </div>
+              </>
+            )}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </section>

@@ -1,17 +1,25 @@
 "use client";
 import React, { useState } from "react";
+import dynamic from 'next/dynamic';
 import { AnimatePresence, motion } from "framer-motion";
 import { UseCase } from "../data/useCases";
-import { UseCaseLayout } from "./UseCaseLayout";
+
+const UseCaseLayout = dynamic(() => import('./UseCaseLayout').then(mod => mod.UseCaseLayout), {
+  loading: () => <div className="w-full h-96 flex justify-center items-center"><p>Loading...</p></div>,
+  ssr: false
+});
 
 interface UseCaseCardStackProps {
   items: UseCase[];
+  activeIndex: number;
+  onTabChange: (index: number) => void;
 }
 
 export const UseCaseCardStack = ({
   items,
+  activeIndex,
+  onTabChange,
 }: UseCaseCardStackProps) => {
-  const [activeIndex, setActiveIndex] = useState(0);
   const activeItem = items[activeIndex];
 
   return (
@@ -21,7 +29,7 @@ export const UseCaseCardStack = ({
           {items.map((item, index) => (
             <div
               key={item.id}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => onTabChange(index)}
               className={`relative px-4 py-2 text-sm font-medium rounded-full cursor-pointer transition-colors duration-300 ${
                 activeIndex === index
                   ? "text-white"
@@ -41,7 +49,7 @@ export const UseCaseCardStack = ({
         </div>
       </div>
       
-      <div className="w-full p-4 md:p-8">
+      <div className="w-full pt-4">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeIndex}

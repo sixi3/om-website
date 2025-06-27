@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { GlowingButton } from '@/app/onemoney/components/ui/glowing-button';
 import { UseCase } from '../data/useCases';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -7,12 +8,12 @@ import { BentoGrid, BentoGridItem } from '@/app/onemoney/components/ui/bento-gri
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
-const HorizontalPointList = ({ items, textColor }: { items: (string | undefined)[], textColor: string }) => {
+const HorizontalPointList = ({ items, textColor }: { items: (string | undefined)[], textColor: string, }) => {
     const validItems = items.filter(Boolean);
     if (validItems.length === 0) return null;
 
     return (
-        <div className={`flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm font-medium ${textColor}`}>
+        <div className={`flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm font-medium text-[16px] ${textColor}`}>
             {validItems.map((point, idx) => (
                 <React.Fragment key={idx}>
                     <span>{point}</span>
@@ -71,12 +72,41 @@ export function UseCaseLayout(props: UseCase) {
 
   const allSolutions = [...(approach || []), ...(solution || [])];
   
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
     <section id={id} className="w-full dark:border-slate-800">
-      <div className="container px-4 md:px-6 mx-auto">
+      <motion.div 
+        className="w-full px-4"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
 
         {/* Bento Grid for Capabilities */}
-        <div className="max-w-8xl mx-auto border border-[#00b140]/30 bg-linear-to-br from-background/90 to-[#baff29]/20 backdrop-blur-lg rounded-xl overflow-hidden">
+        <motion.div 
+          className="w-full mx-auto border border-[#00b140]/30 bg-linear-to-br from-background/90 to-[#baff29]/20 backdrop-blur-lg rounded-xl overflow-hidden"
+          variants={itemVariants}
+        >
           <div className="p-8">
             <div className="text-center mb-8">
               <h2 className="text-2xl tracking-tight leading-tight sm:text-3xl md:text-4xl mb-4">
@@ -100,9 +130,9 @@ export function UseCaseLayout(props: UseCase) {
                 ))}
               </div>
             </div>
-              <BentoGrid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-6">
+              <BentoGrid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-6 w-full max-w-none">
                   {allCapabilities.map((cap, idx) => {
-                      let className = "md:col-span-2 p-4"; // Default for first row
+                      let className = "md:col-span-2 pt-12 px-4"; // Default for first row
                       const total = allCapabilities.length;
 
                       if (total === 4) {
@@ -119,40 +149,41 @@ export function UseCaseLayout(props: UseCase) {
                           <BentoGridItem
                               key={idx}
                               className={className}
-                              title={cap.feature}
-                              description={cap.description}
+                              title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{cap.feature}</span>}
+                              description={<span className="text-lg text-slate-800 dark:text-slate-100">{cap.description}</span>}
                           />
                       );
                   })}
               </BentoGrid>
             </div>
             {/* Before and After Banners */}
-            <div className="grid grid-cols-1">
-                <div className="relative overflow-hidden bg-linear-to-br from-[#ce4257]/10 to-[#720026]/10 dark:bg-red-500/10 border-t border-[#720026]/20 pt-2 pb-4 text-center">
-                    <h3 className="text-md font-semibold tracking-widest text-[#bc4749] uppercase mb-2">WITHOUT EQUAL</h3>
+            <motion.div className="grid grid-cols-1" variants={itemVariants}>
+                <div className="relative overflow-hidden bg-linear-to-r from-[#ce4257]/10 to-[#720026]/20 dark:bg-red-500/10 border-t border-[#720026]/20 pt-2 pb-4 text-center">
+                    <h3 className="text-md font-medium tracking-widest text-[#bc4749] uppercase mb-2">WITHOUT EQUAL</h3>
                     <HorizontalPointList items={beforeEqual} textColor="text-[#bc4749] dark:text-red-300" />
                     <Image 
                         src="/thumbs-up.png"
                         alt="Thumbs Down"
                         width={100}
                         height={100}
-                        className="absolute -top-2 -right-4 rotate-180"
+                        className="absolute -top-2 -right-4 -z-10 rotate-180 opacity-20 xl:opacity-100"
                     />
                 </div>
-                <div className="relative overflow-hidden bg-linear-to-r from-[#40916c]/20 to-[#2d6a4f]/10 dark:bg-green-500/10 pt-2 pb-4 text-center border-t border-[#2d6a4f]/20">
-                    <h3 className="text-md font-semibold tracking-wider text-[#386641] uppercase mb-2 mt-1">WITH EQUAL</h3>
+                <div className="relative overflow-hidden bg-linear-to-l from-[#40916c]/20 to-[#2d6a4f]/20 dark:bg-green-500/10 pt-2 pb-4 text-center border-t border-[#2d6a4f]/20">
+                    <h3 className="text-md font-medium tracking-wider text-[#386641] uppercase mb-2 mt-1">WITH EQUAL</h3>
                     <HorizontalPointList items={withEqual} textColor="text-[#386641] dark:text-green-300" />
                     <Image 
                         src="/thumbs-up.png"
                         alt="Thumbs Up"
                         width={100}
                         height={100}
-                        className="absolute -bottom-2 -left-4"
+                        className="absolute -bottom-2 -left-4 -z-10 opacity-20 xl:opacity-100"
                     />
+                    
                 </div>
-            </div>
-        </div>
-      </div>
+            </motion.div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 } 

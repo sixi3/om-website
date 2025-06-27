@@ -9,7 +9,7 @@ import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 // Placeholder for Equal nav items
 const equalNavItems = [
   { name: 'Use Cases', href: '/equal/solutions' },
-  { name: 'Products', href: '/equal/products', showChevron: true, submenu: [
+  { name: 'Products', href: '/equal#products', showChevron: true, submenu: [
     { name: 'Identity Verification Gateway', href: '/equal/products/identity-gateway' },
     { name: 'Equal Console', href: '/equal/products/console' },
   ]},
