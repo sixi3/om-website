@@ -403,13 +403,13 @@ export default function ConsolePage() {
                                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                       <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                                   </span>
-                                  <p className="text-base text-slate-600 dark:text-slate-100 font-semibold">{feature}</p>
+                                  <p className="xl:text-base text-sm text-slate-600 dark:text-slate-100 font-semibold">{feature}</p>
                               </div>
                           </div>
                         ))}
                     </div>
 
-                    <div className="absolute bottom-[-550px] w-[900px] h-[1200px] pointer-events-none">
+                    <div className="absolute bottom-[-250px] left-[10px] sm:left-[100px] bottom-[-100px] xl:bottom-[-550px] md:bottom-[-400px] w-[700px] h-[1000px] xl:w-[900px] xl:h-[1200px] pointer-events-none">
                         <Image
                             src={activeReport.image}
                             alt={activeReport.title}
