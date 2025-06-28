@@ -409,7 +409,7 @@ export default function ConsolePage() {
                         ))}
                     </div>
 
-                    <div className="absolute bottom-[-250px] left-[10px] sm:left-[100px] bottom-[-100px] xl:bottom-[-550px] md:bottom-[-400px] w-[700px] h-[1000px] xl:w-[900px] xl:h-[1200px] pointer-events-none">
+                    <div className="absolute md:bottom-[-250px] md:left-[10px] left-[10px] bottom-[-450px] xl:bottom-[-580px] xl:left-[15px] md:bottom-[-400px] w-[700px] h-[1000px] xl:w-[1000px] xl:h-[1200px] pointer-events-none">
                         <Image
                             src={activeReport.image}
                             alt={activeReport.title}
