@@ -220,6 +220,15 @@ export default function ConsolePage() {
         <div className="container mx-auto px-4 md:px-6 lg:px-8 py-24">
           <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
             <div className="max-w-3xl space-y-4">
+            <span className="inline-flex items-center pl-1 pr-3 py-1 text-md font-semibold text-slate-800 mb-4 space-x-2 mx-auto lg:mx-0">
+                <Image
+                  src="/icons8-medal-94.png"
+                  alt="Medal icon"
+                  width={24}
+                  height={24}
+                />
+                <span>India&apos;s Most Powerful Verification Console</span>
+              </span>
               <h1 className="text-3xl tracking-tight leading-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-6xl">
                 <span className={metallicBlackTextClasses}>Your Single Pane of Glass for</span>{" "}
                 <span className={highlightBgClass}>All Verifications</span>
