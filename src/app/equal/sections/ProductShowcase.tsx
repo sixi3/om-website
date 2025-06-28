@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { CheckCircle, Fingerprint, LayoutDashboard, Send, UploadCloud, FileCheck, ShieldCheck, Link as LinkIcon, Settings, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { GlowingButton } from '@/app/onemoney/components/ui/glowing-button';
 import { GreenMetallicPhoneMockup } from '../components/ui/GreenMetallicPhoneMockup';
 import { AnimatedVerificationFlow } from '../components/AnimatedVerificationFlow';
@@ -64,6 +65,7 @@ export function ProductShowcase() {
   const [hasBeenInView, setHasBeenInView] = useState(false);
   const [progressKey, setProgressKey] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const router = useRouter();
 
   const activeProduct = productsData.find(p => p.id === activeProductId);
   const LOADER_DURATION_S = 10;
@@ -128,12 +130,12 @@ export function ProductShowcase() {
                         'p-6 rounded-lg cursor-pointer border transition-all duration-300 ease-in-out',
                         isActive 
                             ? 'bg-background/10 backdrop-blur-md dark:bg-neutral-800 shadow-xl border-[#00b140]/20 dark:border-neutral-600 scale-105' 
-                            : 'dark:bg-neutral-800/60 dark:border-neutral-700/70 hover:shadow-lg hover:bg-slate-100 dark:hover:border-neutral-600'
+                            : 'dark:bg-neutral-800/60 dark:border-neutral-700/70 hover:shadow-lg hover:bg-background/20 hover:border border-[#00b140]/20 dark:hover:border-neutral-600'
                         )}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0, transition: { delay: index * 0.1 } }}
                     >
-                        <div className="mb-3">{product.icon}</div>
+                        <div className="mb-3 ">{product.icon}</div>
                         <h3 className={cn('text-xl font-semibold mb-2', isActive ? 'text-slate-800 dark:text-green-400' : 'text-slate-600 dark:text-neutral-200')}>
                         {product.title}
                         </h3>
@@ -160,11 +162,12 @@ export function ProductShowcase() {
                     {activeProduct && (
                     <motion.div
                         key={activeProduct.id}
+                        onClick={() => activeProduct && router.push(activeProduct.cta.href)}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.4, ease: 'easeInOut' }}
-                        className="relative overflow-hidden p-6 md:p-8 rounded-lg bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md dark:bg-neutral-800/50 border border-[#00b140]/20 dark:border-neutral-700 h-full shadow-lg"
+                        className="group relative cursor-pointer overflow-hidden p-6 md:p-8 rounded-lg bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md dark:bg-neutral-800/50 border border-[#00b140]/20 dark:border-neutral-700 h-full shadow-lg"
                     >
                         <h2 className="text-3xl font-bold mb-3 text-slate-800 dark:text-white">{activeProduct.heroHeadline}</h2>
                         <p className="text-slate-800 dark:text-slate-300 mb-8">{activeProduct.heroSubheadline}</p>
@@ -181,12 +184,10 @@ export function ProductShowcase() {
                             ))}
                         </ul>
 
-                        <Link href={activeProduct.cta.href} passHref>
-                            <span className="group mt-auto inline-flex items-center justify-center rounded-full bg-background/30 backdrop-blur-md border border-[#00b140]/20 dark:border-neutral-700 px-4 py-3 text-md font-semibold text-[#00b140] hover:bg-[#00b140] hover:text-white transition-colors duration-300">
-                                {activeProduct.cta.text}
-                                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
-                            </span>
-                        </Link>
+                        <span className="mt-auto inline-flex items-center justify-center rounded-full bg-background/30 backdrop-blur-md border border-[#00b140]/20 dark:border-neutral-700 px-4 py-3 text-md font-semibold text-[#00b140] group-hover:bg-[#00b140] group-hover:text-white transition-colors duration-300">
+                            {activeProduct.cta.text}
+                            <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
+                        </span>
 
                         {activeProduct.id === 'gateway' && (
                             <div className="absolute bottom-[-200px] right-[50px] scale-110 pointer-events-none">

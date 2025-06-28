@@ -413,7 +413,7 @@ const HorizontalPointList = ({ items, textColor, enableMarquee = false }: { item
     const content = validItems.map((point, idx) => (
         <React.Fragment key={idx}>
             <span className="whitespace-nowrap">{point}</span>
-            {idx < validItems.length - 1 && <span className="text-slate-600 mx-2">&bull;</span>}
+            {idx < validItems.length - 1 && <span className="text-white mx-2">&bull;</span>}
         </React.Fragment>
     ));
 
@@ -423,7 +423,7 @@ const HorizontalPointList = ({ items, textColor, enableMarquee = false }: { item
                 <Marquee gradient={false} speed={30} pauseOnHover={true}>
                     <div className={`flex items-center gap-x-4 text-sm font-medium text-[16px] ${textColor} mr-8`}>
                         {content}
-                        <span className="text-slate-600 mx-2">&bull;</span>
+                        <span className="text-white mx-2">&bull;</span>
                     </div>
                 </Marquee>
             </div>
@@ -452,13 +452,19 @@ export default function IdentityGatewayPage() {
   const withoutEqual = [
     "Collecting IDs via email, WhatsApp, Excel is error-prone and untrackable",
     "Manual back-and-forth with candidates delays onboarding", 
-    "Inconsistent documents = low verification success rate"
+    "Inconsistent documents = low verification success rate",
+    "No audit trail or compliance documentation for regulatory requirements",
+    "High operational costs due to manual verification processes",
+    "Candidate dropoff due to complex multi-step document submission"
   ];
 
   const withEqual = [
     "Unified digital gateway with pre-built flows",
     "Real-time document capture and status tracking",
-    "Built-in validations and auto-format checks"
+    "Built-in validations and auto-format checks",
+    "Complete audit trails and compliance-ready documentation",
+    "Automated verification reduces operational costs by 70%",
+    "Seamless mobile-first experience increases completion rates"
   ];
 
   return (
@@ -547,8 +553,9 @@ export default function IdentityGatewayPage() {
                {keyFeatures.slice(0, 2).map((feature, index) => (
                  <BentoGridItem
                    key={index}
+                   className="shadow-sm"
                    icon={
-                     <div className="p-3 rounded-lg bg-[#00b140] text-[#baff29] inline-block mb-2">
+                     <div className="p-3 rounded-lg bg-[#00b140] text-white  inline-block mb-2">
                        {feature.icon}
                      </div>
                    }
@@ -563,8 +570,9 @@ export default function IdentityGatewayPage() {
                {keyFeatures.slice(2, 5).map((feature, index) => (
                  <BentoGridItem
                    key={index + 2}
+                   className="shadow-sm"
                    icon={
-                     <div className="p-3 rounded-lg bg-[#00b140] text-[#baff29] inline-block mb-2">
+                     <div className="p-3 rounded-xl bg-[#00b140] text-white inline-block mb-2">
                        {feature.icon}
                      </div>
                    }
@@ -574,10 +582,39 @@ export default function IdentityGatewayPage() {
                ))}
              </BentoGrid>
            </div>
+           
         </div>
       </section>
 
-            {/* World of IDs Section */}
+      {/* Before and After Banners - Edge to Edge */}
+      <section className="relative w-full">
+        <div className="grid grid-cols-1">
+          <div className="relative overflow-hidden bg-linear-to-r from-[#ce4257] to-[#720026] dark:bg-red-500/10 pt-2 pb-4 text-center">
+            <h3 className="text-lg font-medium tracking-widest text-white uppercase mb-4 mt-2">WITHOUT EQUAL</h3>
+            <HorizontalPointList items={withoutEqual} textColor="text-white" enableMarquee={true} />
+            <Image 
+              src="/thumbs-up.png"
+              alt="Thumbs Down"
+              width={100}
+              height={100}
+              className="absolute -top-2 -right-4 rotate-180 opacity-70"
+            />
+          </div>
+                     <div className="relative overflow-hidden bg-linear-to-l from-[#40916c] to-[#2d6a4f] dark:bg-green-500/10 pt-2 pb-4 text-center">
+             <h3 className="text-lg font-medium tracking-wider text-white uppercase mb-4 mt-2">WITH EQUAL</h3>
+             <HorizontalPointList items={withEqual} textColor="text-white" enableMarquee={true} />
+            <Image 
+              src="/thumbs-up.png"
+              alt="Thumbs Up"
+              width={100}
+              height={100}
+              className="absolute -bottom-2 -left-4 opacity-70"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* World of IDs Section */}
       <section className="relative w-full py-12 md:py-20">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-12">
@@ -675,10 +712,11 @@ export default function IdentityGatewayPage() {
                     </p>
                   </div>
                   
-                  <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4">
+                  <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4 shadow-none">
                     {integrationOptions.map((option, index) => (
                       <BentoGridItem
                         key={index}
+                        className="shadow-sm"
                         icon={
                           <div className="p-3 rounded-lg bg-[#00b140] text-white inline-block mb-2">
                             {option.icon}
@@ -691,30 +729,18 @@ export default function IdentityGatewayPage() {
                   </BentoGrid>
                 </div>
                 
-                {/* Before and After Banners */}
-                <div className="grid grid-cols-1">
-                  <div className="relative overflow-hidden bg-linear-to-r from-[#ce4257]/10 to-[#720026]/20 dark:bg-red-500/10 border-t border-[#720026]/20 pt-2 pb-4 text-center">
-                    <h3 className="text-md font-medium tracking-widest text-[#bc4749] uppercase mb-2">WITHOUT EQUAL</h3>
-                    <HorizontalPointList items={withoutEqual} textColor="text-[#bc4749] dark:text-red-300" enableMarquee={true} />
-                    <Image 
-                      src="/thumbs-up.png"
-                      alt="Thumbs Down"
-                      width={100}
-                      height={100}
-                      className="absolute -top-2 -right-4 -z-10 rotate-180 opacity-20 xl:opacity-80"
-                    />
-                  </div>
-                  <div className="relative overflow-hidden bg-linear-to-l from-[#40916c]/20 to-[#2d6a4f]/20 dark:bg-green-500/10 pt-2 pb-4 text-center border-t border-[#2d6a4f]/20">
-                    <h3 className="text-md font-medium tracking-wider text-[#386641] uppercase mb-2 mt-1">WITH EQUAL</h3>
-                    <HorizontalPointList items={withEqual} textColor="text-[#386641] dark:text-green-300" />
-                    <Image 
-                      src="/thumbs-up.png"
-                      alt="Thumbs Up"
-                      width={100}
-                      height={100}
-                      className="absolute -bottom-2 -left-4 -z-10 opacity-20 xl:opacity-100"
-                    />
-                  </div>
+                {/* Integration Architecture Visual */}
+                <div className="overflow-hidden h-100 relative mt-8">
+                <div className="mt-8 text-center">
+                  <Image
+                    src="/Aggregator of Aggregators.png"
+                    alt="Integration Architecture Diagram"
+                    width={600}
+                    height={600}
+                    className="mx-auto"
+                  />
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/20 via-black/10 to-transparent pointer-events-none"></div>
                 </div>
               </>
             ) : (
@@ -734,10 +760,12 @@ export default function IdentityGatewayPage() {
                     {developerFeatures.map((feature, index) => (
                       <BentoGridItem
                         key={index}
+                        className="shadow-sm"
                         icon={
                           <div className="p-3 rounded-lg bg-[#00b140] text-white inline-block mb-2">
                             {feature.icon}
                           </div>
+
                         }
                         title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{feature.title}</span>}
                         description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{feature.description}</span>}
@@ -748,14 +776,15 @@ export default function IdentityGatewayPage() {
                 
                 {/* Developer Code Example - Edge to Edge */}
                 <div className="overflow-hidden h-100 relative mt-8">
+                <div className="mt-8 text-center">
                   <Image
                     src="/dev-image.png"
                     alt="Developer API Code Example"
-                    width={400}
-                    height={300}
-                    className="w-full h-auto object-cover object-bottom px-32"
-                    sizes="(max-width: 768px) 80vw, (max-width: 1200px) 60vw, 50vw"
+                    width={1200}
+                    height={1200}
+                    className="mx-auto"
                   />
+                </div>
                   <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/20 via-black/10 to-transparent pointer-events-none"></div>
                 </div>
               </>

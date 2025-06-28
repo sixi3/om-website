@@ -73,9 +73,9 @@ export function TrustSecurity() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {securityFeatures.map((feature, index) => (
-            <TiltCard key={index} className="p-6 border border-slate-200 dark:border-slate-800/50 bg-background/20 backdrop-blur-xl hover:border-green-400/50 transition-all duration-300 rounded-2xl">
+            <TiltCard key={index} className="p-6 border border-slate-200 dark:border-slate-800/50 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md hover:border-green-400/50 transition-all duration-300 rounded-2xl">
               <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 rounded-xl bg-green-500/10 text-green-500">
+                <div className="p-3 rounded-xl bg-[#00b140] text-white">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold text-slate-800 dark:text-white">
@@ -89,11 +89,11 @@ export function TrustSecurity() {
                 {feature.subPoints.map((point, idx) => (
                   <li key={idx}>
                     <div className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
-                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                      <Image src={"/3dcheck.png"} alt={point} width={20} height={20} />
                       <span>{point}</span>
                     </div>
                     {idx < feature.subPoints.length - 1 && (
-                       <div className="h-0.5 w-6 mt-3 ml-8 bg-slate-200 dark:bg-neutral-700/80" />
+                       <div className="h-0.5 w-6 mt-3 bg-slate-200 dark:bg-neutral-700/80" />
                     )}
                   </li>
                 ))}

@@ -41,10 +41,10 @@ export function ContactUs() {
               We aim to respond to all inquiries within one business day.
             </p>
             {/* Replaced placeholder with Next Image */}
-            <div className="relative aspect-video w-full rounded-lg overflow-hidden">
+            <div className="relative aspect-video w-full rounded-lg overflow-hidden mt-16">
               <Image 
-                src="/contact-us graphic.png"
-                alt="Illustration of financial services connected across India"
+                src="/Aggregator of Aggregators.png"
+                alt="Illustration of a central platform connecting various financial and data institutions"
                 fill={true}
                 sizes="(max-width: 768px) 90vw, 40vw" // Example sizes, adjust as needed
                 className="object-contain" // Show whole image without distortion

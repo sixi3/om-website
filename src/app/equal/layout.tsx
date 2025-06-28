@@ -14,6 +14,7 @@ const equalNavItems = [
     { name: 'Equal Console', href: '/equal/products/console' },
   ]},
   { name: 'Trust & Security', href: '/equal/trust-security' },
+  { name: 'Dev Docs', href: 'https://developer.equal.in/docs/' },
 ];
 
 const equalTheme: GlobalHeaderProps['theme'] = {

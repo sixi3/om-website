@@ -1,30 +1,11 @@
 import dynamic from 'next/dynamic';
 import { Hero } from "./sections/Hero";
-// import { WhatIsOneMoney } from "./sections/WhatIsOneMoney"; // Commented out static import
-// import { UIFeatures } from "./sections/UIFeatures"; // Commented out static import
-// import { Stats } from "./sections/Stats"; // Commented out static import
-// import { Solutions } from "./sections/Solutions"; // Commented out static import
-// import { SecurityCompliance } from "./sections/SecurityCompliance"; // Commented out static import
-// import { ContactUs } from "./sections/ContactUs"; // Commented out static import
-// import { Leadership } from "./sections/Leadership"; // Commented out static import
-// import { TrustedBy } from "@/sections/TrustedBy";
 
 // Dynamically import the Stats component
 const Stats = dynamic(() => 
   import('./sections/Stats').then(mod => mod.Stats),
   { 
     loading: () => <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading Stats...</p></div>,
-  }
-);
-
-
-
-// Dynamically import the Leadership component
-const Leadership = dynamic(() => 
-  import('./sections/Leadership').then(mod => mod.Leadership),
-  { 
-    loading: () => <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading Leadership...</p></div>,
-    // Assuming Leadership.tsx has a named export 'Leadership'
   }
 );
 
@@ -64,6 +45,15 @@ const SecurityCompliance = dynamic(() =>
   }
 );
 
+// Dynamically import the Leadership component
+const Leadership = dynamic(() => 
+  import('./sections/Leadership').then(mod => mod.Leadership),
+  { 
+    loading: () => <div style={{ minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p>Loading Leadership...</p></div>,
+    // Assuming Leadership.tsx has a named export 'Leadership'
+  }
+);
+
 // Dynamically import the ContactUs component
 const ContactUs = dynamic(() => 
   import('./sections/ContactUs').then(mod => mod.ContactUs),
@@ -78,11 +68,11 @@ export default function Home() {
     <>
       <Hero />
       <Stats />
-      <Leadership />
       <WhatIsOneMoney />
       <UIFeatures />
       <Solutions />
       <SecurityCompliance />
+      <Leadership />
       <ContactUs />
     </>
   );

@@ -15,8 +15,9 @@ const pillarsData = [
     description: "50+ data partners, real-time failover, and smart routing to ensure the highest success rates.",
     icon: <Network size={32} strokeWidth={2} />,
     className: "md:col-span-2",
-    imageSrc: "",
+    imageSrc: "/Aggregator of Aggregators.png",
     imageAlt: "Aggregator of Aggregators",
+    imageClassName: "top-[-20px] right-[-40px] w-4   h-4 lg:top-[-20px] lg:right-[-50px] lg:w-72 lg:h-72"
   },
   {
     id: "integration",
@@ -24,8 +25,9 @@ const pillarsData = [
     description: "Native HRMS embedding, workflow automation, and white-labeled delivery for a seamless experience.",
     icon: <Plug size={32} strokeWidth={2} />,
     className: "md:col-span-1",
-    imageSrc: "",
+    imageSrc: "/Integration-First.png",
     imageAlt: "Integration-First Design",
+    imageClassName: "top-[-20px] right-[-40px] w-32 h-32 lg:top-[-5px] lg:right-[-50px] lg:w-72 lg:h-72"
   },
   {
     id: "ai-layer",
@@ -70,7 +72,7 @@ export function WhatMakesEqualDifferent() {
         </div>
 
         <BentoGrid className="gap-4">
-          {pillarsData.map((item) => (
+          {pillarsData.map((item: any) => (
             <ServiceBentoCard
               key={item.id}
               title={item.title}
@@ -79,6 +81,7 @@ export function WhatMakesEqualDifferent() {
               className={item.className}
               imageSrc={item.imageSrc}
               imageAlt={item.imageAlt}
+              imageClassName={item.imageClassName}
             />
           ))}
         </BentoGrid>

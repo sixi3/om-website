@@ -11,6 +11,7 @@ interface ServiceBentoCardProps {
   description: string | React.ReactNode;
   imageSrc?: string;
   imageAlt?: string;
+  imageClassName?: string;
 }
 
 export const ServiceBentoCard = ({ 
@@ -19,7 +20,8 @@ export const ServiceBentoCard = ({
   title, 
   description, 
   imageSrc, 
-  imageAlt = "Feature illustration" 
+  imageAlt = "Feature illustration",
+  imageClassName
 }: ServiceBentoCardProps) => {
   const isWide = className?.includes('col-span-2');
   
@@ -47,21 +49,18 @@ export const ServiceBentoCard = ({
       {imageSrc && (
         <div className={cn(
           "absolute pointer-events-none select-none",
-          // Mobile-first (smaller screens, <lg): All cards top-right with unified position and size
-          "top-[-30px] right-[-40px] w-32 h-32",
-
-          // Larger screens (lg and up): Apply original isWide logic with lg prefixes
-          isWide 
-            // Wide cards on large screens:
-            ? "lg:top-auto lg:left-auto lg:bottom-[-120px] lg:right-[-100px] lg:w-72 lg:h-72"
-            // Narrow cards on large screens:
-            : "lg:top-[-50px] lg:right-[-50px] lg:w-40 lg:h-40"
+          imageClassName || // Use the provided class if it exists
+          cn( // Otherwise, use the default logic
+            "top-[-30px] right-[-40px] w-32 h-32",
+            isWide 
+              ? "lg:top-auto lg:left-auto lg:bottom-[-120px] lg:right-[-100px] lg:w-72 lg:h-72"
+              : "lg:top-[-50px] lg:right-[-50px] lg:w-40 lg:h-40"
+          )
         )}>
           <Image
             src={imageSrc}
             alt={imageAlt}
-            width={isWide ? 360 : 240}
-            height={isWide ? 360 : 240}
+            fill
             className="object-contain"
           />
         </div>
