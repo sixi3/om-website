@@ -7,6 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { BentoGrid, BentoGridItem } from '@/app/onemoney/components/ui/bento-grid';
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
 
 const HorizontalPointList = ({ items, textColor }: { items: (string | undefined)[], textColor: string, }) => {
     const validItems = items.filter(Boolean);
@@ -104,7 +105,7 @@ export function UseCaseLayout(props: UseCase) {
 
         {/* Bento Grid for Capabilities */}
         <motion.div 
-          className="w-full mx-auto border border-[#00b140]/30 bg-linear-to-br from-background/90 to-[#baff29]/20 backdrop-blur-lg rounded-xl overflow-hidden"
+          className="w-full mx-auto mb-12 border border-[#00b140]/30 bg-linear-to-br from-background/90 to-[#baff29]/20 backdrop-blur-lg rounded-xl overflow-hidden"
           variants={itemVariants}
         >
           <div className="p-8">

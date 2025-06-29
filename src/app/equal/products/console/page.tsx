@@ -9,6 +9,7 @@ import { GridBackground } from '@/app/onemoney/components/ui/grid-background';
 import { BentoGrid, BentoGridItem } from '@/app/onemoney/components/ui/bento-grid';
 import Marquee from "react-fast-marquee";
 import { cn } from '@/lib/utils';
+import dynamic from 'next/dynamic';
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
@@ -248,10 +249,10 @@ export default function ConsolePage() {
 
         <div className="hidden lg:flex relative w-full h-full items-center justify-center">
           <Image
-            src="/console-graphic.png"
-            alt="Equal Console Graphic"
-            width={800}
-            height={600}
+            src="/console-hero.png"
+            alt="Equal Console Hero"
+            width={1000}
+            height={700}
             className="object-contain"
           />
         </div>

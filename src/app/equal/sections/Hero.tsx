@@ -125,7 +125,7 @@ export function Hero() {
       </div>
 
       <div className="hidden lg:block relative w-full h-full">
-        <div className="absolute -left-10 top-[50%] -translate-y-1/2 w-[800px] h-[600px] z-0">
+        <div className="absolute -left-60 top-[50%] -translate-y-1/2 w-[1200px] h-[700px] z-0">
             <Image
                 src="/console-graphic.png"
                 alt="Equal Console Graphic"
@@ -133,7 +133,7 @@ export function Hero() {
                 className="object-contain"
             />
         </div>
-        <div className="absolute top-[60%] -translate-y-1/2 right-[10%] z-10 scale-90">
+        <div className="absolute top-[60%] -translate-y-1/2 right-[10%] z-10 scale-110">
             <GreenMetallicPhoneMockup>
               <AnimatedVerificationFlow />
             </GreenMetallicPhoneMockup>

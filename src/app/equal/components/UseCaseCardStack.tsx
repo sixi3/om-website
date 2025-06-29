@@ -21,10 +21,22 @@ export const UseCaseCardStack = ({
   onTabChange,
 }: UseCaseCardStackProps) => {
   const activeItem = items[activeIndex];
+  const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+  const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
 
   return (
     <div className="w-full">
-      <div className="flex justify-center pt-2">
+      <div className="text-center my-8">
+        <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
+            <span className={metallicBlackTextClasses}>Real-World Problems,</span>{" "}
+            <span className={highlightBgClass}>Solved with Equal</span>
+        </h2>
+        <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-3xl">
+            From HRMS integration to gig worker onboarding, Equal provides tailored solutions for your most complex verification challenges.
+        </p>
+      </div>
+
+      <div className="flex items-center justify-center pt-2 px-4">
         <div className="flex items-center gap-2 p-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm">
           {items.map((item, index) => (
             <div
