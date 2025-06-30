@@ -34,28 +34,44 @@ export function UseCaseGrid() {
         </div>
 
         <BentoGrid className="gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          {useCasesData.map((item) => (
-            <BentoGridItem
-              key={item.id}
-              className="group/bento flex flex-col transition-shadow duration-300 hover:shadow-2xl"
-              title={
-                <div className="flex flex-col">
-                  <span className="mb-2">{item.icon}</span>
-                  <span className="text-lg font-semibold">{item.title}</span>
-                </div>
+          {useCasesData.map((item) => {
+            // Map specific images to each use case
+            const getImageSrc = (id: string) => {
+              switch (id) {
+                case "hrms":
+                  return "/HRMS Integration.png";
+                case "gig-economy":
+                  return "/Gig Economy Hiring.png";
+                case "bfsi":
+                  return "/Financial Services.png";
+                case "staffing":
+                  return "/Staffing & Contract Roles.png";
+                default:
+                  return "/placeholder.png";
               }
-              header={
-                <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
-                  <Image 
-                    src="/placeholder.png" // Replace with actual images
-                    alt={item.title}
-                    fill={true}
-                    className="object-cover"
-                    sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 22vw"
-                    quality={80}
-                  />
-                </div>
-              }
+            };
+
+            return (
+              <BentoGridItem
+                key={item.id}
+                className="group/bento flex flex-col transition-shadow duration-300 hover:shadow-2xl"
+                title={
+                  <div className="flex flex-col">
+                    <span className="mb-2">{item.icon}</span>
+                    <span className="text-lg font-semibold">{item.title}</span>
+                  </div>
+                }
+                                 header={
+                   <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden bg-linear-to-br from-background/10 to-[#00b140]/10 border border-slate-200 dark:border-neutral-700">
+                     <Image 
+                       src={getImageSrc(item.id)}
+                       alt={item.title}
+                       fill={true}
+                       className="object-cover transition-transform duration-300 ease-in-out group-hover/bento:scale-110"
+                       sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 22vw"
+                     />
+                   </div>
+                 }
               description={
                 <div className="flex-grow flex flex-col justify-between">
                   <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
@@ -70,7 +86,8 @@ export function UseCaseGrid() {
                 </div>
               }
             />
-          ))}
+          );
+          })}
         </BentoGrid>
       </div>
     </motion.section>

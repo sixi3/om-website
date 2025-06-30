@@ -1,7 +1,6 @@
 'use client';
 import React from "react";
-import { BentoGrid } from "@/app/onemoney/components/ui/bento-grid"; 
-import { ServiceBentoCard } from "@/app/moneyone/components/ui/ServiceBentoCard";
+import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid"; 
 import { Network, Plug, BrainCircuit, ShieldCheck } from "lucide-react"; 
 import { motion } from "framer-motion";
 
@@ -14,38 +13,56 @@ const pillarsData = [
     title: "Aggregator of Aggregators",
     description: "50+ data partners, real-time failover, and smart routing to ensure the highest success rates.",
     icon: <Network size={32} strokeWidth={2} />,
-    className: "md:col-span-2",
-    imageSrc: "/Aggregator of Aggregators.png",
-    imageAlt: "Aggregator of Aggregators",
-    imageClassName: "top-[-20px] right-[-40px] w-4   h-4 lg:top-[-20px] lg:right-[-50px] lg:w-72 lg:h-72"
+    colSpan: 2 as const,
+    rowSpan: 1 as const,
+    image: {
+      src: "/Aggregator of Aggregators.png",
+      alt: "Aggregator of Aggregators"
+    },
+    imagePosition: "custom" as const,
+    imageClassName: "absolute top-[-20px] right-[-40px] w-32 h-32 lg:w-40 lg:h-40 lg:top-[-40px] lg:right-[-10px] lg:w-40 lg:h-40 xl:top-[-50px] xl:right-[-50px] xl:w-72 xl:h-72"
   },
   {
     id: "integration",
     title: "Integration-First Design",
     description: "Native HRMS embedding, workflow automation, and white-labeled delivery for a seamless experience.",
     icon: <Plug size={32} strokeWidth={2} />,
-    className: "md:col-span-1",
-    imageSrc: "/Integration-First.png",
-    imageAlt: "Integration-First Design",
-    imageClassName: "top-[-20px] right-[-40px] w-32 h-32 lg:top-[-5px] lg:right-[-50px] lg:w-72 lg:h-72"
+    colSpan: 1 as const,
+    rowSpan: 1 as const,
+    image: {
+      src: "/Integration-First.png",
+      alt: "Integration-First Design"
+    },
+    imagePosition: "custom" as const,
+    imageClassName: "absolute top-[-20px] right-[-30px] w-32 h-32 lg:top-[-30px] lg:right-[-30px] lg:w-40 lg:h-40"
   },
   {
     id: "ai-layer",
     title: "AI Intelligence Layer",
     description: "Advanced risk scoring, continuous monitoring, and predictive hiring insights powered by AI.",
     icon: <BrainCircuit size={32} strokeWidth={2} />,
-    className: "md:col-span-1",
-    imageSrc: "",
-    imageAlt: "AI Intelligence Layer",
+    colSpan: 1 as const,
+    rowSpan: 1 as const,
+    image: {
+      src: "/AI Intelligence.png",
+      alt: "AI Intelligence Layer"
+    },
+    imagePosition: "custom" as const,
+    imageClassName: "absolute top-[-20px] right-[-30px] w-32 h-32 lg:top-[-30px] lg:right-[-30px] lg:w-40 lg:h-40"
   },
   {
     id: "compliance",
     title: "Compliance-First Approach",
     description: "RBI-licensed, GDPR-compliant, and ISO-certified to ensure the highest standards of security and privacy.",
     icon: <ShieldCheck size={32} strokeWidth={2} />,
-    className: "md:col-span-2",
-    imageSrc: "",
-    imageAlt: "Compliance-First Approach",
+    colSpan: 2 as const,
+    rowSpan: 1 as const,
+    image: {
+      src: "/Compliance.png",
+      alt: "Compliance-First Approach"
+    },
+    imagePosition: "custom" as const,
+    imageClassName: "absolute top-[-20px] right-[-40px] w-32 h-32 lg:w-40 lg:h-40 lg:top-[-40px] lg:right-[-10px] lg:w-40 lg:h-40 xl:top-[-50px] xl:right-[-50px] xl:w-72 xl:h-72"
   },
 ];
 
@@ -72,15 +89,18 @@ export function WhatMakesEqualDifferent() {
         </div>
 
         <BentoGrid className="gap-4">
-          {pillarsData.map((item: any) => (
-            <ServiceBentoCard
+          {pillarsData.map((item) => (
+            <BentoGridItem
               key={item.id}
               title={item.title}
               description={item.description}
-              icon={item.icon}
-              className={item.className}
-              imageSrc={item.imageSrc}
-              imageAlt={item.imageAlt}
+              icon={<div className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center mb-4 text-white">
+                {item.icon}
+              </div>}
+              colSpan={item.colSpan}
+              rowSpan={item.rowSpan}
+              image={item.image}
+              imagePosition={item.imagePosition}
               imageClassName={item.imageClassName}
             />
           ))}
