@@ -21,7 +21,7 @@ const Lottie = dynamic(() => import('lottie-react'), {
 });
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
-const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
+const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold ";
 
 const problemSolutions = [
   {
@@ -49,26 +49,31 @@ const keyFeatures = [
     title: "Multi-Channel Candidate Access",
     description: "Send links via WhatsApp, SMS, Email. Mobile-first UI for gig and field workers. No logins, no app installs.",
     icon: <Send className="w-6 h-6" />,
+    image: "/Multi-channel candidate.png",
   },
   {
     title: "Real-Time Document Upload & Validation",
     description: "Accepts photos, scans, PDFs — intelligently validated. Front/back checks, selfie uploads, live video (optional). Smart reminders for incomplete uploads.",
     icon: <UploadCloud className="w-6 h-6" />,
+    image: "/Real-Time Document Upload.png",
   },
   {
     title: "Smart Document Parsing",
     description: "OCR and AI parsing of Aadhaar, PAN, DL, Passport, Mark Sheets. Auto-verification where government APIs are available. Flagging of low-confidence entries for manual QA.",
     icon: <FileCheck className="w-6 h-6" />,
+    image: "/Smart Document parsing.png",
   },
   {
     title: "Collect Now, Verify Later Mode",
     description: "Great for pre-offer hiring: gather data now, run checks only for final candidates. Saves verification cost until decision point.",
     icon: <FileText className="w-6 h-6" />,
+    image: "/Collect Now, Verify Later.png",
   },
   {
     title: "Secure Consent Capture",
     description: "Digital signature with time-stamped logs. Optional check-level consent for regulated industries. Hosted on secure HTTPS with audit trails.",
     icon: <ShieldCheck className="w-6 h-6" />,
+    image: "/Secure Consent Capture.png",
   }
 ];
 
@@ -145,21 +150,25 @@ const integrationOptions = [
     title: "Hosted Page",
     description: "Zero code, white-labeled solution ready to use",
     icon: <Link className="w-6 h-6" />,
+    image: "/Hosted Page.png",
   },
   {
     title: "HR Portal Embed",
     description: "Seamlessly embed in your existing HR portal",
     icon: <Settings className="w-6 h-6" />,
+    image: "/HRMS Integration.png",
   },
   {
     title: "API Integration",
     description: "REST API to trigger gateway & receive updates",
     icon: <Code className="w-6 h-6" />,
+    image: "/API Integration.png",
   },
   {
     title: "Webhook Support",
     description: "Real-time status updates via webhooks",
     icon: <Webhook className="w-6 h-6" />,
+    image: "/Webhook Support.png",
   }
 ];
 
@@ -175,21 +184,25 @@ const developerFeatures = [
     title: "REST API Integration",
     description: "Trigger gateway & receive real-time updates via comprehensive REST API endpoints",
     icon: <Code className="w-6 h-6" />,
+    image: "/API Integration.png",
   },
   {
     title: "Webhook Notifications", 
     description: "Push notifications on document upload or verification status changes",
     icon: <Webhook className="w-6 h-6" />,
+    image: "/Webhook Notification.png",
   },
   {
     title: "Field-Level Configuration",
     description: "Granular control and customization for each verification check",
     icon: <Settings className="w-6 h-6" />,
+    image: "/Field-level Config.png",
   },
   {
     title: "JavaScript SDK",
     description: "Ready-to-use SDK and hosted environments for rapid development",
     icon: <Terminal className="w-6 h-6" />,
+    image: "/JavaScript SDK.png",
   }
 ];
 
@@ -472,8 +485,8 @@ export default function IdentityGatewayPage() {
       <GridBackground />
       
       {/* Hero Section */}
-      <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-center pt-12 pb-12 min-h-screen lg:min-h-[700px] overflow-hidden">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 py-24">
+      <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-center pt-12 pb-12 lg:min-h-[700px] overflow-hidden">
+        <div className="container mx-auto px-6 md:px-6 lg:px-8">
           <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
             <div className="max-w-3xl space-y-4">
               <span className="inline-flex items-center pl-1 pr-3 py-1 text-md font-semibold text-slate-800 mb-4 space-x-2 mx-auto lg:mx-0">
@@ -485,18 +498,18 @@ export default function IdentityGatewayPage() {
                 />
                 <span>India&apos;s Only Smart Identity Gateway</span>
               </span>
-              <h1 className="text-3xl tracking-tight leading-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-6xl">
-                <span className={metallicBlackTextClasses}>One Gateway to Verify</span>
-                {" "}<span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
-                  Candidate Identities
+              <h1 className="text-5xl my-6 md:my-4 tracking-tight leading-tight md:text-2xl lg:text-3xl xl:text-6xl 2xl:text-6xl">
+                <span className={metallicBlackTextClasses}>One Gateway to</span>
+                <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
+                  Verify Identities
                 </span>
                 <br />
                 <span className={metallicBlackTextClasses}>— Instantly</span>
               </h1>
               <p className="font-medium text-lg sm:text-md text-slate-600 dark:text-slate-300 mb-4">
-                Equal's Identity Verification Gateway (IDG) is your digital front door for onboarding. 
-                Collect, verify, and confirm identity documents from any user in real-time — no coding, no chasing.
-              </p>
+                 Equal's Identity Verification Gateway (IDG) is your digital front door for onboarding. 
+                 Collect, verify, and confirm identity documents from any user in real-time — no coding, no chasing.
+               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
               <GlowingButton>
@@ -538,12 +551,12 @@ export default function IdentityGatewayPage() {
         <section className="relative w-full py-12 md:py-20">
          <div className="container px-4 md:px-6 mx-auto">
            <div className="text-center mb-12">
-             <h2 className="text-5xl font-bold mb-6">
+             <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
                <span className={metallicBlackTextClasses}>Transform Your</span>{" "}
                <span className={highlightBgClass}>HR Onboarding</span>{" "}
                <span className={metallicBlackTextClasses}>Process</span>
              </h2>
-             <p className="mx-auto text-xl text-slate-700 dark:text-slate-300 max-w-6xl">
+             <p className="mx-auto text-md text-slate-700 dark:text-slate-300 max-w-6xl md:text-lg">
                Equal's Identity Gateway automates document collection and verification, reducing onboarding time from weeks to hours while ensuring compliance.
              </p>
            </div>
@@ -561,6 +574,13 @@ export default function IdentityGatewayPage() {
                    }
                    title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{feature.title}</span>}
                    description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{feature.description}</span>}
+                   image={{
+                     src: feature.image,
+                     alt: feature.title
+                   }}
+                   imagePosition="top-right"
+                   imageSize="w-40 h-40 -top-10 -right-10 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-48 2xl:h-48 2xl:-top-15 2xl:-right-10"
+                   
                  />
                ))}
              </BentoGrid>
@@ -578,6 +598,12 @@ export default function IdentityGatewayPage() {
                    }
                    title={<span className="text-xl font-bold text-slate-900 dark:text-slate-100">{feature.title}</span>}
                    description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{feature.description}</span>}
+                   image={{
+                     src: feature.image,
+                     alt: feature.title
+                   }}
+                   imagePosition="top-right"
+                   imageSize="w-40 h-40 -top-10 -right-10 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-48 2xl:h-48 2xl:-top-15 2xl:-right-10"
                  />
                ))}
              </BentoGrid>
@@ -618,20 +644,20 @@ export default function IdentityGatewayPage() {
       <section className="relative w-full py-12 md:py-20">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-5xl font-bold mb-6">
+            <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
               <span className={metallicBlackTextClasses}>Equal's</span>{" "}
               <span className={highlightBgClass}>World</span>{" "}
               <span className={metallicBlackTextClasses}>of IDs</span>
             </h2>
-            <p className="mx-auto text-xl text-slate-700 dark:text-slate-300 max-w-6xl">
+            <p className="mx-auto text-md text-slate-700 dark:text-slate-300 max-w-6xl md:text-lg">
               Equal's Identity Gateway automates document collection and verification, reducing onboarding time from weeks to hours while ensuring compliance.
             </p>
           </div>
         </div>
 
         {/* First Marquee - Full Width */}
-        <div className="mb-2">
-          <Marquee gradient={false} speed={80} pauseOnHover={true} className="py-2">
+        <div className="mb-0 md:mb-2 -mx-16 md:mx-0">
+          <Marquee gradient={false} speed={80} pauseOnHover={true} className="py-2 scale-75 md:scale-100">
             {[...verificationTypesRow1, ...verificationTypesRow1].map((type, index) => (
               <VerificationCard key={`row1-${index}`} name={type.name} icon={type.icon} />
             ))}
@@ -639,8 +665,8 @@ export default function IdentityGatewayPage() {
         </div>
 
         {/* Second Marquee - Full Width - Reverse Direction */}
-        <div className="py-4">
-          <Marquee gradient={false} speed={80} pauseOnHover={true} direction="right" className="py-2">
+        <div className="md:py-4 -mx-16 md:mx-0">
+          <Marquee gradient={false} speed={80} pauseOnHover={true} direction="right" className="py-2 scale-75 md:scale-100">
             {[...verificationTypesRow2, ...verificationTypesRow2].map((type, index) => (
               <VerificationCard key={`row2-${index}`} name={type.name} icon={type.icon} />
             ))}
@@ -659,7 +685,7 @@ export default function IdentityGatewayPage() {
               <span className={metallicBlackTextClasses}>Build & Deploy with</span>{" "}
               <span className={highlightBgClass}>Equal</span>
             </h2>
-            <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-4xl">
+            <p className="mx-auto text-md text-slate-700 dark:text-slate-300 max-w-4xl md:text-lg">
               Choose from multiple integration modes and leverage powerful developer tools to implement Equal's Identity Gateway in your workflow.
             </p>
           </div>
@@ -724,13 +750,19 @@ export default function IdentityGatewayPage() {
                         }
                         title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{option.title}</span>}
                         description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{option.description}</span>}
+                        image={{
+                          src: option.image,
+                          alt: option.title
+                        }}
+                        imagePosition="top-right"
+                        imageSize="w-40 h-40 -top-10 -right-10 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-64 2xl:h-64 2xl:-top-5 2xl:-right-10"
                       />
                     ))}
                   </BentoGrid>
                 </div>
                 
                 {/* Integration Architecture Visual */}
-                <div className="overflow-hidden h-100 relative mt-8">
+                <div className="hidden md:block overflow-hidden h-100 relative mt-8">
                 <div className="mt-8 text-center">
                   <Image
                     src="/Aggregator of Aggregators.png"
@@ -765,17 +797,22 @@ export default function IdentityGatewayPage() {
                           <div className="p-3 rounded-lg bg-[#00b140] text-white inline-block mb-2">
                             {feature.icon}
                           </div>
-
                         }
                         title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{feature.title}</span>}
                         description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{feature.description}</span>}
+                        image={{
+                          src: feature.image,
+                          alt: feature.title
+                        }}
+                        imagePosition="top-right"
+                        imageSize="w-40 h-40 -top-10 -right-10 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-64 2xl:h-64 2xl:-top-20 2xl:-right-15"
                       />
                     ))}
                   </BentoGrid>
                 </div>
                 
                 {/* Developer Code Example - Edge to Edge */}
-                <div className="overflow-hidden h-100 relative mt-8">
+                <div className="hidden md:block overflow-hidden h-100 relative mt-8">
                 <div className="mt-8 text-center">
                   <Image
                     src="/dev-image.png"

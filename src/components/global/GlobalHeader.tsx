@@ -228,7 +228,7 @@ export function GlobalHeader({
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 p-3 pointer-events-none will-change-transform">
+    <div className="fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:p-3 pointer-events-none will-change-transform">
       <header
         className={cn(
           "pointer-events-auto rounded-lg border transition-all duration-300 ease-in-out will-change-transform",
@@ -239,15 +239,15 @@ export function GlobalHeader({
         )}
         style={cssVars}
       >
-        <div className="flex h-16 items-center px-4">
+        <div className="flex h-16 items-center px-2 sm:px-4">
           {/* Left: Logo */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 min-w-0">
             <Link href={`/${productName}/`} className="flex items-center space-x-2">
               <Image
                 src={logoSrc}
                 alt={logoAlt}
-                width={logoWidth}
-                height={logoHeight}
+                width={isExtraSmallScreen ? Math.max(logoWidth * 0.8, 100) : logoWidth}
+                height={isExtraSmallScreen ? Math.max(logoHeight * 0.8, 30) : logoHeight}
                 priority
                 className="will-change-transform"
               />
@@ -296,7 +296,7 @@ export function GlobalHeader({
           </nav>
           
           {/* Right: Button and Mobile Menu */}
-          <div className="flex items-center flex-shrink-0">
+          <div className="flex items-center flex-shrink-0 ml-auto">
             {/* "Talk to Us" button - always visible */}
             {talkToUsButtonText && (
               <div className="hidden lg:block">

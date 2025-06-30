@@ -308,7 +308,7 @@ export default function TrustSecurityPage() {
       </section>
       <section className="relative w-screen -mx-[50vw] left-1/2 mb-8">
           <div className="relative overflow-hidden bg-linear-to-l from-[#40916c] to-[#2d6a4f] dark:bg-green-500/10 py-4 text-center">
-            <h3 className="text-base font-medium tracking-wider text-white uppercase mb-2">Trust is not a feature — it's the foundation.</h3>
+            <h3 className="text-lg font-medium tracking-wider text-white uppercase italic mb-2">"Trust is not a feature — it's the foundation."</h3>
             <div className="w-full overflow-hidden">
                               <Marquee gradient={false} speed={30} pauseOnHover={true}>
                   <div className="flex items-center gap-x-6 text-lg font-medium text-white mr-8">

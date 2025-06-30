@@ -20,7 +20,7 @@ const pillarsData = [
       alt: "Aggregator of Aggregators"
     },
     imagePosition: "custom" as const,
-    imageClassName: "absolute top-[-20px] right-[-40px] w-32 h-32 lg:w-40 lg:h-40 lg:top-[-40px] lg:right-[-10px] lg:w-40 lg:h-40 xl:top-[-50px] xl:right-[-50px] xl:w-72 xl:h-72"
+    imageClassName: "absolute top-[-20px] right-[-40px] w-32 h-32 lg:w-40 lg:h-40 lg:top-[-40px] lg:right-[-10px] lg:w-40 lg:h-40 xl:top-[-50px] xl:right-[-80px] xl:w-72 xl:h-72"
   },
   {
     id: "integration",
@@ -48,7 +48,7 @@ const pillarsData = [
       alt: "AI Intelligence Layer"
     },
     imagePosition: "custom" as const,
-    imageClassName: "absolute top-[-20px] right-[-30px] w-32 h-32 lg:top-[-30px] lg:right-[-30px] lg:w-40 lg:h-40"
+    imageClassName: "absolute top-[-10px] right-[-30px] w-32 h-32 lg:top-[-50px] lg:right-[-50px] lg:w-40 lg:h-40"
   },
   {
     id: "compliance",
@@ -62,7 +62,7 @@ const pillarsData = [
       alt: "Compliance-First Approach"
     },
     imagePosition: "custom" as const,
-    imageClassName: "absolute top-[-20px] right-[-40px] w-32 h-32 lg:w-40 lg:h-40 lg:top-[-40px] lg:right-[-10px] lg:w-40 lg:h-40 xl:top-[-50px] xl:right-[-50px] xl:w-72 xl:h-72"
+    imageClassName: "absolute top-[-20px] right-[-40px] w-32 h-32 lg:w-40 lg:h-40 lg:top-[-40px] lg:right-[-10px] lg:w-40 lg:h-40 xl:top-[-50px] xl:right-[-100px] xl:w-72 xl:h-72"
   },
 ];
 
@@ -93,7 +93,7 @@ export function WhatMakesEqualDifferent() {
             <BentoGridItem
               key={item.id}
               title={item.title}
-              description={item.description}
+              description={<p className="text-sm max-w-xl text-slate-700 dark:text-slate-300">{item.description}</p>}
               icon={<div className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center mb-4 text-white">
                 {item.icon}
               </div>}

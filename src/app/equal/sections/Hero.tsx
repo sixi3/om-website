@@ -32,7 +32,7 @@ const TestimonialCard = () => (
         />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-slate-700 text-sm leading-relaxed italic">
+        <p className="text-slate-700 text-xs leading-relaxed italic">
           "Equal has transformed our verification process. The accuracy and speed are unmatched, and our customers love the seamless experience."
         </p>
         <div className="mt-4 flex items-center justify-between">
@@ -77,7 +77,7 @@ export function Hero() {
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4">
         <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
           <div className="max-w-3xl space-y-4">
-          <span className="inline-flex items-center pl-1 pr-3 py-1 text-md font-semibold text-slate-800 mb-4 space-x-2 mx-auto lg:mx-0">
+          <span className="inline-flex items-center pl-1 pr-3 py-1 text-xs lg:text-md font-semibold text-slate-800 mb-6 md:mb-4 space-x-2 mx-auto lg:mx-0">
               <Image
                 src="/icons8-medal-94.png" // Assuming image is in /public
                 alt="Medal icon"
@@ -86,7 +86,7 @@ export function Hero() {
               />
               <span>India&apos;s Most Advanced Identity Verification Platform</span>
             </span>
-            <h1 className="text-5xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-5xl xl:text-8xl">
+            <h1 className="text-4xl tracking-tight leading-tight sm:text-8xl md:text-3xl lg:text-2xl xl:text-8xl">
               <span className={metallicBlackTextClasses}>The</span>{" "}
               <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
                 Future
@@ -125,7 +125,7 @@ export function Hero() {
       </div>
 
       <div className="hidden lg:block relative w-full h-full">
-        <div className="absolute -left-60 top-[50%] -translate-y-1/2 w-[1200px] h-[700px] z-0">
+        <div className="absolute w-[700px] h-[600px] -left-[5%] 2xl:-left-60 2xl:top-[50%] 2xl:-translate-y-1/2 2xl:w-[1200px] 2xl:h-[700px] z-0">
             <Image
                 src="/console-graphic.png"
                 alt="Equal Console Graphic"
@@ -133,7 +133,7 @@ export function Hero() {
                 className="object-contain"
             />
         </div>
-        <div className="absolute top-[60%] -translate-y-1/2 right-[10%] z-10 scale-110">
+        <div className="absolute xl:scale-80 xl:top-[50%] xl:-translate-y-1/2 xl:right-[2%] 2xl:top-[60%] 2xl:-translate-y-1/2 2xl:right-[10%] z-10 scale-110">
             <GreenMetallicPhoneMockup>
               <AnimatedVerificationFlow />
             </GreenMetallicPhoneMockup>

@@ -28,7 +28,7 @@ export function UseCaseGrid() {
                 Every Use Case
                 </span>
             </h2>
-            <p className="mx-auto text-lg text-slate-700 dark:text-slate-300">
+            <p className="mx-auto text-md text-slate-700 dark:text-slate-300 md:text-lg">
                 From enterprise to startups, Equal is built to handle every identity verification challenge.
             </p>
         </div>
@@ -74,7 +74,7 @@ export function UseCaseGrid() {
                  }
               description={
                 <div className="flex-grow flex flex-col justify-between">
-                  <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                  <p className="text-md text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
                     {item.heroHeadline}
                   </p>
                   <Link href={`/equal/solutions/${item.id}`} passHref>
