@@ -52,41 +52,40 @@ export function UseCaseGrid() {
             };
 
             return (
-              <BentoGridItem
-                key={item.id}
-                className="group/bento flex flex-col transition-shadow duration-300 hover:shadow-2xl"
-                title={
-                  <div className="flex flex-col">
-                    <span className="mb-2">{item.icon}</span>
-                    <span className="text-lg font-semibold">{item.title}</span>
-                  </div>
-                }
-                                 header={
-                   <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden bg-linear-to-br from-background/10 to-[#00b140]/10 border border-slate-200 dark:border-neutral-700">
-                     <Image 
-                       src={getImageSrc(item.id)}
-                       alt={item.title}
-                       fill={true}
-                       className="object-cover transition-transform duration-300 ease-in-out group-hover/bento:scale-110"
-                       sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 22vw"
-                     />
-                   </div>
-                 }
-              description={
-                <div className="flex-grow flex flex-col justify-between">
-                  <p className="text-md text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-                    {item.heroHeadline}
-                  </p>
-                  <Link href={`/equal/solutions/${item.id}`} passHref>
+              <Link href={`/equal/solutions?tab=${item.id}`} key={item.id} className="block">
+                <BentoGridItem
+                  className="group/bento flex flex-col transition-shadow duration-300 hover:shadow-2xl cursor-pointer"
+                  title={
+                    <div className="flex flex-col">
+                      <span className="mb-2">{item.icon}</span>
+                      <span className="text-lg font-semibold">{item.title}</span>
+                    </div>
+                  }
+                                   header={
+                     <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden bg-linear-to-br from-background/10 to-[#00b140]/10 border border-slate-200 dark:border-neutral-700">
+                       <Image 
+                         src={getImageSrc(item.id)}
+                         alt={item.title}
+                         fill={true}
+                         className="object-cover transition-transform duration-300 ease-in-out group-hover/bento:scale-110"
+                         sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 22vw"
+                       />
+                     </div>
+                   }
+                description={
+                  <div className="flex-grow flex flex-col justify-between">
+                    <p className="text-md text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                      {item.heroHeadline}
+                    </p>
                     <span className="mt-auto inline-flex items-center justify-center rounded-full bg-background/30 backdrop-blur-md border border-[#00b140]/20 dark:border-neutral-700 px-4 py-2 text-sm font-medium text-[#00b140] group-hover/bento:bg-[#00b140] group-hover/bento:text-white transition-colors duration-300">
                       Learn More
                       <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover/bento:translate-x-1" />
                     </span>
-                  </Link>
-                </div>
-              }
-            />
-          );
+                  </div>
+                }
+              />
+              </Link>
+            );
           })}
         </BentoGrid>
       </div>

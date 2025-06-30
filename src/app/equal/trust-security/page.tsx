@@ -12,28 +12,28 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
 
 const highlights = [
-  { area: "SOC 2 Type II", description: "Independent audit of security, availability & confidentiality", status: "Certified" },
-  { area: "ISO 27001 & ISO 27701", description: "Global standard for information security & privacy", status: "Compliant" },
-  { area: "GDPR & PMLA", description: "Meets EU privacy law and India's financial compliance norms", status: "Adherent" },
-  { area: "PCI-DSS", description: "Secure handling of financial and personal data", status: "Certified" },
-  { area: "FIPS 140-2 Encryption", description: "AWS KMS-based 256-bit AES-GCM data encryption", status: "Active" },
-  { area: "Zero Trust Architecture", description: "Access control, role-based policies & real-time alerting", status: "Enabled" },
+  { area: "SOC 2 Type II", description: "Independent audit of security, availability & confidentiality", status: "Certified", icon: ShieldCheck, image: "/Compliance.png" },
+  { area: "ISO 27001 & ISO 27701", description: "Global standard for information security & privacy", status: "Compliant", icon: Globe, image: "/Quarterly VAPT Tests.png" },
+  { area: "GDPR & PMLA", description: "Meets EU privacy law and India's financial compliance norms", status: "Adherent", icon: FileText, image: "/Role-based Access Control.png" },
+  { area: "PCI-DSS", description: "Secure handling of financial and personal data", status: "Certified", icon: Shield, image: "/END-END.png" },
+  { area: "FIPS 140-2 Encryption", description: "AWS KMS-based 256-bit AES-GCM data encryption", status: "Active", icon: Database, image: "/Webhook Support.png" },
+  { area: "Zero Trust Architecture", description: "Access control, role-based policies & real-time alerting", status: "Enabled", icon: Monitor, image: "/Bulk Onboarding.png" },
 ];
 
 const architectureFeatures = [
-  { feature: "End-to-End Encryption", description: "Data encrypted at rest and in transit with AES-256", icon: Shield },
-  { feature: "HTTPS-Only Communication", description: "Signed request verification for all API calls", icon: Globe },
-  { feature: "Blockchain Audit Trails", description: "Immutable records for key verification events", icon: Link },
-  { feature: "Multi-Zone Storage", description: "Disaster recovery with geographically distributed data", icon: Database },
+  { feature: "End-to-End Encryption", description: "Data encrypted at rest and in transit with AES-256", icon: Shield, image: "/END-END.png" },
+  { feature: "HTTPS-Only Communication", description: "Signed request verification for all API calls", icon: Globe, image: "/HTTPS-Only Communication.png" },
+  { feature: "Candidate Communication", description: "Secure, multi-channel communication with candidates", icon: Link, image: "/Candidate Communication.png" },
+  { feature: "Multi-Zone Storage", description: "Disaster recovery with geographically distributed data", icon: Database, image: "/Multi-Zone Storage.png" },
 ];
 
 const auditTools = [
-  { feature: "Real-time Monitoring", description: "View all verification events with timestamps", icon: Monitor },
-  { feature: "Access Logs", description: "Know who accessed what and when", icon: FileText },
-  { feature: "Role-based Access Control", description: "Only authorized personnel can view sensitive info", icon: Users },
-  { feature: "Candidate Consent Records", description: "Capture both general and check-level consent", icon: UserCheck },
-  { feature: "Quarterly VAPT Tests", description: "External penetration testing to ensure defenses hold", icon: ShieldCheck },
-  { feature: "Exportable Audit Trails", description: "Easily shareable reports for auditors or regulators", icon: Download },
+  { feature: "Real-time Monitoring", description: "View all verification events with timestamps", icon: Monitor, image: "/Real-Time Monitoring.png" },
+  { feature: "Access Logs", description: "Know who accessed what and when", icon: FileText, image: "/Access Logs.png" },
+  { feature: "Role-based Access Control", description: "Only authorized personnel can view sensitive info", icon: Users, image: "/Role-based Access Control.png" },
+  { feature: "Candidate Consent Records", description: "Capture both general and check-level consent", icon: UserCheck, image: "/Candidate Consent Records.png" },
+  { feature: "Quarterly VAPT Tests", description: "External penetration testing to ensure defenses hold", icon: ShieldCheck, image: "/Quarterly VAPT Tests.png" },
+  { feature: "Exportable Audit Trails", description: "Easily shareable reports for auditors or regulators", icon: Download, image: "/Exportable Audit Trails.png" },
 ];
 
 const industryCompliance = [
@@ -41,21 +41,25 @@ const industryCompliance = [
     feature: "Financial Services",
     description: "RBI KYC Norms, PMLA, SEBI rules, digital audit trails, and check-level consent",
     icon: Building2,
+    image: "/Financial Services.png",
   },
   {
     feature: "Healthcare",
     description: "HIPAA-aligned identity management with role-based access for medical recruiters",
     icon: Heart,
+    image: "/Healthcare.png",
   },
   {
     feature: "Gig & Platform Economy",
     description: "Real-time background checks and identity validation for public-facing workers",
     icon: Car,
+    image: "/Gig & Platform Economy.png",
   },
   {
     feature: "Government Contracts",
     description: "SCOSTA UID compliance with offline Aadhaar XML or eKYC flows supported",
     icon: Landmark,
+    image: "/Government Contracts.png",
   },
 ];
 
@@ -106,11 +110,17 @@ export default function TrustSecurityPage() {
               </div>
               <BentoGrid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-6 w-full max-w-none">
                 {highlights.map((item, idx) => {
-                  let className = "md:col-span-2 pt-16 px-4";
+                  let className = "md:col-span-2 shadow-sm";
+                  const IconComponent = item.icon;
                   return (
                     <BentoGridItem
                       key={idx}
                       className={className}
+                      icon={
+                        <div className="p-3 rounded-xl bg-[#00b140] text-white inline-block mb-2">
+                          <IconComponent className="w-6 h-6" />
+                        </div>
+                      }
                       title={
                         <div className="flex items-center gap-4 mb-2">
                           <span className="text-xl font-bold text-slate-800 dark:text-slate-100">{item.area}</span>
@@ -118,8 +128,13 @@ export default function TrustSecurityPage() {
                         </div>
                       }
                       description={
-                        <div className="text-base text-slate-600 dark:text-slate-300">{item.description}</div>
+                        <div className="text-[16px] text-slate-600 dark:text-slate-300">{item.description}</div>
                       }
+                      image={{
+                        src: item.image,
+                        alt: item.area
+                      }}
+                      imageSize="w-40 h-40 -top-10 -right-10 md:w-40 md:h-40 md:-top-10 md:-right-10 lg:w-48 lg:h-48 lg:-top-15 lg:-right-10 xl:w-48 xl:h-48 xl:-top-15 xl:-right-10 2xl:w-48 2xl:h-48 2xl:-top-15 2xl:-right-10"
                     />
                   );
                 })}
@@ -146,16 +161,19 @@ export default function TrustSecurityPage() {
                   return (
                     <BentoGridItem
                       key={idx}
-                      className="pt-6 px-4"
-                      title={
-                        <div>
-                          <div className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center mb-4">
-                            <IconComponent className="w-6 h-6 text-white" />
-                          </div>
-                          <span className="text-xl font-bold text-slate-800 dark:text-slate-100">{feature.feature}</span>
+                      className="shadow-sm"
+                      icon={
+                        <div className="p-3 rounded-xl bg-[#00b140] text-white inline-block mb-2">
+                          <IconComponent className="w-6 h-6" />
                         </div>
                       }
-                      description={<span className="text-lg text-slate-800 dark:text-slate-100">{feature.description}</span>}
+                      title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{feature.feature}</span>}
+                      description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{feature.description}</span>}
+                      image={{
+                        src: feature.image,
+                        alt: feature.feature
+                      }}
+                      imageSize="w-40 h-40 -top-10 -right-10 md:w-40 md:h-40 md:-top-10 md:-right-10 lg:w-48 lg:h-48 lg:-top-15 lg:-right-10 xl:w-48 xl:h-48 xl:-top-15 xl:-right-10 2xl:w-48 2xl:h-48 2xl:-top-15 2xl:-right-10"
                     />
                   );
                 })}
@@ -178,21 +196,24 @@ export default function TrustSecurityPage() {
               </div>
               <BentoGrid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-6 w-full max-w-none">
                 {auditTools.map((tool, idx) => {
-                  let className = "md:col-span-2 pt-6 px-4";
+                  let className = "md:col-span-2 shadow-sm";
                   const IconComponent = tool.icon;
                   return (
                     <BentoGridItem
                       key={idx}
                       className={className}
-                      title={
-                        <div>
-                          <div className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center mb-4">
-                            <IconComponent className="w-6 h-6 text-white" />
-                          </div>
-                          <span className="text-xl font-bold text-slate-800 dark:text-slate-100">{tool.feature}</span>
+                      icon={
+                        <div className="p-3 rounded-xl bg-[#00b140] text-white inline-block mb-2">
+                          <IconComponent className="w-6 h-6" />
                         </div>
                       }
-                      description={<span className="text-lg text-slate-800 dark:text-slate-100">{tool.description}</span>}
+                      title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{tool.feature}</span>}
+                      description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{tool.description}</span>}
+                      image={{
+                        src: tool.image,
+                        alt: tool.feature
+                      }}
+                      imageSize="w-40 h-40 -top-10 -right-10 md:w-40 md:h-40 md:-top-10 md:-right-10 lg:w-48 lg:h-48 lg:-top-15 lg:-right-10 xl:w-48 xl:h-48 xl:-top-15 xl:-right-10 2xl:w-48 2xl:h-48 2xl:-top-15 2xl:-right-10"
                     />
                   );
                 })}
@@ -219,16 +240,19 @@ export default function TrustSecurityPage() {
                   return (
                     <BentoGridItem
                       key={idx}
-                      className="pt-6 px-4"
-                      title={
-                        <div>
-                          <div className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center mb-4">
-                            <IconComponent className="w-6 h-6 text-white" />
-                          </div>
-                          <span className="text-xl font-bold text-slate-800 dark:text-slate-100">{item.feature}</span>
+                      className="shadow-sm"
+                      icon={
+                        <div className="p-3 rounded-xl bg-[#00b140] text-white inline-block mb-2">
+                          <IconComponent className="w-6 h-6" />
                         </div>
                       }
-                      description={<span className="text-lg text-slate-800 dark:text-slate-100">{item.description}</span>}
+                      title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{item.feature}</span>}
+                      description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{item.description}</span>}
+                      image={{
+                        src: item.image,
+                        alt: item.feature
+                      }}
+                      imageSize="w-40 h-40 -top-10 -right-10 md:w-40 md:h-40 md:-top-10 md:-right-10 lg:w-48 lg:h-48 lg:-top-15 lg:-right-10 xl:w-48 xl:h-48 xl:-top-15 xl:-right-10 2xl:w-48 2xl:h-48 2xl:-top-15 2xl:-right-10"
                     />
                   );
                 })}
@@ -308,7 +332,7 @@ export default function TrustSecurityPage() {
       </section>
       <section className="relative w-screen -mx-[50vw] left-1/2 mb-8">
           <div className="relative overflow-hidden bg-linear-to-l from-[#40916c] to-[#2d6a4f] dark:bg-green-500/10 py-4 text-center">
-            <h3 className="text-lg font-medium tracking-wider text-white uppercase italic mb-2">"Trust is not a feature — it's the foundation."</h3>
+            <h3 className="text-lg font-medium tracking-wider text-[#baff29] font-semibold uppercase italic mb-2">"Trust is not a feature — it's the foundation."</h3>
             <div className="w-full overflow-hidden">
                               <Marquee gradient={false} speed={30} pauseOnHover={true}>
                   <div className="flex items-center gap-x-6 text-lg font-medium text-white mr-8">

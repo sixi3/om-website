@@ -3,6 +3,7 @@
 import Link from "next/link";
 import React, { useState, useEffect, useRef, useCallback, memo } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { 
   ChevronDown, 
   Menu, 
@@ -30,9 +31,10 @@ import {
 import { GlowingButton } from "@/app/onemoney/components/ui/glowing-button";
 
 // Memoized dropdown submenu item
-const DropdownItem = memo(({ subItem, onClick }: { 
+const DropdownItem = memo(({ subItem, onClick, isActive }: { 
   subItem: SubMenuItem; 
   onClick: () => void;
+  isActive: boolean;
 }) => {
   const Icon = subItem.icon;
   const isExternal = subItem.href.startsWith('http');
@@ -42,10 +44,15 @@ const DropdownItem = memo(({ subItem, onClick }: {
       href={subItem.href}
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
-      className="flex items-center px-4 py-2 text-sm text-foreground/80 hover:bg-muted hover:text-foreground transition-colors"
+      className={cn(
+        "flex items-center px-4 py-2 text-sm transition-colors rounded-md mx-1 my-1",
+        isActive 
+          ? "bg-green-50 text-[#00b140]" 
+          : "text-foreground/80 hover:bg-slate-100 hover:text-foreground"
+      )}
       onClick={onClick}
     >
-      {Icon && <Icon className="mr-2 h-4 w-4" />}
+      {Icon && <Icon className={cn("mr-2 h-4 w-4", isActive ? "text-[#00b140]" : "")} />}
       {subItem.name}
     </Link>
   );
@@ -53,9 +60,10 @@ const DropdownItem = memo(({ subItem, onClick }: {
 DropdownItem.displayName = 'DropdownItem';
 
 // Memoized mobile submenu item
-const MobileSubMenuItem = memo(({ subItem, onClick }: { 
+const MobileSubMenuItem = memo(({ subItem, onClick, isActive }: { 
   subItem: SubMenuItem; 
   onClick: () => void;
+  isActive: boolean;
 }) => {
   const Icon = subItem.icon;
   const isExternal = subItem.href.startsWith('http');
@@ -65,10 +73,15 @@ const MobileSubMenuItem = memo(({ subItem, onClick }: {
       href={subItem.href}
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
-      className="flex items-center text-foreground/70 hover:bg-muted/80 hover:text-foreground rounded-md px-3 py-2 text-sm font-medium transition-colors"
+      className={cn(
+        "flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors",
+        isActive 
+          ? "bg-green-50 text-[#00b140]" 
+          : "text-foreground/70 hover:bg-slate-100 hover:text-foreground"
+      )}
       onClick={onClick}
     >
-      {Icon && <Icon className="mr-2 h-4 w-4" />}
+      {Icon && <Icon className={cn("mr-2 h-4 w-4", isActive ? "text-[#00b140]" : "")} />}
       {subItem.name}
     </Link>
   );
@@ -97,6 +110,7 @@ export function GlobalHeader({
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [isExtraSmallScreen, setIsExtraSmallScreen] = useState(false);
   const resizeTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const pathname = usePathname();
 
   // Pre-calculated styles for CSS variables
   const cssVars = {
@@ -227,6 +241,19 @@ export function GlobalHeader({
     setOpenDropdown(null);
   }, []);
 
+  // Helper function to check if a nav item is active
+  const isNavItemActive = useCallback((item: NavItem) => {
+    // Check if current pathname matches the item href exactly
+    if (pathname === item.href) return true;
+    
+    // Check if any submenu item matches the current pathname
+    if (item.submenu) {
+      return item.submenu.some(subItem => pathname === subItem.href);
+    }
+    
+    return false;
+  }, [pathname]);
+
   return (
     <div className="fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:p-3 pointer-events-none will-change-transform">
       <header
@@ -256,22 +283,29 @@ export function GlobalHeader({
 
           {/* Center: Navigation */}
           <nav className="hidden lg:flex items-center justify-center flex-1 gap-x-6 lg:gap-x-10 text-sm font-medium">
-            {navItems.map((item) => (
-              <div 
-                key={item.name}
-                className="relative"
-                onMouseEnter={() => item.submenu && handleMouseEnterDropdown(item.name)}
-                onMouseLeave={() => item.submenu && handleMouseLeaveDropdownArea()}
-              >
-                <Link
-                  href={item.href}
-                  target={item.href.startsWith('http') ? '_blank' : undefined}
-                  rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="flex items-center text-foreground/80 hover:text-foreground transition-colors"
+            {navItems.map((item) => {
+              const isActive = isNavItemActive(item);
+              return (
+                <div 
+                  key={item.name}
+                  className="relative"
+                  onMouseEnter={() => item.submenu && handleMouseEnterDropdown(item.name)}
+                  onMouseLeave={() => item.submenu && handleMouseLeaveDropdownArea()}
                 >
-                  {item.name}
-                  {item.showChevron && <ChevronDown className="ml-1 h-4 w-4" />}
-                </Link>
+                  <Link
+                    href={item.href}
+                    target={item.href.startsWith('http') ? '_blank' : undefined}
+                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className={cn(
+                      "flex items-center px-3 py-2 rounded-md transition-all duration-200 uppercase font-medium tracking-wide",
+                      isActive 
+                        ? "bg-[#00b140] text-white" 
+                        : "text-foreground/80 hover:text-foreground hover:bg-foreground/5"
+                    )}
+                  >
+                    {item.name}
+                    {item.showChevron && <ChevronDown className="ml-1 h-4 w-4" />}
+                  </Link>
 
                 {item.submenu && (
                   <AnimatePresence>
@@ -280,11 +314,16 @@ export function GlobalHeader({
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="absolute left-0 mt-2 w-56 origin-top-left rounded-md shadow-lg bg-background ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        className="absolute left-0 mt-2 w-56 origin-top-left rounded-lg shadow-lg bg-white border border-gray-200 focus:outline-none"
                       >
-                        <div className="py-1">
+                        <div className="py-2">
                           {item.submenu.map((subItem) => (
-                            <DropdownItem key={subItem.name} subItem={subItem} onClick={handleDropdownItemClick} />
+                            <DropdownItem 
+                              key={subItem.name} 
+                              subItem={subItem} 
+                              onClick={handleDropdownItemClick}
+                              isActive={pathname === subItem.href}
+                            />
                           ))}
                         </div>
                       </motion.div>
@@ -292,7 +331,8 @@ export function GlobalHeader({
                   </AnimatePresence>
                 )}
               </div>
-            ))}
+              );
+            })}
           </nav>
           
           {/* Right: Button and Mobile Menu */}
@@ -345,51 +385,60 @@ export function GlobalHeader({
             variants={mobileMenuVariants}
           >
             <nav className="flex flex-col space-y-1 px-2 py-3">
-              {navItems.map((item) => (
-                <div key={item.name}>
-                  <div 
-                    className="flex items-center justify-between text-foreground/80 hover:bg-muted hover:text-foreground rounded-md px-3 py-2 text-base font-medium transition-colors cursor-pointer"
-                    onClick={() => handleMobileItemClick(item)}
-                  >
-                    <Link 
-                      href={item.href} 
-                      target={item.href.startsWith('http') ? '_blank' : undefined}
-                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      onClick={(e) => { if(item.submenu) e.preventDefault(); }}
-                      className="flex-grow"
+              {navItems.map((item) => {
+                const isActive = isNavItemActive(item);
+                return (
+                  <div key={item.name}>
+                    <div 
+                      className={cn(
+                        "flex items-center justify-between rounded-md px-3 py-2 text-base font-medium transition-colors cursor-pointer uppercase tracking-wide",
+                        isActive 
+                          ? "bg-[#00b140] text-white" 
+                          : "text-foreground/80 hover:bg-muted hover:text-foreground"
+                      )}
+                      onClick={() => handleMobileItemClick(item)}
                     >
-                        {item.name}
-                    </Link>
-                    {item.showChevron && (
-                      <ChevronDown 
-                        className={cn(
-                          "ml-2 h-5 w-5 transition-transform duration-200",
-                          openMobileSubmenu === item.name ? "rotate-180" : ""
-                        )}
-                      />
-                    )}
-                  </div>
-                  <AnimatePresence>
-                    {item.submenu && openMobileSubmenu === item.name && (
-                      <motion.div
-                        initial="initial"
-                        animate="animate"
-                        exit="exit"
-                        variants={submenuVariants}
-                        className="pl-6 overflow-hidden"
+                      <Link 
+                        href={item.href} 
+                        target={item.href.startsWith('http') ? '_blank' : undefined}
+                        rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        onClick={(e) => { if(item.submenu) e.preventDefault(); }}
+                        className="flex-grow"
                       >
-                        {item.submenu.map((subItem) => (
-                          <MobileSubMenuItem
-                            key={subItem.name}
-                            subItem={subItem}
-                            onClick={handleMobileSubItemClick}
-                          />
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
+                          {item.name}
+                      </Link>
+                      {item.showChevron && (
+                        <ChevronDown 
+                          className={cn(
+                            "ml-2 h-5 w-5 transition-transform duration-200",
+                            openMobileSubmenu === item.name ? "rotate-180" : ""
+                          )}
+                        />
+                      )}
+                    </div>
+                    <AnimatePresence>
+                      {item.submenu && openMobileSubmenu === item.name && (
+                        <motion.div
+                          initial="initial"
+                          animate="animate"
+                          exit="exit"
+                          variants={submenuVariants}
+                          className="pl-6 overflow-hidden"
+                        >
+                          {item.submenu.map((subItem) => (
+                            <MobileSubMenuItem
+                              key={subItem.name}
+                              subItem={subItem}
+                              onClick={handleMobileSubItemClick}
+                              isActive={pathname === subItem.href}
+                            />
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
             </nav>
             <div className="mt-6 flex flex-col space-y-2">
               {talkToUsButtonText && (

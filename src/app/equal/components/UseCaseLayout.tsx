@@ -5,6 +5,13 @@ import { GlowingButton } from '@/app/onemoney/components/ui/glowing-button';
 import { UseCase } from '../data/useCases';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { BentoGrid, BentoGridItem } from '@/app/onemoney/components/ui/bento-grid';
+import { 
+  FileText, BarChart, Users, Zap, CreditCard, CheckCircle, 
+  Clock, MessageSquare, Shield, Database, Workflow, 
+  TrendingUp, Phone, Mail, Globe, Settings, 
+  Award, Target, Truck, Smartphone, Brain,
+  Building, Scale, Eye, Lock, FileCheck
+} from 'lucide-react';
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
@@ -23,6 +30,171 @@ const HorizontalPointList = ({ items, textColor }: { items: (string | undefined)
             ))}
         </div>
     );
+};
+
+// Helper function to get relevant image for a capability
+const getCapabilityImage = (feature: string, useCaseId: string) => {
+    const featureLower = feature.toLowerCase();
+    
+    // Use case specific images
+    if (useCaseId === 'hrms') {
+        if (featureLower.includes('pre-offer') || featureLower.includes('collect')) {
+            return { src: '/Pre-Offer BGV.png', alt: 'Pre-offer BGV' };
+        }
+        if (featureLower.includes('report') || featureLower.includes('consolidated')) {
+            return { src: '/Auto-Consolidated Reports.png', alt: 'Auto-Consolidated Reports' };
+        }
+        if (featureLower.includes('communication') || featureLower.includes('candidate')) {
+            return { src: '/Candidate Communication.png', alt: 'Candidate Communication' };
+        }
+        if (featureLower.includes('real-time') || featureLower.includes('verification')) {
+            return { src: '/Real-Time Verification.png', alt: 'Real-time Verification' };
+        }
+        if (featureLower.includes('billing') || featureLower.includes('one')) {
+            return { src: '/One Billing Layer.png', alt: 'One Billing Layer' };
+        }
+    }
+    
+    if (useCaseId === 'gig-economy') {
+        if (featureLower.includes('bulk') || featureLower.includes('onboarding')) {
+            return { src: '/Bulk Managment Tools.png', alt: 'Bulk Onboarding' };
+        }
+        if (featureLower.includes('mobile') || featureLower.includes('ux')) {
+            return { src: '/Hosted Page.png', alt: 'Mobile UX' };
+        }
+        if (featureLower.includes('vehicle') || featureLower.includes('legal')) {
+            return { src: '/Smart Document parsing.png', alt: 'Vehicle & Legal Verification' };
+        }
+        if (featureLower.includes('safety') || featureLower.includes('ai')) {
+            return { src: '/AI Intelligence.png', alt: 'Safety-first Design' };
+        }
+        if (featureLower.includes('routing') || featureLower.includes('smart')) {
+            return { src: '/routing.png', alt: 'Smart Routing' };
+        }
+    }
+    
+    if (useCaseId === 'bfsi') {
+        if (featureLower.includes('compliance') || featureLower.includes('rbi')) {
+            return { src: '/Compliance.png', alt: 'RBI & SEBI Compliance' };
+        }
+        if (featureLower.includes('monitoring') || featureLower.includes('aml')) {
+            return { src: '/Live Status Dashboard.png', alt: 'AML Monitoring' };
+        }
+        if (featureLower.includes('vault') || featureLower.includes('secure')) {
+            return { src: '/Secure Consent Capture.png', alt: 'Secure Data Vault' };
+        }
+        if (featureLower.includes('financial') || featureLower.includes('health')) {
+            return { src: '/Financial Services.png', alt: 'Financial Health Checks' };
+        }
+        if (featureLower.includes('audit') || featureLower.includes('logs')) {
+            return { src: '/Exception Managment Engine.png', alt: 'Audit Logs' };
+        }
+    }
+    
+    if (useCaseId === 'staffing') {
+        if (featureLower.includes('upload') || featureLower.includes('single')) {
+            return { src: '/Real-Time Document Upload.png', alt: 'Single Upload Flow' };
+        }
+        if (featureLower.includes('routing') || featureLower.includes('auto')) {
+            return { src: '/Custom Workflow Builder.png', alt: 'Document Auto-routing' };
+        }
+        if (featureLower.includes('workflow') || featureLower.includes('custom')) {
+            return { src: '/Field-level Config.png', alt: 'Custom Workflows' };
+        }
+        if (featureLower.includes('report') || featureLower.includes('printable')) {
+            return { src: '/Consolidated Report Manager.png', alt: 'Printable Reports' };
+        }
+        if (featureLower.includes('batch') || featureLower.includes('download')) {
+            return { src: '/Bulk Managment Tools.png', alt: 'Batch Download' };
+        }
+    }
+    
+    // Generic fallbacks
+    if (featureLower.includes('api') || featureLower.includes('integration')) {
+        return { src: '/API Integration.png', alt: 'API Integration' };
+    }
+    if (featureLower.includes('webhook') || featureLower.includes('notification')) {
+        return { src: '/Webhook Notification.png', alt: 'Webhook Support' };
+    }
+    if (featureLower.includes('dashboard') || featureLower.includes('status')) {
+        return { src: '/Live Status Dashboard.png', alt: 'Live Dashboard' };
+    }
+    if (featureLower.includes('document') || featureLower.includes('parsing')) {
+        return { src: '/Smart Document parsing.png', alt: 'Document Processing' };
+    }
+    if (featureLower.includes('workflow') || featureLower.includes('builder')) {
+        return { src: '/Custom Workflow Builder.png', alt: 'Workflow Builder' };
+    }
+    
+    // Default image
+    return { src: '/3dcheck.png', alt: 'Verification Feature' };
+};
+
+// Helper function to get image position based on index
+const getImagePosition = (index: number, total: number) => {
+    const positions = ['top-right', 'top-left', 'bottom-right', 'bottom-left', 'center'];
+    return positions[index % positions.length] as "top-right" | "top-left" | "bottom-right" | "bottom-left" | "center";
+};
+
+// Helper function to get icon for capability based on use case and feature
+const getCapabilityIcon = (feature: string, useCaseId: string, index: number) => {
+    const featureLower = feature.toLowerCase();
+    
+    // Use case specific icon mappings with unique icons per tab
+    if (useCaseId === 'hrms') {
+        const hrmsIcons = [
+            <Clock className="w-6 h-6" />,           // Pre-Offer BGV - timing/early collection
+            <BarChart className="w-6 h-6" />,        // Auto-Consolidated Reports - analytics
+            <MessageSquare className="w-6 h-6" />,   // Candidate Communication - messaging
+            <Zap className="w-6 h-6" />,             // Real-Time Verification - speed
+            <CreditCard className="w-6 h-6" />,      // One Billing Layer - payments
+        ];
+        return hrmsIcons[index] || <Settings className="w-6 h-6" />;
+    }
+    
+    if (useCaseId === 'gig-economy') {
+        const gigIcons = [
+            <Users className="w-6 h-6" />,           // Bulk Onboarding - people management
+            <Smartphone className="w-6 h-6" />,      // Mobile UX - mobile-first
+            <Truck className="w-6 h-6" />,           // Vehicle + Legal Verification - logistics
+            <Shield className="w-6 h-6" />,          // Safety-first Design - security
+            <Target className="w-6 h-6" />,          // Smart Routing - optimization
+        ];
+        return gigIcons[index] || <Workflow className="w-6 h-6" />;
+    }
+    
+    if (useCaseId === 'bfsi') {
+        const bfsiIcons = [
+            <Scale className="w-6 h-6" />,           // RBI & SEBI-Grade Compliance - legal/compliance
+            <Eye className="w-6 h-6" />,             // Continuous AML/Sanctions Monitoring - surveillance
+            <Lock className="w-6 h-6" />,            // Secure Data Vault - security
+            <TrendingUp className="w-6 h-6" />,      // Comprehensive Financial Health Checks - financial analysis
+            <FileCheck className="w-6 h-6" />,       // Immutable Audit Logs - documentation
+        ];
+        return bfsiIcons[index] || <Building className="w-6 h-6" />;
+    }
+    
+    if (useCaseId === 'staffing') {
+        const staffingIcons = [
+            <FileText className="w-6 h-6" />,        // Single Upload Flow - document management
+            <Workflow className="w-6 h-6" />,        // Document Auto-routing - process automation
+            <Settings className="w-6 h-6" />,        // Custom Workflows - configuration
+            <Award className="w-6 h-6" />,           // Printable Reports - certification/awards
+            <Database className="w-6 h-6" />,        // Batch Download Support - data management
+        ];
+        return staffingIcons[index] || <CheckCircle className="w-6 h-6" />;
+    }
+    
+    // Fallback icons for other use cases
+    const fallbackIcons = [
+        <CheckCircle className="w-6 h-6" />,
+        <Globe className="w-6 h-6" />,
+        <Brain className="w-6 h-6" />,
+        <Phone className="w-6 h-6" />,
+        <Mail className="w-6 h-6" />,
+    ];
+    
+    return fallbackIcons[index % fallbackIcons.length];
 };
 
 export function UseCaseLayout(props: UseCase) {
@@ -133,25 +305,36 @@ export function UseCaseLayout(props: UseCase) {
             </div>
               <BentoGrid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-6 w-full max-w-none">
                   {allCapabilities.map((cap, idx) => {
-                      let className = "md:col-span-2 pt-12 px-4"; // Default for first row
+                      let colSpan: 1 | 2 | 3 = 2; // Default for first row
                       const total = allCapabilities.length;
 
                       if (total === 4) {
                           if (idx === 3) {
-                              className = "md:col-span-6"; // Full width for the single item on row 2
+                              colSpan = 3; // Wider for the single item on row 2
                           }
                       } else if (total === 5) {
                           if (idx >= 3) {
-                              className = "md:col-span-3"; // Equal width for the two items on row 2
+                              colSpan = 3; // Equal width for the two items on row 2
                           }
                       }
+
+                      const capabilityImage = getCapabilityImage(cap.feature, id);
+                      const capabilityIcon = getCapabilityIcon(cap.feature, id, idx);
                       
                       return (
                           <BentoGridItem
                               key={idx}
-                              className={className}
+                              className="shadow-sm"
+                              colSpan={colSpan}
+                              icon={
+                                <div className="p-3 rounded-xl bg-[#00b140] text-white inline-block mb-2">
+                                  {capabilityIcon}
+                                </div>
+                              }
                               title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{cap.feature}</span>}
-                              description={<span className="text-lg text-slate-800 dark:text-slate-100">{cap.description}</span>}
+                              description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{cap.description}</span>}
+                              image={capabilityImage}
+                              imageSize="w-40 h-40 -top-10 -right-10 md:w-40 md:h-40 md:-top-10 md:-right-10 lg:w-48 lg:h-48 lg:-top-15 lg:-right-10 xl:w-48 xl:h-48 xl:-top-15 xl:-right-10 2xl:w-48 2xl:h-48 2xl:-top-15 2xl:-right-10"
                           />
                       );
                   })}

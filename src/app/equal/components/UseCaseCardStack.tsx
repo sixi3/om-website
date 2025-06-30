@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import dynamic from 'next/dynamic';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { AnimatePresence, motion } from "framer-motion";
 import { UseCase } from "../data/useCases";
 
@@ -20,9 +21,22 @@ export const UseCaseCardStack = ({
   activeIndex,
   onTabChange,
 }: UseCaseCardStackProps) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const activeItem = items[activeIndex];
   const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
   const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
+
+  const handleTabChange = (index: number) => {
+    const selectedItem = items[index];
+    if (selectedItem) {
+      // Update URL with the selected tab
+      const params = new URLSearchParams(searchParams.toString());
+      params.set('tab', selectedItem.id);
+      router.push(`/equal/solutions?${params.toString()}`, { scroll: false });
+      onTabChange(index);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -41,7 +55,7 @@ export const UseCaseCardStack = ({
           {items.map((item, index) => (
             <div
               key={item.id}
-              onClick={() => onTabChange(index)}
+              onClick={() => handleTabChange(index)}
               className={`relative px-4 py-2 text-sm font-medium rounded-full cursor-pointer transition-colors duration-300 ${
                 activeIndex === index
                   ? "text-white"

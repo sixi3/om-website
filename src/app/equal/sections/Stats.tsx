@@ -47,7 +47,7 @@ export function Stats() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 md:grid-cols-4 justify-items-center mx-auto">
           {statsData.map((stat) => (
             <div key={stat.id} className="flex flex-col items-center text-center p-4 mx-auto">
-              <div className="text-4xl md:text-5xl lg:text-6xl mb-2">
+              <div className="text-4xl md:text-5xl lg:text-[90px] mb-2">
                 <span className={metallicTextClasses}>{stat.prefix}</span>
                 <AnimatedCounter 
                   value={stat.value} 
@@ -55,7 +55,7 @@ export function Stats() {
                 />
                 <span className={metallicTextClasses}>{stat.suffix}</span>
               </div>
-              <p className="text-lg font-medium text-slate-600 pt-2">
+              <p className="text-md md:text-lg font-semibold text-slate-800 pt-2">
                 {stat.label}
               </p>
             </div>

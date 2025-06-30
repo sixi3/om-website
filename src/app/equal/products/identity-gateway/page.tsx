@@ -263,14 +263,18 @@ const AnimatedVerificationCircle = ({
           transform: 'translate(-50%, -50%)'
         }}
       >
-        <div className="relative">
-          <div className="w-16 h-16 bg-background/50 backdrop-blur-md rounded-full flex items-center justify-center shadow-xl border border-[#00b140]/20">
-            <div className="text-[#00b140] text-lg">
+        {/* Polaroid Container */}
+        <div className="relative bg-background/10 backdrop-blur-md rounded-lg shadow-lg border border-gray-200 p-1 w-20 h-24">
+          {/* Pastel Green Rectangle for Icon */}
+          <div className="w-full h-12 bg-green-200 rounded-md flex items-center justify-center mb-2">
+            <div className="text-green-700 text-lg">
               {icon}
             </div>
           </div>
-          <div className="absolute -bottom-9 left-1/2 transform -translate-x-1/2 whitespace-nowrap z-40">
-            <span className="text-xs font-semibold text-slate-700 bg-background/50 backdrop-blur-md px-2 py-1 rounded-full shadow-md border border-slate-200/50 backdrop-blur-sm">
+          
+          {/* Name Below Icon */}
+          <div className="text-center">
+            <span className="text-[10px] font-medium text-slate-700 leading-tight block">
               {name}
             </span>
           </div>
