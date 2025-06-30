@@ -498,7 +498,7 @@ export default function IdentityGatewayPage() {
                 />
                 <span>India&apos;s Only Smart Identity Gateway</span>
               </span>
-              <h1 className="text-5xl my-6 md:my-4 tracking-tight leading-tight md:text-2xl lg:text-3xl xl:text-6xl 2xl:text-6xl">
+              <h1 className="text-3xl tracking-tight leading-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-6xl">
                 <span className={metallicBlackTextClasses}>One Gateway to</span>
                 <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
                   Verify Identities
