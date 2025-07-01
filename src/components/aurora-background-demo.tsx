@@ -5,6 +5,10 @@ import React, { useState } from "react";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { GlowingButton } from "@/app/onemoney/components/ui/glowing-button";
 import Link from 'next/link';
+import { ChevronDown } from 'lucide-react';
+import { DropdownMenu, TriggerWrapper, Trigger, TabsContainer, Tab } from "@/components/ui/dropdown-menu";
+import { ProductDropdownContent } from "@/components/ui/product-dropdown-content";
+import { SolutionsDropdownContent } from "@/components/ui/solutions-dropdown-content";
 
 const metallicGreenTextClasses = "font-bold  bg-gradient-to-b from-[#00b140] to-[#087C32] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -35,6 +39,34 @@ export default function AuroraBackgroundDemo() {
   return (
     <AuroraBackground>
       <div className="relative flex flex-col h-screen">
+        {/* Top Navigation Tabs */}
+        <motion.div 
+          className="flex justify-center items-center pt-8 pb-4"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          <DropdownMenu>
+            <TriggerWrapper>
+              <Trigger>
+                PRODUCTS
+              </Trigger>
+              <Trigger>
+                SOLUTIONS
+              </Trigger>
+            </TriggerWrapper>
+            
+            <TabsContainer>
+              <Tab>
+                <ProductDropdownContent />
+              </Tab>
+              <Tab>
+                <SolutionsDropdownContent />
+              </Tab>
+            </TabsContainer>
+          </DropdownMenu>
+        </motion.div>
+
         {/* Centered Title and Description */}
         <div className="flex-1 flex flex-col items-center justify-center px-4">
           <motion.div

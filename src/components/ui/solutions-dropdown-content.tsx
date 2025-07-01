@@ -1,0 +1,220 @@
+'use client'
+
+import React from 'react'
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
+
+interface SolutionItem {
+  id: string
+  title: string
+  description: string
+  image: {
+    src: string
+    alt: string
+    width: number
+    height: number
+  }
+  href: string
+}
+
+interface SolutionSection {
+  title: string
+  items: SolutionItem[]
+}
+
+const solutionSections: SolutionSection[] = [
+  {
+    title: "INDUSTRY SOLUTIONS",
+    items: [
+      {
+        id: "financial-services",
+        title: "Financial Services",
+        description: "Complete digital transformation for banks and NBFCs",
+        image: {
+          src: "/Financial Services.png",
+          alt: "Financial Services",
+          width: 56,
+          height: 56
+        },
+        href: "/solutions/financial-services"
+      },
+      {
+        id: "healthcare",
+        title: "Healthcare",
+        description: "Secure patient data management and verification",
+        image: {
+          src: "/Healthcare.png",
+          alt: "Healthcare",
+          width: 56,
+          height: 56
+        },
+        href: "/solutions/healthcare"
+      },
+      {
+        id: "gig-economy",
+        title: "Gig & Platform Economy",
+        description: "Streamlined onboarding for gig workers and platforms",
+        image: {
+          src: "/Gig & Platform Economy.png",
+          alt: "Gig Economy",
+          width: 56,
+          height: 56
+        },
+        href: "/solutions/gig-economy"
+      },
+      {
+        id: "government-contracts",
+        title: "Government Contracts",
+        description: "Compliance-ready solutions for government projects",
+        image: {
+          src: "/Government Contracts.png",
+          alt: "Government Contracts",
+          width: 56,
+          height: 56
+        },
+        href: "/solutions/government"
+      }
+    ]
+  },
+  {
+    title: "USE CASE SOLUTIONS",
+    items: [
+      {
+        id: "recruitment",
+        title: "Recruitment & Hiring",
+        description: "End-to-end background verification for HR teams",
+        image: {
+          src: "/Recruitment.png",
+          alt: "Recruitment",
+          width: 56,
+          height: 56
+        },
+        href: "/solutions/recruitment"
+      },
+      {
+        id: "compliance",
+        title: "Compliance & Risk",
+        description: "Automated compliance checks and risk assessment",
+        image: {
+          src: "/Compliance.png",
+          alt: "Compliance",
+          width: 56,
+          height: 56
+        },
+        href: "/solutions/compliance"
+      },
+      {
+        id: "financial-analytics",
+        title: "Financial Analytics",
+        description: "Data-driven insights for financial decision making",
+        image: {
+          src: "/Financial Analytics.png",
+          alt: "Financial Analytics",
+          width: 56,
+          height: 56
+        },
+        href: "/solutions/analytics"
+      },
+      {
+        id: "workforce-management",
+        title: "Workforce Management",
+        description: "Complete employee lifecycle management solutions",
+        image: {
+          src: "/Live Status Dashboard.png",
+          alt: "Workforce Management",
+          width: 56,
+          height: 56
+        },
+        href: "/solutions/workforce"
+      }
+    ]
+  }
+]
+
+const SolutionItem: React.FC<{ item: SolutionItem; index: number }> = ({ item, index }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
+        delay: index * 0.05,
+        duration: 0.3,
+        ease: "easeOut"
+      }}
+    >
+      <Link 
+        href={item.href}
+        role="menuitem"
+        className="flex items-start gap-4 p-3 rounded-lg hover:bg-[#00b140]/10 transition-colors duration-200 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"
+      >
+        <div className="flex-shrink-0 relative">
+          <Image
+            src={item.image.src}
+            alt={item.image.alt}
+            width={item.image.width}
+            height={item.image.height}
+            loading="eager"
+            priority={index < 2}
+            className="transition-all duration-300 filter grayscale group-hover:grayscale-0 rounded will-change-[filter] group-hover:scale-110"
+          />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <h3 className="font-semibold text-neutral-900 group-hover:text-[#00b140] transition-colors duration-200">
+              {item.title}
+            </h3>
+            <div className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-out">
+              <ArrowRight className="w-4 h-4 text-[#00b140]" />
+            </div>
+          </div>
+          <p className="text-sm text-neutral-600 mt-1 leading-relaxed">
+            {item.description}
+          </p>
+        </div>
+      </Link>
+    </motion.div>
+  )
+}
+
+const SolutionSection: React.FC<{ section: SolutionSection; sectionIndex: number }> = ({ 
+  section, 
+  sectionIndex 
+}) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
+        delay: sectionIndex * 0.1,
+        duration: 0.4,
+        ease: "easeOut"
+      }}
+      className="space-y-4 p-3 bg-white border border-slate-200/50 rounded-lg"
+    >
+      <h2 className="text-sm font-semibold tracking-widest text-[#00b140] uppercase mb-4">
+        {section.title}
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {section.items.map((item, index) => (
+          <SolutionItem key={item.id} item={item} index={index} />
+        ))}
+      </div>
+    </motion.div>
+  )
+}
+
+export const SolutionsDropdownContent: React.FC = () => {
+  return (
+    <div className="space-y-2 min-w-[300px] md:min-w-[600px]">
+      {solutionSections.map((section, index) => (
+        <SolutionSection 
+          key={section.title} 
+          section={section} 
+          sectionIndex={index} 
+        />
+      ))}
+    </div>
+  )
+} 
