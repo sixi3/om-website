@@ -3,10 +3,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import Lottie from 'lottie-react';
+import dynamic from 'next/dynamic';
 // @ts-ignore
 import { Component as EtheralShadow } from './etheral-shadow';
 import equalAiIntroAnimation from '../../../public/equal-ai-intro.json';
+
+// Dynamically import Lottie to prevent SSR issues
+const Lottie = dynamic(() => import('lottie-react'), {
+  ssr: false,
+  loading: () => <div className="w-[400px] h-[400px] animate-pulse bg-white/10 rounded-lg" />
+});
 
 const metallicBlackTextClasses = "font-semibold drop-shadow-lg bg-gradient-to-b from-white to-[#baff29] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
@@ -22,8 +28,13 @@ export const EqualAIPortrait: React.FC<EqualAIPortraitProps> = ({
   height = 'auto'
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const lottieRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleAnimationComplete = () => {
     setHasAnimated(true);
@@ -113,15 +124,19 @@ export const EqualAIPortrait: React.FC<EqualAIPortraitProps> = ({
               ease: "easeOut" 
             }}
           >
-            <Lottie
-              lottieRef={lottieRef}
-              animationData={equalAiIntroAnimation}
-              loop={false}
-              autoplay={isVisible && !hasAnimated}
-              onComplete={handleAnimationComplete}
-              style={{ width: 400, height: 400 }}
-              className="filter drop-shadow-lg"
-            />
+{isMounted ? (
+              <Lottie
+                lottieRef={lottieRef}
+                animationData={equalAiIntroAnimation}
+                loop={false}
+                autoplay={isVisible && !hasAnimated}
+                onComplete={handleAnimationComplete}
+                style={{ width: 400, height: 400 }}
+                className="filter drop-shadow-lg"
+              />
+            ) : (
+              <div className="w-[400px] h-[400px] animate-pulse bg-white/10 rounded-lg filter drop-shadow-lg" />
+            )}
           </motion.div>
         </div>
         

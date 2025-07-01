@@ -197,28 +197,40 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
   const { direction } = useContext(DirectionContext)!
   const [contentHeight, setContentHeight] = React.useState<number | 'auto'>('auto')
   const [arrowPosition, setArrowPosition] = React.useState<number>(0)
+  const [dropdownWidth, setDropdownWidth] = React.useState<number>(0)
   
   React.useEffect(() => {
     if (currentTab !== null) {
-      // Calculate arrow position based on active tab
-      const container = document.querySelector('[data-dropdown-container]')
-      const triggerWrapper = container?.querySelector('div') as HTMLElement // The TriggerWrapper div
-      const activeButton = triggerWrapper?.children[currentTab - 1] as HTMLElement
-      const dropdown = document.querySelector('#dropdown-content') as HTMLElement
-      
-      if (activeButton && dropdown) {
-        const dropdownRect = dropdown.getBoundingClientRect()
-        const buttonRect = activeButton.getBoundingClientRect()
+      // Use requestAnimationFrame to ensure DOM has updated
+      requestAnimationFrame(() => {
+        const container = document.querySelector('[data-dropdown-container]')
+        const triggerWrapper = container?.querySelector('div') as HTMLElement // The TriggerWrapper div
+        const activeButton = triggerWrapper?.children[currentTab - 1] as HTMLElement
+        const dropdown = document.querySelector('#dropdown-content') as HTMLElement
         
-        // Calculate button center relative to dropdown's left edge
-        const buttonCenter = buttonRect.left + buttonRect.width / 2
-        const dropdownLeft = dropdownRect.left
-        const relativePosition = buttonCenter - dropdownLeft
-        
-        setArrowPosition(relativePosition)
-      }
+        if (activeButton && dropdown && triggerWrapper) {
+          // Get the dropdown content width (not the animated container)
+          const dropdownContent = dropdown.querySelector('.rounded-lg') as HTMLElement
+          const dropdownContentRect = dropdownContent?.getBoundingClientRect()
+          const triggerWrapperRect = triggerWrapper.getBoundingClientRect()
+          const buttonRect = activeButton.getBoundingClientRect()
+          
+          if (dropdownContentRect) {
+            // Calculate button center relative to trigger wrapper center
+            const buttonCenter = buttonRect.left + buttonRect.width / 2
+            const triggerWrapperCenter = triggerWrapperRect.left + triggerWrapperRect.width / 2
+            
+            // Calculate arrow position relative to dropdown content center
+            const dropdownContentWidth = dropdownContentRect.width
+            const relativePosition = (buttonCenter - triggerWrapperCenter) + (dropdownContentWidth / 2)
+            
+            setArrowPosition(relativePosition)
+            setDropdownWidth(dropdownContentWidth)
+          }
+        }
+      })
     }
-  }, [currentTab])
+  }, [currentTab, contentHeight])
   
   return (
     <>
@@ -232,15 +244,24 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
           currentTab
             ? {
                 opacity: 1,
-                scale: 1
+                scale: 1,
+                x: dropdownWidth ? -dropdownWidth / 2 : 0
               }
-            : { opacity: 0, scale: 0.98 }
+            : { 
+                opacity: 0, 
+                scale: 0.98,
+                x: dropdownWidth ? -dropdownWidth / 2 : 0
+              }
         }
         transition={{
           duration: 0.3,
-          ease: [0.16, 1, 0.3, 1]
+          ease: [0.16, 1, 0.3, 1],
+          x: {
+            duration: 0.25,
+            ease: "easeInOut"
+          }
         }}
-        className="absolute left-1/2 -translate-x-1/2 top-[calc(100%_+_6px)] w-auto z-50 max-w-[95vw] lg:max-w-none">
+        className="absolute left-1/2 top-[calc(100%_+_6px)] w-auto z-50 max-w-[95vw] lg:max-w-none">
         <div className="absolute -top-[6px] left-0 right-0 h-[6px]" />
         
         {/* Container for dropdown and portrait */}
