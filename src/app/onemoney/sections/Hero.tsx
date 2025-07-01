@@ -54,7 +54,7 @@ export function Hero() {
 
   useEffect(() => {
     let timerId: NodeJS.Timeout; // For cleanup
-    fetch('/header-animation.json')
+    fetch('/OneMoney-Hero.json')
       .then(response => response.json())
       .then(data => {
         setAnimationData(data);

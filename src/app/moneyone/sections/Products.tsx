@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image"; // Added for card headers
+import Link from "next/link"; // Added for navigation
 import { GridBackground } from "@/app/onemoney/components/ui/grid-background";
 import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid"; // Added for product cards
 import { motion } from "framer-motion";
@@ -19,7 +20,8 @@ import {
   // ShieldCheck is already imported
   LineChart, 
   ReceiptIndianRupee, 
-  Briefcase 
+  Briefcase,
+  ArrowRight 
 } from "lucide-react"; // Added new specific icons
 import { AnimatedCounter } from "@/app/onemoney/components/ui/animated-counter"; // Added import
 
@@ -78,6 +80,12 @@ const productsData = [
       <>
         Efficiently integrate and request financial data through the account aggregator ecosystem and other consent based sharing under DPDP Act 2023
         {finProFeaturePills}
+        <div className="mt-6">
+          <span className="w-full flex items-center justify-center rounded-full bg-background/30 backdrop-blur-md border border-[#00b140]/20 dark:border-neutral-700 px-4 py-3 text-md font-semibold text-[#00b140] group-hover/bento:bg-[#00b140] group-hover/bento:text-white transition-colors duration-300 cursor-pointer">
+            Learn More About FinPro
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover/bento:translate-x-1" />
+          </span>
+        </div>
       </>
     ),
     header: (
@@ -107,6 +115,12 @@ const productsData = [
       <>
         A specialised solution for FIPs to manage, secure, and share consent-based financial data while tracking consent and ensuring highest levels of data governance
         {finShareFeaturePills}
+        <div className="mt-6">
+          <span className="w-full flex items-center justify-center rounded-full bg-background/30 backdrop-blur-md border border-[#00b140]/20 dark:border-neutral-700 px-4 py-3 text-md font-semibold text-[#00b140] group-hover/bento:bg-[#00b140] group-hover/bento:text-white transition-colors duration-300 cursor-pointer">
+            Learn More About FinShare
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover/bento:translate-x-1" />
+          </span>
+        </div>
       </>
     ),
     header: (
@@ -173,14 +187,28 @@ export function Products() {
         {/* Product Cards Section */}
         <BentoGrid className="mx-auto md:grid-cols-2"> {/* Using md:grid-cols-2 for two cards side-by-side */}
           {productsData.map((item) => (
-            <BentoGridItem
-              key={item.id}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              icon={item.icon}
-              className={item.className}
-            />
+            item.id === 1 ? (
+              // FinPro card - make entire card clickable
+              <Link key={item.id} href="/moneyone/products/finpro" className="block">
+                <BentoGridItem
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  icon={item.icon}
+                  className={`${item.className} cursor-pointer hover:scale-[1.02] transition-transform duration-200`}
+                />
+              </Link>
+            ) : (
+              // Other cards - normal behavior
+              <BentoGridItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                icon={item.icon}
+                className={item.className}
+              />
+            )
           ))}
         </BentoGrid>
 

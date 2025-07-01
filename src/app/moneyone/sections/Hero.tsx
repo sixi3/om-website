@@ -30,7 +30,7 @@ export function Hero() {
   useEffect(() => {
     let timerId: NodeJS.Timeout;
     // Using the same animation for now, can be replaced with MoneyOne specific animation
-    fetch('/header-animation.json')
+    fetch('/MoneyOne-Hero.json')
       .then(response => response.json())
       .then(data => {
         setAnimationData(data);

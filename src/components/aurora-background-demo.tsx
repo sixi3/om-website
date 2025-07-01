@@ -6,7 +6,8 @@ import { AuroraBackground } from "@/components/ui/aurora-background";
 import { GlowingButton } from "@/app/onemoney/components/ui/glowing-button";
 import Link from 'next/link';
 
-const metallicBlackTextClasses = "font-bold  bg-gradient-to-b from-[#00b140] to-[#087C32] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+const metallicGreenTextClasses = "font-bold  bg-gradient-to-b from-[#00b140] to-[#087C32] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 const productData = {
   default: {
@@ -57,7 +58,7 @@ export default function AuroraBackgroundDemo() {
                     duration: 0.4,
                     ease: [0.4, 0.0, 0.2, 1]
                   }}
-                  className={`text-4xl md:text-6xl lg:text-[200px] font-bold dark:text-white text-center ${metallicBlackTextClasses}`}
+                  className={`text-4xl md:text-6xl lg:text-[200px] font-bold dark:text-white text-center ${metallicGreenTextClasses}`}
                 >
                   {currentContent.title}
                 </motion.h1>
@@ -90,7 +91,7 @@ export default function AuroraBackgroundDemo() {
                     ease: [0.4, 0.0, 0.2, 1],
                     delay: 0.1
                   }}
-                  className="font-extralight text-lg md:text-5xl dark:text-neutral-200 text-gray-700 py-4 max-w-6xl text-center"
+                  className={`text-2xl md:text-4xl lg:text-5xl dark:text-neutral-200 text-gray-700 py-4 max-w-7xl text-center ${metallicBlackTextClasses}`}
                 >
                   {currentContent.description}
                 </motion.p>
@@ -132,7 +133,7 @@ export default function AuroraBackgroundDemo() {
         >
           <Link href="/onemoney" passHref>
             <motion.button 
-              className="relative w-full bg-gradient-to-r from-[#00b140] to-[#087C32] text-white font-bold py-8 px-6 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-400 text-2xl md:text-3xl rounded-none md:rounded-none overflow-hidden group"
+              className="relative w-full bg-gradient-to-r from-[#00b140] to-[#087C32] text-white font-bold py-8 px-6 text-2xl md:text-3xl rounded-none md:rounded-none overflow-hidden group"
               onMouseEnter={() => setHoveredProduct('onemoney')}
               onMouseLeave={() => setHoveredProduct(null)}
             >
@@ -142,7 +143,7 @@ export default function AuroraBackgroundDemo() {
           </Link>
           <Link href="/moneyone" passHref>
             <motion.button 
-              className="relative w-full bg-gradient-to-r from-[#087C32] to-[#00b140] text-white font-bold py-8 px-6 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-orange-400 text-2xl md:text-3xl rounded-none md:rounded-none overflow-hidden group"
+              className="relative w-full bg-gradient-to-r from-[#087C32] to-[#00b140] text-white font-bold py-8 px-6 text-2xl md:text-3xl rounded-none md:rounded-none overflow-hidden group"
               onMouseEnter={() => setHoveredProduct('moneyone')}
               onMouseLeave={() => setHoveredProduct(null)}
             >
@@ -152,7 +153,7 @@ export default function AuroraBackgroundDemo() {
           </Link>
           <Link href="/equal" passHref>
             <motion.button 
-              className="relative w-full bg-gradient-to-r from-[#00b140] to-[#087C32] text-white font-bold py-8 px-6 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-pink-400 text-2xl md:text-3xl rounded-none md:rounded-none overflow-hidden group"
+              className="relative w-full bg-gradient-to-r from-[#00b140] to-[#087C32] text-white font-bold py-8 px-6 text-2xl md:text-3xl rounded-none md:rounded-none overflow-hidden group"
               onMouseEnter={() => setHoveredProduct('equal')}
               onMouseLeave={() => setHoveredProduct(null)}
             >

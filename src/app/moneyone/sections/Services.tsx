@@ -1,50 +1,73 @@
 'use client';
 import React from "react";
-import { BentoGrid } from "@/app/onemoney/components/ui/bento-grid"; 
-import { ServiceBentoCard } from "../components/ui/ServiceBentoCard";
-import { Eye, Lightbulb, ShieldCheck, Zap } from "lucide-react"; 
+import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid"; 
+import { Network, Lightbulb, Shield, Webhook } from "lucide-react"; 
 import { motion } from "framer-motion";
 
 // Consistent styling for highlighted text in titles
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
-const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold rounded-md";
+const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
 
 const servicesData = [
   {
-    id: "Advanced Analytics",
-    title: "Advanced Analytics",
-    description: "Access detailed analytics and insights on Mutual Funds, Stocks, FDs, GST, Bank Statements, and more",
-    icon: <Eye size={36} strokeWidth={2} />,
-    className: "md:col-span-2",
-    imageSrc: "/analytics.png",
-    imageAlt: "Financial analytics dashboard visualization"
-  },
-  {
-    id: "Routing",
+    id: "Smart-Routing",
     title: "Smart AA Routing",
-    description: "Our Smart AA Router dynamically switches between AAs to optimise traffic distribution and maximise success rates",
-    icon: <Lightbulb size={32} strokeWidth={2} />,
-    className: "md:col-span-1",
-    imageSrc: "/routing.png",
-    imageAlt: "Smart routing visualization"
+    description: "Our Smart AA Router dynamically switches between AAs to optimise traffic distribution and maximise success rates across multiple aggregators",
+    icon: (
+      <div className="p-3 rounded-xl bg-[#00b140] text-white inline-block mb-2">
+        <Network className="w-6 h-6" />
+      </div>
+    ),
+    colSpan: 2,
+    image: {
+      src: "/AI Intelligence.png",
+      alt: "Smart routing network visualization"
+    }
   },
   {
-    id: "UI",
-    title: "Customisable UI",
-    description: "Create your perfect user experience using our Plug-n-Play UI or use our UI flows built by our design experts",
-    icon: <ShieldCheck size={32} strokeWidth={2} />,
-    className: "md:col-span-1",
-    imageSrc: "/UI.png",
-    imageAlt: "UI customization illustration"
+    id: "Integration",
+    title: "API Integration",
+    description: "Seamless integration with 120+ FIPs through standardized APIs, enabling quick deployment and scalable data access",
+    icon: (
+      <div className="p-3 rounded-xl bg-[#00b140] text-white inline-block mb-2">
+        <Lightbulb className="w-6 h-6" />
+      </div>
+    ),
+    colSpan: 1,
+    image: {
+      src: "/API Integration.png",
+      alt: "API integration illustration"
+    }
   },
   {
-    id: "insights",
-    title: "Nudges and Insights",
-    description: "MoneyOne's TSP Analytics helps FIUs send personalised push notifications based on customer income and expense patterns",
-    icon: <Zap size={32} strokeWidth={2} />,
-    className: "md:col-span-2",
-    imageSrc: "/Nudges.png",
-    imageAlt: "AI-driven insights and notifications visualization"
+    id: "Security",
+    title: "Enterprise Security",
+    description: "Bank-grade security with end-to-end encryption, compliance monitoring, and audit trails for complete data protection",
+    icon: (
+      <div className="p-3 rounded-xl bg-[#00b140] text-white inline-block mb-2">
+        <Shield className="w-6 h-6" />
+      </div>
+    ),
+    colSpan: 1,
+    image: {
+      src: "/END-END.png",
+      alt: "Security and compliance visualization"
+    }
+  },
+  {
+    id: "Webhooks",
+    title: "Real-time Webhooks",
+    description: "Instant notifications and data updates through reliable webhook infrastructure, ensuring your systems stay synchronized",
+    icon: (
+      <div className="p-3 rounded-xl bg-[#00b140] text-white inline-block mb-2">
+        <Webhook className="w-6 h-6" />
+      </div>
+    ),
+    colSpan: 2,
+    image: {
+      src: "/Webhook Support.png",
+      alt: "Webhook and real-time data flow visualization"
+    }
   },
 ];
 
@@ -72,14 +95,15 @@ export function Services() {
 
         <BentoGrid className="gap-4"> 
           {servicesData.map((item) => (
-            <ServiceBentoCard
+            <BentoGridItem
               key={item.id}
-              title={item.title}
-              description={item.description}
+              className="shadow-sm"
+              title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{item.title}</span>}
+              description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{item.description}</span>}
               icon={item.icon}
-              className={item.className}
-              imageSrc={item.imageSrc}
-              imageAlt={item.imageAlt}
+              colSpan={item.colSpan as 1 | 2 | 3}
+              image={item.image}
+              imageSize="w-40 h-40 -top-10 -right-10 md:w-40 md:h-40 md:-top-10 md:-right-10 lg:w-48 lg:h-48 lg:-top-15 lg:-right-10 xl:w-48 xl:h-48 xl:-top-17 xl:-right-10 2xl:w-48 2xl:h-48 2xl:-top-15 2xl:-right-10"
             />
           ))}
         </BentoGrid>

@@ -11,9 +11,9 @@ export default function MoneyOnePage() {
     <>
       <Hero />
       <WhatIsMoneyOne />
+      <Services />
       <Products />
       <Solutions />
-      <Services />
       <ContactUs />
     </>
   );

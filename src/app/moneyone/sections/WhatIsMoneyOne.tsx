@@ -2,9 +2,8 @@
 
 import React, { useState } from "react";
 import { GridBackground } from "@/app/onemoney/components/ui/grid-background";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { InteractiveShowcase } from '../components/InteractiveShowcase';
-import { SmartRoutingShowcase } from '../components/SmartRoutingShowcase';
 import { CustomisableUIShowcase } from '../components/CustomisableUIShowcase';
 import { NudgesInsightsShowcase } from '../components/NudgesInsightsShowcase';
 import Marquee from 'react-fast-marquee';
@@ -14,7 +13,6 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 
 const tabsData = [
   { id: 'analytics', title: 'Analytics' },
-  { id: 'smart-routing', title: 'Smart Routing' },
   { id: 'customisable-ui', title: 'Customisable UI' },
   { id: 'nudges-insights', title: 'Nudges/Insights' },
 ];
@@ -40,7 +38,7 @@ const moneyOneFeaturesPillTexts = [
 
 export function WhatIsMoneyOne() {
   const [hasBeenInView, setHasBeenInView] = useState(false);
-  const [activeTab, setActiveTab] = useState(tabsData[0].id);
+  const [activeTab, setActiveTab] = useState(0);
 
   return (
     <motion.section 
@@ -69,40 +67,48 @@ export function WhatIsMoneyOne() {
         </div>
 
         {/* Tab Buttons Container */}
-        <div className="flex justify-center mb-8">
-          <div 
-            className="flex overflow-x-auto py-2 space-x-2 sm:space-x-2 sm:dark:bg-slate-700 sm:p-2 sm:rounded-lg sm:bg-[#F6F6F7] sm:backdrop-blur-md [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-          >
-            {tabsData.map((tab) => (
-              <button
+        <div className="flex items-center justify-center pt-2 px-4 mb-8">
+          <div className="flex items-center gap-2 p-2 rounded-full border border-[#baff29]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm">
+            {tabsData.map((tab, index) => (
+              <div
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 text-sm sm:text-base font-medium rounded-md transition-colors duration-200 ease-in-out focus:outline-none whitespace-nowrap 
-                  ${activeTab === tab.id 
-                    ? "bg-white border border-slate-200 dark:border-slate-700 dark:bg-slate-800 text-slate-700 dark:text-sky-400 shadow-md" 
-                    : "text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 hover:bg-slate-100/50 dark:hover:bg-slate-700/50 sm:border-transparent sm:hover:bg-slate-100 sm:dark:hover:bg-slate-600"
-                  }
-                `}
+                onClick={() => setActiveTab(index)}
+                className={`relative px-4 py-2 text-sm font-medium rounded-full cursor-pointer transition-colors duration-300 ${
+                  activeTab === index
+                    ? "text-white"
+                    : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
+                }`}
               >
-                {tab.title}
-              </button>
+                {activeTab === index && (
+                  <motion.div
+                    layoutId="active-moneyone-tab"
+                    className="absolute inset-0 bg-[#00b140] rounded-full z-0"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{tab.title}</span>
+              </div>
             ))}
           </div>
         </div>
 
         {/* Tab Content Area */}
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="w-full"
-        >
-          {activeTab === 'analytics' && <InteractiveShowcase />}
-          {activeTab === 'smart-routing' && <SmartRoutingShowcase />}
-          {activeTab === 'customisable-ui' && <CustomisableUIShowcase />}
-          {activeTab === 'nudges-insights' && <NudgesInsightsShowcase />}
-        </motion.div>
+        <div className="w-full">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="w-full"
+            >
+              {activeTab === 0 && <InteractiveShowcase />}
+              {activeTab === 1 && <CustomisableUIShowcase />}
+              {activeTab === 2 && <NudgesInsightsShowcase />}
+            </motion.div>
+          </AnimatePresence>
+        </div>
             
       </div>
 
