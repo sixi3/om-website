@@ -549,7 +549,7 @@ export default function AuroraBackgroundDemo() {
             >
               {/* Landing Asset 1 - Top Right */}
               <motion.div
-                className="absolute -top-16 -right-16 w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64"
+                className="absolute -top-12 -right-20 xl:-top-16 xl:-right-16 w-32 h-32 md:w-48 md:h-48 xl:w-64 xl:h-64"
                 initial={{ opacity: 0, scale: 0.8, rotate: 15 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ delay: 1.2, duration: 0.8 }}
@@ -565,7 +565,7 @@ export default function AuroraBackgroundDemo() {
 
               {/* Landing Asset 2 - Top Left */}
               <motion.div
-                className="absolute -top-16 -left-16 w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64"
+                className="absolute -top-12 -left-20 xl:-top-16 xl:-left-16 w-32 h-32 md:w-48 md:h-48 xl:w-64 xl:h-64"
                 initial={{ opacity: 0, scale: 0.8, rotate: -15 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ delay: 1.3, duration: 0.8 }}
