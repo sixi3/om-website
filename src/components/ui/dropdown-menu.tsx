@@ -152,10 +152,10 @@ export const TriggerWrapper: React.FC<{ children: React.ReactNode }> = ({ childr
           aria-expanded={currentTab === i + 1}
           aria-controls={`dropdown-content-${i}`}
           role="menuitem"
-          className={`flex h-10 md:h-12 items-center gap-0.5 rounded-md px-3 md:px-4 py-2 text-base md:text-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2 min-h-[44px] min-w-[44px] ${
+          className={`flex h-10 md:h-12 items-center gap-1 rounded-lg px-3 md:px-4 py-1 text-base font-medium tracking-widest transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2 min-h-[44px] min-w-[44px] ${
             currentTab === i + 1 
-              ? 'bg-white/90 backdrop-blur-md text-slate-700 [&>svg]:rotate-180' 
-              : 'text-slate-700 hover:bg-white/80 backdrop-blur-md'
+              ? 'bg-background/50 backdrop-blur-md text-[#00b140] border border-slate-200 [&>svg]:rotate-180 hover:shadow-lg' 
+              : 'text-slate-500 backdrop-blur-md'
           }`}>
           {e}
         </button>
@@ -261,8 +261,8 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
             ease: "easeInOut"
           }
         }}
-        className="absolute left-1/2 top-[calc(100%_+_6px)] w-auto z-50 max-w-[95vw] lg:max-w-none">
-        <div className="absolute -top-[6px] left-0 right-0 h-[6px]" />
+        className="absolute left-1/2 top-[calc(100%_+_12px)] w-auto z-50 max-w-[95vw] lg:max-w-none">
+        <div className="absolute -top-[12px] left-0 right-0 h-[12px]" />
         
         {/* Container for dropdown and portrait */}
         <div className="flex items-start gap-2">

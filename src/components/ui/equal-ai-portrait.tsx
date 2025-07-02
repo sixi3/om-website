@@ -14,7 +14,7 @@ const Lottie = dynamic(() => import('lottie-react'), {
   loading: () => <div className="w-[400px] h-[400px] animate-pulse bg-white/10 rounded-lg" />
 });
 
-const metallicBlackTextClasses = "font-semibold drop-shadow-lg bg-gradient-to-b from-white to-[#baff29] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+const metallicBlackTextClasses = "font-semibold drop-shadow-lg bg-gradient-to-b from-white to-[#f6f6f6] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 interface EqualAIPortraitProps {
   isVisible: boolean;
