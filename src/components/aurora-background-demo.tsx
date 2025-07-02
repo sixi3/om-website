@@ -13,7 +13,7 @@ import { SolutionsDropdownContent } from "@/components/ui/solutions-dropdown-con
 import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
 
 const metallicGreenTextClasses = "font-bold  bg-gradient-to-b from-[#00b140] to-[#087C32] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
-const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-slate-900 to-slate-600 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 // --- Data for Bento Grids ---
 
@@ -172,39 +172,58 @@ const equalBentoData: BentoItem[] = [
 ];
 
 
-// Combined stats from all products
-const combinedStats = [
-  // OneMoney stats
-  { id: "fip", value: 1, label: "FIP Coverage in India", prefix: "#", suffix: "", product: "OneMoney" },
-  { id: "data", value: 79.9, label: "Data Packets Delivered", prefix: "", suffix: "M", fixedDecimals: 1, product: "OneMoney" },
-  
-  // MoneyOne stats  
-  { id: "fips", value: 120, label: "FIPs use MoneyOne", prefix: "", suffix: "+", product: "MoneyOne" },
-  { id: "transfers", value: 160, label: "Data transfers complete", prefix: "", suffix: "M", product: "MoneyOne" },
-  
-  // Equal stats
-  { id: "uptime", value: 99, label: "Uptime", prefix: "", suffix: "%", product: "Equal" },
-  { id: "users", value: 10, label: "Indians Using Equal", prefix: "", suffix: "L+", product: "Equal" },
-  { id: "companies", value: 50, label: "Top companies using Equal", prefix: "", suffix: "+", product: "Equal" },
-  { id: "checks", value: 30, label: "Checks in Production", prefix: "", suffix: "+", product: "Equal" },
+// Client logos data
+const clientLogos = [
+  "Frame 5.png",
+  "Frame 6.png", 
+  "Frame 7.png",
+  "Frame 8.png",
+  "Frame 9.png",
+  "Frame 10.png",
+  "Frame 11.png",
+  "Frame 12.png",
+  "Frame 13.png",
+  "Frame 14.png",
+  "Frame 15.png",
+  "Frame 16.png",
+  "Frame 17.png",
+  "Frame 18.png",
+  "Frame 19.png",
+  "Frame 20.png"
 ];
 
 const productData = {
   default: {
     title: "OneEqual",
-    description: "India's Most Advanced Data Sharing Platform"
+    description: (
+      <>
+        India's <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Most Advanced</span> Data Sharing Platform
+      </>
+    )
   },
   onemoney: {
     title: "OneMoney",
-    description: "India's First & Largest Account Aggregator"
+    description: (
+      <>
+        India's <span className="inline-block bg-[#baff29] px-2 text-black font-bold">First & Largest</span> Account Aggregator
+      </>
+    )
   },
   moneyone: {
     title: "MoneyOne",
-    description: "Take Control Over Your Financial Data"
+    description: (
+      <>
+        <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Take Control</span> Over Your Financial Data
+      </>
+    )
   },
   equal: {
     title: "Equal",
-    description: "Smart Identity Verification and Onboarding"
+    description: (
+      <>
+        <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Smart Identity</span> Verification and Onboarding
+      </>
+    )
   }
 };
 
@@ -220,7 +239,7 @@ const OneMoneyBentoGrid = () => (
             title={
               <div className="flex items-center ">
                 <span className="group-hover:text-[#00b140] transition-colors duration-200 text-xl font-semibold">{item.title}</span>
-                <ArrowRight className="h-4 w-4 ml-2 text-[#00b140] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <ArrowRight className="h-4 w-4 ml-2 text-black group-hover:text-[#00b140] transition-all duration-200 group-hover:translate-x-1" />
               </div>
             }
             className="shadow-md h-full group-hover:shadow-lg group-hover:scale-[1.02] transition-transform duration-200"
@@ -241,7 +260,7 @@ const OneMoneyBentoGrid = () => (
             title={
               <div className="flex items-center">
                 <span className="group-hover:text-[#00b140] transition-colors duration-200 text-xl font-semibold">{item.title}</span>
-                <ArrowRight className="h-4 w-4 ml-2 text-[#00b140] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <ArrowRight className="h-4 w-4 ml-2 text-black group-hover:text-[#00b140] transition-all duration-200 group-hover:translate-x-1" />
               </div>
             }
             className="shadow-md h-full group-hover:shadow-lg group-hover:scale-[1.02] transition-transform duration-200"
@@ -265,7 +284,7 @@ const MoneyOneBentoGrid = () => (
             title={
               <div className="flex items-center">
                 <span className="group-hover:text-[#00b140] transition-colors duration-200 text-xl font-semibold">{item.title}</span>
-                <ArrowRight className="h-4 w-4 ml-2 text-[#00b140] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <ArrowRight className="h-4 w-4 ml-2 text-black group-hover:text-[#00b140] transition-all duration-200 group-hover:translate-x-1" />
               </div>
             }
             colSpan={1}
@@ -285,7 +304,7 @@ const MoneyOneBentoGrid = () => (
             title={
               <div className="flex items-center">
                 <span className="group-hover:text-[#00b140] transition-colors duration-200 text-xl font-semibold">{item.title}</span>
-                <ArrowRight className="h-4 w-4 ml-2 text-[#00b140] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <ArrowRight className="h-4 w-4 ml-2 text-black group-hover:text-[#00b140] transition-all duration-200 group-hover:translate-x-1" />
               </div>
             }
             colSpan={1}
@@ -312,9 +331,7 @@ const EqualBentoGrid = () => (
             title={
               <div className="flex items-center">
                 <span className="group-hover:text-[#00b140] transition-colors duration-200 text-xl font-semibold">{item.title}</span>
-                <div className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-out">
-                  <ArrowRight className="ml-2 w-4 h-4 text-[#00b140]" />
-                </div>
+                <ArrowRight className="ml-2 w-4 h-4 text-black group-hover:text-[#00b140] transition-all duration-200 group-hover:translate-x-1" />
               </div>
             }
             className="shadow-md h-full group-hover:shadow-lg group-hover:scale-[1.02] transition-transform duration-200"
@@ -335,7 +352,7 @@ const EqualBentoGrid = () => (
             title={
               <div className="flex items-center">
                 <span className="group-hover:text-[#00b140] transition-colors duration-200 text-xl font-semibold">{item.title}</span>
-                <ArrowRight className="h-4 w-4 ml-2 text-[#00b140] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <ArrowRight className="h-4 w-4 ml-2 text-black group-hover:text-[#00b140] transition-all duration-200 group-hover:translate-x-1" />
               </div>
             }
             className="shadow-md h-full group-hover:shadow-lg group-hover:scale-[1.02] transition-transform duration-200"
@@ -349,29 +366,39 @@ const EqualBentoGrid = () => (
   </div>
 );
 
-const StatsGrid = () => (
-  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mt-12">
-    {combinedStats.map((stat) => (
-      <div key={stat.id} className="flex flex-col items-center text-center p-2 md:p-4">
-        <div className="text-2xl md:text-3xl lg:text-6xl mb-1 md:mb-2">
-          <span className={metallicGreenTextClasses}>{stat.prefix}</span>
-          {stat.id === 'fip' ? (
-            <span className={metallicGreenTextClasses}>1</span>
-          ) : (
-            <AnimatedCounter 
-              value={stat.value} 
-              fixedDecimals={(stat as any).fixedDecimals}
-              className={metallicGreenTextClasses}
-              duration={2.5} 
-            />
-          )}
-          <span className={metallicGreenTextClasses}>{stat.suffix}</span>
-        </div>
-        <p className="text-xs md:text-sm lg:text-base font-semibold text-slate-600 dark:text-slate-300">
-          {stat.label}
-        </p>
-      </div>
-    ))}
+const ClientLogosGrid = () => (
+  <div className="mt-2">
+    <motion.h2
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`text-center font-medium text-lg tracking-widest md:text-xl mb-12 ${metallicBlackTextClasses}`}
+    >
+      TRUSTED BY INDUSTRY LEADERS
+    </motion.h2>
+    <div className="grid grid-cols-4 gap-2 md:gap-3 lg:gap-4">
+      {clientLogos.map((logo, index) => (
+        <motion.div
+          key={logo}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ 
+            delay: 0.3 + index * 0.05,
+            duration: 0.4,
+            ease: "easeOut"
+          }}
+          className="relative w-full h-12 hover:scale-105 transition-transform duration-300 mb-6"
+        >
+          <Image
+            src={`/client-logos/${logo}`}
+            alt={`Client logo ${index + 1}`}
+            fill
+            className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+            sizes="(max-width: 768px) 25vw, (max-width: 1024px) 20vw, 15vw"
+          />
+        </motion.div>
+      ))}
+    </div>
   </div>
 );
 
@@ -399,7 +426,7 @@ export default function AuroraBackgroundDemo() {
       case 'equal':
         return <EqualBentoGrid />;
       default:
-        return <StatsGrid />;
+        return <ClientLogosGrid />;
     }
   };
 
@@ -481,7 +508,7 @@ export default function AuroraBackgroundDemo() {
             <div className="h-16 md:h-20 lg:h-24 flex items-center justify-center">
               <AnimatePresence mode="wait">
                 <motion.p
-                  key={currentContent.description}
+                  key={currentContent.title + '-description'}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
@@ -587,7 +614,16 @@ export default function AuroraBackgroundDemo() {
                 onMouseEnter={() => { setHoveredProduct('onemoney'); setHoveredFooterButton('onemoney'); }}
               >
                 <div className={`absolute inset-0 bg-gradient-to-r from-[#baff29] to-[#98E100] transform transition-transform duration-200 ease-out ${hoveredFooterButton === 'onemoney' ? 'translate-y-0' : 'translate-y-full'}`}></div>
-                <span className={`relative z-10 transition-colors duration-200 ${hoveredFooterButton === 'onemoney' ? 'text-black' : ''}`}>OneMoney</span>
+                <div className="relative z-10 flex items-center justify-center">
+                  <span className={`transition-colors duration-200 ${hoveredFooterButton === 'onemoney' ? 'text-black' : ''}`}>OneMoney</span>
+                  <ArrowRight 
+                    className={`ml-2 mt-1 w-6 h-6 transition-all duration-200 ${
+                      hoveredFooterButton === 'onemoney' 
+                        ? 'translate-x-1 text-black' 
+                        : 'translate-x-0 text-white'
+                    }`} 
+                  />
+                </div>
               </motion.button>
             </Link>
             <Link href="/moneyone" passHref>
@@ -596,7 +632,16 @@ export default function AuroraBackgroundDemo() {
                 onMouseEnter={() => { setHoveredProduct('moneyone'); setHoveredFooterButton('moneyone'); }}
               >
                 <div className={`absolute inset-0 bg-gradient-to-r from-[#baff29] to-[#98E100] transform transition-transform duration-200 ease-out ${hoveredFooterButton === 'moneyone' ? 'translate-y-0' : 'translate-y-full'}`}></div>
-                <span className={`relative z-10 transition-colors duration-200 ${hoveredFooterButton === 'moneyone' ? 'text-black' : ''}`}>Moneyone</span>
+                <div className="relative z-10 flex items-center justify-center">
+                  <span className={`transition-colors duration-200 ${hoveredFooterButton === 'moneyone' ? 'text-black' : ''}`}>Moneyone</span>
+                  <ArrowRight 
+                    className={`ml-2 w-6 h-6 transition-all duration-200 ${
+                      hoveredFooterButton === 'moneyone' 
+                        ? 'translate-x-1 text-black' 
+                        : 'translate-x-0 text-white'
+                    }`} 
+                  />
+                </div>
               </motion.button>
             </Link>
             <Link href="/equal" passHref>
@@ -605,7 +650,16 @@ export default function AuroraBackgroundDemo() {
                 onMouseEnter={() => { setHoveredProduct('equal'); setHoveredFooterButton('equal'); }}
               >
                 <div className={`absolute inset-0 bg-gradient-to-r from-[#baff29] to-[#98E100] transform transition-transform duration-200 ease-out ${hoveredFooterButton === 'equal' ? 'translate-y-0' : 'translate-y-full'}`}></div>
-                <span className={`relative z-10 transition-colors duration-200 ${hoveredFooterButton === 'equal' ? 'text-black' : ''}`}>Equal</span>
+                <div className="relative z-10 flex items-center justify-center">
+                  <span className={`transition-colors duration-200 ${hoveredFooterButton === 'equal' ? 'text-black' : ''}`}>Equal</span>
+                  <ArrowRight 
+                    className={`ml-2 w-6 h-6 transition-all duration-200 ${
+                      hoveredFooterButton === 'equal' 
+                        ? 'translate-x-1 text-black' 
+                        : 'translate-x-0 text-white'
+                    }`} 
+                  />
+                </div>
               </motion.button>
             </Link>
           </motion.div>
