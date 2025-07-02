@@ -12,7 +12,7 @@ import { ProductDropdownContent } from "@/components/ui/product-dropdown-content
 import { SolutionsDropdownContent } from "@/components/ui/solutions-dropdown-content";
 import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
 
-const metallicGreenTextClasses = "font-bold  bg-gradient-to-b from-[#00b140] to-[#087C32] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+const metallicGreenTextClasses = "font-bold  bg-gradient-to-b from-[#86C600] to-[#006534] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-slate-900 to-slate-600 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 // --- Data for Bento Grids ---
@@ -484,7 +484,7 @@ export default function AuroraBackgroundDemo() {
                     duration: 0.4,
                     ease: [0.4, 0.0, 0.2, 1]
                   }}
-                  className={`text-4xl md:text-6xl lg:text-[120px] font-bold dark:text-white text-center ${metallicGreenTextClasses}`}
+                  className={`text-4xl md:text-6xl lg:text-[120px] font-bold dark:text-white text-center drop-shadow-xl ${metallicGreenTextClasses}`}
                 >
                   {currentContent.title}
                 </motion.h1>
