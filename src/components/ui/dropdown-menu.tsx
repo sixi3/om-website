@@ -244,6 +244,8 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
 
   React.useEffect(() => {
     if (currentTab !== null) {
+      // Reset content height when tab changes to ensure fresh calculation
+      setContentHeight('auto')
       calculatePositioning()
     }
     
@@ -252,7 +254,7 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
         clearTimeout(positioningTimeoutRef.current)
       }
     }
-  }, [currentTab, contentHeight, calculatePositioning])
+  }, [currentTab, calculatePositioning])
 
   // Delay EqualAI portrait loading
   React.useEffect(() => {
@@ -344,7 +346,7 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
                 duration: 0.25,
                 ease: [0.4, 0.0, 0.2, 1]
               }}
-              style={{ transform: 'translate3d(0,0,0)' }} // Force GPU acceleration
+              style={{ transform: 'translate3d(0,0,0)' }}
             >
               {React.Children.map(children, (e, i) => (
                 <div key={i}>
@@ -367,14 +369,48 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
                           }}
                           ref={(node) => {
                             if (node) {
-                              // Use requestAnimationFrame for accurate measurement
-                              requestAnimationFrame(() => {
+                              // Wait for images to load and content to stabilize
+                              const measureHeight = () => {
                                 const rect = node.getBoundingClientRect()
                                 const newHeight = Math.ceil(rect.height)
                                 if (newHeight > 0 && newHeight !== contentHeight) {
                                   setContentHeight(newHeight)
                                 }
-                              })
+                              }
+
+                              // Check if images are loaded
+                              const images = node.querySelectorAll('img')
+                              if (images.length === 0) {
+                                // No images, measure immediately
+                                requestAnimationFrame(() => {
+                                  requestAnimationFrame(measureHeight)
+                                })
+                              } else {
+                                // Wait for images to load
+                                let loadedImages = 0
+                                const totalImages = images.length
+
+                                const checkImageLoad = () => {
+                                  loadedImages++
+                                  if (loadedImages === totalImages) {
+                                    requestAnimationFrame(() => {
+                                      requestAnimationFrame(measureHeight)
+                                    })
+                                  }
+                                }
+
+                                images.forEach(img => {
+                                  if (img.complete) {
+                                    checkImageLoad()
+                                  } else {
+                                    img.addEventListener('load', checkImageLoad, { once: true })
+                                    img.addEventListener('error', checkImageLoad, { once: true })
+                                  }
+                                })
+
+                                // Fallback timeout in case images take too long
+                                setTimeout(measureHeight, 200)
+                              }
                             }
                           }}
                           style={{ transform: 'translate3d(0,0,0)' }} // Force GPU acceleration

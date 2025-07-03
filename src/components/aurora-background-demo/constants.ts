@@ -1,7 +1,7 @@
 import { AnimationConfig } from './types';
 
 // CSS Classes
-export const METALLIC_GREEN_TEXT_CLASSES = "font-bold bg-gradient-to-b from-[#86C600] to-[#006534] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+export const METALLIC_GREEN_TEXT_CLASSES = "font-bold drop-shadow-sm bg-gradient-to-br from-[#008000] to-[#00b140] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 export const METALLIC_BLACK_TEXT_CLASSES = "font-bold bg-gradient-to-b from-slate-900 to-slate-600 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 // Animation Configuration
@@ -22,8 +22,8 @@ export const CLIENT_LOGOS = [
   "Frame 5.png",
   "Frame 6.png", 
   "Frame 7.png",
-  "Frame 8.png",
   "Frame 9.png",
+  "Frame 8.png",
   "Frame 10.png",
   "Frame 11.png",
   "Frame 12.png",

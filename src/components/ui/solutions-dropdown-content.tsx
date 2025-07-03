@@ -150,7 +150,7 @@ const SolutionItem: React.FC<{ item: SolutionItem; index: number }> = ({ item, i
       <Link 
         href={item.href}
         role="menuitem"
-        className="flex items-start gap-4 p-3 rounded-lg hover:bg-[#00b140]/10 transition-colors duration-200 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"
+        className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"
       >
         <div className="flex-shrink-0 relative">
           <Image

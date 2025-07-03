@@ -6,12 +6,14 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 
 // Import the existing dropdown components
 import { DropdownMenu, TriggerWrapper, Trigger, TabsContainer, Tab } from "@/components/ui/dropdown-menu";
 import { ProductDropdownContent } from "@/components/ui/product-dropdown-content";
 import { SolutionsDropdownContent } from "@/components/ui/solutions-dropdown-content";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 interface MainHeaderProps {
   className?: string;
@@ -130,7 +132,7 @@ export function MainHeader({ className }: MainHeaderProps) {
     <div className={cn("fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:p-3 pointer-events-none will-change-transform", className)}>
       <header
         className={cn(
-          "pointer-events-auto rounded-lg border transition-all duration-300 ease-in-out will-change-transform",
+          "pointer-events-auto rounded-full border transition-all duration-300 ease-in-out will-change-transform",
           isScrolled
             ? "border-white/20 bg-background/40 backdrop-blur-md shadow-md"
             : "border-transparent bg-transparent shadow-none"
@@ -138,6 +140,20 @@ export function MainHeader({ className }: MainHeaderProps) {
         style={cssVars}
       >
         <div className="flex h-16 items-center px-2 sm:px-4">
+          {/* Left: Logo */}
+          <div className="flex items-center flex-shrink-0">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/equal-logo.svg"
+                alt="Equal Logo"
+                width={71}
+                height={21}
+                className="h-10 w-auto"
+                priority
+              />
+            </Link>
+          </div>
+
           {/* Center: Desktop Navigation with Dropdowns */}
           <nav className="hidden lg:flex items-center justify-center flex-1">
             <div className="flex items-center gap-2 md:gap-4">
@@ -178,15 +194,26 @@ export function MainHeader({ className }: MainHeaderProps) {
             </div>
           </nav>
           
-          {/* Right: Mobile Menu Toggle */}
-          <div className="flex items-center flex-shrink-0 ml-auto lg:hidden">
-            <button
-              className="text-foreground/80 hover:text-foreground transition-colors"
-              onClick={toggleMobileMenu}
-              aria-label="Toggle mobile menu"
-            >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+          
+          {/* Right: GET IN TOUCH Button (Desktop) + Mobile Menu Toggle */}
+          <div className="flex items-center flex-shrink-0 ml-auto gap-4">
+            {/* GET IN TOUCH Button - Hidden on mobile */}
+            <div className="hidden lg:block">
+              <ShimmerButton>
+                GET IN TOUCH
+              </ShimmerButton>
+            </div>
+            
+            {/* Mobile Menu Toggle - Only visible on mobile */}
+            <div className="lg:hidden">
+              <button
+                className="text-foreground/80 hover:text-foreground transition-colors"
+                onClick={toggleMobileMenu}
+                aria-label="Toggle mobile menu"
+              >
+                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -277,6 +304,16 @@ export function MainHeader({ className }: MainHeaderProps) {
                       onClick={closeMobileMenu}
                     />
                   ))}
+                </div>
+
+                {/* GET IN TOUCH Button for Mobile */}
+                <div className="px-3 py-2">
+                  <ShimmerButton 
+                    className="w-full"
+                    onClick={closeMobileMenu}
+                  >
+                    GET IN TOUCH
+                  </ShimmerButton>
                 </div>
               </nav>
             </motion.div>

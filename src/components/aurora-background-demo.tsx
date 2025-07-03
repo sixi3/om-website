@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useCallback, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
-import { AuroraBackground } from "@/components/ui/aurora-background";
+import { AuroraBackground } from '@/components/ui/aurora-background';
 import { MainHeader } from "@/components/global/MainHeader";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -29,9 +29,9 @@ const MainTitle = React.memo(() => (
       duration: ANIMATION_CONFIG.duration,
       ease: ANIMATION_CONFIG.ease,
     }}
-    className="text-center"
+    className="text-center lg:text-left w-full"
   >
-    <div className="h-20 md:h-24 lg:h-48 flex items-center justify-center">
+    <div className="space-y-6">
       <motion.h1
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -39,81 +39,29 @@ const MainTitle = React.memo(() => (
           duration: ANIMATION_CONFIG.duration,
           ease: [0.4, 0.0, 0.2, 1]
         }}
-        className={`text-4xl md:text-6xl lg:text-[120px] font-bold dark:text-white text-center drop-shadow-xl ${METALLIC_GREEN_TEXT_CLASSES}`}
+        className={`text-2xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-[80px] dark:text-neutral-200 leading-tight ${METALLIC_GREEN_TEXT_CLASSES}`}
       >
-        OneEqual
+        India's <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Largest</span><br /> Data Sharing Platform
       </motion.h1>
-    </div>
 
-    {/* Glowing Light Bar */}
-    <motion.div 
-      className="w-[40rem] h-8 relative mx-auto my-2"
-      initial={{ opacity: 0, scaleX: 0 }}
-      animate={{ opacity: 1, scaleX: 1 }}
-      transition={{ delay: 0.6, duration: ANIMATION_CONFIG.duration }}
-    >
-      <div className="absolute inset-x-20 top-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-[#00b140] to-transparent h-[2px] w-3/4 blur-sm" />
-      <div className="absolute inset-x-20 top-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-[#00b140] to-transparent h-px w-3/4" />
-      <div className="absolute inset-x-60 top-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-[#baff29] to-transparent h-[5px] w-1/4 blur-sm" />
-      <div className="absolute inset-x-60 top-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-[#baff29] to-transparent h-px w-1/4" />
-    </motion.div>
-    
-    <div className="h-16 md:h-20 lg:h-24 flex items-center justify-center">
-      <motion.p
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ 
-          duration: ANIMATION_CONFIG.duration,
-          ease: [0.4, 0.0, 0.2, 1],
-          delay: 0.1
-        }}
-        className={`text-2xl md:text-4xl lg:text-5xl dark:text-neutral-200 py-1 text-center ${METALLIC_BLACK_TEXT_CLASSES}`}
+      {/* Glowing Light Bar */}
+      <motion.div 
+        className="w-full max-w-lg h-8 relative mx-auto lg:mx-0 mt-8"
+        initial={{ opacity: 0, scaleX: 0 }}
+        animate={{ opacity: 1, scaleX: 1 }}
+        transition={{ delay: 0.6, duration: ANIMATION_CONFIG.duration }}
+        style={{ transformOrigin: 'left' }}
       >
-        India's <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Most Advanced</span> Data Sharing Platform
-      </motion.p>
+        <div className="absolute left-0 lg:left-0 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#00b140] via-[#00b140] to-transparent h-[2px] w-3/4 blur-sm" />
+        <div className="absolute left-0 lg:left-0 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#00b140] via-[#00b140] to-transparent h-px w-3/4" />
+        <div className="absolute left-0 lg:left-0 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#baff29] via-[#baff29] to-transparent h-[5px] w-1/3 blur-sm" />
+        <div className="absolute left-0 lg:left-0 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#baff29] via-[#baff29] to-transparent h-px w-1/3" />
+      </motion.div>
     </div>
   </motion.div>
 ));
 
 MainTitle.displayName = 'MainTitle';
-
-const LandingAssets = React.memo(() => (
-  <>
-    <motion.div
-      className="absolute -top-12 -right-20 xl:-top-16 xl:-right-16 w-32 h-32 md:w-48 md:h-48 xl:w-64 xl:h-64"
-      initial={{ opacity: 0, scale: 0.8, rotate: 15 }}
-      animate={{ opacity: 1, scale: 1, rotate: 0 }}
-      transition={{ delay: 1.2, duration: ANIMATION_CONFIG.duration }}
-    >
-      <Image
-        src="/Vehicle + Legal Verification.png"
-        alt="Landing Asset 1"
-        fill
-        className="object-contain"
-        sizes="(max-width: 768px) 128px, (max-width: 1024px) 192px, 256px"
-        priority
-      />
-    </motion.div>
-
-    <motion.div
-      className="absolute -top-12 -left-20 xl:-top-16 xl:-left-16 w-32 h-32 md:w-48 md:h-48 xl:w-64 xl:h-64"
-      initial={{ opacity: 0, scale: 0.8, rotate: -15 }}
-      animate={{ opacity: 1, scale: 1, rotate: 0 }}
-      transition={{ delay: 1.3, duration: ANIMATION_CONFIG.duration }}
-    >
-      <Image
-        src="/Field-level Config.png"
-        alt="Landing Asset 2"
-        fill
-        className="object-contain transform -scale-x-100"
-        sizes="(max-width: 768px) 128px, (max-width: 1024px) 192px, 256px"
-        priority
-      />
-    </motion.div>
-  </>
-));
-
-LandingAssets.displayName = 'LandingAssets';
 
 interface ProductCardProps {
   section: typeof HERO_SECTIONS[0];
@@ -262,7 +210,7 @@ const ProductCards = React.memo(() => (
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl lg:text-[80px] mb-4">
+        <h2 className="text-5xl tracking-tight leading-tight sm:text-4xl md:text-5xl lg:text-[80px] mb-4">
           <span className={METALLIC_BLACK_TEXT_CLASSES}>Our</span>{" "}
           <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Product</span>{" "}
           <span className={METALLIC_BLACK_TEXT_CLASSES}>Portfolio</span>
@@ -292,39 +240,93 @@ export default function AuroraBackgroundDemo() {
     <>
       <MainHeader />
       <AuroraBackground className="min-h-full">
-        <div className="relative flex flex-col min-h-screen w-full pt-20">
+        <div className="relative flex flex-col min-h-screen w-full">
 
-        <div className="flex-1 flex flex-col items-center justify-center px-4">
-          <MainTitle />
-        </div>
-
-        <div className="mt-auto">
-          <div className="relative min-h-[480px]">
+        {/* Hero Section with Two-Column Layout */}
+        <section className="relative w-full grid grid-cols-1 lg:grid-cols-6 items-center pt-32 pb-12 px-4">
+          {/* Left Column - Title, Glow Bar, and Client Logos */}
+          <div className="lg:col-span-4 flex flex-col items-center lg:items-start space-y-8 text-center lg:text-left max-w-4xl mx-auto lg:mx-0">
+            <MainTitle />
+            
+            {/* Client Logos Grid */}
             <motion.div
-              className="absolute top-6 left-0 right-0 bottom-0 bg-white/10 dark:bg-black/10 backdrop-blur-md border border-[#00b140]/10 overflow-hidden"
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: ANIMATION_CONFIG.duration }}
-              style={GLASSMORPHIC_STYLE}
+              transition={{
+                duration: ANIMATION_CONFIG.duration,
+                delay: 1.2,
+              }}
+              className="w-full"
             >
-              <LandingAssets />
+              <ClientLogosGrid />
             </motion.div>
 
-            <div className="relative z-10 pt-12">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: ANIMATION_CONFIG.duration,
-                  delay: 1.2,
-                }}
-                className="w-full px-4"
-              >
-                <ClientLogosGrid />
-              </motion.div>
-            </div>
+            {/* I'm Looking For Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: ANIMATION_CONFIG.duration,
+                delay: 1.4,
+              }}
+              className="w-full"
+            >
+              <div className="inline-flex bg-white rounded-full border-b-4 border-slate-200 border border-slate-200 mx-auto lg:mx-0 overflow-hidden w-auto min-w-0 max-w-[90vw] lg:max-w-none">
+                <div className="flex items-center gap-4 px-4 py-2 overflow-x-auto scrollbar-hide min-w-0" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                  <h3 className={`text-sm font-extrabold text-slate-600 tracking-widest flex-shrink-0 whitespace-nowrap ${METALLIC_BLACK_TEXT_CLASSES}`}>
+                    I'M LOOKING FOR: 
+                  </h3>
+                  <div className="flex gap-2">
+                {[
+                  "HRMS BGV Integration",
+                  "Financial Services", 
+                  "Gig & Platform Staffing"
+                ].map((text, index) => (
+                  <motion.button
+                    key={text}
+                    initial={{ opacity: 0, y: 2 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 1.6 + index * 0.1,
+                      ease: "easeOut"
+                    }}
+                    className="group inline-flex items-center px-4 py-2 shadow-sm bg-[#00b140] backdrop-blur-md border-b-3 border-[#008000] text-white text-sm xl:text-base font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap"
+                  >
+                    <span>{text}</span>
+                       <ArrowRight className="h-4 w-4 text-[#baff29] transition-all duration-300 opacity-0 group-hover:opacity-100 -ml-3 group-hover:ml-2 group-hover:translate-x-0" />
+                  </motion.button>
+                ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </div>
+
+          {/* Right Column - Video */}
+          <div className="hidden lg:block lg:col-span-2 relative w-full h-full">
+            <motion.div
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 1.2,
+                ease: "easeOut",
+                delay: 1.0
+              }}
+              className="relative w-full flex items-center justify-center"
+            >
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover lg:mr-16 lg:mb-12 xl:mr-32 xl:mb-24 lg:scale-120 xl:scale-140"
+              >
+                <source src="/main-video-2.webm" type="video/webm" />
+              </video>
+            </motion.div>
+          </div>
+        </section>
 
         <ProductCards />
       </div>
