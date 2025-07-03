@@ -321,8 +321,17 @@ export default function AuroraBackgroundDemo() {
                 muted
                 playsInline
                 className="w-full h-full object-cover lg:mr-16 lg:mb-12 xl:mr-32 xl:mb-24 lg:scale-120 xl:scale-140"
+                style={{ backgroundColor: 'transparent' }}
+                preload="metadata"
               >
-                <source src="/main-video-2.webm" type="video/webm" />
+                <source src="/main-video-2.webm" type="video/webm; codecs=vp9" />
+                <source src="/main-video-2.mp4" type="video/mp4" />
+                {/* Fallback for unsupported browsers */}
+                <div className="w-full h-full bg-gradient-to-br from-[#00b140]/20 to-[#baff29]/20 rounded-2xl flex items-center justify-center">
+                  <div className="text-slate-500 text-center">
+                    <p>Video not supported</p>
+                  </div>
+                </div>
               </video>
             </motion.div>
           </div>
