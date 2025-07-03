@@ -21,12 +21,14 @@ interface SolutionItem {
 
 interface SolutionSection {
   title: string
+  description: string
   items: SolutionItem[]
 }
 
 const solutionSections: SolutionSection[] = [
   {
     title: "INDUSTRY SOLUTIONS",
+    description: "Specialized solutions tailored for specific industry verticals and their unique requirements",
     items: [
       {
         id: "financial-services",
@@ -80,6 +82,7 @@ const solutionSections: SolutionSection[] = [
   },
   {
     title: "USE CASE SOLUTIONS",
+    description: "Function-specific solutions designed to address common business challenges and workflows",
     items: [
       {
         id: "recruitment",
@@ -193,9 +196,14 @@ const SolutionSection: React.FC<{ section: SolutionSection; sectionIndex: number
       }}
       className="space-y-4 p-3 bg-white border border-slate-200/50 rounded-lg"
     >
-      <h2 className="text-sm font-semibold tracking-widest text-[#00b140] uppercase mb-4">
-        {section.title}
-      </h2>
+      <div className="mb-4">
+        <h2 className="text-md font-semibold tracking-widest text-slate-800 uppercase">
+          {section.title}
+        </h2>
+        <p className="text-sm text-slate-600 leading-relaxed">
+          {section.description}
+        </p>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {section.items.map((item, index) => (
           <SolutionItem key={item.id} item={item} index={index} />

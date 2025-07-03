@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { memo, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -21,12 +21,14 @@ interface ProductItem {
 
 interface ProductSection {
   title: string
+  description: string
   items: ProductItem[]
 }
 
 const productSections: ProductSection[] = [
   {
     title: "EMPLOYMENT",
+    description: "Identity verification and background check solutions for workforce management",
     items: [
       {
         id: "equal-identity-gateway",
@@ -56,6 +58,7 @@ const productSections: ProductSection[] = [
   },
   {
     title: "BFSI",
+    description: "Banking, Financial Services & Insurance technology solutions",
     items: [
       {
         id: "onemoney-aa",
@@ -109,21 +112,38 @@ const productSections: ProductSection[] = [
   }
 ]
 
-const ProductItem: React.FC<{ item: ProductItem; index: number }> = ({ item, index }) => {
+// Memoized ProductItem to prevent unnecessary re-renders
+const ProductItem = memo<{ item: ProductItem; index: number }>(({ item, index }) => {
+  // Simplified animation with GPU acceleration
+  const itemVariants = useMemo(() => ({
+    hidden: { 
+      opacity: 0, 
+      y: 15,
+      scale: 0.95
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.2,
+        ease: [0.25, 0.46, 0.45, 0.94], // easeOutCubic for smoother feel
+        delay: index * 0.03 // Reduced delay for faster feel
+      }
+    }
+  }), [index])
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ 
-        delay: index * 0.05,
-        duration: 0.3,
-        ease: "easeOut"
-      }}
+      variants={itemVariants}
+      initial="hidden"
+      animate="visible"
+      style={{ transform: 'translate3d(0,0,0)' }} // Force GPU acceleration
     >
       <Link 
         href={item.href}
         role="menuitem"
-        className="flex items-start gap-4 p-3 rounded-lg hover:bg-[#00b140]/10 transition-colors duration-200 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"
+        className="flex items-start gap-4 p-3 rounded-lg hover:bg-[#00b140]/10 transition-colors duration-150 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"
       >
         <div className="flex-shrink-0 relative">
           <Image
@@ -131,17 +151,18 @@ const ProductItem: React.FC<{ item: ProductItem; index: number }> = ({ item, ind
             alt={item.image.alt}
             width={item.image.width}
             height={item.image.height}
-            loading="eager"
-            priority={index < 2}
-            className="transition-all duration-300 filter grayscale group-hover:grayscale-0 rounded will-change-[filter] group-hover:scale-110"
+            loading="lazy" // Changed from eager to lazy for better initial performance
+            priority={false} // Remove priority to reduce initial load
+            className="transition-all duration-200 filter grayscale group-hover:grayscale-0 rounded will-change-transform group-hover:scale-105" // Reduced scale and duration
+            sizes="56px" // Explicit size for better optimization
           />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-neutral-900 group-hover:text-[#00b140] transition-colors duration-200">
+            <h3 className="font-semibold text-neutral-900 group-hover:text-[#00b140] transition-colors duration-150">
               {item.title}
             </h3>
-            <div className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-out">
+            <div className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 ease-out">
               <ArrowRight className="w-4 h-4 text-[#00b140]" />
             </div>
           </div>
@@ -152,38 +173,94 @@ const ProductItem: React.FC<{ item: ProductItem; index: number }> = ({ item, ind
       </Link>
     </motion.div>
   )
-}
+})
 
-const ProductSection: React.FC<{ section: ProductSection; sectionIndex: number }> = ({ 
+ProductItem.displayName = 'ProductItem'
+
+// Memoized ProductSection to prevent unnecessary re-renders
+const ProductSection = memo<{ section: ProductSection; sectionIndex: number }>(({ 
   section, 
   sectionIndex 
 }) => {
+  // Simplified section animation
+  const sectionVariants = useMemo(() => ({
+    hidden: { 
+      opacity: 0, 
+      y: 20
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.25,
+        ease: [0.25, 0.46, 0.45, 0.94],
+        delay: sectionIndex * 0.05,
+        staggerChildren: 0.03,
+        when: "beforeChildren"
+      }
+    }
+  }), [sectionIndex])
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ 
-        delay: sectionIndex * 0.1,
-        duration: 0.4,
-        ease: "easeOut"
-      }}
+      variants={sectionVariants}
+      initial="hidden"
+      animate="visible"
       className="space-y-4 p-3 bg-white border border-slate-200/50 rounded-lg"
+      style={{ transform: 'translate3d(0,0,0)' }} // Force GPU acceleration
     >
-      <h2 className="text-sm font-semibold tracking-widest text-[#00b140] uppercase mb-4">
-        {section.title}
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="mb-4">
+        <h2 className="text-md font-semibold tracking-widest text-slate-800 uppercase">
+          {section.title}
+        </h2>
+        <p className="text-sm text-slate-600 leading-relaxed">
+          {section.description}
+        </p>
+      </div>
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        variants={{
+          visible: {
+            transition: {
+              staggerChildren: 0.03
+            }
+          }
+        }}
+      >
         {section.items.map((item, index) => (
           <ProductItem key={item.id} item={item} index={index} />
         ))}
-      </div>
+      </motion.div>
     </motion.div>
   )
-}
+})
 
-export const ProductDropdownContent: React.FC = () => {
+ProductSection.displayName = 'ProductSection'
+
+// Memoized main component
+export const ProductDropdownContent = memo(() => {
+  // Container animation with stagger
+  const containerVariants = useMemo(() => ({
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.15,
+        ease: "easeOut",
+        staggerChildren: 0.05,
+        when: "beforeChildren"
+      }
+    }
+  }), [])
+
   return (
-    <div className="space-y-2 min-w-[300px] md:min-w-[600px]">
+    <motion.div 
+      className="space-y-2 min-w-[300px] md:min-w-[600px]"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      style={{ transform: 'translate3d(0,0,0)' }} // Force GPU acceleration
+    >
       {productSections.map((section, index) => (
         <ProductSection 
           key={section.title} 
@@ -191,6 +268,8 @@ export const ProductDropdownContent: React.FC = () => {
           sectionIndex={index} 
         />
       ))}
-    </div>
+    </motion.div>
   )
-} 
+})
+
+ProductDropdownContent.displayName = 'ProductDropdownContent' 

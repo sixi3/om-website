@@ -38,7 +38,7 @@ export default function RootLayout({
       >
         {/* Header, Footer, and AuroraBackground removed from here */}
         {/* They will be part of src/app/onemoney/layout.tsx for the OneMoney section */}
-        <main className="flex-grow relative z-10">{children}</main> 
+        <main className="flex-grow relative z-10 w-full">{children}</main> 
         {/* A very simple global footer could be added here if needed later */}
       </body>
     </html>

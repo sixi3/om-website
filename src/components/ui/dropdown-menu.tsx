@@ -1,9 +1,13 @@
 'use client'
 
-import React, { useState, createContext, useContext } from 'react'
+import React, { useState, createContext, useContext, useCallback, useRef, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import { EqualAIPortrait } from './equal-ai-portrait'
+
+// Lazy load EqualAIPortrait with delay
+const EqualAIPortrait = React.lazy(() => 
+  import('./equal-ai-portrait').then(module => ({ default: module.EqualAIPortrait }))
+)
 
 const DirectionContext = createContext<{
   direction: 'rtl' | 'ltr' | null
@@ -18,14 +22,14 @@ export const DropdownMenu: React.FC<{ children: React.ReactNode }> = ({ children
   const [currentTab, setCurrentTab] = useState<null | number>(null)
   const [direction, setDirection] = useState<'rtl' | 'ltr' | null>(null)
   const [isTouchDevice, setIsTouchDevice] = useState(false)
-  const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   React.useEffect(() => {
     // Detect if this is a touch device
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0)
   }, [])
 
-  const setAnimationDirection = (tab: number | null) => {
+  const setAnimationDirection = useCallback((tab: number | null) => {
     if (typeof currentTab === 'number' && typeof tab === 'number') {
       setDirection(currentTab > tab ? 'rtl' : 'ltr')
     } else if (tab === null) {
@@ -33,7 +37,7 @@ export const DropdownMenu: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     setCurrentTab(tab)
-  }
+  }, [currentTab])
 
   // Close dropdown when clicking outside
   React.useEffect(() => {
@@ -58,7 +62,7 @@ export const DropdownMenu: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [currentTab, setAnimationDirection])
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     // Only close on mouse leave for non-touch devices
     if (!isTouchDevice) {
       // Clear any existing timeout
@@ -70,19 +74,22 @@ export const DropdownMenu: React.FC<{ children: React.ReactNode }> = ({ children
         setAnimationDirection(null)
       }, 300) // 300ms delay
     }
-  }
+  }, [isTouchDevice, setAnimationDirection])
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = useCallback(() => {
     // Clear the close timeout if user re-enters
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current)
       closeTimeoutRef.current = null
     }
-  }
+  }, [])
+
+  const contextValue = useMemo(() => ({ direction, setAnimationDirection }), [direction, setAnimationDirection])
+  const currentTabValue = useMemo(() => ({ currentTab }), [currentTab])
 
   return (
-    <DirectionContext.Provider value={{ direction, setAnimationDirection }}>
-      <CurrentTabContext.Provider value={{ currentTab }}>
+    <DirectionContext.Provider value={contextValue}>
+      <CurrentTabContext.Provider value={currentTabValue}>
         <span
           data-dropdown-container
           onMouseLeave={handleMouseLeave}
@@ -106,7 +113,7 @@ export const TriggerWrapper: React.FC<{ children: React.ReactNode }> = ({ childr
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0)
   }, [])
 
-  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent, index: number) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
       setAnimationDirection(index + 1)
@@ -119,9 +126,9 @@ export const TriggerWrapper: React.FC<{ children: React.ReactNode }> = ({ childr
       const nextButton = e.currentTarget.nextElementSibling as HTMLButtonElement
       nextButton?.focus()
     }
-  }
+  }, [setAnimationDirection])
 
-  const handleClick = (index: number) => {
+  const handleClick = useCallback((index: number) => {
     if (isTouchDevice) {
       // On touch devices, toggle the dropdown
       if (currentTab === index + 1) {
@@ -133,19 +140,20 @@ export const TriggerWrapper: React.FC<{ children: React.ReactNode }> = ({ childr
       // On non-touch devices, just open
       setAnimationDirection(index + 1)
     }
-  }
+  }, [isTouchDevice, currentTab, setAnimationDirection])
 
-  const handleMouseEnter = (index: number) => {
+  const handleMouseEnter = useCallback((index: number) => {
     // Only use mouse enter on non-touch devices
     if (!isTouchDevice) {
       setAnimationDirection(index + 1)
     }
-  }
+  }, [isTouchDevice, setAnimationDirection])
 
   return (
     <div className="flex flex-row gap-2 md:gap-4">
       {React.Children.map(children, (e, i) => (
         <button
+          key={i}
           onMouseEnter={() => handleMouseEnter(i)}
           onClick={() => handleClick(i)}
           onKeyDown={(event) => handleKeyDown(event, i)}
@@ -155,7 +163,7 @@ export const TriggerWrapper: React.FC<{ children: React.ReactNode }> = ({ childr
           className={`flex h-10 md:h-12 items-center gap-1 rounded-lg px-3 md:px-4 py-1 text-base font-bold tracking-widest transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2 min-h-[44px] min-w-[44px] ${
             currentTab === i + 1 
               ? 'bg-background/50 backdrop-blur-md text-[#00b140] border border-slate-200 [&>svg]:rotate-180 hover:shadow-lg' 
-              : 'text-slate-800 backdrop-blur-md'
+              : 'text-slate-800'
           }`}>
           {e}
         </button>
@@ -198,29 +206,31 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
   const [contentHeight, setContentHeight] = React.useState<number | 'auto'>('auto')
   const [arrowPosition, setArrowPosition] = React.useState<number>(0)
   const [dropdownWidth, setDropdownWidth] = React.useState<number>(0)
+  const [showEqualAI, setShowEqualAI] = React.useState(false)
+  const positioningTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   
-  React.useEffect(() => {
-    if (currentTab !== null) {
-      // Use requestAnimationFrame to ensure DOM has updated
+  // Throttled positioning calculation using RAF
+  const calculatePositioning = useCallback(() => {
+    if (positioningTimeoutRef.current) {
+      clearTimeout(positioningTimeoutRef.current)
+    }
+    
+    positioningTimeoutRef.current = setTimeout(() => {
       requestAnimationFrame(() => {
         const container = document.querySelector('[data-dropdown-container]')
-        const triggerWrapper = container?.querySelector('div') as HTMLElement // The TriggerWrapper div
-        const activeButton = triggerWrapper?.children[currentTab - 1] as HTMLElement
+        const triggerWrapper = container?.querySelector('div') as HTMLElement
+        const activeButton = triggerWrapper?.children[currentTab! - 1] as HTMLElement
         const dropdown = document.querySelector('#dropdown-content') as HTMLElement
         
         if (activeButton && dropdown && triggerWrapper) {
-          // Get the dropdown content width (not the animated container)
           const dropdownContent = dropdown.querySelector('.rounded-lg') as HTMLElement
           const dropdownContentRect = dropdownContent?.getBoundingClientRect()
           const triggerWrapperRect = triggerWrapper.getBoundingClientRect()
           const buttonRect = activeButton.getBoundingClientRect()
           
           if (dropdownContentRect) {
-            // Calculate button center relative to trigger wrapper center
             const buttonCenter = buttonRect.left + buttonRect.width / 2
             const triggerWrapperCenter = triggerWrapperRect.left + triggerWrapperRect.width / 2
-            
-            // Calculate arrow position relative to dropdown content center
             const dropdownContentWidth = dropdownContentRect.width
             const relativePosition = (buttonCenter - triggerWrapperCenter) + (dropdownContentWidth / 2)
             
@@ -229,39 +239,82 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
           }
         }
       })
+    }, 16) // ~60fps throttling
+  }, [currentTab])
+
+  React.useEffect(() => {
+    if (currentTab !== null) {
+      calculatePositioning()
     }
-  }, [currentTab, contentHeight])
+    
+    return () => {
+      if (positioningTimeoutRef.current) {
+        clearTimeout(positioningTimeoutRef.current)
+      }
+    }
+  }, [currentTab, contentHeight, calculatePositioning])
+
+  // Delay EqualAI portrait loading
+  React.useEffect(() => {
+    let timeout: NodeJS.Timeout
+    if (currentTab === 1) {
+      // Show EqualAI after 400ms delay to let main dropdown load first
+      timeout = setTimeout(() => {
+        setShowEqualAI(true)
+      }, 400)
+    } else {
+      setShowEqualAI(false)
+    }
+    
+    return () => {
+      if (timeout) clearTimeout(timeout)
+    }
+  }, [currentTab])
+  
+  // Optimized animation variants
+  const dropdownVariants = useMemo(() => ({
+    hidden: {
+      opacity: 0,
+      scale: 0.96,
+      y: -10
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      x: dropdownWidth ? -dropdownWidth / 2 : 0
+    }
+  }), [dropdownWidth])
+
+  const contentVariants = useMemo(() => ({
+    hidden: { 
+      opacity: 0,
+      x: direction === 'ltr' ? 30 : direction === 'rtl' ? -30 : 0
+    },
+    visible: { 
+      opacity: 1, 
+      x: 0
+    }
+  }), [direction])
   
   return (
     <>
       <motion.div
         id="dropdown-content"
-        initial={{
-          opacity: 0,
-          scale: 0.98
-        }}
-        animate={
-          currentTab
-            ? {
-                opacity: 1,
-                scale: 1,
-                x: dropdownWidth ? -dropdownWidth / 2 : 0
-              }
-            : { 
-                opacity: 0, 
-                scale: 0.98,
-                x: dropdownWidth ? -dropdownWidth / 2 : 0
-              }
-        }
+        variants={dropdownVariants}
+        initial="hidden"
+        animate={currentTab ? "visible" : "hidden"}
         transition={{
-          duration: 0.3,
-          ease: [0.16, 1, 0.3, 1],
+          duration: 0.25,
+          ease: [0.25, 0.46, 0.45, 0.94], // easeOutCubic
           x: {
-            duration: 0.25,
+            duration: 0.2,
             ease: "easeInOut"
           }
         }}
-        className="absolute left-1/2 top-[calc(100%_+_12px)] w-auto z-50 max-w-[95vw] lg:max-w-none">
+        className="absolute left-1/2 top-[calc(100%_+_12px)] w-auto z-50 max-w-[95vw] lg:max-w-none"
+        style={{ transform: 'translate3d(0,0,0)' }} // Force GPU acceleration
+      >
         <div className="absolute -top-[12px] left-0 right-0 h-[12px]" />
         
         {/* Container for dropdown and portrait */}
@@ -272,11 +325,11 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
             <motion.div
               className="absolute -top-[4px] w-2 h-2 border-l border-t border-neutral-200 bg-gradient-to-br from-slate-50 to-slate-100 transform rotate-45 z-10"
               animate={{ 
-                left: arrowPosition - 6, // Center the 12px arrow (6px offset)
+                left: arrowPosition - 6,
                 opacity: currentTab ? 1 : 0 
               }}
               transition={{ 
-                duration: 0.25,
+                duration: 0.2,
                 ease: "easeInOut"
               }}
             />
@@ -288,48 +341,46 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
               )}
               animate={{ height: contentHeight }}
               transition={{ 
-                duration: 0.3,
+                duration: 0.25,
                 ease: [0.4, 0.0, 0.2, 1]
               }}
+              style={{ transform: 'translate3d(0,0,0)' }} // Force GPU acceleration
             >
               {React.Children.map(children, (e, i) => (
                 <div key={i}>
                   <AnimatePresence mode="wait">
-                    {currentTab !== null && (
+                    {currentTab !== null && currentTab === i + 1 && (
                       <motion.div 
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 0.15 }}
                       >
-                        {currentTab === i + 1 && (
-                          <motion.div
-                            id={`dropdown-content-${i}`}
-                            role="menu"
-                            aria-label={`Dropdown content ${i + 1}`}
-                            initial={{
-                              opacity: 0,
-                              x: direction === 'ltr' ? 100 : direction === 'rtl' ? -100 : 0
-                            }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ 
-                              duration: 0.25,
-                              ease: "easeInOut"
-                            }}
-                            ref={(node) => {
-                              if (node) {
-                                // Use requestAnimationFrame to ensure accurate measurement after layout
-                                requestAnimationFrame(() => {
-                                  const rect = node.getBoundingClientRect()
-                                  const newHeight = Math.ceil(rect.height)
-                                  if (newHeight > 0 && newHeight !== contentHeight) {
-                                    setContentHeight(newHeight)
-                                  }
-                                })
-                              }
-                            }}
-                          >
-                            {e}
-                          </motion.div>
-                        )}
+                        <motion.div
+                          id={`dropdown-content-${i}`}
+                          role="menu"
+                          aria-label={`Dropdown content ${i + 1}`}
+                          variants={contentVariants}
+                          initial="hidden"
+                          animate="visible"
+                          transition={{ 
+                            duration: 0.2,
+                            ease: [0.25, 0.46, 0.45, 0.94]
+                          }}
+                          ref={(node) => {
+                            if (node) {
+                              // Use requestAnimationFrame for accurate measurement
+                              requestAnimationFrame(() => {
+                                const rect = node.getBoundingClientRect()
+                                const newHeight = Math.ceil(rect.height)
+                                if (newHeight > 0 && newHeight !== contentHeight) {
+                                  setContentHeight(newHeight)
+                                }
+                              })
+                            }
+                          }}
+                          style={{ transform: 'translate3d(0,0,0)' }} // Force GPU acceleration
+                        >
+                          {e}
+                        </motion.div>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -338,13 +389,17 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
             </motion.div>
           </div>
 
-          {/* Equal AI Portrait - Only show for Products tab (tab 1) */}
-          {currentTab === 1 && (
+          {/* Equal AI Portrait - Lazy loaded with delay */}
+          {currentTab === 1 && showEqualAI && (
             <div className="hidden lg:block">
-              <EqualAIPortrait 
-                isVisible={currentTab === 1} 
-                height={typeof contentHeight === 'number' ? contentHeight : 'auto'}
-              />
+              <React.Suspense fallback={
+                <div className="w-[280px] h-[350px] animate-pulse bg-white/10 rounded-xl border border-[#baff29]/20" />
+              }>
+                <EqualAIPortrait 
+                  isVisible={true} 
+                  height={typeof contentHeight === 'number' ? contentHeight : 'auto'}
+                />
+              </React.Suspense>
             </div>
           )}
         </div>

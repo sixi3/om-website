@@ -25,6 +25,7 @@
 *.pem
 /todo.md
 /todo-dropdown.md
+/todo-landing.md
 
 # debug
 npm-debug.log*

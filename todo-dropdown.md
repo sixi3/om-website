@@ -247,3 +247,5 @@ Create a powerful, responsive mega dropdown component with smooth animations, mu
 - WCAG 2.1 AA accessibility compliance
 - Reusable component architecture for multiple use cases
 - **NEW:** Equal AI portrait rectangle seamlessly integrated with existing dropdown
+
+
