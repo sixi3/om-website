@@ -13,7 +13,7 @@ export function ShimmerButton({ children, className, ...props }: ShimmerButtonPr
   return (
     <button
       className={cn(
-        "group relative overflow-hidden rounded-full border-b-4 border-[#008000] bg-linear-to-br from-[#00b140] to-[#baff29] shadow-lg px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#087C32] focus:border-b-1 min-h-[44px] min-w-[44px] hover:pr-8 transition-border duration-300 ease-out",
+        "group relative overflow-hidden rounded-full border-b-4 border-[#008000] bg-linear-to-tr from-[#00b140] to-[#baff29] shadow-lg px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#087C32] focus:border-b-1 min-h-[44px] min-w-[44px] hover:pr-8 transition-border duration-300 ease-out",
         className
       )}
       {...props}

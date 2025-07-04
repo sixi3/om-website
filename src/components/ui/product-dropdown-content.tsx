@@ -31,24 +31,48 @@ const productSections: ProductSection[] = [
     description: "Identity verification and background check solutions for workforce management",
     items: [
       {
-        id: "equal-identity-gateway",
-        title: "Equal ID Gateway",
-        description: "Advanced identity verification and KYC solutions",
+        id: "Enterprise Hiring",
+        title: "Enterprise Hiring",
+        description: "Advanced identity and KYC solutions for enterprise hiring",
         image: {
-          src: "/HRMS Integration.png",
-          alt: "Identity Gateway",
+          src: "/Recruitment.png",
+          alt: "Enterprise Hiring",
           width: 56,
           height: 56
         },
         href: "/equal/products/identity-gateway"
       },
       {
-        id: "equal-console",
-        title: "Equal Console",
-        description: "Comprehensive dashboard for verification management",
+        id: "Gig Hiring",
+        title: "Gig Hiring",
+        description: "Onboard gig workers at scale with ease",
         image: {
-          src: "/Webhook Support.png",
-          alt: "Equal Console",
+          src: "/Gig Economy Hiring.png",
+          alt: "Gig Hiring",
+          width: 56,
+          height: 56
+        },
+        href: "/equal/products/console"
+      },
+      {
+        id: "Financial Services",
+        title: "Financial Services",
+        description: "Get powerful insights from financial data, powered by AI",
+        image: {
+          src: "/Financial Analytics.png",
+          alt: "Financial Services",
+          width: 56,
+          height: 56
+        },
+        href: "/equal/products/console"
+      },
+      {
+        id: "Staffing & Contract Roles",
+        title: "Staffing & Contract",
+        description: "Hire and manage contract workers with ease",
+        image: {
+          src: "/Staffing & Contract Roles.png",
+          alt: "Staffing & Contract Roles",
           width: 56,
           height: 56
         },
@@ -143,7 +167,7 @@ const ProductItem = memo<{ item: ProductItem; index: number }>(({ item, index })
       <Link 
         href={item.href}
         role="menuitem"
-        className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-150 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"
+        className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-150 group focus:border-b-1"
       >
         <div className="flex-shrink-0 relative">
           <Image

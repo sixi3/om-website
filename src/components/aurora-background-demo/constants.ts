@@ -1,20 +1,13 @@
 import { AnimationConfig } from './types';
 
 // CSS Classes
-export const METALLIC_GREEN_TEXT_CLASSES = "font-bold drop-shadow-sm bg-gradient-to-br from-[#008000] to-[#00b140] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
-export const METALLIC_BLACK_TEXT_CLASSES = "font-bold bg-gradient-to-b from-slate-900 to-slate-600 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+export const METALLIC_GREEN_TEXT_CLASSES = "font-extrabold bg-gradient-to-br from-[#008000] to-[#00b140] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+export const METALLIC_BLACK_TEXT_CLASSES = "font-extrabold bg-gradient-to-b from-slate-900 to-slate-600 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 // Animation Configuration
 export const ANIMATION_CONFIG: AnimationConfig = {
   duration: 0.6,
   ease: "easeInOut"
-};
-
-// Common Styles
-export const GLASSMORPHIC_STYLE = {
-  background: 'linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(186, 245, 41, 0.1) 100%)',
-  backdropFilter: 'blur(20px)',
-  WebkitBackdropFilter: 'blur(20px)',
 };
 
 // Client Logos

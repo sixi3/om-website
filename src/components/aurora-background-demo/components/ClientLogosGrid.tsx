@@ -44,11 +44,11 @@ export const ClientLogosGrid = React.memo(() => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`text-center font-medium text-sm md:text-left tracking-widest mb-8 ${METALLIC_BLACK_TEXT_CLASSES}`}
+        className={`text-center font-semibold text-sm md:text-left tracking-widest mb-4 ${METALLIC_BLACK_TEXT_CLASSES}`}
       >
         TRUSTED BY INDUSTRY LEADERS
       </motion.h2>
-      <div className="grid grid-cols-4 grid-rows-2 justify-items-start">
+      <div className="grid grid-cols-4 grid-rows-2 gap-x-0.5 justify-items-start">
         {firstEightLogos.map((logo, index) => (
           <ClientLogo key={logo} logo={logo} index={index} />
         ))}
