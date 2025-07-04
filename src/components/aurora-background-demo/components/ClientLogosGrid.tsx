@@ -19,7 +19,7 @@ const ClientLogo = React.memo<ClientLogoProps>(({ logo, index }) => (
       duration: 0.4,
       ease: "easeOut"
     }}
-    className="relative w-full h-12 hover:scale-105 transition-transform duration-300 mb-6 flex justify-start items-center"
+    className="relative w-40 h-12 hover:scale-105 transition-transform duration-300 mb-6 flex justify-start items-center"
   >
     <Image
       src={`/client-logos/${logo}`}

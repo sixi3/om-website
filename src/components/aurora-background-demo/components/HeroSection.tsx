@@ -29,24 +29,12 @@ const MainTitle = React.memo(() => (
           duration: ANIMATION_CONFIG.duration,
           ease: [0.4, 0.0, 0.2, 1]
         }}
-        className={`text-2xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-[80px] dark:text-neutral-200 leading-tight ${METALLIC_GREEN_TEXT_CLASSES}`}
+        className={`text-2xl md:text-4xl lg:text-5xl xl:text-7xl 2xl:text-[80px] dark:text-neutral-200 leading-tight ${METALLIC_GREEN_TEXT_CLASSES}`}
       >
         India's <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Largest</span><br /> Data Sharing Platform
       </motion.h1>
 
-      {/* Glowing Light Bar */}
-      <motion.div 
-        className="w-full h-8 relative mx-auto lg:mx-0 mt-8"
-        initial={{ opacity: 0, scaleX: 0 }}
-        animate={{ opacity: 1, scaleX: 1 }}
-        transition={{ delay: 0.6, duration: ANIMATION_CONFIG.duration }}
-        style={{ transformOrigin: 'left' }}
-      >
-        <div className="absolute left-0 lg:left-0 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#00b140] via-[#00b140] to-transparent h-[2px] w-3/4 blur-sm" />
-        <div className="absolute left-0 lg:left-0 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#00b140] via-[#00b140] to-transparent h-px w-3/4" />
-        <div className="absolute left-0 lg:left-0 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#baff29] via-[#baff29] to-transparent h-[5px] w-1/3 blur-sm" />
-        <div className="absolute left-0 lg:left-0 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#baff29] via-[#baff29] to-transparent h-px w-1/3" />
-      </motion.div>
+      
     </div>
   </motion.div>
 ));
@@ -57,8 +45,9 @@ export const HeroSection = React.memo(() => {
   return (
     <section className="relative w-full grid grid-cols-1 lg:grid-cols-6 items-center pt-32 pb-12 px-4">
       {/* Left Column - Title, Glow Bar, and Client Logos */}
-      <div className="lg:col-span-4 flex flex-col items-center lg:items-start space-y-8 text-center lg:text-left max-w-4xl mx-auto lg:mx-0">
+      <div className="lg:col-span-4 flex flex-col items-center lg:items-start space-y-8 text-center lg:text-left max-w-6xl mx-auto lg:mx-0">
         <MainTitle />
+        
         
         {/* Client Logos Grid */}
         <motion.div
@@ -132,7 +121,7 @@ export const HeroSection = React.memo(() => {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover lg:mr-16 lg:mb-12 xl:mr-48 xl:mb-24 lg:scale-120 xl:scale-140"
+            className="w-full h-full object-cover lg:mr-16 lg:mb-12 xl:ml-12 2xl:mr-56 xl:scale-105 xl:mr-40 2xl:mb-24 2xl:scale-120"
             style={{ backgroundColor: 'transparent' }}
             preload="metadata"
           >
