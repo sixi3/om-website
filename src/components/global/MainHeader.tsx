@@ -196,7 +196,7 @@ export function MainHeader({ className }: MainHeaderProps) {
           
           
           {/* Right: GET IN TOUCH Button (Desktop) + Mobile Menu Toggle */}
-          <div className="flex items-center flex-shrink-0 ml-auto gap-4">
+          <div className="flex items-center flex-shrink-0 ml-auto px-4 gap-4">
             {/* GET IN TOUCH Button - Hidden on mobile */}
             <div className="hidden lg:block">
               <ShimmerButton>

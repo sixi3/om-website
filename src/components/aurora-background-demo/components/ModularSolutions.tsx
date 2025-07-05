@@ -13,8 +13,44 @@ import {
 } from "../constants";
 import { AnimatedCounter } from "@/app/onemoney/components/ui/animated-counter";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { useEffect, useRef, useState } from "react";
+import { animate, useInView } from "framer-motion";
 
 const MotionLink = motion(Link);
+
+// Custom MetricsCounter component with better viewport detection
+const MetricsCounter = React.memo<{ 
+  value: number; 
+  className?: string; 
+  fixedDecimals?: number; 
+  duration?: number;
+  id: string;
+}>(({ value, className, fixedDecimals, duration = 2, id }) => {
+  const [displayValue, setDisplayValue] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" }); // Less restrictive margin
+
+  useEffect(() => {
+    if (isInView) {
+      const controls = animate(0, value, {
+        duration: duration,
+        ease: "easeOut",
+        onUpdate(latest) {
+          setDisplayValue(fixedDecimals !== undefined ? parseFloat(latest.toFixed(fixedDecimals)) : Math.round(latest));
+        },
+      });
+      return () => controls.stop();
+    }
+  }, [isInView, value, fixedDecimals, duration]);
+
+  return (
+    <span ref={ref} className={className}>
+      {displayValue}
+    </span>
+  );
+});
+
+MetricsCounter.displayName = 'MetricsCounter';
 
 // Metrics data for each section
 const employmentMetrics = [
@@ -57,10 +93,12 @@ const MetricsGrid = React.memo<{ metrics: Array<{ id: string; value: number; lab
             {stat.id === 'fip' ? (
               <span className={metallicTextClasses}>1</span>
             ) : (
-              <AnimatedCounter 
+              <MetricsCounter 
                 value={stat.value} 
                 {...(stat.fixedDecimals !== undefined && { fixedDecimals: stat.fixedDecimals })}
                 className={metallicTextClasses}
+                id={stat.id}
+                duration={2}
               />
             )}
             <span className={metallicTextClasses}>{stat.suffix}</span>

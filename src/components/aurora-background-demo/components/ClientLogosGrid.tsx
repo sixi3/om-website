@@ -1,7 +1,7 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { CLIENT_LOGOS, METALLIC_BLACK_TEXT_CLASSES } from '../constants';
 
@@ -14,12 +14,13 @@ const ClientLogo = React.memo<ClientLogoProps>(({ logo, index }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.8 }}
     animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.8 }}
     transition={{ 
-      delay: 0.3 + index * 0.05,
+      delay: index * 0.05,
       duration: 0.4,
       ease: "easeOut"
     }}
-    className="relative w-40 h-12 hover:scale-105 transition-transform duration-300 mb-6 flex justify-start items-center"
+    className="relative w-32 md:w-40 h-10 md:h-12 hover:scale-105 transition-transform duration-300 mb-4 md:mb-6 flex justify-start items-center"
   >
     <Image
       src={`/client-logos/${logo}`}
@@ -35,8 +36,22 @@ const ClientLogo = React.memo<ClientLogoProps>(({ logo, index }) => (
 ClientLogo.displayName = 'ClientLogo';
 
 export const ClientLogosGrid = React.memo(() => {
-  // Take only first 8 logos for 2 rows of 4
+  const [currentSet, setCurrentSet] = useState(0);
   const firstEightLogos = CLIENT_LOGOS.slice(0, 8);
+  
+  // Create sets of 4 logos for mobile rotation
+  const logoSets = [
+    firstEightLogos.slice(0, 4), // First 4 logos
+    firstEightLogos.slice(4, 8), // Next 4 logos
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSet((prev) => (prev + 1) % logoSets.length);
+    }, 5000); // Switch every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [logoSets.length]);
   
   return (
     <div className="mt-2">
@@ -48,7 +63,27 @@ export const ClientLogosGrid = React.memo(() => {
       >
         TRUSTED BY INDUSTRY LEADERS
       </motion.h2>
-      <div className="grid grid-cols-4 grid-rows-2 gap-x-0.5 justify-items-start">
+      
+      {/* Mobile: 2x2 rotating grid */}
+      <div className="block md:hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSet}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="grid grid-cols-2 grid-rows-2 gap-x-2 gap-y-2 justify-items-center"
+          >
+            {logoSets[currentSet].map((logo, index) => (
+              <ClientLogo key={`${currentSet}-${logo}`} logo={logo} index={index} />
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Desktop: 4x2 static grid */}
+      <div className="hidden md:grid grid-cols-4 grid-rows-2 gap-x-0.5 justify-items-start">
         {firstEightLogos.map((logo, index) => (
           <ClientLogo key={logo} logo={logo} index={index} />
         ))}

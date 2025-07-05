@@ -162,7 +162,7 @@ export const TriggerWrapper: React.FC<{ children: React.ReactNode }> = ({ childr
           role="menuitem"
           className={`flex h-10 md:h-12 items-center gap-1 rounded-lg px-3 md:px-4 py-1 text-base font-bold tracking-widest transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2 min-h-[44px] min-w-[44px] ${
             currentTab === i + 1 
-              ? 'bg-background/50 backdrop-blur-md text-[#00b140] border border-slate-200 [&>svg]:rotate-180 hover:shadow-lg' 
+              ? 'bg-white/70 backdrop-blur-xl text-[#00b140] border border-slate-200 [&>svg]:rotate-180 hover:shadow-lg' 
               : 'text-slate-800'
           }`}>
           {e}
@@ -338,7 +338,7 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
             
             <motion.div
               className={cn(
-                'rounded-lg border border-neutral-200 bg-gradient-to-br from-white/40 backdrop-blur-md to-white/80 shadow-2xl overflow-hidden',
+                'rounded-lg border border-neutral-200 bg-gradient-to-br from-white/60 backdrop-blur-xl to-white/90 shadow-2xl overflow-hidden',
                 className
               )}
               animate={{ height: contentHeight }}
