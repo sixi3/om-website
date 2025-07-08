@@ -22,7 +22,7 @@ export default function AuroraBackgroundDemo() {
           <GlowingDivider 
             width="3/4" 
             intensity="high" 
-            delay={0.2}
+            delay={0.4}
             className="my-8 md:my-16"
           />
           <ModularSolutions />

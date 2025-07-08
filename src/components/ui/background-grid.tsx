@@ -22,7 +22,7 @@ function getLineCount(width: number) {
 export const BackgroundGrid: React.FC<BackgroundGridProps> = ({
   className = "",
   color = "#00b140",
-  opacity = 0.08,
+  opacity = 0.1,
   zIndex = 0,
 }) => {
   const [lineCount, setLineCount] = useState(10);
@@ -40,7 +40,7 @@ export const BackgroundGrid: React.FC<BackgroundGridProps> = ({
 
   // Show grid after content loads (simulate with slight delay)
   useEffect(() => {
-    const timer = setTimeout(() => setShow(true), 400); // 400ms after mount
+    const timer = setTimeout(() => setShow(true), 800); // 800ms after mount
     return () => clearTimeout(timer);
   }, []);
 

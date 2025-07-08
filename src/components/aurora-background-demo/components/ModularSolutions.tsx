@@ -260,8 +260,8 @@ const solutionSections: SolutionSection[] = [
   },
   {
     id: "industry",
-    title: "Industry Solutions",
-    subtitle: "VERTICAL SPECIALISATION",
+    title: "Custom Workflows for your Industry",
+    subtitle: "ONE SOLUTION FOR ALL",
     description: "Specialised solutions tailored for specific industry verticals and their unique compliance requirements.",
     items: [
       {
@@ -357,8 +357,8 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
   // Custom layout for industry section
   if (section.id === "industry") {
     return (
-      <section className="relative w-full px-8 py-16 xl:px-12 2xl:px-24">
-        <div className="mx-auto max-w-3xl text-center flex flex-col items-center">
+      <section className="relative w-full px-8 py-12">
+        <div className="mx-auto max-w-6xl text-center flex flex-col items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -376,7 +376,10 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
             transition={{ duration: ANIMATION_CONFIG.duration, delay: 0.2 }}
             className={`text-3xl md:text-4xl lg:text-5xl leading-tight ${METALLIC_BLACK_TEXT_CLASSES} mb-4`}
           >
-            {section.title}
+            <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
+              Custom workflows
+            </span>{" "}
+            for your industry
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
