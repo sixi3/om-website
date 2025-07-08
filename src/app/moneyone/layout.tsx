@@ -1,16 +1,10 @@
 import React from "react";
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
-import { MoneyOneHeader } from "./components/ProductHeader";
+import { MainHeader } from "@/components/global/MainHeader";
 import { AuroraBackground } from "@/app/onemoney/components/ui/aurora-background";
 
-// Placeholder for MoneyOne nav items
-const navItems = [
-  { name: "Features", href: "/moneyone/features" },
-  { name: "Pricing", href: "/moneyone/pricing" },
-  { name: "About", href: "/moneyone/about" },
-  { name: "Contact", href: "/moneyone/contact" },
-];
+// MainHeader handles navigation dynamically based on the current route
 
 export const metadata: Metadata = {
   title: "MoneyOne - Financial Solutions",
@@ -28,7 +22,7 @@ export default function MoneyOneLayout({
   return (
     <div className={cn("min-h-screen font-sans antialiased flex flex-col")}>
       <AuroraBackground className="flex-grow flex flex-col">
-        <MoneyOneHeader />
+        <MainHeader />
         <main className="flex-grow relative z-10">{children}</main>
         <footer className="py-6 border-t border-indigo-800/10 bg-transparent backdrop-blur-sm mt-auto">
           <div className="container">

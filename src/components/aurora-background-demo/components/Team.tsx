@@ -238,14 +238,14 @@ const Team = React.memo(() => {
           <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase">
             Built by a stellar team
           </span>
-          <h2 className={`text-4xl md:text-5xl lg:text-5xl leading-tight  ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mt-8 mx-auto`}>
+          <h2 className={`text-2xl md:text-5xl lg:text-5xl leading-tight  ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mt-8 mx-auto`}>
             Meet the{" "}
             <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
               visionaries
             </span>{" "}
             behind our success
           </h2>
-          <p className="text-xl text-slate-600 leading-relaxed max-w-6xl mx-auto">
+          <p className="text-sm text-slate-600 leading-relaxed max-w-6xl mx-auto">
             Our diverse team of experts brings together decades of experience in fintech, identity verification, and data analytics to drive innovation.
           </p>
         </motion.div>
@@ -262,8 +262,8 @@ const Team = React.memo(() => {
         className="relative"
       >
         {/* Full-bleed horizontal scroll container */}
-        <div ref={scrollRef} className="overflow-x-auto overflow-y-hidden pb-4 scrollbar-hide w-full min-h-[384px]">
-          <div className="flex space-x-6 w-max px-4 md:px-8 lg:px-32 2xl:px-64 h-96">
+        <div ref={scrollRef} className="overflow-x-auto overflow-y-hidden pb-4 scrollbar-hide w-screen -mx-4 min-h-[384px]">
+          <div className="flex space-x-6 w-max h-96" style={{ paddingLeft: 'max(1rem, calc((100vw - 1280px) / 2))', paddingRight: '1rem' }}>
             {teamMembers.map((member, index) => (
               <ProfileCard
                 key={member.id}

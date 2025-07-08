@@ -27,8 +27,8 @@ interface SolutionSection {
 
 const solutionSections: SolutionSection[] = [
   {
-    title: "INDUSTRY SOLUTIONS",
-    description: "Specialized solutions tailored for specific industry verticals and their unique requirements",
+    title: "OUR FULLY INTEGRATED SUITE",
+    description: "Specialised solutions tailored for specific industry verticals and their unique requirements",
     items: [
       {
         id: "financial-services",
@@ -43,7 +43,7 @@ const solutionSections: SolutionSection[] = [
         href: "/solutions/financial-services"
       },
       {
-        id: "healthcare",
+        id: "HRMS BGV Integration",
         title: "Healthcare",
         description: "Secure patient data management and verification",
         image: {
@@ -56,7 +56,7 @@ const solutionSections: SolutionSection[] = [
       },
       {
         id: "gig-economy",
-        title: "Gig & Platform Economy",
+        title: "Gig & Platform Hiring",
         description: "Streamlined onboarding for gig workers and platforms",
         image: {
           src: "/Gig & Platform Economy.png",
@@ -65,36 +65,6 @@ const solutionSections: SolutionSection[] = [
           height: 56
         },
         href: "/solutions/gig-economy"
-      },
-      {
-        id: "government-contracts",
-        title: "Government Contracts",
-        description: "Compliance-ready solutions for government projects",
-        image: {
-          src: "/Government Contracts.png",
-          alt: "Government Contracts",
-          width: 56,
-          height: 56
-        },
-        href: "/solutions/government"
-      }
-    ]
-  },
-  {
-    title: "USE CASE SOLUTIONS",
-    description: "Function-specific solutions designed to address common business challenges and workflows",
-    items: [
-      {
-        id: "recruitment",
-        title: "Recruitment & Hiring",
-        description: "End-to-end background verification for HR teams",
-        image: {
-          src: "/Recruitment.png",
-          alt: "Recruitment",
-          width: 56,
-          height: 56
-        },
-        href: "/solutions/recruitment"
       },
       {
         id: "compliance",
@@ -108,30 +78,6 @@ const solutionSections: SolutionSection[] = [
         },
         href: "/solutions/compliance"
       },
-      {
-        id: "financial-analytics",
-        title: "Financial Analytics",
-        description: "Data-driven insights for financial decision making",
-        image: {
-          src: "/Financial Analytics.png",
-          alt: "Financial Analytics",
-          width: 56,
-          height: 56
-        },
-        href: "/solutions/analytics"
-      },
-      {
-        id: "workforce-management",
-        title: "Workforce Management",
-        description: "Complete employee lifecycle management solutions",
-        image: {
-          src: "/Live Status Dashboard.png",
-          alt: "Workforce Management",
-          width: 56,
-          height: 56
-        },
-        href: "/solutions/workforce"
-      }
     ]
   }
 ]

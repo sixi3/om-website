@@ -19,6 +19,28 @@ export const metadata: Metadata = {
   icons: {
     icon: "/equal-icon.png",
   },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://oneequal.com',
+    title: "OneEqual - India's Most Advanced Data Sharing Platform",
+    description: "OneEqual is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.",
+    siteName: 'OneEqual',
+    images: [
+      {
+        url: '/equal-icon.png',
+        width: 1200,
+        height: 630,
+        alt: 'OneEqual Logo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "OneEqual - India's Most Advanced Data Sharing Platform",
+    description: "OneEqual is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.",
+    images: ['/equal-icon.png'],
+  },
 };
 
 export default function RootLayout({
@@ -28,6 +50,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Defensive handling for scripts that access meta tags
+              if (typeof window !== 'undefined') {
+                const originalQuerySelector = document.querySelector;
+                document.querySelector = function(selector) {
+                  const element = originalQuerySelector.call(this, selector);
+                  if (selector.includes("meta[property='og:") && !element) {
+                    // Return a mock element to prevent null reference errors
+                    return { content: '' };
+                  }
+                  return element;
+                };
+              }
+            `,
+          }}
+        />
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased flex flex-col",

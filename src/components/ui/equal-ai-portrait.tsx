@@ -108,8 +108,6 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
       variants={containerVariants}
       initial="hidden"
       animate={isVisible ? "visible" : "hidden"}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       className={`
         relative w-[280px] rounded-xl overflow-hidden shadow-2xl
         border border-[#baff29]/80 backdrop-blur-sm cursor-pointer
@@ -121,6 +119,12 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
         perspective: '1000px'
       }}
     >
+      {/* Title at the top */}
+      <div className="absolute top-6 left-0 w-full flex justify-center z-20 pointer-events-none">
+        <h2 className="text-md font-semibold tracking-widest text-white uppercase px-4 py-1 rounded">
+          CONSUMER
+        </h2>
+      </div>
       {/* Etheral Shadow Background - Simplified */}
       <div className="absolute inset-0">
         <EtheralShadow
@@ -131,21 +135,18 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
           className="w-full h-full"
         />
       </div>
-
       {/* Simplified Animated Gradient Overlay */}
       <motion.div 
         className="absolute inset-0"
         animate={gradientAnimation}
       />
-
       {/* Content Container */}
       <motion.div 
-        className="relative z-10 flex flex-col h-full p-8"
+        className="relative z-10 flex flex-col h-full px-8"
         variants={contentVariants}
       >
         {/* Spacer to push logo to center */}
         <div className="flex-1" />
-        
         {/* Equal AI Logo - Optimized Loading */}
         <div className="flex justify-center">
           <motion.div
@@ -170,57 +171,29 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
             )}
           </motion.div>
         </div>
-        
+        {/* AI Assistants for Everything text below Lottie */}
+        <div className="flex justify-center mb-4">
+          <h3 className="text-[12px] drop-shadow-lg flex items-center justify-center gap-1 uppercase">
+            <span className={metallicBlackTextClasses}>
+              AI Assistants for Everything
+            </span>
+            <span className="text-md">⚡️</span>
+          </h3>
+        </div>
+        {/* Always show Explore button below the text */}
+        <div className="flex justify-center mb-2">
+          <motion.button
+            className="bg-[#00b140]/30 hover:border drop-shadow-lg hover:border-[#00b140]/30 rounded-full px-6 py-2 flex items-center gap-2 text-white font-semibold text-sm hover:bg-white/30 transition-colors duration-200"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            style={{ transform: 'translate3d(0,0,0)' }}
+          >
+            EXPLORE NOW
+            <ArrowRight className="w-4 h-4" />
+          </motion.button>
+        </div>
         {/* Spacer to center logo vertically */}
         <div className="flex-1" />
-
-        {/* Text Content / Button - Simplified */}
-        <motion.div 
-          className="absolute bottom-8 left-0 right-0 flex justify-center"
-          variants={contentVariants}
-        >
-          <div className="h-16 flex items-center justify-center">
-            <AnimatePresence mode="wait">
-              {!isHovered ? (
-                <motion.div
-                  key="text"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="text-center"
-                >
-                  <h3 className="text-[14px] drop-shadow-lg flex items-center justify-center gap-1 uppercase">
-                    <span className={metallicBlackTextClasses}>
-                      AI Assistants for Everything
-                    </span>
-                    <span className="text-lg">⚡️</span>
-                  </h3>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="button"
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 5 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="flex justify-center"
-                >
-                  <motion.button
-                    className="bg-[#00b140]/30 backdrop-blur-sm border border-[#00b140]/30 rounded-full px-6 py-3 flex items-center gap-2 text-white font-semibold text-sm hover:bg-white/30 transition-colors duration-200"
-                    whileHover={{ scale: 1.03 }} // Reduced scale for better performance
-                    whileTap={{ scale: 0.97 }}
-                    style={{ transform: 'translate3d(0,0,0)' }}
-                  >
-                    EXPLORE NOW
-                    <ArrowRight className="w-4 h-4" />
-                  </motion.button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
-
         {/* Simplified Decorative Elements */}
         <motion.div
           className="absolute top-6 right-6 w-3 h-3 bg-white/30 rounded-full"
@@ -235,7 +208,6 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
             ease: "easeInOut"
           }}
         />
-
         <motion.div
           className="absolute bottom-6 left-6 w-2 h-2 bg-white/40 rounded-full"
           variants={contentVariants}
@@ -250,18 +222,10 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
             delay: 0.5
           }}
         />
-
         {/* Subtle Glow Effect */}
         <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-white/10 pointer-events-none" />
       </motion.div>
-
-      {/* Simplified Hover Effect Overlay */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileHover={{ opacity: 1 }}
-        transition={{ duration: 0.2 }}
-        className="absolute inset-0 bg-white/5 pointer-events-none"
-      />
+      {/* Simplified Hover Effect Overlay - can be removed since button is always visible */}
     </motion.div>
   );
 });

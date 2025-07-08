@@ -8,30 +8,43 @@ import { CLIENT_LOGOS, METALLIC_BLACK_TEXT_CLASSES } from '../constants';
 interface ClientLogoProps {
   logo: string;
   index: number;
+  priority?: boolean;
 }
 
-const ClientLogo = React.memo<ClientLogoProps>(({ logo, index }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.8 }}
-    animate={{ opacity: 1, scale: 1 }}
-    exit={{ opacity: 0, scale: 0.8 }}
-    transition={{ 
-      delay: index * 0.05,
-      duration: 0.4,
-      ease: "easeOut"
-    }}
-    className="relative w-32 md:w-40 h-10 md:h-12 hover:scale-105 transition-transform duration-300 mb-4 md:mb-6 flex justify-start items-center"
-  >
-    <Image
-      src={`/client-logos/${logo}`}
-      alt={`Client logo ${index + 1}`}
-      fill
-      className="object-contain object-left filter grayscale hover:grayscale-0 transition-all duration-300"
-      sizes="(max-width: 768px) 25vw, (max-width: 1024px) 20vw, 15vw"
-      priority={index < 8} // Prioritize loading for first 8 logos
-    />
-  </motion.div>
-));
+const ClientLogo = React.memo<ClientLogoProps>(({ logo, index, priority = false }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{ 
+        delay: index * 0.05,
+        duration: 0.4,
+        ease: "easeOut"
+      }}
+      className="relative w-32 md:w-40 h-10 md:h-12 hover:scale-105 transition-transform duration-300 mb-4 md:mb-6 flex justify-start items-center"
+    >
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-slate-200 animate-pulse rounded-sm" />
+      )}
+      <Image
+        src={`/client-logos/${logo}`}
+        alt={`Client logo ${index + 1}`}
+        fill
+        className={`object-contain object-left filter grayscale hover:grayscale-0 transition-all duration-300 ${
+          isLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
+        sizes="(max-width: 768px) 25vw, (max-width: 1024px) 20vw, 15vw"
+        priority={priority}
+        loading={priority ? "eager" : "lazy"}
+        onLoad={() => setIsLoaded(true)}
+        quality={75} // Reduce quality for faster loading
+      />
+    </motion.div>
+  );
+});
 
 ClientLogo.displayName = 'ClientLogo';
 
@@ -76,7 +89,12 @@ export const ClientLogosGrid = React.memo(() => {
             className="grid grid-cols-2 grid-rows-2 gap-x-2 gap-y-2 justify-items-center"
           >
             {logoSets[currentSet].map((logo, index) => (
-              <ClientLogo key={`${currentSet}-${logo}`} logo={logo} index={index} />
+              <ClientLogo 
+                key={`${currentSet}-${logo}`} 
+                logo={logo} 
+                index={index} 
+                priority={currentSet === 0 && index < 4} // Prioritize first set
+              />
             ))}
           </motion.div>
         </AnimatePresence>
@@ -85,7 +103,12 @@ export const ClientLogosGrid = React.memo(() => {
       {/* Desktop: 4x2 static grid */}
       <div className="hidden md:grid grid-cols-4 grid-rows-2 gap-x-0.5 justify-items-start">
         {firstEightLogos.map((logo, index) => (
-          <ClientLogo key={logo} logo={logo} index={index} />
+          <ClientLogo 
+            key={logo} 
+            logo={logo} 
+            index={index} 
+            priority={index < 4} // Prioritize first row
+          />
         ))}
       </div>
     </div>

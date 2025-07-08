@@ -208,7 +208,23 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
   const [dropdownWidth, setDropdownWidth] = React.useState<number>(0)
   const [showEqualAI, setShowEqualAI] = React.useState(false)
   const positioningTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  
+
+  // Find the index of the ProductDropdownContent tab
+  const childrenArray = React.Children.toArray(children);
+  const productTabIndex = childrenArray.findIndex(child => {
+    if (React.isValidElement(child)) {
+      const element = child as React.ReactElement;
+      if (element.props && (element.props as any).children) {
+        const inner = (element.props as any).children;
+        if (React.isValidElement(inner) && typeof inner.type !== 'string' && 'displayName' in inner.type) {
+          // @ts-ignore
+          return inner.type.displayName === 'ProductDropdownContent';
+        }
+      }
+    }
+    return false;
+  });
+
   // Throttled positioning calculation using RAF
   const calculatePositioning = useCallback(() => {
     if (positioningTimeoutRef.current) {
@@ -259,7 +275,7 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
   // Delay EqualAI portrait loading
   React.useEffect(() => {
     let timeout: NodeJS.Timeout
-    if (currentTab === 1) {
+    if (currentTab === productTabIndex + 1) {
       // Show EqualAI after 400ms delay to let main dropdown load first
       timeout = setTimeout(() => {
         setShowEqualAI(true)
@@ -271,7 +287,7 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
     return () => {
       if (timeout) clearTimeout(timeout)
     }
-  }, [currentTab])
+  }, [currentTab, productTabIndex])
   
   // Optimized animation variants
   const dropdownVariants = useMemo(() => ({
@@ -426,7 +442,7 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
           </div>
 
           {/* Equal AI Portrait - Lazy loaded with delay */}
-          {currentTab === 1 && showEqualAI && (
+          {currentTab === productTabIndex + 1 && showEqualAI && (
             <div className="hidden lg:block">
               <React.Suspense fallback={
                 <div className="w-[280px] h-[350px] animate-pulse bg-white/10 rounded-xl border border-[#baff29]/20" />

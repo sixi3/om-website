@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import { OneMoneyHeader } from "./components/ProductHeader";
+import { MainHeader } from "@/components/global/MainHeader";
 import { Footer } from "./components/Footer";
 import { AuroraBackground } from "./components/ui/aurora-background";
 import { cn } from "@/lib/utils"; // Assuming this path is still valid or will be adjusted if needed.
@@ -26,7 +26,7 @@ export default function OneMoneyLayout({
     // We might need to adjust dmSans.variable if it's not globally applied anymore.
     <AuroraBackground>
       <div className={cn("min-h-screen bg-transparent font-sans antialiased flex flex-col")}>
-        <OneMoneyHeader />
+        <MainHeader />
         <main className="flex-grow relative z-10">{children}</main>
         <Footer />
       </div>

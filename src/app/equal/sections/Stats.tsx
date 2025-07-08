@@ -29,7 +29,7 @@ const supportedChecks = [
   "Directorship Check", "Right to Work (Govt ID)", "Professional Reference Check"
 ];
 
-export function Stats() {
+export function Stats({ showVerifyBanner = true }: { showVerifyBanner?: boolean } = {}) {
   return (
     <section className="relative w-full py-24">
       <GridBackground />
@@ -59,52 +59,54 @@ export function Stats() {
                 {stat.label}
               </p>
             </div>
-            
           ))}
         </div>
       </div> {/* End of container div */}
-            
-      {/* Container for the title and lines - remove horizontal padding to allow lines to span full width */} 
-      <div className="w-full">
-        <div className="flex items-center gap-2 sm:gap-4 md:gap-8 mt-12 mb-8">
-          <div className="flex-grow h-px bg-foreground/20"></div>
-          <h2 className="text-sm md:text-base font-regular text-foreground/80 tracking-wider uppercase text-center flex-shrink">
-            VERIFY EVERYTHING WITH EQUAL
-          </h2>
-          <div className="flex-grow h-px bg-foreground/20"></div>
-        </div>
-      </div>
-      {/* Marquee Banners */}
-      <div className="mt-8 space-y-4">
-        <Marquee gradient={false} speed={40} pauseOnHover={true}>
-          {supportedChecks.map((check, index) => (
-            <div
-              key={index}
-              className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300 mx-2"
-            >
-              <span className="relative flex h-2 w-2 mr-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              {check}
+      {showVerifyBanner && (
+        <>
+          {/* Container for the title and lines - remove horizontal padding to allow lines to span full width */} 
+          <div className="w-full">
+            <div className="flex items-center gap-2 sm:gap-4 md:gap-8 mt-12 mb-8">
+              <div className="flex-grow h-px bg-foreground/20"></div>
+              <h2 className="text-sm md:text-base font-regular text-foreground/80 tracking-wider uppercase text-center flex-shrink">
+                VERIFY EVERYTHING WITH EQUAL
+              </h2>
+              <div className="flex-grow h-px bg-foreground/20"></div>
             </div>
-          ))}
-        </Marquee>
-        <Marquee gradient={false} speed={40} pauseOnHover={true} direction="right">
-          {supportedChecks.slice().reverse().map((check, index) => (
-            <div
-              key={index}
-              className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300 mx-2"
-            >
-              <span className="relative flex h-2 w-2 mr-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              {check}
-            </div>
-          ))}
-        </Marquee>
-      </div>
+          </div>
+          {/* Marquee Banners */}
+          <div className="mt-8 space-y-4">
+            <Marquee gradient={false} speed={40} pauseOnHover={true}>
+              {supportedChecks.map((check, index) => (
+                <div
+                  key={index}
+                  className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300 mx-2"
+                >
+                  <span className="relative flex h-2 w-2 mr-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  {check}
+                </div>
+              ))}
+            </Marquee>
+            <Marquee gradient={false} speed={40} pauseOnHover={true} direction="right">
+              {supportedChecks.slice().reverse().map((check, index) => (
+                <div
+                  key={index}
+                  className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300 mx-2"
+                >
+                  <span className="relative flex h-2 w-2 mr-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  {check}
+                </div>
+              ))}
+            </Marquee>
+          </div>
+        </>
+      )}
     </section>
   );
 } 

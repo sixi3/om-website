@@ -27,60 +27,6 @@ interface ProductSection {
 
 const productSections: ProductSection[] = [
   {
-    title: "EMPLOYMENT",
-    description: "Identity verification and background check solutions for workforce management",
-    items: [
-      {
-        id: "Enterprise Hiring",
-        title: "Enterprise Hiring",
-        description: "Advanced identity and KYC solutions for enterprise hiring",
-        image: {
-          src: "/Recruitment.png",
-          alt: "Enterprise Hiring",
-          width: 56,
-          height: 56
-        },
-        href: "/equal/products/identity-gateway"
-      },
-      {
-        id: "Gig Hiring",
-        title: "Gig Hiring",
-        description: "Onboard gig workers at scale with ease",
-        image: {
-          src: "/Gig Economy Hiring.png",
-          alt: "Gig Hiring",
-          width: 56,
-          height: 56
-        },
-        href: "/equal/products/console"
-      },
-      {
-        id: "Financial Services",
-        title: "Financial Services",
-        description: "Get powerful insights from financial data, powered by AI",
-        image: {
-          src: "/Financial Analytics.png",
-          alt: "Financial Services",
-          width: 56,
-          height: 56
-        },
-        href: "/equal/products/console"
-      },
-      {
-        id: "Staffing & Contract Roles",
-        title: "Staffing & Contract",
-        description: "Hire and manage contract workers with ease",
-        image: {
-          src: "/Staffing & Contract Roles.png",
-          alt: "Staffing & Contract Roles",
-          width: 56,
-          height: 56
-        },
-        href: "/equal/products/console"
-      }
-    ]
-  },
-  {
     title: "BFSI",
     description: "Banking, Financial Services & Insurance technology solutions",
     items: [
@@ -131,6 +77,60 @@ const productSections: ProductSection[] = [
           height: 56
         },
         href: "/oneapp"
+      }
+    ]
+  },
+  {
+    title: "EMPLOYMENT",
+    description: "Identity verification and background check solutions for workforce management",
+    items: [
+      {
+        id: "Enterprise Hiring",
+        title: "Enterprise Hiring",
+        description: "Advanced identity and KYC solutions for enterprise hiring",
+        image: {
+          src: "/Recruitment.png",
+          alt: "Enterprise Hiring",
+          width: 56,
+          height: 56
+        },
+        href: "/equal/solutions/enterprise-hiring"
+      },
+      {
+        id: "Gig Hiring",
+        title: "Gig Hiring",
+        description: "Onboard gig workers at scale with ease",
+        image: {
+          src: "/Gig Economy Hiring.png",
+          alt: "Gig Hiring",
+          width: 56,
+          height: 56
+        },
+        href: "/equal/solutions/gig-hiring"
+      },
+      {
+        id: "Financial Services",
+        title: "Financial Services",
+        description: "Get powerful insights from financial data, powered by AI",
+        image: {
+          src: "/Financial Analytics.png",
+          alt: "Financial Services",
+          width: 56,
+          height: 56
+        },
+        href: "/equal/products/console"
+      },
+      {
+        id: "Staffing & Contract Roles",
+        title: "Staffing & Contract",
+        description: "Hire and manage contract workers with ease",
+        image: {
+          src: "/Staffing & Contract Roles.png",
+          alt: "Staffing & Contract Roles",
+          width: 56,
+          height: 56
+        },
+        href: "/equal/solutions/staffing"
       }
     ]
   }

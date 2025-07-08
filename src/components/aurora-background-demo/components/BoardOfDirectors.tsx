@@ -105,19 +105,19 @@ const BoardOfDirectors = React.memo(() => {
           <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase">
             HIGHEST LEVELS OF GOVERNANCE
           </span>
-          <h2 className={`text-4xl md:text-5xl lg:text-5xl leading-tight ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mt-8 mx-auto`}>
+          <h2 className={`text-2xl md:text-5xl lg:text-5xl leading-tight ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mt-8 mx-auto`}>
             Strategic{" "}
             <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
               governance
             </span>{" "}
             from industry leaders
           </h2>
-          <p className="text-xl text-slate-600 leading-relaxed max-w-6xl mx-auto">
+          <p className="text-sm text-slate-600 leading-relaxed max-w-6xl mx-auto">
             Our board comprises seasoned executives and thought leaders who provide strategic guidance and oversight to drive sustainable growth and innovation.
           </p>
         </motion.div>
 
-        {/* Mobile: Horizontal scroll layout */}
+        {/* Mobile: Horizontal scroll layout - full width, not inside max-w-7xl */}
         <div className="lg:hidden">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -129,8 +129,8 @@ const BoardOfDirectors = React.memo(() => {
             }}
             className="relative"
           >
-            <div ref={scrollRef} className="overflow-x-auto pb-4 scrollbar-hide w-full">
-              <div className="flex space-x-8 w-max pl-4 pr-4">
+            <div ref={scrollRef} className="overflow-x-auto pb-4 scrollbar-hide w-screen -mx-4 px-4">
+              <div className="flex space-x-8 w-max">
                 {boardMembers.map((member, index) => (
                   <motion.div
                     key={member.id}
@@ -200,8 +200,8 @@ const BoardOfDirectors = React.memo(() => {
           </motion.div>
         </div>
 
-        {/* Desktop: Grid layout (5+4) */}
-        <div className="hidden lg:block">
+        {/* Desktop: Grid layout (5+4) - keep inside max-w-7xl */}
+        <div className="hidden lg:block max-w-7xl mx-auto">
           {/* First row - 5 items */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

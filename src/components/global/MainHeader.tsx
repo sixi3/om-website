@@ -14,10 +14,83 @@ import { DropdownMenu, TriggerWrapper, Trigger, TabsContainer, Tab } from "@/com
 import { ProductDropdownContent } from "@/components/ui/product-dropdown-content";
 import { SolutionsDropdownContent } from "@/components/ui/solutions-dropdown-content";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { WhyEqualDropdownContent } from "@/components/ui/why-equal-dropdown-content";
+import { PrivacyDropdownContent } from "@/components/ui/privacy-dropdown-content";
 
 interface MainHeaderProps {
   className?: string;
 }
+
+// Company section detection and tab configurations
+type CompanySection = 'equal' | 'moneyone' | 'onemoney' | 'default';
+
+interface TabConfig {
+  trigger: string;
+  content: React.ComponentType;
+  mobileLinks: Array<{
+    title: string;
+    href: string;
+  }>;
+}
+
+const getCompanySection = (pathname: string): CompanySection => {
+  if (pathname.startsWith('/equal') || pathname.startsWith('/solutions')) {
+    return 'equal';
+  }
+  if (pathname.startsWith('/moneyone')) {
+    return 'moneyone'; 
+  }
+  if (pathname.startsWith('/onemoney')) {
+    return 'onemoney';
+  }
+  return 'default';
+};
+
+const getTabConfigurations = (section: CompanySection): TabConfig[] => {
+  const baseConfig: TabConfig[] = [
+    {
+      trigger: "WHY ONE EQUAL",
+      content: WhyEqualDropdownContent,
+      mobileLinks: []
+    },
+    {
+      trigger: "PRODUCTS", 
+      content: ProductDropdownContent,
+      mobileLinks: [
+        { title: "Equal ID Gateway", href: "/equal/products/identity-gateway" },
+        { title: "Equal Console", href: "/equal/products/console" },
+        { title: "OneMoney AA", href: "/onemoney" },
+        { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" }
+      ]
+    },
+    {
+      trigger: "SOLUTIONS",
+      content: SolutionsDropdownContent,
+      mobileLinks: [
+        { title: "Financial Services", href: "/equal/solutions/financial-services" },
+        { title: "Healthcare", href: "/solutions/healthcare" },
+        { title: "Gig Economy", href: "/equal/solutions/gig-hiring" },
+        { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
+        { title: "Staffing", href: "/equal/solutions/staffing" }
+      ]
+    }
+  ];
+
+  // Add privacy policy tab for onemoney
+  if (section === 'onemoney') {
+    baseConfig.push({
+      trigger: "PRIVACY & LEGAL",
+      content: PrivacyDropdownContent,
+      mobileLinks: [
+        { title: "Privacy Policy", href: "/onemoney/policies" },
+        { title: "Terms of Use", href: "/onemoney/policies" },
+        { title: "Compliance", href: "/onemoney/compliance" }
+      ]
+    });
+  }
+
+  return baseConfig;
+};
 
 // Memoized mobile navigation items
 const MobileNavItem = memo(({ 
@@ -47,18 +120,17 @@ const MobileNavItem = memo(({
 
 MobileNavItem.displayName = 'MobileNavItem';
 
-// Main navigation items
-const NAV_ITEMS = [
-  { name: "PRODUCTS", href: "#", hasDropdown: true },
-  { name: "SOLUTIONS", href: "#", hasDropdown: true },
-  { name: "WHY ONE EQUAL", href: "/why-oneequal", hasDropdown: false },
-];
+// Main navigation items - now handled dynamically through tab configurations
 
 export function MainHeader({ className }: MainHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const pathname = usePathname();
+  
+  // Get dynamic tab configuration based on current section
+  const currentSection = getCompanySection(pathname);
+  const tabConfigs = getTabConfigurations(currentSection);
 
   // CSS variables for theming
   const cssVars = {
@@ -122,11 +194,7 @@ export function MainHeader({ className }: MainHeaderProps) {
     },
   };
 
-  // Check if nav item is active
-  const isNavItemActive = useCallback((item: typeof NAV_ITEMS[0]) => {
-    if (item.href === "#") return false;
-    return pathname === item.href || pathname.startsWith(item.href + "/");
-  }, [pathname]);
+  // Navigation item active state is now handled in the mobile navigation mapping
 
   return (
     <div className={cn("fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:p-3 pointer-events-none will-change-transform", className)}>
@@ -148,49 +216,34 @@ export function MainHeader({ className }: MainHeaderProps) {
                 alt="Equal Logo"
                 width={71}
                 height={21}
-                className="h-10 w-auto"
+                className="h-8 md:h-10 w-auto"
                 priority
               />
             </Link>
           </div>
+          
 
           {/* Center: Desktop Navigation with Dropdowns */}
           <nav className="hidden lg:flex items-center justify-center flex-1">
             <div className="flex items-center gap-2 md:gap-4">
               <DropdownMenu>
                 <TriggerWrapper>
-                  <Trigger>PRODUCTS</Trigger>
-                  <Trigger>SOLUTIONS</Trigger>
+                  {tabConfigs.map((config, index) => (
+                    <Trigger key={index}>{config.trigger}</Trigger>
+                  ))}
                 </TriggerWrapper>
                 
                 <TabsContainer>
-                  <Tab>
-                    <ProductDropdownContent />
-                  </Tab>
-                  <Tab>
-                    <SolutionsDropdownContent />
-                  </Tab>
+                  {tabConfigs.map((config, index) => {
+                    const ContentComponent = config.content;
+                    return (
+                      <Tab key={index}>
+                        <ContentComponent />
+                      </Tab>
+                    );
+                  })}
                 </TabsContainer>
               </DropdownMenu>
-
-              {/* WHY OneEqual tab styled like dropdown triggers but without chevron */}
-              {NAV_ITEMS.slice(2).map((item) => {
-                const isActive = isNavItemActive(item);
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={cn(
-                      "flex h-10 md:h-12 items-center gap-1 rounded-lg px-3 md:px-4 py-1 text-base font-bold tracking-widest transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2 min-h-[44px] min-w-[44px]",
-                      isActive 
-                        ? "bg-background/50 backdrop-blur-md text-[#00b140] border border-slate-200 hover:shadow-lg" 
-                        : "text-slate-800 hover:bg-background/30"
-                    )}
-                  >
-                    {item.name}
-                  </Link>
-                );
-              })}
             </div>
           </nav>
           
@@ -228,83 +281,44 @@ export function MainHeader({ className }: MainHeaderProps) {
               variants={mobileMenuVariants}
             >
               <nav className="flex flex-col space-y-1 px-2 py-3">
-                {/* Mobile Navigation Items */}
-                <div className="space-y-2 mb-4">
-                  <div className="px-3 py-2">
-                    <h3 className="text-sm font-semibold text-[#00b140] uppercase tracking-widest">Products</h3>
-                  </div>
-                  <div className="pl-3 space-y-1">
-                    <MobileNavItem
-                      title="Equal ID Gateway"
-                      href="/equal/products/identity-gateway"
-                      isActive={pathname === "/equal/products/identity-gateway"}
-                      onClick={closeMobileMenu}
-                    />
-                    <MobileNavItem
-                      title="Equal Console"
-                      href="/equal/products/console"
-                      isActive={pathname === "/equal/products/console"}
-                      onClick={closeMobileMenu}
-                    />
-                    <MobileNavItem
-                      title="OneMoney AA"
-                      href="/onemoney"
-                      isActive={pathname === "/onemoney"}
-                      onClick={closeMobileMenu}
-                    />
-                    <MobileNavItem
-                      title="FinPro FIU TSP"
-                      href="/moneyone/products/finpro"
-                      isActive={pathname === "/moneyone/products/finpro"}
-                      onClick={closeMobileMenu}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2 mb-4">
-                  <div className="px-3 py-2">
-                    <h3 className="text-sm font-semibold text-[#00b140] uppercase tracking-widest">Solutions</h3>
-                  </div>
-                  <div className="pl-3 space-y-1">
-                    <MobileNavItem
-                      title="Financial Services"
-                      href="/solutions/financial-services"
-                      isActive={pathname === "/solutions/financial-services"}
-                      onClick={closeMobileMenu}
-                    />
-                    <MobileNavItem
-                      title="Healthcare"
-                      href="/solutions/healthcare"
-                      isActive={pathname === "/solutions/healthcare"}
-                      onClick={closeMobileMenu}
-                    />
-                    <MobileNavItem
-                      title="Gig Economy"
-                      href="/solutions/gig-economy"
-                      isActive={pathname === "/solutions/gig-economy"}
-                      onClick={closeMobileMenu}
-                    />
-                    <MobileNavItem
-                      title="Recruitment"
-                      href="/solutions/recruitment"
-                      isActive={pathname === "/solutions/recruitment"}
-                      onClick={closeMobileMenu}
-                    />
-                  </div>
-                </div>
-
-                {/* WHY OneEqual Navigation Item */}
-                <div className="space-y-2 mb-4">
-                  {NAV_ITEMS.slice(2).map((item) => (
-                    <MobileNavItem
-                      key={item.name}
-                      title={item.name}
-                      href={item.href}
-                      isActive={isNavItemActive(item)}
-                      onClick={closeMobileMenu}
-                    />
-                  ))}
-                </div>
+                {/* Dynamic Mobile Navigation Items */}
+                {tabConfigs.map((config, index) => {
+                  if (config.mobileLinks.length === 0) {
+                    // Single item like "WHY ONE EQUAL"
+                    return (
+                      <div key={index} className="space-y-2 mb-4">
+                        <MobileNavItem
+                          title={config.trigger}
+                          href="/why-oneequal" // Default href for WHY ONE EQUAL
+                          isActive={pathname === "/why-oneequal"}
+                          onClick={closeMobileMenu}
+                        />
+                      </div>
+                    );
+                  } else {
+                    // Section with multiple links
+                    return (
+                      <div key={index} className="space-y-2 mb-4">
+                        <div className="px-3 py-2">
+                          <h3 className="text-sm font-semibold text-[#00b140] uppercase tracking-widest">
+                            {config.trigger}
+                          </h3>
+                        </div>
+                        <div className="pl-3 space-y-1">
+                          {config.mobileLinks.map((link, linkIndex) => (
+                            <MobileNavItem
+                              key={linkIndex}
+                              title={link.title}
+                              href={link.href}
+                              isActive={pathname === link.href}
+                              onClick={closeMobileMenu}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  }
+                })}
 
                 {/* GET IN TOUCH Button for Mobile */}
                 <div className="px-3 py-2">

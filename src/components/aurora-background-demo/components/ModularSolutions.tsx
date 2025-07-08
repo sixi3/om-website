@@ -55,9 +55,9 @@ MetricsCounter.displayName = 'MetricsCounter';
 
 // Metrics data for each section
 const employmentMetrics = [
-  { id: "uptime", value: 99, label: "Uptime", prefix: "", suffix: "%" },
+  { id: "uptime", value: 99, label: "Service Uptime", prefix: "", suffix: "%" },
   { id: "users", value: 10, label: "Indians Using Equal", prefix: "", suffix: "L+" },
-  { id: "companies", value: 50, label: "Top companies using Equal", prefix: "", suffix: "+" },
+  { id: "companies", value: 50, label: "Companies using Equal", prefix: "", suffix: "+" },
 ];
 
 const financialMetrics = [
@@ -85,10 +85,10 @@ const MetricsGrid = React.memo<{ metrics: Array<{ id: string; value: number; lab
         duration: ANIMATION_CONFIG.duration,
         delay: 0.4
       }}
-      className="grid grid-cols-3 gap-4 mt-8"
+      className="grid grid-cols-3 gap-8 md:gap-4 mt-8"
     >
       {metrics.map((stat) => (
-        <div key={stat.id} className="flex flex-col items-start text-center">
+        <div key={stat.id} className="flex flex-col items-center md:items-start text-center">
           <div className="text-2xl md:text-3xl lg:text-4xl mb-1">
             <span className={metallicTextClasses}>{stat.prefix}</span>
             {stat.id === 'fip' ? (
@@ -104,7 +104,7 @@ const MetricsGrid = React.memo<{ metrics: Array<{ id: string; value: number; lab
             )}
             <span className={metallicTextClasses}>{stat.suffix}</span>
           </div>
-          <p className="text-xs md:text-sm text-left font-medium text-slate-600">
+          <p className="text-xs md:text-sm text-center md:text-left font-medium text-slate-600">
             {stat.label}
           </p>
         </div>
@@ -138,66 +138,7 @@ interface SolutionSection {
 }
 
 const solutionSections: SolutionSection[] = [
-  {
-    id: "employment",
-    title: "Employment Solutions",
-    subtitle: "WORKFORCE MANAGEMENT",
-    description: "Identity verification and background check solutions for workforce management across all industries and company sizes.",
-    items: [
-      {
-        id: "enterprise-hiring",
-        title: "Enterprise Hiring",
-        description: "Advanced identity and KYC solutions with real-time verification.",
-        image: {
-          src: "/Recruitment.png",
-          alt: "Enterprise Hiring",
-          width: 80,
-          height: 80
-        },
-        href: "/equal/products/identity-gateway",
-        icon: <Building size={24} />
-      },
-      {
-        id: "gig-hiring",
-        title: "Gig Economy Hiring",
-        description: "Onboard gig workers at scale with streamlined verification.",
-        image: {
-          src: "/Gig Economy Hiring.png",
-          alt: "Gig Hiring",
-          width: 80,
-          height: 80
-        },
-        href: "/equal/products/console",
-        icon: <Users size={24} />
-      },
-      {
-        id: "staffing-contract",
-        title: "Staffing & Contract Roles",
-        description: "Modern verification engine for rapid contract onboarding.",
-        image: {
-          src: "/Staffing & Contract Roles.png",
-          alt: "Staffing & Contract Roles",
-          width: 80,
-          height: 80
-        },
-        href: "/equal/products/console",
-        icon: <Briefcase size={24} />
-      },
-      {
-        id: "hrms-bgv-integration",
-        title: "HRMS BGV Integration",
-        description: "Initiate verifications from your HRMS with auto-filled details.",
-        image: {
-          src: "/Live Status Dashboard.png",
-          alt: "Workforce Management",
-          width: 80,
-          height: 80
-        },
-        href: "/solutions/workforce",
-        icon: <UserCheck size={24} />
-      }
-    ]
-  },
+  
   {
     id: "financial",
     title: "Financial Services",
@@ -259,62 +200,62 @@ const solutionSections: SolutionSection[] = [
     ]
   },
   {
-    id: "industry",
-    title: "Custom Workflows for your Industry",
-    subtitle: "ONE SOLUTION FOR ALL",
-    description: "Specialised solutions tailored for specific industry verticals and their unique compliance requirements.",
+    id: "employment",
+    title: "Employment Solutions",
+    subtitle: "WORKFORCE MANAGEMENT",
+    description: "Identity verification and background check solutions for workforce management across all industries and company sizes.",
     items: [
       {
-        id: "healthcare",
-        title: "Healthcare Management",
-        description: "Secure verification with HIPAA compliance and advanced encryption.",
+        id: "enterprise-hiring",
+        title: "Enterprise Hiring",
+        description: "Advanced identity and KYC solutions with real-time verification.",
         image: {
-          src: "/Healthcare.png",
-          alt: "Healthcare",
+          src: "/Recruitment.png",
+          alt: "Enterprise Hiring",
           width: 80,
           height: 80
         },
-        href: "/solutions/healthcare",
-        icon: <Heart size={24} />
-      },
-      {
-        id: "government",
-        title: "Government Contracts",
-        description: "Compliance-ready solutions for government projects.",
-        image: {
-          src: "/Government Contracts.png",
-          alt: "Government Contracts",
-          width: 80,
-          height: 80
-        },
-        href: "/solutions/government",
+        href: "/equal/solutions/enterprise-hiring",
         icon: <Building size={24} />
       },
       {
-        id: "compliance",
-        title: "Compliance & Risk Monitoring",
-        description: "Automated compliance checks with real-time monitoring.",
+        id: "gig-hiring",
+        title: "Gig Economy Hiring",
+        description: "Onboard gig workers at scale with streamlined verification.",
         image: {
-          src: "/Compliance.png",
-          alt: "Compliance",
+          src: "/Gig Economy Hiring.png",
+          alt: "Gig Hiring",
           width: 80,
           height: 80
         },
-        href: "/solutions/compliance",
-        icon: <Shield size={24} />
+        href: "/equal/solutions/gig-hiring",
+        icon: <Users size={24} />
       },
       {
-        id: "recruitment",
-        title: "Recruitment Solutions",
-        description: "End-to-end background verification with bulk processing.",
+        id: "staffing-contract",
+        title: "Staffing & Contract Roles",
+        description: "Modern verification engine for rapid contract onboarding.",
         image: {
-          src: "/Recruitment.png",
-          alt: "Recruitment",
+          src: "/Staffing & Contract Roles.png",
+          alt: "Staffing & Contract Roles",
           width: 80,
           height: 80
         },
-        href: "/solutions/recruitment",
-        icon: <Users size={24} />
+        href: "/equal/solutions/staffing",
+        icon: <Briefcase size={24} />
+      },
+      {
+        id: "hrms-bgv-integration",
+        title: "HRMS BGV Integration",
+        description: "Initiate verifications from your HRMS with auto-filled details.",
+        image: {
+          src: "/Live Status Dashboard.png",
+          alt: "Workforce Management",
+          width: 80,
+          height: 80
+        },
+        href: "/solutions/workforce",
+        icon: <UserCheck size={24} />
       }
     ]
   }
@@ -498,7 +439,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 delay: 0.1
               }}
             >
-              <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-4 block">
+              <span className="text-sm text-center md:text-left font-semibold text-[#00b140] tracking-widest uppercase mb-4 block">
                 {section.subtitle}
               </span>
             </motion.div>
@@ -511,7 +452,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.2
               }}
-              className={`text-3xl md:text-4xl lg:text-5xl leading-tight ${METALLIC_BLACK_TEXT_CLASSES}`}
+              className={`text-2xl md:text-4xl lg:text-5xl leading-tight text-center md:text-left ${METALLIC_BLACK_TEXT_CLASSES}`}
             >
               {section.title}
             </motion.h2>
@@ -524,7 +465,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.3
               }}
-              className="text-lg text-slate-600 leading-relaxed"
+              className="text-sm text-center md:text-left text-slate-600 leading-relaxed"
             >
               {section.description}
             </motion.p>
@@ -541,10 +482,10 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.5
               }}
-              className="mt-8"
+              className="mt-8 flex justify-center md:justify-start"
             >
               <Link href={cta.href}>
-                <ShimmerButton className="w-full md:w-auto text-md md:text-lg">
+                <ShimmerButton className="text-md md:text-lg">
                   {cta.text}
                 </ShimmerButton>
               </Link>
@@ -634,14 +575,14 @@ const ModularSolutions = React.memo(() => {
             <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase">
               WE MAKE YOUR DATA WORK FOR YOU
             </span>
-            <h1 className={`text-4xl md:text-5xl lg:text-5xl mt-8 leading-tight ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mx-auto`}>
+            <h1 className={`text-2xl md:text-5xl lg:text-5xl mt-8 leading-tight ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mx-auto`}>
               A
               {" "}<span className="inline-block bg-[#baff29] px-2 text-black font-bold">
                 full integrated
               </span>{" "}
               suite of financial and identity products
             </h1>
-            <p className="text-xl text-slate-600 leading-relaxed max-w-4xl mx-auto">
+            <p className="text-sm text-slate-600 leading-relaxed max-w-4xl mx-auto">
               Reduce costs, grow revenue, and run your business more efficiently on a fully integrated, AI-powered platform. Our modular approach lets you choose exactly what you need.
             </p>
           </motion.div>
@@ -651,15 +592,6 @@ const ModularSolutions = React.memo(() => {
       {/* Solution Sections with Divider only before Industry */}
       {solutionSections.map((section, index) => (
         <React.Fragment key={section.id}>
-          {/* Only show glowing divider before industry section */}
-          {section.id === "industry" && (
-            <GlowingDivider 
-              width="3/4" 
-              intensity="high"
-              delay={0.2}
-              className="my-12"
-            />
-          )}
           <SolutionSection 
             section={section} 
             sectionIndex={index} 

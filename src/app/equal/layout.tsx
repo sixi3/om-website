@@ -1,27 +1,12 @@
 import React from "react";
 import type { Metadata } from "next";
-import { GlobalHeader } from "@/components/global/GlobalHeader";
-import { GlobalHeaderProps } from "@/components/global/GlobalHeader.types";
+import { MainHeader } from "@/components/global/MainHeader";
 import { cn } from "@/lib/utils";
 import { AuroraBackground } from '@/app/onemoney/components/ui/aurora-background';
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 
-// Placeholder for Equal nav items
-const equalNavItems = [
-  { name: 'Use Cases', href: '/equal/solutions' },
-  { name: 'Products', href: '/equal#products', showChevron: true, submenu: [
-    { name: 'Identity Verification Gateway', href: '/equal/products/identity-gateway' },
-    { name: 'Equal Console', href: '/equal/products/console' },
-  ]},
-  { name: 'Trust & Security', href: '/equal/trust-security' },
-  { name: 'Dev Docs', href: 'https://developer.equal.in/docs/' },
-];
-
-const equalTheme: GlobalHeaderProps['theme'] = {
-  accentColor: '#00b140', // A placeholder green
-  accentHoverColor: '#baff29',
-  buttonTextColor: '#000000',
-};
+// MainHeader doesn't need nav items or theme configuration
+// It handles navigation dynamically based on the current route
 
 const EqualFooter = () => (
   <footer className="bg-gray-900 text-white py-8">
@@ -46,15 +31,7 @@ export default function EqualLayout({
 }) {
   return (
     <AuroraBackground>
-      <GlobalHeader
-        productName="equal"
-        logoSrc="/equal-logo.svg" // Placeholder logo path
-        logoAlt="Equal Logo"
-        navItems={equalNavItems}
-        theme={equalTheme}
-        talkToUsButtonText="Book a Demo"
-        talkToUsFormComponent={<TalkToUsForm />}
-      />
+      <MainHeader />
       <main className="flex-grow relative z-10 pt-20">{children}</main>
       <EqualFooter />
     </AuroraBackground>
