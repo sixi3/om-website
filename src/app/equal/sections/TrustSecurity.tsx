@@ -47,7 +47,7 @@ const securityFeatures = [
 export function TrustSecurity() {
   return (
     <section className="relative w-full py-20 md:py-24 overflow-hidden">
-      <GridBackground />
+      
       
       <div className="container px-4 md:px-6 mx-auto relative z-10">
         <div className="text-center mb-12 md:mb-16">

@@ -85,7 +85,7 @@ const IndustrySection = React.memo(() => {
           viewport={{ once: true }}
           transition={{ duration: ANIMATION_CONFIG.duration, delay: 0.1 }}
         >
-          <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-4 block">
+          <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-8 block">
             {section.subtitle}
           </span>
         </motion.div>

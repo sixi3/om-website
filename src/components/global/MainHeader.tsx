@@ -5,7 +5,7 @@ import React, { useState, useEffect, useCallback, memo } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, easeInOut } from "framer-motion";
 import Image from "next/image";
 
 
@@ -16,6 +16,7 @@ import { SolutionsDropdownContent } from "@/components/ui/solutions-dropdown-con
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { WhyEqualDropdownContent } from "@/components/ui/why-equal-dropdown-content";
 import { PrivacyDropdownContent } from "@/components/ui/privacy-dropdown-content";
+import { ResourcesDropdownContent } from "@/components/ui/resources-dropdown-content";
 
 interface MainHeaderProps {
   className?: string;
@@ -72,6 +73,16 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
         { title: "Gig Economy", href: "/equal/solutions/gig-hiring" },
         { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
         { title: "Staffing", href: "/equal/solutions/staffing" }
+      ]
+    },
+    {
+      trigger: "RESOURCES",
+      content: ResourcesDropdownContent,
+      mobileLinks: [
+        { title: "In The News", href: "/news/latest-press-releases" },
+        { title: "Equal Blog", href: "/blog/industry-insights" },
+        { title: "Newsletter", href: "/newsletter/subscribe" },
+        { title: "Developer Docs", href: "/docs/api-reference" }
       ]
     }
   ];
@@ -180,17 +191,17 @@ export function MainHeader({ className }: MainHeaderProps) {
     initial: {
       opacity: 0,
       y: -20,
-      transition: { duration: 0.15, ease: "easeInOut" }
+      transition: { duration: 0.15, ease: easeInOut }
     },
     animate: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.15, ease: "easeInOut" }
+      transition: { duration: 0.15, ease: easeInOut }
     },
     exit: {
       opacity: 0,
       y: -20,
-      transition: { duration: 0.1, ease: "easeInOut" }
+      transition: { duration: 0.1, ease: easeInOut }
     },
   };
 

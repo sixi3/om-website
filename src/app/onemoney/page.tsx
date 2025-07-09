@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import { Hero } from "./sections/Hero";
+import { BackgroundGrid } from '@/components/ui/background-grid';
 
 // Dynamically import the Stats component
 const Stats = dynamic(() => 
@@ -66,6 +67,7 @@ const ContactUs = dynamic(() =>
 export default function Home() {
   return (
     <>
+      <BackgroundGrid zIndex={-1} />
       <Hero />
       <Stats />
       <WhatIsOneMoney />

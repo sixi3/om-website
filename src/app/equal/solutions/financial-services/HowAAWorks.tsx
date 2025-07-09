@@ -3,8 +3,10 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { ClayPhoneMockup } from "../components/ui/ClayPhoneMockup"; // Added import
-import { UserJourneyAnimation } from "../components/UserJourneyAnimation"; // Added import (will be created next)
+// import { StickyScroll } from "@/components/ui/sticky-scroll-reveal"; // Removed StickyScroll import
+import { ClayPhoneMockup } from "@/app/onemoney/components/ui/ClayPhoneMockup"; // Added import
+import { GridBackground } from "@/app/onemoney/components/ui/grid-background";
+import { UserJourneyAnimation } from "@/app/onemoney/components/UserJourneyAnimation"; // Added import (will be created next)
 
 
 // Updated content - startTime and endTime will be removed in a later step
@@ -37,7 +39,7 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 
 // const localVideoSrc = "/test-1.webm"; // Removed video source
 
-export function WhatIsOneMoney() {
+export function HowAAWorks() {
   const [currentActiveCardIndex, setCurrentActiveCardIndex] = useState(0);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [hasBeenInView, setHasBeenInView] = useState(false);
@@ -95,6 +97,7 @@ export function WhatIsOneMoney() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
+      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto mb-12 md:mb-16">
       
         {/* Title and Subtitle */}
@@ -102,7 +105,7 @@ export function WhatIsOneMoney() {
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
             <span className={metallicBlackTextClasses}>How</span>{" "}
             <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
-              OneMoney
+              Account Aggregator
             </span>{" "}
             <span className={metallicBlackTextClasses}>Works</span>
           </h2>

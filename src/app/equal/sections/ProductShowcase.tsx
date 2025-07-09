@@ -126,7 +126,7 @@ export function ProductShowcase() {
       onViewportEnter={() => setHasBeenInView(true)}
       viewport={{ once: true, amount: 0.2 }}
     >
-        <GridBackground />
+        
         <div className="container px-4 md:px-6 mx-auto">
             <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">

@@ -1,4 +1,6 @@
+import { Easing } from "framer-motion";
+
 export interface AnimationConfig {
   duration: number;
-  ease: string;
+  ease: Easing;
 } 

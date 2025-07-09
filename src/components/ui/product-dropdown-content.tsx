@@ -118,7 +118,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/products/console"
+        href: "/equal/solutions/financial-services"
       },
       {
         id: "Staffing & Contract Roles",
@@ -151,7 +151,6 @@ const ProductItem = memo<{ item: ProductItem; index: number }>(({ item, index })
       scale: 1,
       transition: {
         duration: 0.2,
-        ease: [0.25, 0.46, 0.45, 0.94], // easeOutCubic for smoother feel
         delay: index * 0.03 // Reduced delay for faster feel
       }
     }
@@ -217,7 +216,6 @@ const ProductSection = memo<{ section: ProductSection; sectionIndex: number }>((
       y: 0,
       transition: {
         duration: 0.25,
-        ease: [0.25, 0.46, 0.45, 0.94],
         delay: sectionIndex * 0.05,
         staggerChildren: 0.03,
         when: "beforeChildren"
@@ -270,7 +268,6 @@ export const ProductDropdownContent = memo(() => {
       opacity: 1,
       transition: {
         duration: 0.15,
-        ease: "easeOut",
         staggerChildren: 0.05,
         when: "beforeChildren"
       }

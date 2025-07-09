@@ -12,7 +12,7 @@ export const GreenMetallicPhoneMockup: React.FC<GreenMetallicPhoneMockupProps> =
   return (
     <div
       className={cn(
-        'relative mx-auto border-[#2C6755] dark:border-[#0f362d] border-[12px] rounded-[2.8rem] h-[598px] w-[280px] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.4)]',
+        'relative mx-auto border-[#2C6755] dark:border-[#0f362d] border-[12px] rounded-[2.8rem] h-[598px] w-[280px] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.6)]',
         'bg-[#154B3E]',
         className
       )}

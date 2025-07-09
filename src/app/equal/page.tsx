@@ -6,10 +6,12 @@ import { ProductShowcase } from './sections/ProductShowcase';
 import { TrustSecurity } from './sections/TrustSecurity';
 import { Stats } from './sections/Stats';
 import { ContactUs } from './sections/ContactUs';
+import { BackgroundGrid } from '@/components/ui/background-grid';
 
 export default function EqualPage() {
   return (
-    <div>
+    <div className="relative">
+      <BackgroundGrid zIndex={-1} />
       <Hero />
       <Stats />
       <ProductShowcase />

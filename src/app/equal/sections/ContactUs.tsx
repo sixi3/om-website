@@ -9,7 +9,7 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 export function ContactUs() {
   return (
     <section id="contact-us" className="relative w-full py-24 md:py-32">
-      <GridBackground />
+      
       <div className="container px-4 md:px-6 mx-auto">
         {/* Section Title and Subtitle */} 
         <div className="text-center mb-12 md:mb-16">

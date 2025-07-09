@@ -1,8 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import Image from "next/image";
-import { GlowingButton } from "@/app/onemoney/components/ui/glowing-button";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
+import { motion, AnimatePresence } from "framer-motion";
+import { Building, FileText, Zap, MessageCircle, ShieldCheck, Link, CreditCard, Vote, Car, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck, Settings, Code, Webhook, Terminal } from "lucide-react";
+import { CLIENT_LOGOS } from "@/components/aurora-background-demo/constants";
+import { GlowingDivider } from "@/components/ui/glowing-divider";
 import {
   Dialog,
   DialogContent,
@@ -12,17 +17,19 @@ import {
   DialogTrigger,
 } from "@/app/onemoney/components/ui/dialog";
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
-import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
-import { motion } from "framer-motion";
-import { Building, FileText, Zap, MessageCircle, ShieldCheck, Link, CreditCard, Vote, Car, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck, Settings, Code, Webhook, Terminal } from "lucide-react";
-import { CLIENT_LOGOS } from "@/components/aurora-background-demo/constants";
-import { ProductShowcase } from "@/app/equal/sections/ProductShowcase";
-import { GlowingDivider } from "@/components/ui/glowing-divider";
-import { IndustrySection } from "@/components/aurora-background-demo/components/industries";
-import { Stats } from '@/app/equal/sections/Stats';
-import Marquee from "react-fast-marquee";
-import { AnimatePresence } from 'framer-motion';
+
+// Lazy load heavy components
+const Stats = lazy(() => import('@/app/equal/sections/Stats').then(module => ({ default: module.Stats })));
+const ProductShowcase = lazy(() => import("@/app/equal/sections/ProductShowcase").then(module => ({ default: module.ProductShowcase })));
+const IndustrySection = lazy(() => import("@/components/aurora-background-demo/components/industries").then(module => ({ default: module.IndustrySection })));
+const Marquee = lazy(() => import("react-fast-marquee"));
+
+// Loading component
+const SectionLoader = () => (
+  <div className="w-full h-64 flex items-center justify-center">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#00b140]"></div>
+  </div>
+);
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
@@ -66,6 +73,7 @@ export default function EnterpriseHiringHero() {
                       className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                       sizes="(max-width: 768px) 25vw, (max-width: 1024px) 20vw, 15vw"
                       priority={idx === 0}
+                      loading={idx === 0 ? "eager" : "lazy"}
                     />
                   </div>
                 ))}
@@ -99,6 +107,7 @@ export default function EnterpriseHiringHero() {
             loop
             muted
             playsInline
+            preload="metadata"
             className="object-contain w-[90%] h-[90%] max-h-[600px] max-w-[700px]"
           />
         </div>
@@ -109,27 +118,30 @@ export default function EnterpriseHiringHero() {
         delay={0.2}
         className="my-12"
       />
-      <Stats showVerifyBanner={false} />
+      <Suspense fallback={<SectionLoader />}>
+        <Stats showVerifyBanner={false} />
+      </Suspense>
       {/* World of IDs Section */}
       <section className="relative w-full pb-12 md:py-10">
+        <Suspense fallback={<SectionLoader />}>
+          {/* First Marquee - Full Width */}
+          <div className="mb-0 md:mb-2 -mx-16 md:mx-0">
+            <Marquee gradient={false} speed={80} pauseOnHover={true} className="py-2 scale-75 md:scale-100">
+              {[...verificationTypesRow1, ...verificationTypesRow1].map((type, index) => (
+                <VerificationCard key={`row1-${index}`} name={type.name} icon={type.icon} />
+              ))}
+            </Marquee>
+          </div>
 
-        {/* First Marquee - Full Width */}
-        <div className="mb-0 md:mb-2 -mx-16 md:mx-0">
-          <Marquee gradient={false} speed={80} pauseOnHover={true} className="py-2 scale-75 md:scale-100">
-            {[...verificationTypesRow1, ...verificationTypesRow1].map((type, index) => (
-              <VerificationCard key={`row1-${index}`} name={type.name} icon={type.icon} />
-            ))}
-          </Marquee>
-        </div>
-
-        {/* Second Marquee - Full Width - Reverse Direction */}
-        <div className="md:py-4 -mx-16 md:mx-0">
-          <Marquee gradient={false} speed={80} pauseOnHover={true} direction="right" className="py-2 scale-75 md:scale-100">
-            {[...verificationTypesRow2, ...verificationTypesRow2].map((type, index) => (
-              <VerificationCard key={`row2-${index}`} name={type.name} icon={type.icon} />
-            ))}
-          </Marquee>
-        </div>
+          {/* Second Marquee - Full Width - Reverse Direction */}
+          <div className="md:py-4 -mx-16 md:mx-0">
+            <Marquee gradient={false} speed={80} pauseOnHover={true} direction="right" className="py-2 scale-75 md:scale-100">
+              {[...verificationTypesRow2, ...verificationTypesRow2].map((type, index) => (
+                <VerificationCard key={`row2-${index}`} name={type.name} icon={type.icon} />
+              ))}
+            </Marquee>
+          </div>
+        </Suspense>
       </section>
       <GlowingDivider
         width="3/4"
@@ -213,14 +225,18 @@ export default function EnterpriseHiringHero() {
         delay={0.2}
         className="my-12"
       />
-      <ProductShowcase />
+      <Suspense fallback={<SectionLoader />}>
+        <ProductShowcase />
+      </Suspense>
       <GlowingDivider
         width="3/4"
         intensity="high"
         delay={0.2}
         className="my-12"
       />
-      <IndustrySection />
+      <Suspense fallback={<SectionLoader />}>
+        <IndustrySection />
+      </Suspense>
       {/* Integration & Developer Features Tabbed Section */}
       <section className="relative w-full py-12 md:py-20">
         <div className="container px-4 md:px-6 mx-auto">

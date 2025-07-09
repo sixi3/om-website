@@ -133,7 +133,7 @@ export function Hero() {
                 className="object-contain"
             />
         </div>
-        <div className="absolute xl:scale-80 xl:top-[50%] xl:-translate-y-1/2 xl:right-[2%] 2xl:top-[60%] 2xl:-translate-y-1/2 2xl:right-[10%] z-10 scale-110">
+        <div className="absolute xl:scale-80 rounded-full xl:top-[50%] xl:-translate-y-1/2 xl:right-[2%] 2xl:top-[60%] 2xl:-translate-y-1/2 2xl:right-[10%] z-10 scale-110 2xl:scale-110">
             <GreenMetallicPhoneMockup>
               <AnimatedVerificationFlow />
             </GreenMetallicPhoneMockup>

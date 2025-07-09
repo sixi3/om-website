@@ -1,4 +1,5 @@
 import { AnimationConfig } from './types';
+import { easeInOut } from 'framer-motion';
 
 // CSS Classes
 export const METALLIC_GREEN_TEXT_CLASSES = "font-extrabold bg-gradient-to-br from-[#008000] to-[#00b140] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -7,7 +8,7 @@ export const METALLIC_BLACK_TEXT_CLASSES = "font-extrabold bg-gradient-to-b from
 // Animation Configuration
 export const ANIMATION_CONFIG: AnimationConfig = {
   duration: 0.6,
-  ease: "easeInOut"
+  ease: easeInOut
 };
 
 // Client Logos

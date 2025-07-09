@@ -1,8 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import Image from "next/image";
-import { GlowingButton } from "@/app/onemoney/components/ui/glowing-button";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
+import { motion } from "framer-motion";
+import { Building, FileText, Zap, MessageCircle, ShieldCheck, Link, CreditCard, Vote, Car, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck, Settings, Code, Webhook, Terminal } from "lucide-react";
+import { GlowingDivider } from "@/components/ui/glowing-divider";
 import {
   Dialog,
   DialogContent,
@@ -12,18 +16,20 @@ import {
   DialogTrigger,
 } from "@/app/onemoney/components/ui/dialog";
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
-import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
-import { motion } from "framer-motion";
-import { Building, FileText, Zap, MessageCircle, ShieldCheck, Link, CreditCard, Vote, Car, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck, Settings, Code, Webhook, Terminal } from "lucide-react";
-import { CLIENT_LOGOS } from "@/components/aurora-background-demo/constants";
-import { ProductShowcase } from "@/app/equal/sections/ProductShowcase";
-import { GlowingDivider } from "@/components/ui/glowing-divider";
-import { IndustrySection } from "@/components/aurora-background-demo/components/industries";
-import { Stats } from '@/app/equal/sections/Stats';
-import Marquee from "react-fast-marquee";
-import { AnimatePresence } from 'framer-motion';
 
+// Lazy load heavy components
+const FinancialServicesStats = lazy(() => import('./FinancialServicesStats').then(module => ({ default: module.FinancialServicesStats })));
+const HowAAWorks = lazy(() => import("./HowAAWorks").then(module => ({ default: module.HowAAWorks })));
+const MoneyOneSection = lazy(() => import("./MoneyOneSection").then(module => ({ default: module.MoneyOneSection })));
+const Solutions = lazy(() => import("@/app/onemoney/sections/Solutions").then(module => ({ default: module.Solutions })));
+const ContactUs = lazy(() => import("@/app/moneyone/sections/ContactUs").then(module => ({ default: module.ContactUs })));
+
+// Loading component
+const SectionLoader = () => (
+  <div className="w-full h-64 flex items-center justify-center">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#00b140]"></div>
+  </div>
+);
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 const financialReasons = [
@@ -31,7 +37,7 @@ const financialReasons = [
     title: "India’s Largest AA Platform",
     description: "Powering 120+ FIPs and 50% of all Account Aggregator traffic in India.",
     image: {
-      src: "/Candidate Consent Records.png",
+      src: "/Collect Now, Verify Later.png",
       alt: "Account Aggregator"
     },
     icon: <CreditCard size={20} className="text-white" />
@@ -58,7 +64,7 @@ const financialReasons = [
     title: "Compliant & Secure",
     description: "RBI, SEBI, IRDAI compliant. ISO 27001, SOC 2, and GDPR-ready infrastructure.",
     image: {
-      src: "/iso-cert.png",
+      src: "/Role-based Access Control.png",
       alt: "Compliance"
     },
     icon: <FileText size={20} className="text-white" />
@@ -96,20 +102,39 @@ export default function FinancialServicesHero() {
                 <span>India’s Most Trusted Financial Data Infrastructure</span>
               </span>
               <h1 className="text-4xl tracking-tight leading-tight sm:text-8xl md:text-4xl lg:text-5xl xl:text-7xl">
-                <span className={metallicBlackTextClasses}>India’s Largest</span>{" "}
-                <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
-                  Data Sharing Platform
+                <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">Comprehensive</span>{" "}
+                <span className={metallicBlackTextClasses}>
+                  Financial Suite
                 </span>{" "}
-                <span className={metallicBlackTextClasses}>for Financial Services</span>
+                <span className={metallicBlackTextClasses}>for All</span>
               </h1>
-              <p className="font-medium text-lg sm:text-md text-slate-600 dark:text-slate-300 mb-8">
+              <p className="font-medium text-lg sm:text-md text-slate-600 dark:text-slate-300 mb-4">
                 Empowering financial institutions with secure, consent-driven data access and analytics.
               </p>
+            </div>
+            
+            <div className="w-full flex flex-col items-center md:items-start mb-8">
+              <span className="text-xs font-semibold tracking-widest text-slate-500 mb-2 uppercase">Trusted by Industry Leaders</span>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-xl items-center justify-items-center">
+                {clientLogos.slice(0, 4).map((logo, idx) => (
+                  <div key={logo.src} className="relative w-32 h-10 flex items-center justify-center">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      fill
+                      className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                      sizes="(max-width: 768px) 25vw, (max-width: 1024px) 20vw, 15vw"
+                      priority={idx === 0}
+                      loading={idx === 0 ? "eager" : "lazy"}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
             <Dialog>
               <DialogTrigger asChild>
                 <ShimmerButton className="w-full md:w-auto text-md md:text-lg">
-                  Talk to Us
+                  Book a Demo
                 </ShimmerButton>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[525px]">
@@ -124,23 +149,6 @@ export default function FinancialServicesHero() {
                 </div>
               </DialogContent>
             </Dialog>
-            <div className="w-full flex flex-col items-center md:items-start mb-8">
-              <span className="text-xs font-semibold tracking-widest text-slate-500 mb-2 uppercase">Trusted by Industry Leaders</span>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-xl items-center justify-items-center">
-                {clientLogos.slice(0, 4).map((logo, idx) => (
-                  <div key={logo.src} className="relative w-32 h-10 flex items-center justify-center">
-                    <Image
-                      src={logo.src}
-                      alt={logo.alt}
-                      fill
-                      className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-                      sizes="(max-width: 768px) 25vw, (max-width: 1024px) 20vw, 15vw"
-                      priority={idx === 0}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
         {/* Right: Video or Lottie */}
@@ -151,115 +159,33 @@ export default function FinancialServicesHero() {
             loop
             muted
             playsInline
+            preload="metadata"
             className="object-contain w-[90%] h-[90%] max-h-[600px] max-w-[700px]"
           />
         </div>
       </section>
+      <GlowingDivider width="3/4" intensity="high" delay={0.2} className="my-12" />
+      <Suspense fallback={<SectionLoader />}>
+        <FinancialServicesStats />
+      </Suspense>
       <GlowingDivider width="3/4" intensity="high" delay={0.2} className="my-12" />
       {/* WHY CHOOSE EQUAL SECTION - CUSTOMIZED FOR FINANCIAL SERVICES */}
       <section className="relative w-full py-12 md:py-20">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-              <span className={metallicBlackTextClasses}>Why Financial Institutions Choose</span>{" "}
-              <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Equal</span>
+              <span className={metallicBlackTextClasses}>Why Choose Equal for</span>{" "}
+              <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Financial Services</span>
             </h2>
             <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-3xl">
-              The most advanced, secure, and integrated financial data platform.
+              India's most advanced, secure, and integrated financial data platform
             </p>
           </div>
           <div className="space-y-6">
-            <BentoGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {financialReasons.map((item, idx) => (
-                <BentoGridItem
-                  key={item.title}
-                  className="shadow-sm"
-                  title={
-                    <div className="flex flex-col items-start w-full mt-auto mb-2">
-                      <div className="w-10 h-10 rounded-lg bg-[#00b140] flex items-center justify-center text-white mb-2">
-                        {item.icon}
-                      </div>
-                      <span className="text-lg font-semibold">{item.title}</span>
-                    </div>
-                  }
-                  description={<p className="text-md text-slate-600 dark:text-slate-300 leading-relaxed">{item.description}</p>}
-                  image={{
-                    src: item.image.src,
-                    alt: item.image.alt
-                  }}
-                  imagePosition="top-right"
-                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
-                />
-              ))}
-            </BentoGrid>
-            {/* Optionally, add metrics here if desired */}
-            <div className="flex flex-wrap justify-center gap-8 mt-8">
-              <div className="flex flex-col items-center">
-                <span className="text-3xl font-bold text-[#00b140]">120+</span>
-                <span className="text-sm text-slate-600">FIPs use MoneyOne</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <span className="text-3xl font-bold text-[#00b140]">50%</span>
-                <span className="text-sm text-slate-600">of all AA traffic</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <span className="text-3xl font-bold text-[#00b140]">160M+</span>
-                <span className="text-sm text-slate-600">Data transfers complete</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <GlowingDivider width="3/4" intensity="high" delay={0.2} className="my-12" />
-      {/* World of IDs Section */}
-      <section className="relative w-full pb-12 md:py-10">
-
-        {/* First Marquee - Full Width */}
-        <div className="mb-0 md:mb-2 -mx-16 md:mx-0">
-          <Marquee gradient={false} speed={80} pauseOnHover={true} className="py-2 scale-75 md:scale-100">
-            {[...verificationTypesRow1, ...verificationTypesRow1].map((type, index) => (
-              <VerificationCard key={`row1-${index}`} name={type.name} icon={type.icon} />
-            ))}
-          </Marquee>
-        </div>
-
-        {/* Second Marquee - Full Width - Reverse Direction */}
-        <div className="md:py-4 -mx-16 md:mx-0">
-          <Marquee gradient={false} speed={80} pauseOnHover={true} direction="right" className="py-2 scale-75 md:scale-100">
-            {[...verificationTypesRow2, ...verificationTypesRow2].map((type, index) => (
-              <VerificationCard key={`row2-${index}`} name={type.name} icon={type.icon} />
-            ))}
-          </Marquee>
-        </div>
-      </section>
-      <GlowingDivider
-        width="3/4"
-        intensity="high"
-        delay={0.2}
-        className="my-12"
-      />
-      <motion.section
-        className="relative w-full py-12 md:py-20"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-      >
-        <div className="container px-4 md:px-6 mx-auto">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-              <span className={metallicBlackTextClasses}>Why Enterprises Choose</span>{" "}
-              <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Equal</span>{" "}
-              <span className={metallicBlackTextClasses}>for Hiring</span>
-            </h2>
-            <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-3xl">
-              The most advanced, integrated, and secure hiring platform for large organisations.
-            </p>
-          </div>
           <div className="space-y-6">
             {/* First Row - 2 Cards */}
             <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4">
-              {reasons.slice(0, 2).map((item, idx) => (
+              {financialReasons.slice(0, 2).map((item, idx) => (
                 <BentoGridItem
                   key={item.title}
                   className="shadow-sm"
@@ -277,13 +203,13 @@ export default function FinancialServicesHero() {
                     alt: item.image.alt
                   }}
                   imagePosition="top-right"
-                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
+                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px] 2xl:w-64 2xl:h-64 2xl:top-[-80px] 2xl:right-[-50px]"
                 />
               ))}
             </BentoGrid>
-            {/* Second Row - 3 Cards */}
-            <BentoGrid className="grid-cols-1 md:grid-cols-3 gap-4">
-              {reasons.slice(2, 5).map((item, idx) => (
+            {/* First Row - 2 Cards */}
+            <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4">
+              {financialReasons.slice(2, 4).map((item, idx) => (
                 <BentoGridItem
                   key={item.title}
                   className="shadow-sm"
@@ -301,44 +227,52 @@ export default function FinancialServicesHero() {
                     alt: item.image.alt
                   }}
                   imagePosition="top-right"
-                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
+                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px] 2xl:w-64 2xl:h-64 2xl:top-[-100px] 2xl:right-[-70px]"
                 />
               ))}
             </BentoGrid>
           </div>
-        </div>
-      </motion.section>
-      <GlowingDivider
-        width="3/4"
-        intensity="high"
-        delay={0.2}
-        className="my-12"
-      />
-      <ProductShowcase />
-      <GlowingDivider
-        width="3/4"
-        intensity="high"
-        delay={0.2}
-        className="my-12"
-      />
-      <IndustrySection />
-      {/* Integration & Developer Features Tabbed Section */}
-      <section className="relative w-full py-12 md:py-20">
-        <div className="container px-4 md:px-6 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-              <span className={metallicBlackTextClasses}>Build & Deploy with</span>{" "}
-              <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Equal</span>
-            </h2>
-            <p className="mx-auto text-md text-slate-700 dark:text-slate-300 max-w-4xl md:text-lg">
-              Choose from multiple integration modes and leverage powerful developer tools to implement Equal's Identity Gateway in your workflow.
-            </p>
           </div>
-
-          {/* Tab Indicator */}
-          <IntegrationDeveloperTabs />
         </div>
       </section>
+    
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <HowAAWorks/>
+      </Suspense>
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <MoneyOneSection />
+      </Suspense>
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <Solutions />
+      </Suspense>
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <ContactUs />
+      </Suspense>
+      
     </>
   );
 }
@@ -525,112 +459,6 @@ function IntegrationDeveloperTabs() {
           ))}
         </div>
       </div>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          {activeTab === "integration" ? (
-            <>
-              <div className="p-8">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl tracking-tight leading-tight sm:text-3xl md:text-4xl mb-4">
-                    <span className={metallicBlackTextClasses}>Multiple Ways to Integrate</span>
-                  </h3>
-                  <p className="mx-auto text-base text-slate-700 dark:text-slate-300 max-w-7xl">
-                    From zero-code solutions to full API integration, choose the method that best fits your technical requirements.
-                  </p>
-                </div>
-                <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4 shadow-none">
-                  {integrationOptions.map((option, index) => (
-                    <BentoGridItem
-                      key={index}
-                      className="shadow-sm"
-                      icon={
-                        <div className="p-3 rounded-lg bg-[#00b140] text-white inline-block mb-2">
-                          {option.icon}
-                        </div>
-                      }
-                      title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{option.title}</span>}
-                      description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{option.description}</span>}
-                      image={{
-                        src: option.image,
-                        alt: option.title
-                      }}
-                      imagePosition="top-right"
-                      imageSize="w-40 h-40 -top-10 -right-10 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-64 2xl:h-64 2xl:-top-5 2xl:-right-10"
-                    />
-                  ))}
-                </BentoGrid>
-              </div>
-              {/* Integration Architecture Visual */}
-              <div className="hidden md:block overflow-hidden h-100 relative mt-8">
-                <div className="mt-8 text-center">
-                  <Image
-                    src="/Aggregator of Aggregators.png"
-                    alt="Integration Architecture Diagram"
-                    width={600}
-                    height={600}
-                    className="mx-auto"
-                  />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/20 via-black/10 to-transparent pointer-events-none"></div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="px-8 pt-8 pb-8">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl tracking-tight leading-tight sm:text-3xl md:text-4xl mb-4">
-                    <span className={metallicBlackTextClasses}>Developer-First Platform</span>
-                  </h3>
-                  <p className="mx-auto text-base text-slate-700 dark:text-slate-300 max-w-5xl mb-8">
-                    Built with developers in mind, Equal provides comprehensive APIs, SDKs, and tools for seamless integration.
-                  </p>
-                </div>
-                {/* Developer Features Grid */}
-                <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4">
-                  {developerFeatures.map((feature, index) => (
-                    <BentoGridItem
-                      key={index}
-                      className="shadow-sm"
-                      icon={
-                        <div className="p-3 rounded-lg bg-[#00b140] text-white inline-block mb-2">
-                          {feature.icon}
-                        </div>
-                      }
-                      title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{feature.title}</span>}
-                      description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{feature.description}</span>}
-                      image={{
-                        src: feature.image,
-                        alt: feature.title
-                      }}
-                      imagePosition="top-right"
-                      imageSize="w-40 h-40 -top-10 -right-10 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-64 2xl:h-64 2xl:-top-20 2xl:-right-15"
-                    />
-                  ))}
-                </BentoGrid>
-              </div>
-              {/* Developer Code Example - Edge to Edge */}
-              <div className="hidden md:block overflow-hidden h-100 relative mt-8">
-                <div className="mt-8 text-center">
-                  <Image
-                    src="/dev-image.png"
-                    alt="Developer API Code Example"
-                    width={1200}
-                    height={1200}
-                    className="mx-auto"
-                  />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/20 via-black/10 to-transparent pointer-events-none"></div>
-              </div>
-            </>
-          )}
-        </motion.div>
-      </AnimatePresence>
     </div>
   );
 } 

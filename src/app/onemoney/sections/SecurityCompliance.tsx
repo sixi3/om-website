@@ -2,8 +2,6 @@ import React from "react";
 // import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { TiltCard } from "../components/ui/tilt-card";
 import Image from "next/image";
-import { GridBackground } from "../components/ui/grid-background";
-
 // Define metallic black class (consider moving to shared lib later)
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
@@ -40,7 +38,6 @@ const securityData = [
 export function SecurityCompliance() {
   return (
     <section className="relative w-full py-24">
-      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
         {/* Section Title */}
         <div className="text-center mb-12 md:mb-16">

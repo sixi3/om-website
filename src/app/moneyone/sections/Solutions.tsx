@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from "react";
-import { GridBackground } from "@/app/onemoney/components/ui/grid-background"; // Reusing from onemoney for now
+import React, { useState, useRef, useEffect } from "react"; // Reusing from onemoney for now
 import { motion } from "framer-motion";
 import Image from "next/image"; // Import next/image
 import { CustomAccordion, CustomAccordionItemProps } from "@/components/ui/CustomAccordion"; // Added import
@@ -189,14 +188,13 @@ export function Solutions() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
-      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
       
         {/* Title and Subtitle */}
         <div className="text-center mb-12">
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
             <span className={metallicBlackTextClasses}>Tailored Solutions for</span>{" "}
-            <span className="inline-block bg-[#baff29] px-2 py-1 text-black font-bold rounded-md"> {/* Styled "All Use Cases" */}
+            <span className="inline-block bg-[#baff29] px-2 py-1 text-black font-bold"> {/* Styled "All Use Cases" */}
               All Use Cases
             </span>
           </h2>

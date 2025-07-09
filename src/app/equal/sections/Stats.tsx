@@ -32,7 +32,6 @@ const supportedChecks = [
 export function Stats({ showVerifyBanner = true }: { showVerifyBanner?: boolean } = {}) {
   return (
     <section className="relative w-full py-24">
-      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl">

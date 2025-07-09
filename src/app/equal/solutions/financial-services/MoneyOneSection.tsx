@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from "react";
+import { GridBackground } from "@/app/onemoney/components/ui/grid-background";
 import { motion, AnimatePresence } from "framer-motion";
-import { InteractiveShowcase } from '../components/InteractiveShowcase';
-import { CustomisableUIShowcase } from '../components/CustomisableUIShowcase';
-import { NudgesInsightsShowcase } from '../components/NudgesInsightsShowcase';
+import { InteractiveShowcase } from '@/app/moneyone/components/InteractiveShowcase';
+import { CustomisableUIShowcase } from '@/app/moneyone/components/CustomisableUIShowcase';
+import { NudgesInsightsShowcase } from '@/app/moneyone/components/NudgesInsightsShowcase';
 import Marquee from 'react-fast-marquee';
 
 // Styling classes (consistent with other sections)
@@ -35,7 +36,7 @@ const moneyOneFeaturesPillTexts = [
   "Developer APIs"
 ];
 
-export function WhatIsMoneyOne() {
+export function MoneyOneSection() {
   const [hasBeenInView, setHasBeenInView] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
 
@@ -48,40 +49,39 @@ export function WhatIsMoneyOne() {
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
-      
+      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
       
         {/* Title and Subtitle */}
         <div className="text-center mb-12">
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-            <span className={metallicBlackTextClasses}>What is</span>{" "}
             <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
-              MoneyOne
+              Complete Visibility
             </span>{" "}
-            <span className={metallicBlackTextClasses}>?</span>
+            <span className={metallicBlackTextClasses}>Over Financial Data</span>
           </h2>
           <p className="w-full mx-auto text-lg text-slate-700 dark:text-slate-300">
-          MoneyOne is a data governance platform that helps institutions securely manage and share financial data in India's digital economy
+          Our platform helps institutions securely manage and share financial data in India's digital economy.
           </p>
         </div>
 
         {/* Tab Buttons Container */}
         <div className="flex items-center justify-center pt-2 px-4 mb-8">
-          <div className="flex items-center gap-2 p-2 rounded-full border border-[#baff29]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm">
+          <div className="flex items-center gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm">
             {tabsData.map((tab, index) => (
               <div
                 key={tab.id}
                 onClick={() => setActiveTab(index)}
-                className={`relative px-4 py-2 text-sm font-medium rounded-full cursor-pointer transition-colors duration-300 ${
+                className={`relative px-8 py-4 text-md font-medium rounded-full cursor-pointer transition-colors duration-300 ${
                   activeTab === index
-                    ? "text-white"
+                    ? "text-white font-semibold"
                     : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
                 }`}
               >
                 {activeTab === index && (
                   <motion.div
                     layoutId="active-moneyone-tab"
-                    className="absolute inset-0 bg-[#00b140] rounded-full z-0"
+                    className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
                 )}

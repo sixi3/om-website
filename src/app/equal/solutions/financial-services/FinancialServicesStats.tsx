@@ -1,5 +1,6 @@
 import React from "react";
-import { AnimatedCounter } from "../components/ui/animated-counter";
+import { AnimatedCounter } from "@/app/onemoney/components/ui/animated-counter";
+import { GridBackground } from "@/app/onemoney/components/ui/grid-background";
 import { 
   FileText, BanknoteArrowUp, CandlestickChart, ShieldCheck, 
   LineChart, ReceiptIndianRupee, Briefcase 
@@ -28,18 +29,22 @@ const featuresPills = [
   { text: "National Pension Scheme", icon: Briefcase },
 ];
 
-export function Stats() {
+export function FinancialServicesStats() {
   return (
     <section className="relative w-full py-24">
+      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl">
             <span className={metallicBlackTextClasses}>India&apos;s</span>{" "}
             <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
-              Largest
+              Most Advanced
             </span>{" "}
-            <span className={metallicBlackTextClasses}>Account Aggregator</span>
+            <span className={metallicBlackTextClasses}>Financial Data Platform</span>
           </h2>
+          <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-3xl mt-4">
+            Powering the future of financial services with secure, consent-driven data access and analytics
+          </p>
         </div>
         
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 justify-items-center mx-auto">

@@ -3,7 +3,6 @@
 import React from "react";
 import Image from "next/image"; // Added for card headers
 import Link from "next/link"; // Added for navigation
-import { GridBackground } from "@/app/onemoney/components/ui/grid-background";
 import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid"; // Added for product cards
 import { motion } from "framer-motion";
 import { 
@@ -167,7 +166,6 @@ export function Products() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
-      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
       
         {/* Title and Subtitle */}

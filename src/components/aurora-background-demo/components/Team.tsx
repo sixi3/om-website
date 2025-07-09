@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import Image from "next/image";
 import { 
   METALLIC_BLACK_TEXT_CLASSES, 
@@ -36,11 +36,11 @@ const ProfileCard = React.memo<ProfileCardProps>(({
   const cardVariants = {
     default: {
       y: 0,
-      transition: { duration: 0.3, ease: "easeOut" }
+      transition: { duration: 0.3, ease: easeOut }
     },
     hover: {
       y: -40,
-      transition: { duration: 0.3, ease: "easeOut" }
+      transition: { duration: 0.3, ease: easeOut }
     }
   };
 
@@ -235,7 +235,7 @@ const Team = React.memo(() => {
           }}
           className="text-center space-y-6 mb-8"
         >
-          <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase">
+          <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercases">
             Built by a stellar team
           </span>
           <h2 className={`text-2xl md:text-5xl lg:text-5xl leading-tight  ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mt-8 mx-auto`}>

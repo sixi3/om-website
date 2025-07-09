@@ -245,16 +245,16 @@ const solutionSections: SolutionSection[] = [
         icon: <Briefcase size={24} />
       },
       {
-        id: "hrms-bgv-integration",
-        title: "HRMS BGV Integration",
-        description: "Initiate verifications from your HRMS with auto-filled details.",
+        id: "financial-services",
+        title: "Financial Services",
+        description: "Gain in-depth insights into financial history with our AI-powered analytics.",
         image: {
-          src: "/Live Status Dashboard.png",
-          alt: "Workforce Management",
+          src: "/Financial Analytics.png",
+          alt: "Financial Analytics",
           width: 80,
           height: 80
         },
-        href: "/solutions/workforce",
+        href: "equal/solutions/financial-services",
         icon: <UserCheck size={24} />
       }
     ]

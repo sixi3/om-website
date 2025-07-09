@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, UploadCloud, FileCheck, ShieldCheck, Link, Settings, CheckCircle, XCircle, FileText, GraduationCap, CreditCard, MapPin, UserCheck, Code, Webhook, Terminal, Car, Share2, Scale, Globe, AlertTriangle, Map, Briefcase, Building, Users, Vote } from 'lucide-react';
 import { GlowingButton } from '@/app/onemoney/components/ui/glowing-button';
-import { GridBackground } from '@/app/onemoney/components/ui/grid-background';
 import { GreenMetallicPhoneMockup } from '../../components/ui/GreenMetallicPhoneMockup';
 import { AnimatedVerificationFlow } from '../../components/AnimatedVerificationFlow';
 import { BentoGrid, BentoGridItem } from '@/app/onemoney/components/ui/bento-grid';
@@ -13,6 +12,7 @@ import { UseCaseGrid } from '../../sections/UseCaseGrid';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import radarAnimation from '../../../../../public/radar.json';
+import { BackgroundGrid } from '@/components/ui/background-grid';
 
 // Dynamically import Lottie to avoid SSR issues
 const Lottie = dynamic(() => import('lottie-react'), { 
@@ -274,7 +274,7 @@ const AnimatedVerificationCircle = ({
           
           {/* Name Below Icon */}
           <div className="text-center">
-            <span className="text-[10px] font-medium text-slate-700 leading-tight block">
+            <span className="text-[10px] font-semibold text-[#00b140] leading-tight block">
               {name}
             </span>
           </div>
@@ -486,10 +486,10 @@ export default function IdentityGatewayPage() {
 
   return (
     <div className="relative">
-      <GridBackground />
       
       {/* Hero Section */}
       <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-center pt-12 pb-12 lg:min-h-[700px] overflow-hidden">
+        <BackgroundGrid zIndex={-1} />
         <div className="container mx-auto px-6 md:px-6 lg:px-8">
           <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
             <div className="max-w-3xl space-y-4">

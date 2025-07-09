@@ -1,6 +1,5 @@
 import React from "react";
 import { BentoGrid, BentoGridItem } from "../components/ui/bento-grid";
-import { GridBackground } from "../components/ui/grid-background";
 import { Landmark, ShieldCheck, TrendingUp, Plus, ChevronDown } from "lucide-react"; // Changed to ChevronDown
 import Marquee from "react-fast-marquee"; // Added import
 import Image from "next/image"; // Ensure Image is imported
@@ -84,8 +83,7 @@ const pillTexts = [
 export function Solutions() {
   return (
     <section id="solutions" className="relative w-full py-24 overflow-hidden min-h-[80vh]">
-      {/* Optional: Add GridBackground or other background component if desired */}
-      <GridBackground />
+      
       <div className="container px-4 md:px-6 mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">

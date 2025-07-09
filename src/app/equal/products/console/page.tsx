@@ -5,11 +5,11 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LayoutDashboard, FileText, BarChart, Settings, Zap, Shield, CheckCircle, XCircle, AlertTriangle, Workflow, Users, LineChart, Building, UserCheck, FileSpreadsheet, Database, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GlowingButton } from '@/app/onemoney/components/ui/glowing-button';
-import { GridBackground } from '@/app/onemoney/components/ui/grid-background';
 import { BentoGrid, BentoGridItem } from '@/app/onemoney/components/ui/bento-grid';
 import Marquee from "react-fast-marquee";
 import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
+import { BackgroundGrid } from '@/components/ui/background-grid';
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
@@ -251,10 +251,10 @@ export default function ConsolePage() {
 
   return (
     <div className="relative">
-      <GridBackground />
       
       {/* Hero Section */}
       <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-center pt-12 pb-12 lg:min-h-[700px] overflow-hidden">
+      <BackgroundGrid zIndex={-1} />
         <div className="container mx-auto px-6 md:px-6 lg:px-8 py-8">
           <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
             <div className="max-w-3xl space-y-4">

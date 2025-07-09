@@ -104,7 +104,7 @@ export function Hero() {
         {animationData && (
           <DynamicLottie 
             animationData={animationData} 
-            loop={true} 
+            loop={false} 
             className="w-full object-contain h-auto xl:h-[500px]" // Style similar to onemoney/Hero.tsx
           />
         )}

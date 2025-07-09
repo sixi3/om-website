@@ -1,5 +1,4 @@
 import React from "react";
-import { GridBackground } from "../components/ui/grid-background"; // Optional background
 import { Settings2, SlidersHorizontal, MonitorSmartphone, Palette } from "lucide-react"; // Added icon imports
 import { TiltCard } from "../components/ui/tilt-card"; // Import TiltCard
 import { ClayPhoneMockup } from "../components/ui/ClayPhoneMockup"; // Import mockup
@@ -19,7 +18,6 @@ const features = [
 export function UIFeatures() {
   return (
     <section className="relative w-full py-24 md:py-32">
-      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
         {/* Section Title and Subtitle */} 
         <div className="text-center mb-12 md:mb-16">
