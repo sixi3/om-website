@@ -55,10 +55,10 @@ const OriginalBrandedConsentScreenBody: React.FC<BrandedConsentScreenBodyProps> 
   // Content copied from former MobilePeConsentScreenBody, adapted to use new props
   const textVariants = {
     initial: { opacity: 0, y: 10 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeInOut" } },
-    exit: { opacity: 0, y: -10, transition: { duration: 0.3, ease: "easeInOut" } },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -10 },
   };
-
+  
   const itemGroupVariants = {
     initial: { opacity: 0, scale: 0.95 },
     animate: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: "easeOut" } },

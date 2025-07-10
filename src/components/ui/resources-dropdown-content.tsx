@@ -21,8 +21,8 @@ interface ResourceItem {
 
 const resourceItems: ResourceItem[] = [
   {
-    id: "press-releases",
-    title: "Latest Press Releases",
+    id: "case-studies",
+    title: "Case Studies",
     description: "Stay updated with our latest announcements and company news.",
     image: {
       src: "/Access Logs.png",

@@ -4,72 +4,91 @@ import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Heart, Building, Shield, Users } from "lucide-react";
+import { Heart, Building, Users } from "lucide-react";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
 import { GlowingDivider } from "@/components/ui/glowing-divider";
 import { METALLIC_BLACK_TEXT_CLASSES, ANIMATION_CONFIG } from "../constants";
 
-// Industry section data (copied from ModularSolutions)
+import { industryContent } from "@/app/equal/industries/industryContent";
+import { 
+  Home, 
+  Briefcase, 
+  Activity, 
+  Pill, 
+  GraduationCap, 
+  Code, 
+  Smartphone, 
+  DollarSign, 
+  TrendingUp, 
+  Factory, 
+  Building2, 
+  Shield, 
+  Car, 
+  ShoppingBag, 
+  Coffee, 
+  Plane 
+} from "lucide-react";
+
+// Icon mapping for industries
+const industryIcons: Record<string, React.ReactNode> = {
+  "real-estate": <Home size={24} />,
+  "co-working": <Briefcase size={24} />,
+  "healthcare": <Activity size={24} />,
+  "pharmaceuticals": <Pill size={24} />,
+  "education": <GraduationCap size={24} />,
+  "it-services": <Code size={24} />,
+  "digital-services": <Smartphone size={24} />,
+  "banking-financial-services": <DollarSign size={24} />,
+  "broking": <TrendingUp size={24} />,
+  "manufacturing-construction": <Factory size={24} />,
+  "housing-finance": <Building2 size={24} />,
+  "insurance": <Shield size={24} />,
+  "automotive": <Car size={24} />,
+  "retail-ecommerce": <ShoppingBag size={24} />,
+  "hospitality": <Coffee size={24} />,
+  "travel-transportation": <Plane size={24} />
+};
+
+// Image mapping for industries (using available images from public folder)
+const industryImages: Record<string, string> = {
+  "real-estate": "/rent.png",
+  "co-working": "/Gig & Platform Economy.png",
+  "healthcare": "/Healthcare.png",
+  "pharmaceuticals": "/Healthcare.png", // Reuse healthcare image
+  "education": "/Recruitment.png", // Reuse recruitment image
+  "it-services": "/L&M-tech.png",
+  "digital-services": "/L&M-tech.png", // Reuse tech image
+  "banking-financial-services": "/Financial Services.png",
+  "broking": "/Financial Services.png", // Reuse financial services image
+  "manufacturing-construction": "/Government Contracts.png",
+  "housing-finance": "/homeloan.png",
+  "insurance": "/Financial Services.png", // Reuse financial services image
+  "automotive": "/Vehicle + Legal Verification.png",
+  "retail-ecommerce": "/Gig & Platform Economy.png", // Reuse gig economy image
+  "hospitality": "/Gig & Platform Economy.png", // Reuse gig economy image
+  "travel-transportation": "/Vehicle + Legal Verification.png" // Reuse vehicle image
+};
+
+// Industry section data (using new industryContent)
 const industrySection = {
   id: "industry",
   title: "Custom Workflows for your Industry",
   subtitle: "ONE SOLUTION FOR ALL",
   description: "Specialised solutions tailored for specific industry verticals and their unique compliance requirements.",
-  items: [
-    {
-      id: "healthcare",
-      title: "Healthcare Management",
-      description: "Secure verification with HIPAA compliance and advanced encryption.",
-      image: {
-        src: "/Healthcare.png",
-        alt: "Healthcare",
-        width: 80,
-        height: 80
-      },
-      href: "/solutions/healthcare",
-      icon: <Heart size={24} />
+  items: industryContent.map(industry => ({
+    id: industry.id,
+    title: industry.name,
+    description: industry.description,
+    image: {
+      src: industryImages[industry.id] || "/L&M-tech.png", // Fallback image
+      alt: industry.name,
+      width: 80,
+      height: 80
     },
-    {
-      id: "government",
-      title: "Government Contracts",
-      description: "Compliance-ready solutions for government projects.",
-      image: {
-        src: "/Government Contracts.png",
-        alt: "Government Contracts",
-        width: 80,
-        height: 80
-      },
-      href: "/solutions/government",
-      icon: <Building size={24} />
-    },
-    {
-      id: "compliance",
-      title: "Compliance & Risk Monitoring",
-      description: "Automated compliance checks with real-time monitoring.",
-      image: {
-        src: "/Compliance.png",
-        alt: "Compliance",
-        width: 80,
-        height: 80
-      },
-      href: "/solutions/compliance",
-      icon: <Shield size={24} />
-    },
-    {
-      id: "recruitment",
-      title: "Recruitment Solutions",
-      description: "End-to-end background verification with bulk processing.",
-      image: {
-        src: "/Recruitment.png",
-        alt: "Recruitment",
-        width: 80,
-        height: 80
-      },
-      href: "/solutions/recruitment",
-      icon: <Users size={24} />
-    }
-  ]
+    href: `/equal/industries/${industry.id}`,
+    icon: industryIcons[industry.id] || <Building size={24} />
+  }))
 };
 
 const IndustrySection = React.memo(() => {
@@ -124,12 +143,14 @@ const IndustrySection = React.memo(() => {
           </Link>
         </motion.div>
       </div>
-      {/* Four responsive Bento cards in a row or 2x2 grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto items-stretch">
+      {/* Horizontally scrollable industry cards */}
+      <div className="w-full overflow-hidden">
+        <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 pl-8 pr-0" style={{ scrollSnapType: 'x mandatory' }}>
         {section.items.map((item, index) => (
           <div
             key={item.id}
-            className="group relative"
+            className="group relative flex-shrink-0 w-80"
+            style={{ scrollSnapAlign: 'start' }}
           >
             <Link
               href={item.href}
@@ -141,14 +162,14 @@ const IndustrySection = React.memo(() => {
                     <div className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center text-white mb-4 ml-0 md:transition-transform md:duration-300 md:group-hover:-translate-y-2">
                       {item.icon}
                     </div>
-                    <span className="group-hover:text-[#00b140] transition-colors duration-300 text-md md:text-2xl">
+                    <span className="group-hover:text-[#00b140] transition-colors duration-300 text-md md:text-xl">
                       {item.title}
                     </span>
                   </div>
                 }
                 description={
                   <div className="text-left w-full md:mb-4 md:transition-transform md:duration-300 md:group-hover:-translate-y-8">
-                    {item.description}
+                    <p className="text-sm line-clamp-3">{item.description}</p>
                     <div className="block md:hidden mt-4">
                       <div className="inline-flex items-center justify-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-3 border border-[#00b140]/50 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden">
                         <span>Learn More</span>
@@ -162,8 +183,8 @@ const IndustrySection = React.memo(() => {
                   alt: item.image.alt
                 }}
                 imagePosition="top-right"
-                imageSize="w-40 h-40 top-[-40px] right-[-35px] md:w-20 md:h-20 md:top-[-20px] md:right-[-15px] xl:w-60 xl:h-60 xl:top-[-50px] xl:right-[-65px] 2xl:w-60 2xl:h-60 2xl:top-[-65px] 2xl:right-[-65px]"
-                className="h-full min-h-[260px] md:min-h-[340px] md:aspect-[3/4] bg-white/50 backdrop-blur-md border-slate-200 hover:border-[#00b140]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00b140]/10 flex flex-col justify-end items-start p-6"
+                imageSize="w-20 h-20 top-[-20px] right-[-15px] xl:w-40 xl:h-40 xl:top-[-30px] xl:right-[-35px]"
+                className="h-full min-h-[300px] md:min-h-[320px] bg-white/50 backdrop-blur-md border-slate-200 hover:border-[#00b140]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00b140]/10 flex flex-col justify-end items-start p-6"
               />
             </Link>
             <div className="absolute bottom-6 left-6 right-6 transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-10">
@@ -174,6 +195,7 @@ const IndustrySection = React.memo(() => {
             </div>
           </div>
         ))}
+        </div>
       </div>
     </section>
   );
