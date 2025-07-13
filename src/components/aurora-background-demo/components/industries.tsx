@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Heart, Building, Users } from "lucide-react";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
@@ -91,9 +91,20 @@ const industrySection = {
   }))
 };
 
+const CARD_WIDTH = 320; // w-80 in px
+const CARD_GAP = 24; // space-x-6 in px
+
 const IndustrySection = React.memo(() => {
   const section = industrySection;
   const cta = { text: "Explore Solutions", href: "/solutions" };
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollByCard = (direction: "left" | "right") => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const scrollAmount = direction === "left" ? -(CARD_WIDTH + CARD_GAP) : (CARD_WIDTH + CARD_GAP);
+    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  };
 
   return (
     <section className="relative w-full px-8 py-12">
@@ -125,7 +136,7 @@ const IndustrySection = React.memo(() => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: ANIMATION_CONFIG.duration, delay: 0.3 }}
-          className="text-sm text-slate-600 leading-relaxed mb-8"
+          className="text-sm md:text-xl text-slate-600 leading-relaxed mb-8"
         >
           {section.description}
         </motion.p>
@@ -143,60 +154,108 @@ const IndustrySection = React.memo(() => {
           </Link>
         </motion.div>
       </div>
-      {/* Horizontally scrollable industry cards */}
-      <div className="w-full overflow-hidden">
-        <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 pl-8 pr-0" style={{ scrollSnapType: 'x mandatory' }}>
-        {section.items.map((item, index) => (
-          <div
-            key={item.id}
-            className="group relative flex-shrink-0 w-80"
-            style={{ scrollSnapAlign: 'start' }}
-          >
-            <Link
-              href={item.href}
-              className="block w-full h-full"
-            >
-              <BentoGridItem
-                title={
-                  <div className="flex flex-col items-start w-full mt-auto mb-4 md:mb-4 md:transition-transform md:duration-300 md:group-hover:-translate-y-8">
-                    <div className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center text-white mb-4 ml-0 md:transition-transform md:duration-300 md:group-hover:-translate-y-2">
-                      {item.icon}
-                    </div>
-                    <span className="group-hover:text-[#00b140] transition-colors duration-300 text-md md:text-xl">
-                      {item.title}
-                    </span>
-                  </div>
-                }
-                description={
-                  <div className="text-left w-full md:mb-4 md:transition-transform md:duration-300 md:group-hover:-translate-y-8">
-                    <p className="text-sm line-clamp-3">{item.description}</p>
-                    <div className="block md:hidden mt-4">
-                      <div className="inline-flex items-center justify-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-3 border border-[#00b140]/50 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden">
-                        <span>Learn More</span>
-                        <ArrowRight className="h-4 w-4 text-[#00b140] ml-2" />
+      {/* Full-bleed horizontal scroll container */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{
+          duration: ANIMATION_CONFIG.duration,
+          delay: 0.5
+        }}
+        className="relative"
+      >
+        <div 
+          ref={scrollRef} 
+          className="overflow-x-auto overflow-y-hidden pb-8 scrollbar-hide w-screen -mx-8 min-h-[380px] touch-pan-x"
+          style={{
+            scrollBehavior: 'smooth',
+            WebkitOverflowScrolling: 'touch'
+          }}
+        >
+          <div className="flex space-x-6 w-max" style={{ paddingLeft: 'max(2rem, calc((100vw - 1280px) / 2))', paddingRight: '2rem' }}>
+            {section.items.map((item, index) => (
+              <div
+                key={item.id}
+                className="group relative flex-shrink-0 w-80"
+              >
+                <Link
+                  href={item.href}
+                  className="block w-full h-full"
+                >
+                  <BentoGridItem
+                    title={
+                      <div className="flex flex-col items-start w-full mt-auto mb-4 md:mb-4 md:transition-transform md:duration-300 md:group-hover:-translate-y-8">
+                        <div className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center text-white mb-4 ml-0 md:transition-transform md:duration-300 md:group-hover:-translate-y-2">
+                          {item.icon}
+                        </div>
+                        <span className="group-hover:text-[#00b140] transition-colors duration-300 text-md md:text-xl">
+                          {item.title}
+                        </span>
                       </div>
-                    </div>
+                    }
+                    description={
+                      <div className="text-left w-full md:mb-4 md:transition-transform md:duration-300 md:group-hover:-translate-y-8">
+                        <p className="text-sm line-clamp-3">{item.description}</p>
+                        <div className="block md:hidden mt-4">
+                          <div className="inline-flex items-center justify-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-3 border border-[#00b140]/50 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden">
+                            <span>Learn More</span>
+                            <ArrowRight className="h-4 w-4 text-[#00b140] ml-2" />
+                          </div>
+                        </div>
+                      </div>
+                    }
+                    image={{
+                      src: item.image.src,
+                      alt: item.image.alt
+                    }}
+                    imagePosition="top-right"
+                    imageSize="w-20 h-20 top-[-20px] right-[-15px] xl:w-40 xl:h-40 xl:top-[-30px] xl:right-[-35px]"
+                    className="h-full min-h-[300px] md:min-h-[320px] bg-white/50 backdrop-blur-md border-slate-200 hover:border-[#00b140]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00b140]/10 flex flex-col justify-end items-start p-6"
+                  />
+                </Link>
+                <div className="absolute bottom-6 left-6 right-6 transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-10">
+                  <div className="w-full inline-flex items-center justify-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-3 border border-[#00b140]/50 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden group-hover:bg-[#00b140]/5">
+                    <span>Learn More</span>
+                    <ArrowRight className="h-4 w-4 text-[#00b140] transition-all duration-500 opacity-0 group-hover:opacity-100 -ml-3 group-hover:ml-2 group-hover:translate-x-0 delay-200" />
                   </div>
-                }
-                image={{
-                  src: item.image.src,
-                  alt: item.image.alt
-                }}
-                imagePosition="top-right"
-                imageSize="w-20 h-20 top-[-20px] right-[-15px] xl:w-40 xl:h-40 xl:top-[-30px] xl:right-[-35px]"
-                className="h-full min-h-[300px] md:min-h-[320px] bg-white/50 backdrop-blur-md border-slate-200 hover:border-[#00b140]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00b140]/10 flex flex-col justify-end items-start p-6"
-              />
-            </Link>
-            <div className="absolute bottom-6 left-6 right-6 transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-10">
-              <div className="w-full inline-flex items-center justify-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-3 border border-[#00b140]/50 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden group-hover:bg-[#00b140]/5">
-                <span>Learn More</span>
-                <ArrowRight className="h-4 w-4 text-[#00b140] transition-all duration-500 opacity-0 group-hover:opacity-100 -ml-3 group-hover:ml-2 group-hover:translate-x-0 delay-200" />
+                </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
         </div>
-      </div>
+        {/* Chevron controls centered under cards */}
+        <div className="w-full flex justify-center items-center space-x-3 z-10 mt-4 mb-2">
+          <button
+            type="button"
+            className="group w-10 h-10 flex items-center justify-center rounded-full bg-[#00b140]/10 hover:bg-[#00b140] transition-colors"
+            aria-label="Scroll left"
+            onClick={() => scrollByCard("left")}
+          >
+            <ChevronLeft className="w-6 h-6 text-[#00b140] group-hover:text-white transition-colors" />
+          </button>
+          <button
+            type="button"
+            className="group w-10 h-10 flex items-center justify-center rounded-full bg-[#00b140]/10 hover:bg-[#00b140] transition-colors"
+            aria-label="Scroll right"
+            onClick={() => scrollByCard("right")}
+          >
+            <ChevronRight className="w-6 h-6 text-[#00b140] group-hover:text-white transition-colors" />
+          </button>
+        </div>
+      </motion.div>
+      
+      
+      {/* Custom scrollbar styles */}
+      <style jsx>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 });

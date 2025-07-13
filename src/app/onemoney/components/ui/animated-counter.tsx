@@ -14,7 +14,7 @@ export function AnimatedCounter({
   value, 
   className, 
   fixedDecimals, 
-  duration = 1.5 // Default duration
+  duration = 2.0 // Default duration
 }: AnimatedCounterProps) {
   const [displayValue, setDisplayValue] = useState(0);
   const ref = useRef(null);

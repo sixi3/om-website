@@ -3,11 +3,10 @@
 import Link from "next/link";
 import React, { useState, useEffect, useCallback, memo } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence, easeInOut } from "framer-motion";
 import Image from "next/image";
-
 
 // Import the existing dropdown components
 import { DropdownMenu, TriggerWrapper, Trigger, TabsContainer, Tab } from "@/components/ui/dropdown-menu";
@@ -15,8 +14,18 @@ import { ProductDropdownContent } from "@/components/ui/product-dropdown-content
 import { SolutionsDropdownContent } from "@/components/ui/solutions-dropdown-content";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { WhyEqualDropdownContent } from "@/components/ui/why-equal-dropdown-content";
-import { PrivacyDropdownContent } from "@/components/ui/privacy-dropdown-content";
 import { ResourcesDropdownContent } from "@/components/ui/resources-dropdown-content";
+
+// Import dialog components
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/app/onemoney/components/ui/dialog";
+import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 
 interface MainHeaderProps {
   className?: string;
@@ -29,6 +38,15 @@ interface TabConfig {
   trigger: string;
   content: React.ComponentType;
   mobileLinks: Array<{
+    title: string;
+    href: string;
+  }>;
+}
+
+interface MobileSection {
+  id: string;
+  title: string;
+  links: Array<{
     title: string;
     href: string;
   }>;
@@ -48,9 +66,10 @@ const getCompanySection = (pathname: string): CompanySection => {
 };
 
 const getTabConfigurations = (section: CompanySection): TabConfig[] => {
-  const baseConfig: TabConfig[] = [
+  // Unified base configuration that works across all company sections
+  const unifiedConfig: TabConfig[] = [
     {
-      trigger: "WHY ONE EQUAL",
+      trigger: "ABOUT US",
       content: WhyEqualDropdownContent,
       mobileLinks: []
     },
@@ -87,61 +106,200 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
     }
   ];
 
-  // Add privacy policy tab for onemoney
-  if (section === 'onemoney') {
-    baseConfig.push({
-      trigger: "PRIVACY & LEGAL",
-      content: PrivacyDropdownContent,
-      mobileLinks: [
-        { title: "Privacy Policy", href: "/onemoney/policies" },
-        { title: "Terms of Use", href: "/onemoney/policies" },
-        { title: "Compliance", href: "/onemoney/compliance" }
-      ]
-    });
-  }
-
-  return baseConfig;
+  return unifiedConfig;
 };
 
-// Memoized mobile navigation items
-const MobileNavItem = memo(({ 
-  title, 
-  href, 
-  isActive, 
-  onClick 
-}: { 
-  title: string; 
-  href: string; 
-  isActive: boolean; 
-  onClick: () => void; 
-}) => (
-  <Link
-    href={href}
-    className={cn(
-      "flex items-center rounded-md px-3 py-2 text-base font-medium transition-colors uppercase tracking-wide",
-      isActive 
-        ? "bg-[#00b140] text-white" 
-        : "text-foreground/80 hover:bg-muted hover:text-foreground"
-    )}
+// Mobile sections in the requested order
+const getMobileSections = (): MobileSection[] => [
+  {
+    id: "solutions",
+    title: "SOLUTIONS",
+    links: [
+      { title: "Financial Services", href: "/equal/solutions/financial-services" },
+      { title: "Healthcare", href: "/solutions/healthcare" },
+      { title: "Gig Economy", href: "/equal/solutions/gig-hiring" },
+      { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
+      { title: "Staffing", href: "/equal/solutions/staffing" }
+    ]
+  },
+  {
+    id: "products",
+    title: "PRODUCTS",
+    links: [
+      { title: "Equal ID Gateway", href: "/equal/products/identity-gateway" },
+      { title: "Equal Console", href: "/equal/products/console" },
+      { title: "OneMoney AA", href: "/onemoney" },
+      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" }
+    ]
+  },
+  {
+    id: "about",
+    title: "ABOUT US",
+    links: [
+      { title: "Why Equal", href: "/why-oneequal" },
+      { title: "Leadership", href: "/onemoney/leadership" },
+      { title: "Vision & Mission", href: "/onemoney/vision-mission" }
+    ]
+  },
+  {
+    id: "resources",
+    title: "RESOURCES",
+    links: [
+      { title: "In The News", href: "/news/latest-press-releases" },
+      { title: "Equal Blog", href: "/blog/industry-insights" },
+      { title: "Newsletter", href: "/newsletter/subscribe" },
+      { title: "Developer Docs", href: "/docs/api-reference" }
+    ]
+  }
+];
+
+// Animated hamburger menu component
+const AnimatedHamburger = memo(({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) => (
+  <button
+    className="relative w-6 h-6 flex flex-col justify-center items-center"
     onClick={onClick}
+    aria-label="Toggle mobile menu"
   >
-    {title}
-  </Link>
+    <motion.span
+      className="absolute w-5 h-0.5 bg-current transition-all duration-300"
+      animate={{
+        rotate: isOpen ? 45 : 0,
+        y: isOpen ? 0 : -6,
+      }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    />
+    <motion.span
+      className="absolute w-5 h-0.5 bg-current transition-all duration-300"
+      animate={{
+        opacity: isOpen ? 0 : 1,
+        x: isOpen ? -20 : 0,
+      }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    />
+    <motion.span
+      className="absolute w-5 h-0.5 bg-current transition-all duration-300"
+      animate={{
+        rotate: isOpen ? -45 : 0,
+        y: isOpen ? 0 : 6,
+      }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    />
+  </button>
 ));
 
-MobileNavItem.displayName = 'MobileNavItem';
+AnimatedHamburger.displayName = 'AnimatedHamburger';
 
-// Main navigation items - now handled dynamically through tab configurations
+// Mobile collapsible section component
+const MobileCollapsibleSection = memo(({ 
+  section, 
+  isOpen, 
+  onToggle, 
+  pathname,
+  onLinkClick 
+}: { 
+  section: MobileSection; 
+  isOpen: boolean; 
+  onToggle: () => void;
+  pathname: string;
+  onLinkClick: () => void;
+}) => {
+  const sectionVariants = {
+    closed: {
+      height: 0,
+      opacity: 0,
+      transition: {
+        height: { duration: 0.3 },
+        opacity: { duration: 0.2 }
+      }
+    },
+    open: {
+      height: "auto",
+      opacity: 1,
+      transition: {
+        height: { duration: 0.3 },
+        opacity: { duration: 0.3, delay: 0.1 }
+      }
+    }
+  };
+
+  const chevronVariants = {
+    closed: { rotate: 0 },
+    open: { rotate: 180 }
+  };
+
+  return (
+    <div className="border-b border-slate-200/30 lg:border-white/20">
+      <button
+        onClick={onToggle}
+        className="flex items-center justify-between w-full px-4 py-4 text-left hover:bg-slate-50/50 transition-colors duration-200"
+      >
+        <span className="text-sm font-semibold text-[#00b140] uppercase tracking-widest">
+          {section.title}
+        </span>
+        <motion.div
+          variants={chevronVariants}
+          animate={isOpen ? "open" : "closed"}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
+          <ChevronDown className="w-4 h-4 text-slate-600" />
+        </motion.div>
+      </button>
+      
+      <motion.div
+        variants={sectionVariants}
+        animate={isOpen ? "open" : "closed"}
+        initial="closed"
+        className="overflow-hidden"
+      >
+        <div className="pb-2">
+          {section.links.map((link, index) => (
+            <motion.div
+              key={link.href}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ 
+                opacity: isOpen ? 1 : 0, 
+                x: isOpen ? 0 : -20 
+              }}
+              transition={{ 
+                duration: 0.3, 
+                delay: isOpen ? index * 0.05 + 0.1 : 0,
+                ease: "easeOut" 
+              }}
+            >
+              <Link
+                href={link.href}
+                className={cn(
+                  "flex items-center px-6 py-3 text-base font-medium transition-colors",
+                  pathname === link.href
+                    ? "bg-[#00b140] text-white"
+                    : "text-foreground/80 hover:bg-slate-50 hover:text-foreground"
+                )}
+                onClick={onLinkClick}
+              >
+                {link.title}
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+});
+
+MobileCollapsibleSection.displayName = 'MobileCollapsibleSection';
 
 export function MainHeader({ className }: MainHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
   const pathname = usePathname();
   
   // Get dynamic tab configuration based on current section
   const currentSection = getCompanySection(pathname);
   const tabConfigs = getTabConfigurations(currentSection);
+  const mobileSections = getMobileSections();
 
   // CSS variables for theming
   const cssVars = {
@@ -180,51 +338,75 @@ export function MainHeader({ className }: MainHeaderProps) {
 
   const toggleMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(prev => !prev);
-  }, []);
+    // Close any open mobile sections when closing the menu
+    if (isMobileMenuOpen) {
+      setOpenMobileSection(null);
+    }
+  }, [isMobileMenuOpen]);
 
   const closeMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(false);
+    setOpenMobileSection(null);
   }, []);
 
-  // Mobile menu animation variants
-  const mobileMenuVariants = {
-    initial: {
-      opacity: 0,
-      y: -20,
-      transition: { duration: 0.15, ease: easeInOut }
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.15, ease: easeInOut }
-    },
-    exit: {
-      opacity: 0,
-      y: -20,
-      transition: { duration: 0.1, ease: easeInOut }
-    },
-  };
+  const toggleMobileSection = useCallback((sectionId: string) => {
+    setOpenMobileSection(prev => prev === sectionId ? null : sectionId);
+  }, []);
 
-  // Navigation item active state is now handled in the mobile navigation mapping
+  const openDialog = useCallback(() => {
+    setIsDialogOpen(true);
+  }, []);
+
+  const closeDialog = useCallback(() => {
+    setIsDialogOpen(false);
+  }, []);
 
   return (
     <div className={cn("fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:p-3 pointer-events-none will-change-transform", className)}>
-      <header
+      <motion.header
         className={cn(
-          "pointer-events-auto rounded-full border transition-all duration-300 ease-in-out will-change-transform",
-          isScrolled
+          "pointer-events-auto transition-all duration-300 ease-in-out will-change-transform",
+          // Desktop styling: rounded-full with translucent background when scrolled
+          "lg:rounded-full lg:border",
+          (isScrolled || isMobileMenuOpen)
             ? "border-white/20 bg-background/40 backdrop-blur-md shadow-md"
-            : "border-transparent bg-transparent shadow-none"
+            : "border-transparent bg-transparent shadow-none",
+          // Apply overflow-hidden for mobile scenarios only
+          "lg:overflow-visible", // Always allow overflow on desktop for dropdowns
+          isMobileMenuOpen || (isScrolled && !isMobileMenuOpen) ? "overflow-hidden" : "overflow-visible"
         )}
         style={cssVars}
+        animate={{
+          borderRadius: isMobileMenuOpen 
+            ? "1rem" // Always use rounded-2xl when menu is open (priority over scroll)
+            : isScrolled 
+            ? "9999px" // Only use rounded-full when scrolled and menu is closed
+            : "0px" // No radius when neither scrolled nor menu open
+        }}
+        transition={{ 
+          duration: isMobileMenuOpen ? 0.15 : 0.2, 
+          ease: isMobileMenuOpen ? "easeOut" : "easeInOut" 
+        }}
       >
         <div className="flex h-16 items-center px-2 sm:px-4">
           {/* Left: Logo */}
           <div className="flex items-center flex-shrink-0">
             <Link href="/" className="flex items-center">
               <Image
-                src="/equal-logo.svg"
-                alt="Equal Logo"
+                src={
+                  currentSection === 'onemoney' 
+                    ? "/onemoney-logo.svg"
+                    : currentSection === 'moneyone'
+                    ? "/moneyone-logo.svg"
+                    : "/equal-logo.svg"
+                }
+                alt={
+                  currentSection === 'onemoney' 
+                    ? "OneMoney Logo"
+                    : currentSection === 'moneyone'
+                    ? "MoneyOne Logo"
+                    : "Equal Logo"
+                }
                 width={71}
                 height={21}
                 className="h-8 md:h-10 w-auto"
@@ -263,79 +445,49 @@ export function MainHeader({ className }: MainHeaderProps) {
           <div className="flex items-center flex-shrink-0 ml-auto px-4 gap-4">
             {/* GET IN TOUCH Button - Hidden on mobile */}
             <div className="hidden lg:block">
-              <ShimmerButton>
+              <ShimmerButton onClick={openDialog}>
                 GET IN TOUCH
               </ShimmerButton>
             </div>
             
             {/* Mobile Menu Toggle - Only visible on mobile */}
             <div className="lg:hidden">
-              <button
-                className="text-foreground/80 hover:text-foreground transition-colors"
-                onClick={toggleMobileMenu}
-                aria-label="Toggle mobile menu"
-              >
-                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
+              <AnimatedHamburger isOpen={isMobileMenuOpen} onClick={toggleMobileMenu} />
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Integrated into header container */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div 
-              className="lg:hidden bg-background/90 backdrop-blur-md shadow-lg rounded-b-lg overflow-hidden will-change-transform"
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              variants={mobileMenuVariants}
+              className="lg:hidden border-t border-white/20"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <nav className="flex flex-col space-y-1 px-2 py-3">
-                {/* Dynamic Mobile Navigation Items */}
-                {tabConfigs.map((config, index) => {
-                  if (config.mobileLinks.length === 0) {
-                    // Single item like "WHY ONE EQUAL"
-                    return (
-                      <div key={index} className="space-y-2 mb-4">
-                        <MobileNavItem
-                          title={config.trigger}
-                          href="/why-oneequal" // Default href for WHY ONE EQUAL
-                          isActive={pathname === "/why-oneequal"}
-                          onClick={closeMobileMenu}
-                        />
-                      </div>
-                    );
-                  } else {
-                    // Section with multiple links
-                    return (
-                      <div key={index} className="space-y-2 mb-4">
-                        <div className="px-3 py-2">
-                          <h3 className="text-sm font-semibold text-[#00b140] uppercase tracking-widest">
-                            {config.trigger}
-                          </h3>
-                        </div>
-                        <div className="pl-3 space-y-1">
-                          {config.mobileLinks.map((link, linkIndex) => (
-                            <MobileNavItem
-                              key={linkIndex}
-                              title={link.title}
-                              href={link.href}
-                              isActive={pathname === link.href}
-                              onClick={closeMobileMenu}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  }
-                })}
+              <nav className="flex flex-col">
+                {/* Collapsible Sections */}
+                {mobileSections.map((section) => (
+                  <MobileCollapsibleSection
+                    key={section.id}
+                    section={section}
+                    isOpen={openMobileSection === section.id}
+                    onToggle={() => toggleMobileSection(section.id)}
+                    pathname={pathname}
+                    onLinkClick={closeMobileMenu}
+                  />
+                ))}
 
                 {/* GET IN TOUCH Button for Mobile */}
-                <div className="px-3 py-2">
+                <div className="p-4 border-t border-slate-200/30 lg:border-white/20">
                   <ShimmerButton 
-                    className="w-full"
-                    onClick={closeMobileMenu}
+                    className="w-full justify-center"
+                    onClick={() => {
+                      closeMobileMenu();
+                      openDialog();
+                    }}
                   >
                     GET IN TOUCH
                   </ShimmerButton>
@@ -344,7 +496,22 @@ export function MainHeader({ className }: MainHeaderProps) {
             </motion.div>
           )}
         </AnimatePresence>
-      </header>
+      </motion.header>
+
+      {/* Custom Get In Touch Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[480px]">
+          <DialogHeader>
+            <DialogTitle>Get in touch with us today!</DialogTitle>
+            <DialogDescription>
+              Ready to boost your business with India's largest data sharing network?
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-1">
+            <TalkToUsForm />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 } 

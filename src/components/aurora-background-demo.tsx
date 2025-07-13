@@ -192,7 +192,7 @@ export default function AuroraBackgroundDemo() {
         {/* Subtle vertical grid lines for guiding users */}
         <BackgroundGrid zIndex={1} />
         <div 
-          className="relative flex flex-col min-h-screen w-full z-10 overflow-x-hidden"
+          className="relative flex flex-col min-h-screen w-full z-5 overflow-x-hidden"
           style={{ 
             contain: 'layout style',
             willChange: 'transform' // Hint browser for optimization

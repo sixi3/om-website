@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { MainFooter } from "@/components/global";
 // import { Header } from "@/components/Header"; // Will be moved to OneMoney layout
 // import { Footer } from "@/components/Footer"; // Will be moved to OneMoney layout
 // import { AuroraBackground } from "@/components/ui/aurora-background"; // Will be moved to OneMoney layout
@@ -80,8 +81,8 @@ export default function RootLayout({
       >
         {/* Header, Footer, and AuroraBackground removed from here */}
         {/* They will be part of src/app/onemoney/layout.tsx for the OneMoney section */}
-        <main className="flex-grow relative z-10 w-full">{children}</main> 
-        {/* A very simple global footer could be added here if needed later */}
+        <main className="flex-grow relative z-10 w-full">{children}</main>
+        <MainFooter />
       </body>
     </html>
   );

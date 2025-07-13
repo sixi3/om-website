@@ -172,39 +172,6 @@ const teamMembers = [
       { id: "1", src: "/equal-icon.png", alt: "Equal" },
       { id: "2", src: "/verified.svg", alt: "Verified" }
     ]
-  },
-  {
-    id: "head-product",
-    name: "Sneha Kumar",
-    title: "HEAD OF PRODUCT",
-    description: "Passionate about creating user-centric products that solve real-world problems. Expert in product strategy and user experience design.",
-    imageUrl: "/test-avatar.png",
-    logos: [
-      { id: "1", src: "/onemoney-icon.png", alt: "OneMoney" },
-      { id: "2", src: "/verified.svg", alt: "Verified" }
-    ]
-  },
-  {
-    id: "head-tech",
-    name: "Sneha Kumar",
-    title: "HEAD OF PRODUCT",
-    description: "Passionate about creating user-centric products that solve real-world problems. Expert in product strategy and user experience design.",
-    imageUrl: "/test-avatar.png",
-    logos: [
-      { id: "1", src: "/onemoney-icon.png", alt: "OneMoney" },
-      { id: "2", src: "/verified.svg", alt: "Verified" }
-    ]
-  },
-  {
-    id: "head-customer",
-    name: "Sneha Kumar",
-    title: "HEAD OF PRODUCT",
-    description: "Passionate about creating user-centric products that solve real-world problems. Expert in product strategy and user experience design.",
-    imageUrl: "/test-avatar.png",
-    logos: [
-      { id: "1", src: "/onemoney-icon.png", alt: "OneMoney" },
-      { id: "2", src: "/verified.svg", alt: "Verified" }
-    ]
   }
 ];
 
@@ -235,7 +202,7 @@ const Team = React.memo(() => {
           }}
           className="text-center space-y-6 mb-8"
         >
-          <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercases">
+          <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase">
             Built by a stellar team
           </span>
           <h2 className={`text-2xl md:text-5xl lg:text-5xl leading-tight  ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mt-8 mx-auto`}>
@@ -245,9 +212,6 @@ const Team = React.memo(() => {
             </span>{" "}
             behind our success
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed max-w-6xl mx-auto">
-            Our diverse team of experts brings together decades of experience in fintech, identity verification, and data analytics to drive innovation.
-          </p>
         </motion.div>
       </div>
 
@@ -261,8 +225,8 @@ const Team = React.memo(() => {
         }}
         className="relative"
       >
-        {/* Full-bleed horizontal scroll container */}
-        <div ref={scrollRef} className="overflow-x-auto overflow-y-hidden pb-4 scrollbar-hide w-screen -mx-4 min-h-[384px]">
+        {/* Mobile: Full-bleed horizontal scroll container */}
+        <div ref={scrollRef} className="md:hidden overflow-x-auto overflow-y-hidden pb-4 scrollbar-hide w-screen -mx-4 min-h-[384px]">
           <div className="flex space-x-6 w-max h-96" style={{ paddingLeft: 'max(1rem, calc((100vw - 1280px) / 2))', paddingRight: '1rem' }}>
             {teamMembers.map((member, index) => (
               <ProfileCard
@@ -273,8 +237,19 @@ const Team = React.memo(() => {
             ))}
           </div>
         </div>
-        {/* Chevron controls centered under description */}
-        <div className="w-full flex justify-center items-center space-x-3 z-10 md:flex mt-4 mb-2">
+
+        {/* Desktop: Centered cards container */}
+        <div className="hidden md:flex justify-center items-center space-x-6 min-h-[384px]">
+          {teamMembers.map((member, index) => (
+            <ProfileCard
+              key={member.id}
+              {...member}
+            />
+          ))}
+        </div>
+
+        {/* Chevron controls - only show on mobile */}
+        <div className="w-full flex justify-center items-center space-x-3 z-10 md:hidden mt-4 mb-2">
           <button
             type="button"
             className=" group w-10 h-10 flex items-center justify-center rounded-full bg-[#00b140]/10 hover:bg-[#00b140] transition-colors"

@@ -330,7 +330,7 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
             ease: "easeInOut"
           }
         }}
-        className="absolute left-1/2 top-[calc(100%_+_12px)] w-auto z-50 max-w-[95vw] lg:max-w-none"
+        className="absolute left-1/2 top-[calc(100%_+_12px)] w-auto z-[9999] max-w-[95vw] lg:max-w-none"
         style={{ transform: 'translate3d(0,0,0)' }} // Force GPU acceleration
       >
         <div className="absolute -top-[12px] left-0 right-0 h-[12px]" />
@@ -339,9 +339,9 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
         <div className="flex items-start gap-2">
           {/* Main Dropdown Content */}
           <div className="relative">
-            {/* Animated Arrow Pointer */}
+            {/* Animated Arrow Pointer - Hidden on mobile */}
             <motion.div
-              className="absolute -top-[4px] w-2 h-2 border-l border-t border-neutral-200 bg-gradient-to-br from-slate-50 to-slate-100 transform rotate-45 z-10"
+              className="absolute -top-[4px] w-2 h-2 border-l border-t border-neutral-200 bg-gradient-to-br from-slate-50 to-slate-100 transform rotate-45 z-10 hidden lg:block"
               animate={{ 
                 left: arrowPosition - 6,
                 opacity: currentTab ? 1 : 0 

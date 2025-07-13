@@ -39,8 +39,8 @@ const whyEqualItems: WhyEqualItem[] = [
     image: {
       src: "/vision.png",
       alt: "Vision & Mission",
-      width: 56,
-      height: 56
+      width: 40,
+      height: 40
     },
     href: "/onemoney/vision-mission"
   },
@@ -51,22 +51,22 @@ const whyEqualItems: WhyEqualItem[] = [
     image: {
       src: "/Leadership.png",
       alt: "Leadership",
-      width: 56,
-      height: 56
+      width: 40,
+      height: 40
     },
     href: "/onemoney/leadership"
   },
   {
-    id: "about-us",
-    title: "About Us",
+    id: "values",
+    title: "Values",
     description: "Get to know more about our journey and values.",
     image: {
-      src: "/about.png",
+      src: "/Bulk Onboarding.png",
       alt: "About Us",
-      width: 56,
-      height: 56
+      width: 40,
+      height: 40
     },
-    href: ""
+    href: "/equal/values"
   }
 ]
 
@@ -81,7 +81,7 @@ const WhyEqualDropdownContent: React.FC = () => {
       >
         <div className="mb-4">
           <h2 className="text-md font-semibold tracking-widest text-slate-800 uppercase">
-            WHY ONE EQUAL
+            ABOUT US
           </h2>
           <p className="text-sm text-slate-600 leading-relaxed">
             Learn more about our team, vision, leadership, and story.
@@ -109,7 +109,7 @@ const WhyEqualDropdownContent: React.FC = () => {
                       height={item.image.height}
                       loading="eager"
                       priority={index < 2}
-                      className="transition-all duration-300 filter grayscale group-hover:grayscale-0 rounded will-change-[filter] group-hover:scale-110"
+                      className="w-10 h-10 object-contain transition-all duration-300 filter grayscale group-hover:grayscale-0 rounded will-change-[filter] group-hover:scale-110"
                     />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -132,11 +132,11 @@ const WhyEqualDropdownContent: React.FC = () => {
                     <Image
                       src={item.image.src}
                       alt={item.image.alt}
-                      width={24}
-                      height={24}
+                      width={40}
+                      height={40}
                       loading="eager"
                       priority={index < 2}
-                      className="transition-all duration-300 filter grayscale rounded"
+                      className="w-10 h-10 object-contain transition-all duration-300 filter grayscale rounded"
                     />
                   </div>
                   <div className="flex-1 min-w-0">

@@ -103,7 +103,7 @@ const BoardOfDirectors = React.memo(() => {
           className="text-center space-y-6 mb-16"
         >
           <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase">
-            HIGHEST LEVELS OF GOVERNANCE
+          Advisory Board and Board of Directors
           </span>
           <h2 className={`text-2xl md:text-5xl lg:text-5xl leading-tight ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mt-8 mx-auto`}>
             Strategic{" "}
@@ -112,9 +112,6 @@ const BoardOfDirectors = React.memo(() => {
             </span>{" "}
             from industry leaders
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed max-w-6xl mx-auto">
-            Our board comprises seasoned executives and thought leaders who provide strategic guidance and oversight to drive sustainable growth and innovation.
-          </p>
         </motion.div>
 
         {/* Mobile: Horizontal scroll layout - full width, not inside max-w-7xl */}
@@ -145,7 +142,7 @@ const BoardOfDirectors = React.memo(() => {
                   >
                     {/* Circular image container with gradient */}
                     <div className="relative w-32 h-32 md:w-40 md:h-40">
-                      <div className="w-full h-full rounded-full bg-gradient-to-br from-[#00b140] to-[#baff29] shadow-lg">
+                      <div className="w-full h-full rounded-full bg-gradient-to-br from-white to-slate-50 shadow-lg">
                         <div className="w-full h-full rounded-full overflow-hidden">
                           <Image
                             src={member.imageUrl}
@@ -227,7 +224,7 @@ const BoardOfDirectors = React.memo(() => {
               >
                 {/* Circular image container with gradient */}
                 <div className="relative w-48 h-48">
-                  <div className="w-full h-full rounded-full bg-gradient-to-br from-[#00b140] to-[#baff29] shadow-lg">
+                  <div className="w-full h-full rounded-full bg-background/20 backdrop-blur-md border border-slate-200">
                     <div className="w-full h-full rounded-full overflow-hidden">
                       <Image
                         src={member.imageUrl}
@@ -284,7 +281,7 @@ const BoardOfDirectors = React.memo(() => {
               >
                 {/* Circular image container with gradient */}
                 <div className="relative w-48 h-48">
-                  <div className="w-full h-full rounded-full bg-gradient-to-br from-[#00b140] to-[#baff29] shadow-lg">
+                  <div className="w-full h-full rounded-full bg-background/20 backdrop-blur-md border border-slate-200">
                     <div className="w-full h-full rounded-full overflow-hidden">
                       <Image
                         src={member.imageUrl}
