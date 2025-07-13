@@ -30,7 +30,7 @@ const whyEqualItems: WhyEqualItem[] = [
       width: 40,
       height: 40
     },
-    href: "/team"
+    href: "/common/team"
   },
   {
     id: "vision-mission",
@@ -42,7 +42,7 @@ const whyEqualItems: WhyEqualItem[] = [
       width: 40,
       height: 40
     },
-    href: "/onemoney/vision-mission"
+    href: "/common/vision-mission"
   },
   {
     id: "leadership",

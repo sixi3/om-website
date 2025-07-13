@@ -37,7 +37,7 @@ const resourceItems: ResourceItem[] = [
     title: "Media Coverage",
     description: "See how the media covers our innovations and achievements.",
     image: {
-      src: "/analytics.png",
+      src: "/Consolidated Report Manager.png",
       alt: "Media Coverage",
       width: 40,
       height: 40
@@ -45,76 +45,52 @@ const resourceItems: ResourceItem[] = [
     href: "/news/media-coverage"
   },
   {
-    id: "industry-insights",
-    title: "Industry Insights",
+    id: "blog",
+    title: "Blog",
     description: "Expert analysis and thought leadership from our team.",
     image: {
-      src: "/AI Intelligence.png",
-      alt: "Industry Insights",
+      src: "/Bulk Managment Tools.png",
+      alt: "Blog",
       width: 40,
       height: 40
     },
-    href: "/blog/industry-insights"
+    href: "/blog"
   },
   {
-    id: "product-updates",
-    title: "Product Updates",
+    id: "in-the-news",
+    title: "In The News",
     description: "Latest features and improvements to our platform.",
     image: {
-      src: "/API Integration.png",
-      alt: "Product Updates",
+      src: "/Webhook Notification.png",
+      alt: "In The News",
       width: 40,
       height: 40
     },
-    href: "/blog/product-updates"
+    href: "/blog/in-the-news"
   },
   {
-    id: "newsletter-subscribe",
-    title: "Subscribe to Newsletter",
+    id: "terms-and-conditions",
+    title: "Terms and Conditions",
     description: "Get updates delivered directly to your inbox.",
     image: {
-      src: "/Auto-Consolidated Reports.png",
-      alt: "Newsletter",
+      src: "/Webhook Support.png",
+      alt: "Terms and Conditions",
       width: 40,
       height: 40
     },
     href: "/newsletter/subscribe"
   },
   {
-    id: "newsletter-archive",
-    title: "Newsletter Archive",
+    id: "privacy-policy",
+    title: "Privacy Policy",
     description: "Browse past newsletters and stay informed.",
     image: {
-      src: "/Bulk Managment Tools.png",
+      src: "/team.png",
       alt: "Newsletter Archive",
       width: 40,
       height: 40
     },
     href: "/newsletter/archive"
-  },
-  {
-    id: "api-reference",
-    title: "API Reference",
-    description: "Complete API documentation for developers.",
-    image: {
-      src: "/JavaScript SDK.png",
-      alt: "API Reference",
-      width: 40,
-      height: 40
-    },
-    href: "/docs/api-reference"
-  },
-  {
-    id: "integration-guides",
-    title: "Integration Guides",
-    description: "Step-by-step integration tutorials and examples.",
-    image: {
-      src: "/Integration-First.png",
-      alt: "Integration Guides",
-      width: 40,
-      height: 40
-    },
-    href: "/docs/integration-guides"
   }
 ]
 

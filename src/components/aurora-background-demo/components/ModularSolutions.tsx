@@ -16,6 +16,7 @@ import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { GlowingDivider } from "@/components/ui/glowing-divider";
 import { useEffect, useRef, useState } from "react";
 import { animate, useInView } from "framer-motion";
+import { Component as EtherealShadow } from "@/components/ui/etheral-shadow";
 
 const MotionLink = motion(Link);
 
@@ -261,6 +262,167 @@ const solutionSections: SolutionSection[] = [
   }
 ];
 
+// New Industry Innovation Section Component
+const IndustryInnovationSection = React.memo(() => {
+  const metrics = industryMetrics;
+  const cta = { text: "Explore Equal AI", href: "/innovation" };
+
+  return (
+    <section className="relative w-full px-8 pt-16 mt-12 pb-16 md:py-20 xl:px-12 2xl:px-24 transform -skew-y-2 overflow-hidden mb-24">
+      {/* Ethereal Shadow Background */}
+      <div className="absolute inset-0 z-0">
+        <EtherealShadow
+          color="#00b140"
+          animation={{
+            scale: 60,
+            speed: 50
+          }}
+          noise={{
+            opacity: 0.8,
+            scale: 1.2
+          }}
+          sizing="fill"
+          className="w-full h-full"
+        />
+      </div>
+      
+      {/* Animated Gradient Overlay */}
+      <motion.div 
+        className="absolute inset-0 z-0"
+        animate={{
+          background: [
+            `linear-gradient(135deg, 
+              rgba(0, 120, 40, 0.95) 0%, 
+              rgba(186, 255, 41, 0.8) 35%,
+              rgba(0, 90, 30, 0.9) 70%,
+              rgba(186, 255, 41, 0.7) 100%
+            )`,
+            `linear-gradient(135deg, 
+              rgba(186, 255, 41, 0.85) 0%, 
+              rgba(0, 100, 35, 0.9) 30%,
+              rgba(186, 255, 41, 0.8) 65%,
+              rgba(0, 120, 40, 0.95) 100%
+            )`
+          ],
+          transition: {
+            duration: 4,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut"
+          }
+        }}
+      />
+
+      <div className="relative z-10 mx-auto transform skew-y-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          
+          {/* Left Column - Text Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{
+              duration: ANIMATION_CONFIG.duration,
+              ease: "easeOut",
+              delay: 0.2
+            }}
+            className="space-y-6"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: ANIMATION_CONFIG.duration,
+                delay: 0.1
+              }}
+            >
+              <span className="text-sm text-center md:text-left font-semibold text-white tracking-widest uppercase mb-4 block">
+                ✨ CONSUMER
+              </span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: ANIMATION_CONFIG.duration,
+                delay: 0.2
+              }}
+              className={`text-3xl md:text-4xl lg:text-5xl drop-shadow-lg leading-tight text-center md:text-left text-white font-bold`}
+            >
+              India's {" "}
+              <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
+                Most Advanced
+              </span>{" "}
+              <br />
+              AI Agent Ecosystem
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: ANIMATION_CONFIG.duration,
+                delay: 0.3
+              }}
+              className="text-lg text-center md:text-left text-white font-medium leading-relaxed"
+            >
+              Leading the digital transformation across financial services, healthcare, and government sectors with cutting-edge technology and innovative solutions that drive growth and efficiency.
+            </motion.p>
+
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: ANIMATION_CONFIG.duration,
+                delay: 0.5
+              }}
+              className="mt-8 flex justify-center md:justify-start"
+            >
+              <Link href={cta.href}>
+                <ShimmerButton className="text-md md:text-lg">
+                  {cta.text}
+                </ShimmerButton>
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Column - Image */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{
+              duration: ANIMATION_CONFIG.duration,
+              ease: "easeOut",
+              delay: 0.4
+            }}
+            className="relative"
+          >
+            <div className="relative w-full h-96">
+              <Image
+                src="/AI Intelligence.png"
+                alt="AI Intelligence and Innovation"
+                width={600}
+                height={600}
+                className="hidden md:block absolute h-auto object-contain bottom-[-120px] right-[-150px]"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+});
+
+IndustryInnovationSection.displayName = 'IndustryInnovationSection';
+
 // Removed getColSpanClass function to ensure equal card widths
 
 const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: number }>(({ section, sectionIndex }) => {
@@ -473,13 +635,15 @@ const ModularSolutions = React.memo(() => {
         </div>
       </section>
 
-      {/* Solution Sections with Divider only before Industry */}
+      {/* Solution Sections */}
       {solutionSections.map((section, index) => (
         <React.Fragment key={section.id}>
           <SolutionSection 
             section={section} 
             sectionIndex={index} 
           />
+          {/* Add Industry Innovation Section after Employment */}
+          {section.id === "employment" && <IndustryInnovationSection />}
         </React.Fragment>
       ))}
     </div>

@@ -1,6 +1,8 @@
 import React from "react";
-import { TiltCard } from "../components/ui/tilt-card";
-import { GridBackground } from "../components/ui/grid-background";
+import { TiltCard } from "../../onemoney/components/ui/tilt-card";
+import { AuroraBackground } from "@/components/ui/aurora-background";
+import { BackgroundGrid } from "@/components/ui/background-grid";
+import { MainHeader } from "@/components/global/MainHeader";
 
 // Define metallic black class (consider moving to shared lib later)
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -55,53 +57,57 @@ const BentoGridPlaceholder = () => {
 
 export default function VisionMissionPage() {
   return (
-    <main className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
-      <GridBackground />
-      <div className="container px-4 md:px-6 mx-auto">
-        {/* Page Title */}
-        <div className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            <span className={metallicBlackTextClasses}>Vision & Mission</span>
-          </h1>
-        </div>
+    <AuroraBackground>
+      <BackgroundGrid />
+      <MainHeader />
+      
+      <main className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
+        <div className="container px-4 md:px-6 mx-auto">
+          {/* Page Title */}
+          <div className="text-center mb-12 md:mb-16">
+            <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+              <span className={metallicBlackTextClasses}>Vision & Mission</span>
+            </h1>
+          </div>
 
-        {/* Content Sections */}
-        <div
-          className="flex flex-col items-center gap-8 md:gap-12 max-w-4xl mx-auto"
-          style={{ perspective: '1000px' }}
-        >
-          {/* Mission Section */}
-          <TiltCard
-            className="relative w-full rounded-lg border border-slate-200 bg-background/10 p-6 md:p-8 backdrop-blur-md shadow-xl dark:bg-black/50"
+          {/* Content Sections */}
+          <div
+            className="flex flex-col items-center gap-8 md:gap-12 max-w-4xl mx-auto"
+            style={{ perspective: '1000px' }}
           >
-            <div className="relative z-20 text-foreground/90">
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground pb-4 mb-4 border-b border-border/40">
-                {missionContent.title}
-              </h2>
-              <div className="prose prose-slate dark:prose-invert max-w-none">
-                {missionContent.body}
+            {/* Mission Section */}
+            <TiltCard
+              className="relative w-full rounded-lg border border-slate-200 bg-background/10 p-6 md:p-8 backdrop-blur-md shadow-xl dark:bg-black/50"
+            >
+              <div className="relative z-20 text-foreground/90">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground pb-4 mb-4 border-b border-border/40">
+                  {missionContent.title}
+                </h2>
+                <div className="prose prose-slate dark:prose-invert max-w-none">
+                  {missionContent.body}
+                </div>
               </div>
-            </div>
-          </TiltCard>
+            </TiltCard>
 
-          {/* Bento Grid Section Placeholder */}
-          <BentoGridPlaceholder />
+            {/* Bento Grid Section Placeholder */}
+            <BentoGridPlaceholder />
 
-          {/* Vision Section */}
-          <TiltCard
-            className="relative w-full rounded-lg border border-slate-200 bg-background/10 p-6 md:p-8 backdrop-blur-md shadow-xl dark:bg-black/50"
-          >
-            <div className="relative z-20 text-foreground/90">
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground pb-4 mb-4 border-b border-border/40">
-                {visionContent.title}
-              </h2>
-              <div className="prose prose-slate dark:prose-invert max-w-none">
-                {visionContent.body}
+            {/* Vision Section */}
+            <TiltCard
+              className="relative w-full rounded-lg border border-slate-200 bg-background/10 p-6 md:p-8 backdrop-blur-md shadow-xl dark:bg-black/50"
+            >
+              <div className="relative z-20 text-foreground/90">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground pb-4 mb-4 border-b border-border/40">
+                  {visionContent.title}
+                </h2>
+                <div className="prose prose-slate dark:prose-invert max-w-none">
+                  {visionContent.body}
+                </div>
               </div>
-            </div>
-          </TiltCard>
+            </TiltCard>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </AuroraBackground>
   );
 } 
