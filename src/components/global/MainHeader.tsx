@@ -77,10 +77,14 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
       trigger: "PRODUCTS", 
       content: ProductDropdownContent,
       mobileLinks: [
-        { title: "Equal ID Gateway", href: "/equal/products/identity-gateway" },
-        { title: "Equal Console", href: "/equal/products/console" },
         { title: "OneMoney AA", href: "/onemoney" },
-        { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" }
+        { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
+        { title: "FinShare FIP TSP", href: "/finshare" },
+        { title: "OneApp", href: "/oneapp" },
+        { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
+        { title: "Gig Hiring", href: "/equal/solutions/gig-hiring" },
+        { title: "Financial Services", href: "/equal/solutions/financial-services" },
+        { title: "Staffing & Contract", href: "/equal/solutions/staffing" }
       ]
     },
     {
@@ -88,20 +92,21 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
       content: SolutionsDropdownContent,
       mobileLinks: [
         { title: "Financial Services", href: "/equal/solutions/financial-services" },
-        { title: "Healthcare", href: "/solutions/healthcare" },
-        { title: "Gig Economy", href: "/equal/solutions/gig-hiring" },
-        { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
-        { title: "Staffing", href: "/equal/solutions/staffing" }
+        { title: "HRMS BGV Integration", href: "/equal/solutions/enterprise-hiring" },
+        { title: "Multi-Platform Verification", href: "/equal/products/identity-gateway" },
+        { title: "Custom Workflow for Businesses", href: "/equal/industries/" }
       ]
     },
     {
       trigger: "RESOURCES",
       content: ResourcesDropdownContent,
       mobileLinks: [
-        { title: "In The News", href: "/news/latest-press-releases" },
-        { title: "Equal Blog", href: "/blog/industry-insights" },
-        { title: "Newsletter", href: "/newsletter/subscribe" },
-        { title: "Developer Docs", href: "/docs/api-reference" }
+        { title: "Case Studies", href: "/news/latest-press-releases" },
+        { title: "Media Coverage", href: "/news/media-coverage" },
+        { title: "Blog", href: "/blog" },
+        { title: "In The News", href: "/blog/in-the-news" },
+        { title: "Terms and Conditions", href: "/common/terms-conditions" },
+        { title: "Privacy Policy", href: "/common/policies" }
       ]
     }
   ];
@@ -116,39 +121,45 @@ const getMobileSections = (): MobileSection[] => [
     title: "SOLUTIONS",
     links: [
       { title: "Financial Services", href: "/equal/solutions/financial-services" },
-      { title: "Healthcare", href: "/solutions/healthcare" },
-      { title: "Gig Economy", href: "/equal/solutions/gig-hiring" },
-      { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
-      { title: "Staffing", href: "/equal/solutions/staffing" }
+      { title: "HRMS BGV Integration", href: "/equal/solutions/enterprise-hiring" },
+      { title: "Multi-Platform Verification", href: "/equal/products/identity-gateway" },
+      { title: "Custom Workflow for Businesses", href: "/equal/industries/" }
     ]
   },
   {
     id: "products",
     title: "PRODUCTS",
     links: [
-      { title: "Equal ID Gateway", href: "/equal/products/identity-gateway" },
-      { title: "Equal Console", href: "/equal/products/console" },
       { title: "OneMoney AA", href: "/onemoney" },
-      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" }
+      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
+      { title: "FinShare FIP TSP", href: "/finshare" },
+      { title: "OneApp", href: "/oneapp" },
+      { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
+      { title: "Gig Hiring", href: "/equal/solutions/gig-hiring" },
+      { title: "Financial Services", href: "/equal/solutions/financial-services" },
+      { title: "Staffing & Contract", href: "/equal/solutions/staffing" }
     ]
   },
   {
     id: "about",
     title: "ABOUT US",
     links: [
-      { title: "Why Equal", href: "/why-oneequal" },
+      { title: "Team", href: "/common/team" },
+      { title: "Vision & Mission", href: "/common/vision-mission" },
       { title: "Leadership", href: "/onemoney/leadership" },
-      { title: "Vision & Mission", href: "/onemoney/vision-mission" }
+      { title: "Values", href: "/equal/values" }
     ]
   },
   {
     id: "resources",
     title: "RESOURCES",
     links: [
-      { title: "In The News", href: "/news/latest-press-releases" },
-      { title: "Equal Blog", href: "/blog/industry-insights" },
-      { title: "Newsletter", href: "/newsletter/subscribe" },
-      { title: "Developer Docs", href: "/docs/api-reference" }
+      { title: "Case Studies", href: "/news/latest-press-releases" },
+      { title: "Media Coverage", href: "/news/media-coverage" },
+      { title: "Blog", href: "/blog" },
+      { title: "In The News", href: "/blog/in-the-news" },
+      { title: "Terms and Conditions", href: "/common/terms-conditions" },
+      { title: "Privacy Policy", href: "/common/policies" }
     ]
   }
 ];
@@ -363,30 +374,15 @@ export function MainHeader({ className }: MainHeaderProps) {
 
   return (
     <div className={cn("fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:p-3 pointer-events-none will-change-transform", className)}>
-      <motion.header
+      {/* Mobile Header - Static styling, no animations */}
+      <header
         className={cn(
-          "pointer-events-auto transition-all duration-300 ease-in-out will-change-transform",
-          // Desktop styling: rounded-full with translucent background when scrolled
-          "lg:rounded-full lg:border",
+          "lg:hidden pointer-events-auto transition-all duration-300 ease-in-out",
           (isScrolled || isMobileMenuOpen)
-            ? "border-white/20 bg-background/40 backdrop-blur-md shadow-md"
-            : "border-transparent bg-transparent shadow-none",
-          // Apply overflow-hidden for mobile scenarios only
-          "lg:overflow-visible", // Always allow overflow on desktop for dropdowns
-          isMobileMenuOpen || (isScrolled && !isMobileMenuOpen) ? "overflow-hidden" : "overflow-visible"
+            ? "border border-white/20 bg-background/40 backdrop-blur-md shadow-md rounded-2xl"
+            : "border border-transparent bg-transparent shadow-none rounded-2xl"
         )}
         style={cssVars}
-        animate={{
-          borderRadius: isMobileMenuOpen 
-            ? "1rem" // Always use rounded-2xl when menu is open (priority over scroll)
-            : isScrolled 
-            ? "9999px" // Only use rounded-full when scrolled and menu is closed
-            : "0px" // No radius when neither scrolled nor menu open
-        }}
-        transition={{ 
-          duration: isMobileMenuOpen ? 0.15 : 0.2, 
-          ease: isMobileMenuOpen ? "easeOut" : "easeInOut" 
-        }}
       >
         <div className="flex h-16 items-center px-2 sm:px-4">
           {/* Left: Logo */}
@@ -414,46 +410,10 @@ export function MainHeader({ className }: MainHeaderProps) {
               />
             </Link>
           </div>
-          
 
-          {/* Center: Desktop Navigation with Dropdowns */}
-          <nav className="hidden lg:flex items-center justify-center flex-1">
-            <div className="flex items-center gap-2 md:gap-4">
-              <DropdownMenu>
-                <TriggerWrapper>
-                  {tabConfigs.map((config, index) => (
-                    <Trigger key={index}>{config.trigger}</Trigger>
-                  ))}
-                </TriggerWrapper>
-                
-                <TabsContainer>
-                  {tabConfigs.map((config, index) => {
-                    const ContentComponent = config.content;
-                    return (
-                      <Tab key={index}>
-                        <ContentComponent />
-                      </Tab>
-                    );
-                  })}
-                </TabsContainer>
-              </DropdownMenu>
-            </div>
-          </nav>
-          
-          
-          {/* Right: GET IN TOUCH Button (Desktop) + Mobile Menu Toggle */}
-          <div className="flex items-center flex-shrink-0 ml-auto px-4 gap-4">
-            {/* GET IN TOUCH Button - Hidden on mobile */}
-            <div className="hidden lg:block">
-              <ShimmerButton onClick={openDialog}>
-                GET IN TOUCH
-              </ShimmerButton>
-            </div>
-            
-            {/* Mobile Menu Toggle - Only visible on mobile */}
-            <div className="lg:hidden">
-              <AnimatedHamburger isOpen={isMobileMenuOpen} onClick={toggleMobileMenu} />
-            </div>
+          {/* Right: Mobile Menu Toggle */}
+          <div className="flex items-center flex-shrink-0 ml-auto px-4">
+            <AnimatedHamburger isOpen={isMobileMenuOpen} onClick={toggleMobileMenu} />
           </div>
         </div>
 
@@ -461,7 +421,7 @@ export function MainHeader({ className }: MainHeaderProps) {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div 
-              className="lg:hidden border-t border-white/20"
+              className="border-t border-white/20"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
@@ -496,6 +456,86 @@ export function MainHeader({ className }: MainHeaderProps) {
             </motion.div>
           )}
         </AnimatePresence>
+      </header>
+
+      {/* Desktop Header - Animated with framer-motion */}
+      <motion.header
+        className={cn(
+          "hidden lg:block pointer-events-auto transition-all duration-300 ease-in-out will-change-transform",
+          // Desktop styling: rounded-full with translucent background when scrolled
+          "rounded-full border",
+          isScrolled
+            ? "border-white/20 bg-background/40 backdrop-blur-md shadow-md"
+            : "border-transparent bg-transparent shadow-none",
+          "overflow-visible" // Always allow overflow on desktop for dropdowns
+        )}
+        style={cssVars}
+        animate={{
+          borderRadius: isScrolled ? "9999px" : "0px"
+        }}
+        transition={{ 
+          duration: 0.2,
+          ease: "easeInOut"
+        }}
+              >
+        <div className="flex h-16 items-center px-2 sm:px-4">
+          {/* Left: Logo */}
+          <div className="flex items-center flex-shrink-0">
+            <Link href="/" className="flex items-center">
+              <Image
+                src={
+                  currentSection === 'onemoney' 
+                    ? "/onemoney-logo.svg"
+                    : currentSection === 'moneyone'
+                    ? "/moneyone-logo.svg"
+                    : "/equal-logo.svg"
+                }
+                alt={
+                  currentSection === 'onemoney' 
+                    ? "OneMoney Logo"
+                    : currentSection === 'moneyone'
+                    ? "MoneyOne Logo"
+                    : "Equal Logo"
+                }
+                width={71}
+                height={21}
+                className="h-8 md:h-10 w-auto"
+                priority
+              />
+            </Link>
+          </div>
+          
+          {/* Center: Desktop Navigation with Dropdowns */}
+          <nav className="flex items-center justify-center flex-1">
+            <div className="flex items-center gap-2 md:gap-4">
+              <DropdownMenu>
+                <TriggerWrapper>
+                  {tabConfigs.map((config, index) => (
+                    <Trigger key={index}>{config.trigger}</Trigger>
+                  ))}
+                </TriggerWrapper>
+                
+                <TabsContainer>
+                  {tabConfigs.map((config, index) => {
+                    const ContentComponent = config.content;
+                    return (
+                      <Tab key={index}>
+                        <ContentComponent />
+                      </Tab>
+                    );
+                  })}
+                </TabsContainer>
+              </DropdownMenu>
+            </div>
+          </nav>
+          
+          {/* Right: GET IN TOUCH Button (Desktop only) */}
+          <div className="flex items-center flex-shrink-0 ml-auto px-4">
+            <ShimmerButton onClick={openDialog}>
+              GET IN TOUCH
+            </ShimmerButton>
+          </div>
+        </div>
       </motion.header>
 
       {/* Custom Get In Touch Dialog */}

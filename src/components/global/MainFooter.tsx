@@ -18,8 +18,8 @@ const footerSections: FooterSection[] = [
   {
     title: "ABOUT US",
     links: [
-      { title: "Team", href: "/team" },
-      { title: "Vision & Mission", href: "/onemoney/vision-mission" },
+      { title: "Team", href: "/common/team" },
+      { title: "Vision & Mission", href: "/common/vision-mission" },
       { title: "Leadership", href: "/onemoney/leadership" },
       { title: "Values", href: "/equal/values" }
     ]
@@ -33,19 +33,17 @@ const footerSections: FooterSection[] = [
       { title: "OneApp", href: "/oneapp" },
       { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
       { title: "Gig Hiring", href: "/equal/solutions/gig-hiring" },
-      { title: "Equal ID Gateway", href: "/equal/products/identity-gateway" },
-      { title: "Equal Console", href: "/equal/products/console" }
+      { title: "Financial Services", href: "/equal/solutions/financial-services" },
+      { title: "Staffing & Contract", href: "/equal/solutions/staffing" }
     ]
   },
   {
     title: "SOLUTIONS",
     links: [
       { title: "Financial Services", href: "/equal/solutions/financial-services" },
-      { title: "Healthcare", href: "/solutions/healthcare" },
-      { title: "Gig & Platform Hiring", href: "/equal/solutions/gig-hiring" },
-      { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
-      { title: "Staffing & Contract", href: "/equal/solutions/staffing" },
-      { title: "Compliance & Risk", href: "/solutions/compliance" }
+      { title: "HRMS BGV Integration", href: "/equal/solutions/enterprise-hiring" },
+      { title: "Multi-Platform Verification", href: "/equal/products/identity-gateway" },
+      { title: "Custom Workflow for Businesses", href: "/equal/industries/" }
     ]
   },
   {
@@ -53,12 +51,10 @@ const footerSections: FooterSection[] = [
     links: [
       { title: "Case Studies", href: "/news/latest-press-releases" },
       { title: "Media Coverage", href: "/news/media-coverage" },
-      { title: "Industry Insights", href: "/blog/industry-insights" },
-      { title: "Product Updates", href: "/blog/product-updates" },
-      { title: "Subscribe to Newsletter", href: "/newsletter/subscribe" },
-      { title: "Newsletter Archive", href: "/newsletter/archive" },
-      { title: "API Reference", href: "/docs/api-reference" },
-      { title: "Integration Guides", href: "/docs/integration-guides" }
+      { title: "Blog", href: "/blog" },
+      { title: "In The News", href: "/blog/in-the-news" },
+      { title: "Terms and Conditions", href: "/newsletter/subscribe" },
+      { title: "Privacy Policy", href: "/newsletter/archive" }
     ]
   }
 ];
@@ -77,7 +73,7 @@ export function MainFooter() {
                 alt="Equal Logo"
                 width={71}
                 height={21}
-                className="h-8 md:h-12 w-auto grayscale"
+                className="h-8 md:h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300"
                 priority
                 />
             </Link>

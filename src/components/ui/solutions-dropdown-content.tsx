@@ -40,7 +40,7 @@ const solutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/solutions/financial-services"
+        href: "/equal/solutions/financial-services"
       },
       {
         id: "HRMS BGV Integration",

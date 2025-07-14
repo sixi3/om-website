@@ -73,11 +73,11 @@ export const IndustryHero = React.memo(() => {
         <MainTitle />
       </div>
       {/* Right Column - HRMS Integration Illustration */}
-      <div className="hidden lg:flex w-full h-[340px] items-center justify-center">
-        <div className="relative w-full h-full max-w-[400px] max-h-[340px] flex items-center justify-center">
+      <div className="hidden lg:flex w-full h-[400px] items-center justify-center">
+        <div className="relative w-full h-full flex items-center justify-center">
           <Image
-            src="/HRMS Integration.png"
-            alt="HRMS Integration Illustration"
+            src="/Aggregator of Aggregators.png"
+            alt="Aggregator of Aggregators"
             fill
             className="object-contain"
             sizes="(max-width: 1024px) 300px, 400px"

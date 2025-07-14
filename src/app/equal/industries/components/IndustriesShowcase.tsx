@@ -57,9 +57,10 @@ const IndustrySection = React.memo<{
   industry: Industry; 
   index: number; 
   onInView: (industry: Industry) => void;
-}>(({ industry, index, onInView }) => {
+  isActive: boolean;
+}>(({ industry, index, onInView, isActive }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-200px" });
+  const isInView = useInView(ref, { once: false, margin: "-50% 0px -50% 0px" });
 
   useEffect(() => {
     if (isInView) {
@@ -81,7 +82,9 @@ const IndustrySection = React.memo<{
         ease: "easeOut",
         delay: 0.2
       }}
-      className="py-16 border-b border-slate-200 last:border-b-0"
+      className={`py-16 transition-all duration-300 ${
+        isActive ? 'bg-[#baff29]/20 backdrop-blur-lg border border-[#00b140]/20 rounded-2xl px-6 -mx-6' : ''
+      }`}
     >
       <div className="space-y-6">
         {/* Industry Title */}
@@ -93,7 +96,9 @@ const IndustrySection = React.memo<{
             duration: ANIMATION_CONFIG.duration,
             delay: 0.1
           }}
-          className={`text-3xl md:text-4xl lg:text-5xl leading-tight ${METALLIC_BLACK_TEXT_CLASSES}`}
+          className={`text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight transition-colors duration-300 ${
+            isActive ? METALLIC_BLACK_TEXT_CLASSES : 'text-slate-400'
+          }`}
         >
           {industry.name}
         </motion.h2>
@@ -107,7 +112,9 @@ const IndustrySection = React.memo<{
             duration: ANIMATION_CONFIG.duration,
             delay: 0.2
           }}
-          className="text-lg text-slate-600 leading-relaxed max-w-2xl"
+          className={`text-lg leading-relaxed max-w-2xl transition-colors duration-300 ${
+            isActive ? 'text-slate-600' : 'text-slate-400'
+          }`}
         >
           {industry.description}
         </motion.p>
@@ -128,12 +135,14 @@ const IndustrySection = React.memo<{
               <div className="text-2xl md:text-3xl lg:text-4xl mb-2">
                 <MetricsCounter 
                   value={highlight.stat} 
-                  className={metallicTextClasses}
+                  className={isActive ? metallicTextClasses : 'text-slate-400'}
                   id={`${industry.id}-${highlightIndex}`}
                   duration={2}
                 />
               </div>
-              <p className="text-sm md:text-md text-slate-600 font-medium">
+              <p className={`text-sm md:text-md font-medium transition-colors duration-300 ${
+                isActive ? 'text-slate-600' : 'text-slate-400'
+              }`}>
                 {highlight.label}
               </p>
             </div>
@@ -151,6 +160,7 @@ const IndustrySection = React.memo<{
             duration: ANIMATION_CONFIG.duration,
             delay: 0.5
           }}
+          className={`transition-opacity duration-300 ${!isActive ? 'opacity-50' : ''}`}
         >
           <Link href={`/equal/industries/${industry.id}`}>
             <ShimmerButton className="text-sm md:text-base">
@@ -214,6 +224,7 @@ export const IndustriesShowcase = React.memo(() => {
                 industry={industry}
                 index={index}
                 onInView={handleIndustryInView}
+                isActive={currentIndustry.id === industry.id}
               />
             ))}
           </div>
@@ -232,7 +243,7 @@ export const IndustriesShowcase = React.memo(() => {
                 }}
                 className="max-h-[calc(100vh-2rem)] overflow-y-auto scrollbar-hide"
               >
-                <h3 className="text-xl font-bold text-slate-800 mb-2 mt-8">
+                <h3 className="text-xl font-bold text-slate-800 mb-2 mt-20">
                   Recommended Products
                 </h3>
                 <p className="text-sm text-slate-600 mb-6">

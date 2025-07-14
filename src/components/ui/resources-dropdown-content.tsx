@@ -78,7 +78,7 @@ const resourceItems: ResourceItem[] = [
       width: 40,
       height: 40
     },
-    href: "/newsletter/subscribe"
+    href: "/common/terms-conditions"
   },
   {
     id: "privacy-policy",
@@ -86,11 +86,11 @@ const resourceItems: ResourceItem[] = [
     description: "Understand how we protect your data and privacy.",
     image: {
       src: "/team.png",
-      alt: "Newsletter Archive",
+      alt: "Privacy Policy",
       width: 40,
       height: 40
     },
-    href: "/newsletter/archive"
+    href: "/common/policies"
   }
 ]
 

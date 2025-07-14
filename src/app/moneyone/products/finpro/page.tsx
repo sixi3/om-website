@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   Database, 
   Shield, 
@@ -25,9 +25,7 @@ import {
   Lock,
   Eye,
   FileCheck,
-  Smartphone,
-  ChevronRight,
-  ChevronLeft
+  Smartphone
 } from 'lucide-react';
 import { GlowingButton } from '@/app/onemoney/components/ui/glowing-button';
 import { GridBackground } from '@/app/onemoney/components/ui/grid-background';
@@ -37,7 +35,6 @@ import { CustomisableUIShowcase } from '../../components/CustomisableUIShowcase'
 import { NudgesInsightsShowcase } from '../../components/NudgesInsightsShowcase';
 import { AnimatedCounter } from '@/app/onemoney/components/ui/animated-counter';
 import Marquee from "react-fast-marquee";
-import { cn } from '@/lib/utils';
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
@@ -133,14 +130,14 @@ const useCases = [
     title: "Digital Lending",
     description: "Automate income verification with real-time bank statement data",
     icon: <CreditCard className="w-6 h-6" />,
-    image: "/Financial Services.png",
+    image: "/Financial Analytics.png",
     features: ["Instant Income Verification", "Cash Flow Analysis", "Credit Risk Assessment"]
   },
   {
     title: "Wealth Management", 
     description: "Tailor advice based on customer asset mix (MF, FDs, Stocks)",
     icon: <TrendingUp className="w-6 h-6" />,
-    image: "/PFM.png",
+    image: "/Staffing & Contract Roles.png",
     features: ["Portfolio Consolidation", "Asset Allocation Analysis", "Investment Recommendations"]
   },
   {
@@ -154,7 +151,7 @@ const useCases = [
     title: "Insurance",
     description: "Match premiums to user profile using verified financial history",
     icon: <Shield className="w-6 h-6" />,
-    image: "/Healthcare.png",
+    image: "/Real-Time Monitoring.png",
     features: ["Risk Assessment", "Premium Calculation", "Claims Validation"]
   }
 ];
@@ -260,44 +257,7 @@ const HorizontalPointList = ({ items, textColor }: { items: (string | undefined)
 };
 
 export default function FinProPage() {
-  const [activeUseCaseId, setActiveUseCaseId] = useState(useCases[0].title);
-  const [hasBeenInView, setHasBeenInView] = useState(false);
-  const [progressKey, setProgressKey] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
-
-  const activeUseCase = useCases.find(u => u.title === activeUseCaseId);
-  const LOADER_DURATION_S = 6;
-
-  // Mobile detection
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkIsMobile();
-    window.addEventListener('resize', checkIsMobile);
-    return () => window.removeEventListener('resize', checkIsMobile);
-  }, []);
-
-  // Auto-cycle through use cases
-  useEffect(() => {
-    if (!hasBeenInView) return;
-
-    const interval = setInterval(() => {
-      const currentIndex = useCases.findIndex(u => u.title === activeUseCaseId);
-      const nextIndex = (currentIndex + 1) % useCases.length;
-      setActiveUseCaseId(useCases[nextIndex].title);
-      setProgressKey(prev => prev + 1);
-    }, LOADER_DURATION_S * 1000);
-
-    return () => clearInterval(interval);
-  }, [activeUseCaseId, hasBeenInView]);
-
-  const handleUseCaseClick = (id: string) => {
-    setActiveUseCaseId(id);
-    setProgressKey(prev => prev + 1);
-  };
 
   return (
     <div className="relative">
@@ -392,20 +352,17 @@ export default function FinProPage() {
 
           {/* Tab Content Area */}
           <div className="w-full">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="w-full"
-              >
-                {activeTab === 0 && <InteractiveShowcase />}
-                {activeTab === 1 && <CustomisableUIShowcase />}
-                {activeTab === 2 && <NudgesInsightsShowcase />}
-              </motion.div>
-            </AnimatePresence>
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="w-full"
+            >
+              {activeTab === 0 && <InteractiveShowcase />}
+              {activeTab === 1 && <CustomisableUIShowcase />}
+              {activeTab === 2 && <NudgesInsightsShowcase />}
+            </motion.div>
           </div>
 
           {/* Stats Section */}
@@ -647,8 +604,10 @@ export default function FinProPage() {
       {/* Use Cases Section */}
       <motion.section 
         className="relative w-full py-12 md:py-20"
-        onViewportEnter={() => setHasBeenInView(true)}
-        viewport={{ once: true, amount: 0.2 }}
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
       >
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-12 md:mb-16">
@@ -661,166 +620,61 @@ export default function FinProPage() {
             </p>
           </div>
 
-          {/* Mobile: Single Card with Navigation */}
-          <div className="block md:hidden">
-            <div className="relative overflow-hidden">
-              <AnimatePresence mode="wait">
-                {activeUseCase && (
-                  <motion.div
-                    key={activeUseCase.title}
-                    initial={{ opacity: 0, x: 300 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -300 }}
-                    transition={{ duration: 0.5, ease: 'easeInOut' }}
-                    className="group relative overflow-hidden p-6 rounded-lg bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md dark:bg-neutral-800/50 border border-[#00b140]/20 dark:border-neutral-700 min-h-[500px] shadow-lg"
-                  >
-                    <div className="p-2 rounded-lg bg-[#00b140] text-white inline-block mb-3">{activeUseCase.icon}</div>
-                    <h3 className="text-xl font-semibold mb-2 text-slate-800 dark:text-green-400">
-                      {activeUseCase.title}
-                    </h3>
-                    <p className="text-sm mb-4 text-slate-700 dark:text-neutral-300">
-                      {activeUseCase.description}
-                    </p>
-                    
-                    <h4 className="font-light tracking-widest text-sm mb-3 uppercase text-darkgreen dark:text-white">Key Features</h4>
-                    <div className="mb-6 space-y-2">
-                      {activeUseCase.features.map((feature, index) => (
-                        <div key={index} className="inline-block px-3 py-1 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm mr-2 mb-2">
-                          <div className="flex items-center gap-2">
-                            <span className="relative flex h-1.5 w-1.5">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
-                            </span>
-                            <p className="text-xs text-slate-600 dark:text-slate-100 font-semibold">{feature}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="absolute -bottom-[120px] left-0 w-full h-[400px] pointer-events-none overflow-hidden">
-                      <Image
-                        src={activeUseCase.image}
-                        alt={activeUseCase.title}
-                        fill
-                        className="object-contain object-bottom"
-                      />
-                    </div>
-
-                    {/* Progress Bar */}
-                    <div className="mt-4 h-1.5 w-full rounded-full overflow-hidden bg-slate-200/80 dark:bg-neutral-700/80">
-                      <motion.div
-                        key={progressKey}
-                        className="h-full bg-green-500"
-                        initial={{ width: "0%" }}
-                        animate={hasBeenInView ? { width: "100%" } : { width: "0%" }}
-                        transition={{ duration: hasBeenInView ? LOADER_DURATION_S : 0, ease: "linear" }}
-                      />
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Mobile Navigation */}
-            <div className="flex items-center justify-center mt-6 space-x-4">
-              <div className="flex space-x-2">
-                {useCases.map((_, index) => {
-                  const isActive = useCases[index].title === activeUseCaseId;
-                  return (
-                    <button
-                      key={index}
-                      onClick={() => handleUseCaseClick(useCases[index].title)}
-                      className={cn(
-                        'w-2 h-2 rounded-full transition-all duration-200',
-                        isActive 
-                          ? 'bg-[#00b140] w-6' 
-                          : 'bg-slate-300 dark:bg-neutral-600 hover:bg-slate-400 dark:hover:bg-neutral-500'
-                      )}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Desktop: Grid Layout */}
-          <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Grid Layout - 4 cards on desktop, stacked on mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {useCases.map((useCase, index) => (
               <motion.div
                 key={useCase.title}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="group relative overflow-hidden p-6 rounded-lg bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md dark:bg-neutral-800/50 border border-[#00b140]/20 dark:border-neutral-700 min-h-[400px] shadow-lg hover:shadow-xl transition-shadow duration-300"
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative flex-shrink-0"
               >
-                <div className="p-2 rounded-lg bg-[#00b140] text-white inline-block mb-3">{useCase.icon}</div>
-                <h3 className="text-xl font-semibold mb-2 text-slate-800 dark:text-green-400">
-                  {useCase.title}
-                </h3>
-                <p className="text-sm mb-4 text-slate-700 dark:text-neutral-300">
-                  {useCase.description}
-                </p>
-                
-                <h4 className="font-light tracking-widest text-sm mb-3 uppercase text-darkgreen dark:text-white">Key Features</h4>
-                <div className="mb-6 space-y-2">
-                  {useCase.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="inline-block px-3 py-1 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm mr-2 mb-2">
-                      <div className="flex items-center gap-2">
-                        <span className="relative flex h-1.5 w-1.5">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
-                        </span>
-                        <p className="text-xs text-slate-600 dark:text-slate-100 font-semibold">{feature}</p>
+                <BentoGridItem
+                  title={
+                    <div className="flex flex-col items-start w-full mt-auto mb-4">
+                      <div className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center text-white mb-4">
+                        {useCase.icon}
+                      </div>
+                      <span className="text-slate-800 dark:text-slate-100 text-md md:text-xl font-semibold">
+                        {useCase.title}
+                      </span>
+                    </div>
+                  }
+                  description={
+                    <div className="text-left w-full">
+                      <p className="text-sm mb-4 text-slate-700 dark:text-slate-300 line-clamp-3">
+                        {useCase.description}
+                      </p>
+                      <div className="space-y-2">
+                        {useCase.features.map((feature, featureIndex) => (
+                          <div key={featureIndex} className="inline-block px-3 py-1 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm mr-2 mb-2">
+                            <div className="flex items-center gap-2">
+                              <span className="relative flex h-1.5 w-1.5">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
+                              </span>
+                              <p className="text-xs text-slate-600 dark:text-slate-100 font-semibold">{feature}</p>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
-                </div>
-
-                <div className="absolute -bottom-[100px] right-0 w-[200px] h-[300px] pointer-events-none overflow-hidden">
-                  <Image
-                    src={useCase.image}
-                    alt={useCase.title}
-                    fill
-                    className="object-contain object-bottom"
-                  />
-                </div>
+                  }
+                  image={{
+                    src: useCase.image,
+                    alt: useCase.title
+                  }}
+                  imagePosition="top-right"
+                  imageSize="w-48 h-48 top-[-40px] right-[-30px] xl:w-48 xl:h-48 xl:top-[-50px] xl:right-[-45px]"
+                  className="h-full min-h-[320px] md:min-h-[380px] bg-white/50 backdrop-blur-md border-slate-200 shadow-sm flex flex-col justify-end items-start p-6"
+                />
               </motion.div>
             ))}
           </div>
         </div>
       </motion.section>
-
-      {/* Trust & Compliance Section */}
-      <section className="relative w-full py-12 md:py-20">
-        <div className="container px-4 md:px-6 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-              <span className={metallicBlackTextClasses}>Built-in Trust &</span>{" "}
-              <span className={highlightBgClass}>Compliance</span>
-            </h2>
-            <p className="mx-auto text-md text-slate-700 dark:text-slate-300 max-w-6xl md:text-lg">
-              FinPro ensures the highest standards of security, compliance, and regulatory adherence for your financial operations.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {complianceFeatures.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-start gap-4 p-6 rounded-lg bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md border border-[#00b140]/20 shadow-sm"
-              >
-                <div className="p-2 rounded-full bg-[#00b140] text-white flex-shrink-0">
-                  <CheckCircle className="w-5 h-5" />
-                </div>
-                <p className="text-slate-700 dark:text-slate-300 font-medium">{feature}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Developer Toolkit Section */}
       <section className="relative w-full py-12 md:py-20">
@@ -858,67 +712,6 @@ export default function FinProPage() {
         </div>
       </section>
 
-      {/* Why FinPro Section */}
-      <section className="relative w-full py-12 md:py-20">
-        <div className="container px-4 md:px-6 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-              <span className={metallicBlackTextClasses}>Why</span>{" "}
-              <span className={highlightBgClass}>FinPro</span>{" "}
-              <span className={metallicBlackTextClasses}>?</span>
-            </h2>
-            <p className="mx-auto text-md text-slate-700 dark:text-slate-300 max-w-6xl md:text-lg">
-              Join India's leading financial institutions who trust FinPro for their Account Aggregator needs.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {whyFinPro.map((reason, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center p-6 rounded-lg bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md border border-[#00b140]/20 shadow-sm hover:shadow-md transition-shadow duration-300"
-              >
-                <div className="p-3 rounded-full bg-[#00b140] text-white inline-block mb-4">
-                  {reason.icon}
-                </div>
-                <h3 className="text-lg font-semibold mb-2 text-slate-800 dark:text-slate-100">
-                  {reason.title}
-                </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-300">
-                  {reason.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="relative w-full py-12 md:py-20">
-        <div className="container px-4 md:px-6 mx-auto text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-              <span className={metallicBlackTextClasses}>Ready to Transform Your</span>{" "}
-              <span className={highlightBgClass}>Financial Services</span>{" "}
-              <span className={metallicBlackTextClasses}>?</span>
-            </h2>
-            <p className="text-lg text-slate-700 dark:text-slate-300 mb-8">
-              Join India's largest financial institutions and experience the power of intelligent data access with FinPro.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <GlowingButton>
-                Book FinPro Demo
-              </GlowingButton>
-              <button className="px-8 py-3 rounded-full border border-[#00b140] text-[#00b140] hover:bg-[#00b140] hover:text-white transition-colors duration-300 font-medium">
-                View Documentation
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 } 

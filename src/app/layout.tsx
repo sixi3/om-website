@@ -3,10 +3,6 @@ import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { MainFooter } from "@/components/global";
-// import { Header } from "@/components/Header"; // Will be moved to OneMoney layout
-// import { Footer } from "@/components/Footer"; // Will be moved to OneMoney layout
-// import { AuroraBackground } from "@/components/ui/aurora-background"; // Will be moved to OneMoney layout
-
 const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
@@ -81,7 +77,7 @@ export default function RootLayout({
       >
         {/* Header, Footer, and AuroraBackground removed from here */}
         {/* They will be part of src/app/onemoney/layout.tsx for the OneMoney section */}
-        <main className="flex-grow relative z-10 w-full">{children}</main>
+        <main className="flex-grow relative z-100 w-full">{children}</main>
         <MainFooter />
       </body>
     </html>

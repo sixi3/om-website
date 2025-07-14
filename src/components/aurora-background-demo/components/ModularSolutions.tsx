@@ -446,7 +446,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
       case "employment":
         return { text: "Explore Equal BGV", href: "/equal" };
       case "financial":
-        return { text: "Explore MoneyOne", href: "/onemoney" };
+        return { text: "Explore MoneyOne", href: "/moneyone" };
       case "industry":
         return { text: "Explore Solutions", href: "/solutions" };
       default:
