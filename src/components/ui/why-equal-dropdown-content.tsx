@@ -23,7 +23,7 @@ const whyEqualItems: WhyEqualItem[] = [
   {
     id: "team",
     title: "Team",
-    description: "Meet the visionaries and experts behind our success.",
+    description: "Meet the visionaries and experts behind our success",
     image: {
       src: "/team.png",
       alt: "Team",
@@ -35,7 +35,7 @@ const whyEqualItems: WhyEqualItem[] = [
   {
     id: "vision-mission",
     title: "Vision & Mission",
-    description: "Discover our purpose and what drives us forward.",
+    description: "Discover our purpose and what drives us forward",
     image: {
       src: "/vision.png",
       alt: "Vision & Mission",
@@ -47,7 +47,7 @@ const whyEqualItems: WhyEqualItem[] = [
   {
     id: "leadership",
     title: "Leadership",
-    description: "Learn about our leadership team and their experience.",
+    description: "Learn about our leadership team and their experience",
     image: {
       src: "/Leadership.png",
       alt: "Leadership",
@@ -59,7 +59,7 @@ const whyEqualItems: WhyEqualItem[] = [
   {
     id: "values",
     title: "Values",
-    description: "Get to know more about our journey and values.",
+    description: "Get to know more about our journey and values",
     image: {
       src: "/Bulk Onboarding.png",
       alt: "About Us",

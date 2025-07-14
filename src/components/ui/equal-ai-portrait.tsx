@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, memo, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, cubicBezier } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import dynamic from 'next/dynamic';
 // @ts-ignore
@@ -62,7 +62,7 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
       rotateY: 0,
       transition: {
         duration: 0.4,
-        ease: [0.25, 0.46, 0.45, 0.94], // easeOutCubic
+        ease: cubicBezier(0.25, 0.46, 0.45, 0.94), // easeOutCubic
         staggerChildren: 0.1,
         when: "beforeChildren"
       }
@@ -87,7 +87,7 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
       duration: 3,
       repeat: Infinity,
       repeatType: "reverse" as const,
-      ease: "easeInOut"
+      ease: cubicBezier(0.42, 0, 0.58, 1)
     }
   }), [])
 
@@ -98,7 +98,7 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
       y: 0,
       transition: {
         duration: 0.3,
-        ease: "easeOut"
+        ease: cubicBezier(0.25, 0.46, 0.45, 0.94)
       }
     }
   }), [])
@@ -205,7 +205,7 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
           transition={{
             duration: 2,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: cubicBezier(0.42, 0, 0.58, 1)
           }}
         />
         <motion.div
@@ -218,7 +218,7 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
           transition={{
             duration: 2.5,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: cubicBezier(0.42, 0, 0.58, 1),
             delay: 0.5
           }}
         />

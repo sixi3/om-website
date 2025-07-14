@@ -350,7 +350,7 @@ const IndustryInnovationSection = React.memo(() => {
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.2
               }}
-              className={`text-3xl md:text-4xl lg:text-5xl drop-shadow-lg leading-tight text-center md:text-left text-white font-bold`}
+              className={`text-3xl md:text-4xl lg:text-7xl drop-shadow-lg leading-tight text-center md:text-left text-white font-bold`}
             >
               India's {" "}
               <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
@@ -368,9 +368,9 @@ const IndustryInnovationSection = React.memo(() => {
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.3
               }}
-              className="text-lg text-center md:text-left text-white font-medium leading-relaxed"
+              className="text-md md:text-lg text-center md:text-left text-white font-medium leading-relaxed"
             >
-              Leading the digital transformation across financial services, healthcare, and government sectors with cutting-edge technology and innovative solutions that drive growth and efficiency.
+              Make spams and scams a thing of the past with Equal AI.
             </motion.p>
 
             {/* CTA Button */}
@@ -404,13 +404,13 @@ const IndustryInnovationSection = React.memo(() => {
             }}
             className="relative"
           >
-            <div className="relative w-full h-96">
+            <div className="relative w-full h-96 hidden md:block">
               <Image
                 src="/AI Intelligence.png"
                 alt="AI Intelligence and Innovation"
                 width={600}
                 height={600}
-                className="hidden md:block absolute h-auto object-contain bottom-[-120px] right-[-150px]"
+                className=" absolute h-auto object-contain bottom-[-120px] right-[-150px]"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>

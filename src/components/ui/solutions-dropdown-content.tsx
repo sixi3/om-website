@@ -33,7 +33,7 @@ const solutionSections: SolutionSection[] = [
       {
         id: "financial-services",
         title: "Financial Services",
-        description: "Complete digital transformation for banks and NBFCs",
+        description: "Digital transformation for banks and NBFCs",
         image: {
           src: "/Financial Services.png",
           alt: "Financial Services",
@@ -44,39 +44,39 @@ const solutionSections: SolutionSection[] = [
       },
       {
         id: "HRMS BGV Integration",
-        title: "Healthcare",
-        description: "Secure patient data management and verification",
+        title: "HRMS BGV Integration",
+        description: "Integrate within your HRMS for seamless BGV",
         image: {
-          src: "/Healthcare.png",
-          alt: "Healthcare",
+          src: "/HR OPS.png",
+          alt: "HRMS BGV Integration",
           width: 56,
           height: 56
         },
-        href: "/solutions/healthcare"
+        href: "/equal/solutions/enterprise-hiring"
       },
       {
         id: "gig-economy",
-        title: "Gig & Platform Hiring",
-        description: "Streamlined onboarding for gig workers and platforms",
+        title: "Multi-Platform Verification",
+        description: "Verify candidates across multiple platforms",
         image: {
-          src: "/Gig & Platform Economy.png",
-          alt: "Gig Economy",
+          src: "/Candidate Communication.png",
+          alt: "Multi-Platform Verification",
           width: 56,
           height: 56
         },
-        href: "/solutions/gig-economy"
+        href: "/equal/products/identity-gateway"
       },
       {
-        id: "compliance",
-        title: "Compliance & Risk",
-        description: "Automated compliance checks and risk assessment",
+        id: "custom-workflow",
+        title: "Custom Workflow for Businesses",
+        description: "Create your own workflows for your business",
         image: {
           src: "/Compliance.png",
-          alt: "Compliance",
+          alt: "Custom Workflow for Businesses",
           width: 56,
           height: 56
         },
-        href: "/solutions/compliance"
+        href: "/equal/industries/"
       },
     ]
   }

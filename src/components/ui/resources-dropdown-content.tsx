@@ -23,7 +23,7 @@ const resourceItems: ResourceItem[] = [
   {
     id: "case-studies",
     title: "Case Studies",
-    description: "Stay updated with our latest announcements and company news.",
+    description: "Explore real-world success stories and client outcomes",
     image: {
       src: "/Access Logs.png",
       alt: "Press Releases",
@@ -35,7 +35,7 @@ const resourceItems: ResourceItem[] = [
   {
     id: "media-coverage",
     title: "Media Coverage",
-    description: "See how the media covers our innovations and achievements.",
+    description: "Read articles and features about us in the media",
     image: {
       src: "/Consolidated Report Manager.png",
       alt: "Media Coverage",
@@ -47,7 +47,7 @@ const resourceItems: ResourceItem[] = [
   {
     id: "blog",
     title: "Blog",
-    description: "Expert analysis and thought leadership from our team.",
+    description: "Insights, updates, and thought leadership from our team",
     image: {
       src: "/Bulk Managment Tools.png",
       alt: "Blog",
@@ -59,7 +59,7 @@ const resourceItems: ResourceItem[] = [
   {
     id: "in-the-news",
     title: "In The News",
-    description: "Latest features and improvements to our platform.",
+    description: "See our latest news mentions and press highlights",
     image: {
       src: "/Webhook Notification.png",
       alt: "In The News",
@@ -71,7 +71,7 @@ const resourceItems: ResourceItem[] = [
   {
     id: "terms-and-conditions",
     title: "Terms and Conditions",
-    description: "Get updates delivered directly to your inbox.",
+    description: "Review our terms of service and user agreements",
     image: {
       src: "/Webhook Support.png",
       alt: "Terms and Conditions",
@@ -83,7 +83,7 @@ const resourceItems: ResourceItem[] = [
   {
     id: "privacy-policy",
     title: "Privacy Policy",
-    description: "Browse past newsletters and stay informed.",
+    description: "Understand how we protect your data and privacy.",
     image: {
       src: "/team.png",
       alt: "Newsletter Archive",
@@ -108,7 +108,7 @@ const ResourcesDropdownContent: React.FC = () => {
             RESOURCES
           </h2>
           <p className="text-sm text-slate-600 leading-relaxed">
-            Stay informed with news, insights, and developer resources.
+            Stay informed with news, insights, and developer resources
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

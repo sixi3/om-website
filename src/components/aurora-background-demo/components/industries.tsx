@@ -52,7 +52,7 @@ const industryIcons: Record<string, React.ReactNode> = {
 
 // Image mapping for industries (using available images from public folder)
 const industryImages: Record<string, string> = {
-  "real-estate": "/rent.png",
+  "real-estate": "/Candidate Consent Records.png",
   "co-working": "/Gig & Platform Economy.png",
   "healthcare": "/Healthcare.png",
   "pharmaceuticals": "/Healthcare.png", // Reuse healthcare image
@@ -86,7 +86,7 @@ const industrySection = {
       width: 80,
       height: 80
     },
-    href: `/equal/industries/${industry.id}`,
+    href: `/equal/industries#${industry.id}`,
     icon: industryIcons[industry.id] || <Building size={24} />
   }))
 };
@@ -96,7 +96,7 @@ const CARD_GAP = 24; // space-x-6 in px
 
 const IndustrySection = React.memo(() => {
   const section = industrySection;
-  const cta = { text: "Explore Solutions", href: "/solutions" };
+  const cta = { text: "Explore Industries", href: "/equal/industries" };
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scrollByCard = (direction: "left" | "right") => {
@@ -210,7 +210,7 @@ const IndustrySection = React.memo(() => {
                       alt: item.image.alt
                     }}
                     imagePosition="top-right"
-                    imageSize="w-20 h-20 top-[-20px] right-[-15px] xl:w-40 xl:h-40 xl:top-[-30px] xl:right-[-35px]"
+                    imageSize="w-20 h-20 top-[-20px] right-[-15px] xl:w-48 xl:h-48 xl:top-[-60px] xl:right-[-55px]"
                     className="h-full min-h-[300px] md:min-h-[320px] bg-white/50 backdrop-blur-md border-slate-200 hover:border-[#00b140]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00b140]/10 flex flex-col justify-end items-start p-6"
                   />
                 </Link>

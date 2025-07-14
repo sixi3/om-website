@@ -71,6 +71,7 @@ const IndustrySection = React.memo<{
 
   return (
     <motion.section
+      id={industry.id}
       ref={ref}
       initial={{ opacity: 0, x: -50 }}
       whileInView={{ opacity: 1, x: 0 }}
@@ -166,6 +167,35 @@ IndustrySection.displayName = 'IndustrySection';
 
 export const IndustriesShowcase = React.memo(() => {
   const [currentIndustry, setCurrentIndustry] = useState<Industry>(industryContent[0]);
+
+  // Handle hash-based scrolling on page load
+  useEffect(() => {
+    const handleHashScroll = () => {
+      const hash = window.location.hash.slice(1); // Remove the '#' character
+      if (hash) {
+        const element = document.getElementById(hash);
+        if (element) {
+          // Small delay to ensure page is fully loaded
+          setTimeout(() => {
+            element.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start' 
+            });
+          }, 100);
+        }
+      }
+    };
+
+    // Handle initial page load
+    handleHashScroll();
+
+    // Handle hash changes (for client-side navigation)
+    window.addEventListener('hashchange', handleHashScroll);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashScroll);
+    };
+  }, []);
 
   const handleIndustryInView = (industry: Industry) => {
     setCurrentIndustry(industry);

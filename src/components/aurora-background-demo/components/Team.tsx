@@ -156,7 +156,7 @@ const teamMembers = [
     name: "Rajeev Ranjan",
     title: "CO-FOUNDER",
     description: "A technology veteran with over 15 years of experience in building scalable fintech solutions and driving digital transformation across industries.",
-    imageUrl: "/test-avatar.png",
+    imageUrl: "/team-pictures/rajeev-ranjan.png",
     logos: [
       { id: "1", src: "/equal-icon.png", alt: "Equal" },
       { id: "2", src: "/onemoney-icon.png", alt: "OneMoney" }
@@ -167,7 +167,7 @@ const teamMembers = [
     name: "KP Atluri",
     title: "CO-FOUNDER",
     description: "Leading our technical vision with expertise in AI, blockchain, and distributed systems. Previously led engineering teams at top-tier technology companies.",
-    imageUrl: "/test-avatar.png",
+    imageUrl: "/team-pictures/KP.png",
     logos: [
       { id: "1", src: "/equal-icon.png", alt: "Equal" },
       { id: "2", src: "/verified.svg", alt: "Verified" }
