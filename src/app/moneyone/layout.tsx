@@ -24,13 +24,6 @@ export default function MoneyOneLayout({
       <AuroraBackground className="flex-grow flex flex-col">
         <MainHeader />
         <main className="flex-grow relative z-10">{children}</main>
-        <footer className="py-6 border-t border-indigo-800/10 bg-transparent backdrop-blur-sm mt-auto">
-          <div className="container">
-            <p className="text-center text-sm text-foreground/60">
-              © {new Date().getFullYear()} MoneyOne. All rights reserved.
-            </p>
-          </div>
-        </footer>
       </AuroraBackground>
     </div>
   );

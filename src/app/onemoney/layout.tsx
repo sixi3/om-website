@@ -1,7 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
 import { MainHeader } from "@/components/global/MainHeader";
-import { Footer } from "./components/Footer";
 import { AuroraBackground } from "./components/ui/aurora-background";
 import { cn } from "@/lib/utils"; // Assuming this path is still valid or will be adjusted if needed.
 
@@ -28,7 +27,6 @@ export default function OneMoneyLayout({
       <div className={cn("min-h-screen bg-transparent font-sans antialiased flex flex-col")}>
         <MainHeader />
         <main className="flex-grow relative z-10">{children}</main>
-        <Footer />
       </div>
     </AuroraBackground>
   );

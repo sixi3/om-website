@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { ClayPhoneMockup } from "../components/ui/ClayPhoneMockup"; // Added import
+import { GreenMetallicPhoneMockup } from "../../equal/components/ui/GreenMetallicPhoneMockup"; // Added import
 import { UserJourneyAnimation } from "../components/UserJourneyAnimation"; // Added import (will be created next)
 
 
@@ -211,7 +211,7 @@ export function WhatIsOneMoney() {
 
         {/* Right Column / Bottom on small: Phone Mockup - order-2 on small, md:order-none */}
         <div className="w-full sticky top-28 flex justify-center items-start py-8 md:py-0 md:order-none">
-          <ClayPhoneMockup>
+          <GreenMetallicPhoneMockup>
             {hasBeenInView && 
               <UserJourneyAnimation 
                 onStageChange={handleStageChange} 
@@ -219,7 +219,7 @@ export function WhatIsOneMoney() {
                 jumpToStage={targetAnimationStage}
                 onJumpComplete={handleAnimationJumpComplete}
               />}
-          </ClayPhoneMockup>
+          </GreenMetallicPhoneMockup>
         </div>
       </div>
     </motion.section>

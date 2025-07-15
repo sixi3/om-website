@@ -207,22 +207,22 @@ export function Solutions() {
         <div className="flex items-center justify-center pt-2 px-4 mb-8">
           <div 
             ref={tabsContainerRef}
-            className="flex items-center gap-2 p-2 rounded-full border border-[#baff29]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="flex items-center gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           >
             {tabsData.map((tab) => (
               <div
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative px-4 py-2 text-sm font-medium rounded-full cursor-pointer transition-colors duration-300 whitespace-nowrap ${
+                className={`relative px-8 py-4 text-md font-medium rounded-full cursor-pointer transition-colors duration-300 whitespace-nowrap ${
                   activeTab === tab.id
-                    ? "text-white"
+                    ? "text-white font-semibold"
                     : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
                 }`}
               >
                 {activeTab === tab.id && (
                   <motion.div
                     layoutId="active-solutions-tab"
-                    className="absolute inset-0 bg-[#00b140] rounded-full z-0"
+                    className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
                 )}
@@ -239,7 +239,7 @@ export function Solutions() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="w-full mx-auto border border-[#baff29]/30 bg-linear-to-br from-background/90 to-[#baff29]/20 backdrop-blur-lg rounded-xl overflow-hidden"
+            className="w-full mx-auto border border-[#00b140]/30 bg-linear-to-br from-white to-[#baff29]/10 backdrop-blur-lg rounded-xl overflow-hidden"
           >
             <div className="p-8 relative">
               <div className="text-center mb-8">
@@ -247,7 +247,7 @@ export function Solutions() {
                 
                 {/* Learn More Button */}
                 <div className="mt-6">
-                  <button className="inline-flex items-center justify-center rounded-full bg-background/30 backdrop-blur-md border border-[#00b140]/20 dark:border-neutral-700 px-6 py-3 text-sm font-medium text-[#00b140] hover:bg-[#00b140] hover:text-white transition-colors duration-300 group">
+                  <button className="inline-flex items-center justify-center rounded-full bg-linear-to-br from-white to-slate-100 backdrop-blur-md border border-b-4 border-slate-200 dark:border-neutral-700 px-6 py-3 text-md font-medium uppercase text-slate-600 hover:text-[#00b140] focus:border-b-1 transition duration-300 group">
                     Learn More
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover/bento:translate-x-1" />
                   </button>
@@ -258,7 +258,7 @@ export function Solutions() {
               {currentTabContent.accordionItems && currentTabContent.accordionItems.length > 0 && (
                 <div className="flex flex-wrap justify-center gap-3 mb-12">
                   {currentTabContent.accordionItems.map((item) => (
-                    <div key={item.id} className="inline-block px-4 py-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm">
+                    <div key={item.id} className="inline-block px-4 py-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md">
                       <div className="flex items-center gap-2">
                         <span className="relative flex h-2 w-2">
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>

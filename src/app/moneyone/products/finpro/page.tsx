@@ -326,21 +326,21 @@ export default function FinProPage() {
 
           {/* Tab Buttons Container */}
           <div className="flex items-center justify-center pt-2 px-4 mb-8">
-            <div className="flex items-center gap-2 p-2 rounded-full border border-[#baff29]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm">
+            <div className="flex items-center gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm">
               {tabsData.map((tab, index) => (
                 <div
                   key={tab.id}
                   onClick={() => setActiveTab(index)}
-                  className={`relative px-4 py-2 text-sm font-medium rounded-full cursor-pointer transition-colors duration-300 ${
+                  className={`relative px-8 py-4 text-md font-medium rounded-full cursor-pointer transition-colors duration-300 ${
                     activeTab === index
-                      ? "text-white"
+                      ? "text-white font-semibold"
                       : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
                   }`}
                 >
                   {activeTab === index && (
                     <motion.div
                       layoutId="active-finpro-tab"
-                      className="absolute inset-0 bg-[#00b140] rounded-full z-0"
+                      className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
                   )}
@@ -649,10 +649,10 @@ export default function FinProPage() {
                       </p>
                       <div className="space-y-2">
                         {useCase.features.map((feature, featureIndex) => (
-                          <div key={featureIndex} className="inline-block px-3 py-1 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm mr-2 mb-2">
+                          <div key={featureIndex} className="inline-block px-3 py-1 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md mr-2 mb-2">
                             <div className="flex items-center gap-2">
                               <span className="relative flex h-1.5 w-1.5">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400"></span>
                                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
                               </span>
                               <p className="text-xs text-slate-600 dark:text-slate-100 font-semibold">{feature}</p>

@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 import { GlowingButton } from "@/app/onemoney/components/ui/glowing-button";
 import Marquee from "react-fast-marquee";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 // Define metallic black class
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -80,9 +81,9 @@ export function Hero() {
           </div>
           <Dialog>
             <DialogTrigger asChild>
-              <GlowingButton>
-                Talk to Us
-              </GlowingButton>
+              <ShimmerButton className="text-sm md:text-base uppercase">
+                Explore Our Services
+              </ShimmerButton>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[480px]">
               <DialogHeader>

@@ -14,6 +14,7 @@ import {
   DialogTrigger,
 } from "../components/ui/dialog"; // Added Dialog imports
 import { TalkToUsForm } from "../components/forms/TalkToUsForm"; // Added Form import
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 // import { Button } from "@/components/ui/button"; // We'll add this later if needed
 
 // Updated client logos array with paths from the public/client-logos directory
@@ -104,9 +105,9 @@ export function Hero() {
           </div>
           <Dialog>
             <DialogTrigger asChild>
-              <GlowingButton>
-                Talk to Us
-              </GlowingButton>
+              <ShimmerButton className="text-sm md:text-base uppercase">
+                Explore Our Services
+              </ShimmerButton>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[525px]">
               <DialogHeader>

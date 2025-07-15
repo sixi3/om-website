@@ -1,12 +1,57 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { motion, useInView, animate } from "framer-motion";
+import { motion, useInView, animate, AnimatePresence } from "framer-motion";
 import { industryContent, Industry } from "../industryContent";
 import { ProductsShowcase } from "./ProductsShowcase";
 import { METALLIC_BLACK_TEXT_CLASSES, ANIMATION_CONFIG } from "@/components/aurora-background-demo/constants";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import Link from "next/link";
+import { 
+  Home, 
+  Briefcase, 
+  Activity, 
+  Pill, 
+  GraduationCap, 
+  Code, 
+  Smartphone, 
+  IndianRupee, 
+  TrendingUp, 
+  Factory, 
+  Building2, 
+  Shield, 
+  Car, 
+  ShoppingBag, 
+  Coffee, 
+  Plane 
+} from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/app/onemoney/components/ui/dialog";
+import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
+
+const industryIcons: Record<string, React.ReactNode> = {
+  "real-estate": <Home size={24} />,
+  "co-working": <Briefcase size={24} />,
+  "healthcare": <Activity size={24} />,
+  "pharmaceuticals": <Pill size={24} />,
+  "education": <GraduationCap size={24} />,
+  "it-services": <Code size={24} />,
+  "digital-services": <Smartphone size={24} />,
+  "banking-financial-services": <IndianRupee size={24} />,
+  "broking": <TrendingUp size={24} />,
+  "manufacturing-construction": <Factory size={24} />,
+  "housing-finance": <Building2 size={24} />,
+  "insurance": <Shield size={24} />,
+  "automotive": <Car size={24} />,
+  "retail-ecommerce": <ShoppingBag size={24} />,
+  "hospitality": <Coffee size={24} />,
+  "travel-transportation": <Plane size={24} />
+};
 
 // Custom MetricsCounter component
 const MetricsCounter = React.memo<{ 
@@ -58,7 +103,8 @@ const IndustrySection = React.memo<{
   index: number; 
   onInView: (industry: Industry) => void;
   isActive: boolean;
-}>(({ industry, index, onInView, isActive }) => {
+  setIsDialogOpen: (open: boolean) => void;
+}>(({ industry, index, onInView, isActive, setIsDialogOpen }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: "-50% 0px -50% 0px" });
 
@@ -87,6 +133,20 @@ const IndustrySection = React.memo<{
       }`}
     >
       <div className="space-y-6">
+        <AnimatePresence>
+          {isActive && (
+            <motion.div
+              key="industry-icon"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={{ duration: 0.3 }}
+              className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center text-white mb-4"
+            >
+              {industryIcons[industry.id] || <Building2 size={24} />}
+            </motion.div>
+          )}
+        </AnimatePresence>
         {/* Industry Title */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -162,11 +222,12 @@ const IndustrySection = React.memo<{
           }}
           className={`transition-opacity duration-300 ${!isActive ? 'opacity-50' : ''}`}
         >
-          <Link href={`/equal/industries/${industry.id}`}>
-            <ShimmerButton className="text-sm md:text-base">
-              Explore {industry.name} Solutions
-            </ShimmerButton>
-          </Link>
+          <ShimmerButton 
+            className="text-sm md:text-base"
+            onClick={() => setIsDialogOpen(true)}
+          >
+            Explore {industry.name} Solutions
+          </ShimmerButton>
         </motion.div>
       </div>
     </motion.section>
@@ -177,6 +238,7 @@ IndustrySection.displayName = 'IndustrySection';
 
 export const IndustriesShowcase = React.memo(() => {
   const [currentIndustry, setCurrentIndustry] = useState<Industry>(industryContent[0]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // Handle hash-based scrolling on page load
   useEffect(() => {
@@ -225,6 +287,7 @@ export const IndustriesShowcase = React.memo(() => {
                 index={index}
                 onInView={handleIndustryInView}
                 isActive={currentIndustry.id === industry.id}
+                setIsDialogOpen={setIsDialogOpen}
               />
             ))}
           </div>
@@ -257,6 +320,19 @@ export const IndustriesShowcase = React.memo(() => {
           </div>
         </div>
       </div>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[480px]">
+          <DialogHeader>
+            <DialogTitle>Get in touch with us today!</DialogTitle>
+            <DialogDescription>
+              Ready to boost your business with India's largest data sharing network?
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-1">
+            <TalkToUsForm />
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 });

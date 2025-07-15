@@ -1,7 +1,7 @@
 import React from "react";
 import { Settings2, SlidersHorizontal, MonitorSmartphone, Palette } from "lucide-react"; // Added icon imports
 import { TiltCard } from "../components/ui/tilt-card"; // Import TiltCard
-import { ClayPhoneMockup } from "../components/ui/ClayPhoneMockup"; // Import mockup
+import { GreenMetallicPhoneMockup } from "../../equal/components/ui/GreenMetallicPhoneMockup"; // Import mockup
 import { AnimatedScreenContent } from "../components/AnimatedScreenContent"; // Import new component
 
 // Copied from Solutions.tsx for consistency
@@ -66,9 +66,9 @@ export function UIFeatures() {
           <div className="hidden lg:flex justify-center items-center"> 
             {/* Container for scaling the phone mockup */}
             <div className="w-full max-w-[280px] sm:max-w-[300px] md:max-w-[320px] transform scale-90 sm:scale-100 mx-auto">
-              <ClayPhoneMockup>
+              <GreenMetallicPhoneMockup>
                 <AnimatedScreenContent />
-              </ClayPhoneMockup>
+              </GreenMetallicPhoneMockup>
             </div>
           </div>
         </div>

@@ -49,6 +49,12 @@ interface MobileSection {
   links: Array<{
     title: string;
     href: string;
+    isSubItem?: boolean;
+    isHeader?: boolean;
+    subItems?: Array<{
+      title: string;
+      href: string;
+    }>;
   }>;
 }
 
@@ -158,8 +164,26 @@ const getMobileSections = (): MobileSection[] => [
       { title: "Media Coverage", href: "/news/media-coverage" },
       { title: "Blog", href: "/blog" },
       { title: "In The News", href: "/blog/in-the-news" },
-      { title: "Terms and Conditions", href: "/common/terms-conditions" },
-      { title: "Privacy Policy", href: "/common/policies" }
+      { 
+        title: "Terms and Conditions", 
+        href: "#terms-and-conditions", 
+        isHeader: true,
+        subItems: [
+          { title: "Equal", href: "/common/terms-conditions?company=equal" },
+          { title: "OneMoney", href: "/common/terms-conditions?company=onemoney" },
+          { title: "MoneyOne", href: "/common/terms-conditions?company=moneyone" }
+        ]
+      },
+      { 
+        title: "Privacy Policy", 
+        href: "#privacy-policy", 
+        isHeader: true,
+        subItems: [
+          { title: "Equal", href: "/common/policies?company=equal" },
+          { title: "OneMoney", href: "/common/policies?company=onemoney" },
+          { title: "MoneyOne", href: "/common/policies?company=moneyone" }
+        ]
+      }
     ]
   }
 ];
@@ -277,18 +301,53 @@ const MobileCollapsibleSection = memo(({
                 ease: "easeOut" 
               }}
             >
-              <Link
-                href={link.href}
-                className={cn(
-                  "flex items-center px-6 py-3 text-base font-medium transition-colors",
-                  pathname === link.href
-                    ? "bg-[#00b140] text-white"
-                    : "text-foreground/80 hover:bg-slate-50 hover:text-foreground"
-                )}
-                onClick={onLinkClick}
-              >
-                {link.title}
-              </Link>
+              {link.isHeader ? (
+                <div className="px-6 py-2">
+                  <h4 className="text-sm font-semibold text-neutral-900 mb-3">
+                    {link.title}
+                  </h4>
+                  <div className="space-y-2">
+                    <div className="grid grid-cols-2 gap-2">
+                      {link.subItems?.slice(0, 2).map((subItem, subIndex) => (
+                        <Link
+                          key={subItem.href}
+                          href={subItem.href}
+                          className="inline-flex items-center gap-1 px-2 py-2 text-xs font-medium text-[#00b140] bg-[#00b140]/10 rounded-md hover:border-b-2 hover:border-[#00b140] transition-colors duration-200"
+                          onClick={onLinkClick}
+                        >
+                          {subItem.title}
+                          <ArrowRight className="w-3 h-3" />
+                        </Link>
+                      ))}
+                    </div>
+                    {link.subItems && link.subItems.length > 2 && (
+                      <div className="flex justify-start">
+                        <Link
+                          href={link.subItems[2].href}
+                          className="inline-flex items-center gap-1 px-2 py-2 text-xs font-medium text-[#00b140] bg-[#00b140]/10 rounded-md hover:border-b-2 hover:border-[#00b140] transition-colors duration-200"
+                          onClick={onLinkClick}
+                        >
+                          {link.subItems[2].title}
+                          <ArrowRight className="w-3 h-3" />
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  href={link.href}
+                  className={cn(
+                    "flex items-center px-6 py-3 text-base font-medium transition-colors",
+                    pathname === link.href
+                      ? "bg-[#00b140] text-white"
+                      : "text-foreground/80 hover:bg-slate-50 hover:text-foreground"
+                  )}
+                  onClick={onLinkClick}
+                >
+                  {link.title}
+                </Link>
+              )}
             </motion.div>
           ))}
         </div>
@@ -346,6 +405,18 @@ export function MainHeader({ className }: MainHeaderProps) {
       window.removeEventListener("resize", handleResize);
     };
   }, [handleScroll, handleResize]);
+
+  // Lock background scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   const toggleMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(prev => !prev);
@@ -421,7 +492,7 @@ export function MainHeader({ className }: MainHeaderProps) {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div 
-              className="border-t border-white/20"
+              className="border-t border-white/20 max-h-[80vh] overflow-y-auto"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}

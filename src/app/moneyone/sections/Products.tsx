@@ -214,7 +214,7 @@ export function Products() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 justify-items-center mx-auto mt-16 mb-12 md:mb-16"> {/* Added mt-16 for spacing */}
           {moneyOneStatsData.map((stat) => (
             <div key={stat.id} className="flex flex-col items-center text-center p-4 mx-auto">
-              <div className="text-4xl md:text-5xl lg:text-6xl mb-2">
+              <div className="text-4xl md:text-5xl lg:text-[90px] mb-2">
                 <span className={moneyOneMetallicTextClasses}>{stat.prefix}</span>
                 <AnimatedCounter 
                   value={stat.value} 
@@ -253,7 +253,7 @@ export function Products() {
                 return (
                   <div
                     key={`pill-row1-${index}`}
-                    className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
+                    className="flex items-center whitespace-nowrap rounded-full bg-linear-to-br from-white to-[#baff29]/20 backdrop-blur-md border border-[#00b140]/30 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
                   >
                     <span className="relative flex h-2 w-2 mr-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -272,7 +272,7 @@ export function Products() {
                 return (
                   <div
                     key={`pill-row2-${index}`}
-                    className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
+                    className="flex items-center whitespace-nowrap rounded-full bg-linear-to-br from-white to-[#baff29]/20 backdrop-blur-md border border-[#00b140]/30 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
                   >
                     <span className="relative flex h-2 w-2 mr-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>

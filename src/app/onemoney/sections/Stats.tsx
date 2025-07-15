@@ -45,7 +45,7 @@ export function Stats() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 justify-items-center mx-auto">
           {statsData.map((stat) => (
             <div key={stat.id} className="flex flex-col items-center text-center p-4 mx-auto">
-              <div className="text-4xl md:text-5xl lg:text-6xl mb-2">
+              <div className="text-4xl md:text-5xl lg:text-[90px] mb-2">
                 <span className={metallicTextClasses}>{stat.prefix}</span>
                 {stat.id === 'fip' ? (
                   <span className={metallicTextClasses}>1</span>
@@ -86,7 +86,7 @@ export function Stats() {
               return (
                 <div
                   key={index}
-                  className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
+                  className="flex items-center whitespace-nowrap rounded-full bg-linear-to-br from-white to-[#baff29]/20 backdrop-blur-md border border border-[#00b140]/30 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
                 >
                   <span className="relative flex h-2 w-2 mr-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -105,7 +105,7 @@ export function Stats() {
               return (
                 <div
                   key={index + 4}
-                  className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
+                  className="flex items-center whitespace-nowrap rounded-full bg-linear-to-br from-white to-[#baff29]/20 backdrop-blur-md border border-[#00b140]/30 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
                 >
                   <span className="relative flex h-2 w-2 mr-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
