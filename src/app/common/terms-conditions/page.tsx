@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, Suspense } from "react";
 import { BackgroundGrid } from "@/components/ui/background-grid";
 import { motion, AnimatePresence } from "framer-motion";
 import { AuroraBackground } from "@/components/ui/aurora-background";
@@ -131,7 +131,8 @@ const termsData: TermsData[] = [
   },
 ];
 
-export default function TermsConditionsPage() {
+// Move the useSearchParams logic into a child component
+function TermsContent() {
   const searchParams = useSearchParams();
   const [selectedCompany, setSelectedCompany] = useState<string>("");
 
@@ -148,55 +149,65 @@ export default function TermsConditionsPage() {
 
   if (!currentTerms) {
     return (
-      <>
-        <MainHeader />
-        <AuroraBackground className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
-          <BackgroundGrid />
-          <div className="container px-4 md:px-6 mx-auto z-10">
-            <div className="text-center">
-              <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
-                <span className={metallicBlackTextClasses}>Terms Not Found</span>
-              </h1>
-              <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-2xl">
-                The requested terms could not be found.
-              </p>
-            </div>
-          </div>
-        </AuroraBackground>
-      </>
+      <div className="text-center">
+        <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <span className={metallicBlackTextClasses}>Terms Not Found</span>
+        </h1>
+        <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-2xl">
+          The requested terms could not be found.
+        </p>
+      </div>
     );
   }
 
+  return (
+    <>
+      <div className="mb-8">
+        <Breadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
+      </div>
+      {/* Page Title */}
+      <div className="text-center mb-12 md:mb-16">
+        <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <span className={metallicBlackTextClasses}>{currentTerms.title} Terms & Conditions</span>
+        </h1>
+        <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-2xl">
+          Review our terms of service and user agreements.
+        </p>
+      </div>
+
+      {/* Terms Content */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="bg-background/20 dark:bg-slate-800/50 p-6 sm:p-8 md:p-10 rounded-xl shadow-lg border border-slate-200 dark:border-neutral-700 max-w-7xl mx-auto"
+      >
+        <div className="prose prose-slate dark:prose-invert max-w-none">
+          {currentTerms.content}
+        </div>
+      </motion.div>
+    </>
+  );
+}
+
+export default function TermsConditionsPage() {
   return (
     <>
       <MainHeader />
       <AuroraBackground className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
         <BackgroundGrid />
         <div className="container px-4 md:px-6 mx-auto z-10">
-          <div className="mb-8">
-            <Breadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
-          </div>
-          {/* Page Title */}
-          <div className="text-center mb-12 md:mb-16">
-            <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              <span className={metallicBlackTextClasses}>{currentTerms.title} Terms & Conditions</span>
-            </h1>
-            <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-2xl">
-              Review our terms of service and user agreements.
-            </p>
-          </div>
-
-          {/* Terms Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="bg-background/20 dark:bg-slate-800/50 p-6 sm:p-8 md:p-10 rounded-xl shadow-lg border border-slate-200 dark:border-neutral-700 max-w-7xl mx-auto"
-          >
-            <div className="prose prose-slate dark:prose-invert max-w-none">
-              {currentTerms.content}
+          <Suspense fallback={
+            <div className="text-center">
+              <div className="animate-pulse">
+                <div className="h-16 bg-slate-200 dark:bg-slate-700 rounded mb-4 max-w-md mx-auto"></div>
+                <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded mb-8 max-w-lg mx-auto"></div>
+                <div className="h-96 bg-slate-200 dark:bg-slate-700 rounded"></div>
+              </div>
             </div>
-          </motion.div>
+          }>
+            <TermsContent />
+          </Suspense>
         </div>
       </AuroraBackground>
     </>
