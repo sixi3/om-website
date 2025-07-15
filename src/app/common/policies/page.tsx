@@ -1,21 +1,22 @@
 'use client';
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BackgroundGrid } from "@/components/ui/background-grid";
 import { motion, AnimatePresence } from "framer-motion";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { MainHeader } from "@/components/global/MainHeader";
+import { useSearchParams } from "next/navigation";
 
 // Define metallic black class (consider moving to shared lib later)
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
-interface PolicyTabData {
+interface PolicyData {
   id: string;
   title: string;
   content: React.ReactNode;
 }
 
-const policyTabsData: PolicyTabData[] = [
+const policyData: PolicyData[] = [
   {
     id: "equal",
     title: "Equal",
@@ -581,7 +582,7 @@ const policyTabsData: PolicyTabData[] = [
         <ul className="list-disc pl-5 mb-4 space-y-1">
           <li>Physical contact and advances;</li>
           <li>Requests/demands for sexual favours;</li>
-          <li>Sexually-coloured remarks;</li>
+          <li>Sexually-colored remarks;</li>
           <li>Showing pornography; or</li>
           <li>any other unwelcome physical, verbal or non-verbal conduct of sexual nature.</li>
         </ul>
@@ -680,73 +681,70 @@ const policyTabsData: PolicyTabData[] = [
 ];
 
 export default function PoliciesPage() {
-  const [activeTab, setActiveTab] = useState<string>(policyTabsData[0].id);
-  const tabsContainerRef = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
+  const [selectedCompany, setSelectedCompany] = useState<string>("");
 
-  const currentTabContent = policyTabsData.find(tab => tab.id === activeTab);
+  useEffect(() => {
+    const company = searchParams.get('company');
+    if (company && policyData.find(p => p.id === company)) {
+      setSelectedCompany(company);
+    } else {
+      setSelectedCompany(policyData[0].id); // Default to first company
+    }
+  }, [searchParams]);
+
+  const currentPolicy = policyData.find(policy => policy.id === selectedCompany);
+
+  if (!currentPolicy) {
+    return (
+      <>
+        <MainHeader />
+        <AuroraBackground className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
+          <BackgroundGrid />
+          <div className="container px-4 md:px-6 mx-auto z-10">
+            <div className="text-center">
+              <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+                <span className={metallicBlackTextClasses}>Policy Not Found</span>
+              </h1>
+              <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-2xl">
+                The requested policy could not be found.
+              </p>
+            </div>
+          </div>
+        </AuroraBackground>
+      </>
+    );
+  }
 
   return (
     <>
       <MainHeader />
       <AuroraBackground className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
-      <BackgroundGrid />
-      <div className="container px-4 md:px-6 mx-auto z-10">
-        {/* Page Title */}
-        <div className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            <span className={metallicBlackTextClasses}>Our Policies</span>
-          </h1>
-          <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-2xl">
-            Review our policies regarding privacy, terms of use, and customer grievances.
-          </p>
-        </div>
-
-                {/* Tab Buttons Container */}
-        <div className="flex items-center justify-center pt-2 px-4 mb-8">
-          <div className="flex items-center gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm">
-            {policyTabsData.map((tab, index) => (
-              <div
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`relative px-8 py-4 text-md font-medium rounded-full cursor-pointer transition-colors duration-300 ${
-                  activeTab === tab.id
-                    ? "text-white font-semibold"
-                    : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
-                }`}
-              >
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="active-policies-tab"
-                    className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{tab.title}</span>
-              </div>
-            ))}
+        <BackgroundGrid />
+        <div className="container px-4 md:px-6 mx-auto z-10">
+          {/* Page Title */}
+          <div className="text-center mb-12 md:mb-16">
+            <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+              <span className={metallicBlackTextClasses}>{currentPolicy.title} Privacy Policy</span>
+            </h1>
+            <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-2xl">
+              Review our privacy policy and data protection practices.
+            </p>
           </div>
-        </div>
 
-        {/* Tab Content Area */}
-        <AnimatePresence mode="wait">
-          {currentTabContent && (
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="bg-background/20 dark:bg-slate-800/50 p-6 sm:p-8 md:p-10 rounded-xl shadow-lg border border-slate-200 dark:border-neutral-700 max-w-7xl mx-auto"
-            >
-              <div className="prose prose-slate dark:prose-invert max-w-none">
-                {currentTabContent.content}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </AuroraBackground>
+          {/* Policy Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="bg-background/20 dark:bg-slate-800/50 p-6 sm:p-8 md:p-10 rounded-xl shadow-lg border border-slate-200 dark:border-neutral-700 max-w-7xl mx-auto"
+          >
+            <div className="prose prose-slate dark:prose-invert max-w-none">
+              {currentPolicy.content}
+            </div>
+          </motion.div>
+        </div>
+      </AuroraBackground>
     </>
   );
 } 

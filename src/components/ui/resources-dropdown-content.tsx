@@ -16,7 +16,11 @@ interface ResourceItem {
     width: number
     height: number
   }
-  href: string
+  href?: string
+  companyLinks?: {
+    company: string
+    href: string
+  }[]
 }
 
 const resourceItems: ResourceItem[] = [
@@ -78,7 +82,11 @@ const resourceItems: ResourceItem[] = [
       width: 40,
       height: 40
     },
-    href: "/common/terms-conditions"
+    companyLinks: [
+      { company: "Equal", href: "/common/terms-conditions?company=equal" },
+      { company: "OneMoney", href: "/common/terms-conditions?company=onemoney" },
+      { company: "MoneyOne", href: "/common/terms-conditions?company=moneyone" }
+    ]
   },
   {
     id: "privacy-policy",
@@ -90,7 +98,11 @@ const resourceItems: ResourceItem[] = [
       width: 40,
       height: 40
     },
-    href: "/common/policies"
+    companyLinks: [
+      { company: "Equal", href: "/common/policies?company=equal" },
+      { company: "OneMoney", href: "/common/policies?company=onemoney" },
+      { company: "MoneyOne", href: "/common/policies?company=moneyone" }
+    ]
   }
 ]
 
@@ -119,36 +131,76 @@ const ResourcesDropdownContent: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
             >
-              <Link 
-                href={item.href}
-                role="menuitem"
-                className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"
-              >
-                <div className="flex-shrink-0 relative">
-                  <Image
-                    src={item.image.src}
-                    alt={item.image.alt}
-                    width={item.image.width}
-                    height={item.image.height}
-                    loading="eager"
-                    priority={index < 2}
-                    className="transition-all duration-300 filter grayscale group-hover:grayscale-0 rounded will-change-[filter] group-hover:scale-110"
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-semibold text-neutral-900 group-hover:text-[#00b140] transition-colors duration-200">
-                      {item.title}
-                    </h3>
-                    <div className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-out">
-                      <ArrowRight className="w-4 h-4 text-[#00b140]" />
-                    </div>
+              {item.href ? (
+                <Link 
+                  href={item.href}
+                  role="menuitem"
+                  className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"
+                >
+                  <div className="flex-shrink-0 relative">
+                    <Image
+                      src={item.image.src}
+                      alt={item.image.alt}
+                      width={item.image.width}
+                      height={item.image.height}
+                      loading="eager"
+                      priority={index < 2}
+                      className="transition-all duration-300 filter grayscale group-hover:grayscale-0 rounded will-change-[filter] group-hover:scale-110"
+                    />
                   </div>
-                  <p className="text-sm text-neutral-600 mt-1 leading-relaxed">
-                    {item.description}
-                  </p>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-semibold text-neutral-900 group-hover:text-[#00b140] transition-colors duration-200">
+                        {item.title}
+                      </h3>
+                      <div className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-out">
+                        <ArrowRight className="w-4 h-4 text-[#00b140]" />
+                      </div>
+                    </div>
+                    <p className="text-sm text-neutral-600 mt-1 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </Link>
+              ) : (
+                <div className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-200 group">
+                  <div className="flex-shrink-0 relative">
+                    <Image
+                      src={item.image.src}
+                      alt={item.image.alt}
+                      width={item.image.width}
+                      height={item.image.height}
+                      loading="eager"
+                      priority={index < 2}
+                      className="transition-all duration-300 filter grayscale group-hover:grayscale-0 rounded will-change-[filter] group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-semibold text-neutral-900 group-hover:text-[#00b140] transition-colors duration-200">
+                        {item.title}
+                      </h3>
+                    </div>
+                    <p className="text-sm text-neutral-600 mt-1 leading-relaxed mb-2">
+                      {item.description}
+                    </p>
+                    {item.companyLinks && (
+                      <div className="flex flex-wrap gap-2">
+                        {item.companyLinks.map((link, linkIndex) => (
+                          <Link
+                            key={linkIndex}
+                            href={link.href}
+                            className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium text-[#00b140] bg-[#00b140]/10 rounded-md hover:border-b-2 hover:border-[#00b140] transition-colors duration-200"
+                          >
+                            {link.company}
+                            <ArrowRight className="w-3 h-3" />
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </Link>
+              )}
             </motion.div>
           ))}
         </div>
