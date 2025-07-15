@@ -191,7 +191,7 @@ export default function GigHiringPage() {
                     alt: item.image.alt
                   }}
                   imagePosition="top-right"
-                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
+                  imageSize="w-32 h-32 top-[-20] right-[-24] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
                 />
               ))}
             </BentoGrid>
@@ -215,7 +215,7 @@ export default function GigHiringPage() {
                     alt: item.image.alt
                   }}
                   imagePosition="top-right"
-                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
+                  imageSize="w-32 h-32 top-[-20] right-[-24] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
                 />
               ))}
             </BentoGrid>
@@ -247,7 +247,7 @@ export default function GigHiringPage() {
         className="my-12"
       />
       {/* Integration & Developer Features Tabbed Section */}
-      <section className="relative w-full py-12 md:py-20">
+      <section className="relative w-full py-12 md:py-20 overflow-hidden">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
@@ -430,7 +430,7 @@ function IntegrationDeveloperTabs() {
             <div
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`relative px-6 py-3 text-sm sm:text-base font-medium rounded-full cursor-pointer transition-colors duration-300 ${
+              className={`relative px-3 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm md:text-base font-medium rounded-full cursor-pointer transition-colors duration-300 ${
                 activeTab === tab.id
                   ? "text-white"
                   : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
@@ -484,7 +484,7 @@ function IntegrationDeveloperTabs() {
                         alt: option.title
                       }}
                       imagePosition="top-right"
-                      imageSize="w-40 h-40 -top-10 -right-10 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-64 2xl:h-64 2xl:-top-5 2xl:-right-10"
+                      imageSize="w-32 h-32 top-[-20] right-[-24] md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-64 2xl:h-64 2xl:-top-5 2xl:-right-10"
                     />
                   ))}
                 </BentoGrid>
@@ -532,7 +532,7 @@ function IntegrationDeveloperTabs() {
                         alt: feature.title
                       }}
                       imagePosition="top-right"
-                      imageSize="w-40 h-40 -top-10 -right-10 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-64 2xl:h-64 2xl:-top-20 2xl:-right-15"
+                      imageSize="w-32 h-32 top-[-20] right-[-24] md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-64 2xl:h-64 2xl:-top-20 2xl:-right-15"
                     />
                   ))}
                 </BentoGrid>

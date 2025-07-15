@@ -210,7 +210,7 @@ const IndustrySection = React.memo(() => {
                       alt: item.image.alt
                     }}
                     imagePosition="top-right"
-                    imageSize="w-20 h-20 top-[-20px] right-[-15px] xl:w-48 xl:h-48 xl:top-[-60px] xl:right-[-55px]"
+                    imageSize="w-32 h-32 top-[-20] right-[-24] xl:w-48 xl:h-48 xl:top-[-60px] xl:right-[-55px]"
                     className="h-full min-h-[300px] md:min-h-[320px] bg-white/50 backdrop-blur-md border-slate-200 hover:border-[#00b140]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00b140]/10 flex flex-col justify-end items-start p-6"
                   />
                 </Link>

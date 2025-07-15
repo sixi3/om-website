@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { MainHeader } from "@/components/global/MainHeader";
 import { useSearchParams } from "next/navigation";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 
 // Define metallic black class (consider moving to shared lib later)
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -172,6 +173,9 @@ export default function TermsConditionsPage() {
       <AuroraBackground className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
         <BackgroundGrid />
         <div className="container px-4 md:px-6 mx-auto z-10">
+          <div className="mb-8">
+            <Breadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
+          </div>
           {/* Page Title */}
           <div className="text-center mb-12 md:mb-16">
             <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">

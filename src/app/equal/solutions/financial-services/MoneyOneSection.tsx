@@ -67,27 +67,29 @@ export function MoneyOneSection() {
 
         {/* Tab Buttons Container */}
         <div className="flex items-center justify-center pt-2 px-4 mb-8">
-          <div className="flex items-center gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm">
-            {tabsData.map((tab, index) => (
-              <div
-                key={tab.id}
-                onClick={() => setActiveTab(index)}
-                className={`relative px-8 py-4 text-md font-medium rounded-full cursor-pointer transition-colors duration-300 ${
-                  activeTab === index
-                    ? "text-white font-semibold"
-                    : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
-                }`}
-              >
-                {activeTab === index && (
-                  <motion.div
-                    layoutId="active-moneyone-tab"
-                    className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{tab.title}</span>
-              </div>
-            ))}
+          <div className="w-full max-w-2xl">
+            <div className="flex overflow-x-auto flex-nowrap gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm scrollbar-hide whitespace-nowrap">
+              {tabsData.map((tab, index) => (
+                <div
+                  key={tab.id}
+                  onClick={() => setActiveTab(index)}
+                  className={`relative px-8 py-4 text-md font-medium rounded-full cursor-pointer transition-colors duration-300 ${
+                    activeTab === index
+                      ? "text-white font-semibold"
+                      : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
+                  }`}
+                >
+                  {activeTab === index && (
+                    <motion.div
+                      layoutId="active-moneyone-tab"
+                      className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{tab.title}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

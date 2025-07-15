@@ -23,7 +23,7 @@ interface Product {
   visualization?: 'phone' | 'console' | 'chart';
 }
 
-const allProducts: Product[] = [
+export const allProducts: Product[] = [
   {
     id: 'gateway',
     title: 'Identity Verification Gateway',
