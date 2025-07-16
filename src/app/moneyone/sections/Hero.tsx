@@ -81,8 +81,8 @@ export function Hero() {
           </div>
           <Dialog>
             <DialogTrigger asChild>
-              <ShimmerButton className="text-sm md:text-base uppercase">
-                Explore Our Services
+              <ShimmerButton >
+                EXPLORE TSP SERVICES
               </ShimmerButton>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[480px]">

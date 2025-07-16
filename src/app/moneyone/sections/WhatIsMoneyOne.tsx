@@ -67,12 +67,12 @@ export function WhatIsMoneyOne() {
 
         {/* Tab Buttons Container */}
         <div className="flex items-center justify-center pt-2 px-4 mb-8">
-          <div className="flex items-center gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm">
+          <div className="flex items-center gap-2 sm:gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm overflow-x-auto scrollbar-hide min-w-0 max-w-full">
             {tabsData.map((tab, index) => (
               <div
                 key={tab.id}
                 onClick={() => setActiveTab(index)}
-                className={`relative px-8 py-4 text-md font-medium rounded-full cursor-pointer transition-colors duration-300 ${
+                className={`relative px-4 sm:px-8 py-4 text-sm sm:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 flex-shrink-0 ${
                   activeTab === index
                     ? "text-white font-semibold"
                     : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
@@ -85,7 +85,7 @@ export function WhatIsMoneyOne() {
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
                 )}
-                <span className="relative z-10">{tab.title}</span>
+                <span className="relative z-10 whitespace-nowrap">{tab.title}</span>
               </div>
             ))}
           </div>

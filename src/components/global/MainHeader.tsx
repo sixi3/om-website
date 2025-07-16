@@ -601,7 +601,7 @@ export function MainHeader({ className }: MainHeaderProps) {
           </nav>
           
           {/* Right: GET IN TOUCH Button (Desktop only) */}
-          <div className="flex items-center flex-shrink-0 ml-auto px-4">
+          <div className="flex items-center flex-shrink-0 ml-auto pl-4">
             <ShimmerButton onClick={openDialog}>
               GET IN TOUCH
             </ShimmerButton>
