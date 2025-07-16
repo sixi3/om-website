@@ -10,6 +10,8 @@ import Marquee from "react-fast-marquee";
 import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
 import { BackgroundGrid } from '@/components/ui/background-grid';
+import { ShimmerButton } from '@/components/ui/shimmer-button';
+import { GlowingDivider } from '@/components/ui/glowing-divider';
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
@@ -277,9 +279,9 @@ export default function ConsolePage() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <GlowingButton>
+              <ShimmerButton className='text-lg uppercase'>
                 Book Console Demo
-              </GlowingButton>
+              </ShimmerButton>
             </div>
           </div>
         </div>
@@ -294,6 +296,8 @@ export default function ConsolePage() {
           />
         </div>
       </section>
+
+      <GlowingDivider className="py-8" width="3/4" intensity="medium" delay={0.2} />
 
       {/* Console Modules Section */}
       <section className="relative w-full py-12 md:py-20">
@@ -593,6 +597,8 @@ export default function ConsolePage() {
           </div>
         </div>
       </motion.section>
+
+      <GlowingDivider className="py-8" width="3/4" intensity="medium" delay={0.2} />
 
       {/* Built for Teams & Integrations Section */}
       <section className="relative w-full py-12 md:py-20">

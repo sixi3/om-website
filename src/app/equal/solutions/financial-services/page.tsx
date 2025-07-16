@@ -86,7 +86,8 @@ export default function FinancialServicesHero() {
     { src: "/client-logos/Frame 9.png", alt: "Client Logo 9" },
   ];
   return (
-    <>
+    <div className="overflow-x-hidden">
+      <>
       <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-center pt-16 pb-12 overflow-hidden min-h-[600px]">
         {/* Left: Content */}
         <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4 z-10">
@@ -133,7 +134,7 @@ export default function FinancialServicesHero() {
             </div>
             <Dialog>
               <DialogTrigger asChild>
-                <ShimmerButton className="w-full md:w-auto text-md md:text-lg">
+                <ShimmerButton className="w-full md:w-auto text-md md:text-lg uppercase">
                   Book a Demo
                 </ShimmerButton>
               </DialogTrigger>
@@ -203,7 +204,7 @@ export default function FinancialServicesHero() {
                     alt: item.image.alt
                   }}
                   imagePosition="top-right"
-                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px] 2xl:w-64 2xl:h-64 2xl:top-[-80px] 2xl:right-[-50px]"
+                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
                 />
               ))}
             </BentoGrid>
@@ -227,7 +228,7 @@ export default function FinancialServicesHero() {
                     alt: item.image.alt
                   }}
                   imagePosition="top-right"
-                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px] 2xl:w-64 2xl:h-64 2xl:top-[-100px] 2xl:right-[-70px]"
+                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
                 />
               ))}
             </BentoGrid>
@@ -273,7 +274,8 @@ export default function FinancialServicesHero() {
         <ContactUs />
       </Suspense>
       
-    </>
+      </>
+    </div>
   );
 }
 
@@ -359,7 +361,7 @@ const verificationTypesRow2 = [
 ];
 
 const VerificationCard = ({ name, icon }: { name: string; icon: React.ReactNode }) => (
-  <div className="relative w-48 h-48 bg-background/10 backdrop-blur-md border border-[#00b140]/20 rounded-2xl p-4 mx-4 flex-shrink-0 shadow-md">
+  <div className="relative w-48 h-48 bg-background/10 backdrop-blur-md border border-[#00b140]/20 rounded-2xl p-4 mx-2 flex-shrink-0 shadow-md">
     <div className="absolute top-4 left-4">
       <div className="p-3 rounded-full bg-[#00b140] text-white">
         {icon}

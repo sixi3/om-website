@@ -35,7 +35,8 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 
 export default function GigHiringPage() {
   return (
-    <>
+    <div className="overflow-x-hidden">
+      <>
       {/* Hero Section */}
       <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-center pt-12 pb-12 overflow-hidden min-h-[600px]">
         {/* Left: Content */}
@@ -82,7 +83,7 @@ export default function GigHiringPage() {
             </div>
             <Dialog>
               <DialogTrigger asChild>
-                <ShimmerButton className="w-full md:w-auto text-md md:text-lg">
+                <ShimmerButton className="w-full md:w-auto text-md md:text-lg uppercase">
                   Book a Gig Hiring Demo
                 </ShimmerButton>
               </DialogTrigger>
@@ -123,10 +124,10 @@ export default function GigHiringPage() {
         <Stats showVerifyBanner={false} />
       </Suspense>
       {/* World of IDs Section */}
-      <section className="relative w-full pb-12 md:py-10">
+      <section className="relative w-full pb-12 md:py-10 overflow-hidden">
         <Suspense fallback={<SectionLoader />}>
           {/* First Marquee - Full Width */}
-          <div className="mb-0 md:mb-2 -mx-16 md:mx-0">
+          <div className="mb-0 md:mb-2">
             <Marquee gradient={false} speed={80} pauseOnHover={true} className="py-2 scale-75 md:scale-100">
               {[...verificationTypesRow1, ...verificationTypesRow1].map((type, index) => (
                 <VerificationCard key={`row1-${index}`} name={type.name} icon={type.icon} />
@@ -134,7 +135,7 @@ export default function GigHiringPage() {
             </Marquee>
           </div>
           {/* Second Marquee - Full Width - Reverse Direction */}
-          <div className="md:py-4 -mx-16 md:mx-0">
+          <div className="md:py-4">
             <Marquee gradient={false} speed={80} pauseOnHover={true} direction="right" className="py-2 scale-75 md:scale-100">
               {[...verificationTypesRow2, ...verificationTypesRow2].map((type, index) => (
                 <VerificationCard key={`row2-${index}`} name={type.name} icon={type.icon} />
@@ -191,7 +192,7 @@ export default function GigHiringPage() {
                     alt: item.image.alt
                   }}
                   imagePosition="top-right"
-                  imageSize="w-32 h-32 top-[-20] right-[-24] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
+                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
                 />
               ))}
             </BentoGrid>
@@ -215,7 +216,7 @@ export default function GigHiringPage() {
                     alt: item.image.alt
                   }}
                   imagePosition="top-right"
-                  imageSize="w-32 h-32 top-[-20] right-[-24] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
+                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
                 />
               ))}
             </BentoGrid>
@@ -262,7 +263,8 @@ export default function GigHiringPage() {
           <IntegrationDeveloperTabs />
         </div>
       </section>
-    </>
+      </>
+    </div>
   );
 }
 
@@ -348,7 +350,7 @@ const verificationTypesRow2 = [
 ];
 
 const VerificationCard = ({ name, icon }: { name: string; icon: React.ReactNode }) => (
-  <div className="relative w-48 h-48 bg-background/10 backdrop-blur-md border border-[#00b140]/20 rounded-2xl p-4 mx-4 flex-shrink-0 shadow-md">
+  <div className="relative w-48 h-48 bg-background/10 backdrop-blur-md border border-[#00b140]/20 rounded-2xl p-4 mx-2 flex-shrink-0 shadow-md">
     <div className="absolute top-4 left-4">
       <div className="p-3 rounded-full bg-[#00b140] text-white">
         {icon}
@@ -425,21 +427,21 @@ function IntegrationDeveloperTabs() {
   return (
     <div className="w-full mx-auto border border-[#00b140]/30 bg-linear-to-br from-background/90 to-[#baff29]/20 backdrop-blur-lg rounded-xl overflow-hidden">
       <div className="flex justify-center mb-8 mt-8">
-        <div className="flex items-center gap-2 p-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm">
-          {tabsData.map((tab) => (
+        <div className="flex items-center gap-2 sm:gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm overflow-x-auto scrollbar-hide min-w-0 max-w-full">
+        {tabsData.map((tab) => (
             <div
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`relative px-3 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm md:text-base font-medium rounded-full cursor-pointer transition-colors duration-300 ${
+              className={`relative px-4 sm:px-8 py-4 text-sm sm:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 flex-shrink-0 ${
                 activeTab === tab.id
-                  ? "text-white"
+                  ? "text-white font-semibold"
                   : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
               }`}
             >
               {activeTab === tab.id && (
                 <motion.div
-                  layoutId="active-integration-tab"
-                  className="absolute inset-0 bg-[#00b140] rounded-full z-0"
+                  layoutId="active-moneyone-tab"
+                  className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               )}

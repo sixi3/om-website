@@ -251,7 +251,7 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({
 
             {/* Product Visualization */}
             {activeProduct.visualization === 'phone' && (
-              <div className="absolute hidden md:block lg:scale-70 lg:bottom-[-170px] lg:right-[120px] xl:bottom-[-120px] xl:right-[-10px] bottom-[-200px] right-[50px] scale-110 pointer-events-none">
+              <div className="absolute hidden md:block lg:scale-70 lg:bottom-[-170px] lg:right-[120px] xl:bottom-[-200px] xl:right-[100px] bottom-[-200px] right-[50px] xl:scale-105 pointer-events-none">
                 <GreenMetallicPhoneMockup>
                   <AnimatedVerificationFlow />
                 </GreenMetallicPhoneMockup>
@@ -278,7 +278,7 @@ export const ProductsShowcase: React.FC<ProductsShowcaseProps> = ({
               </div>
             )}
             {(activeProduct.id === 'onemoney-aa') && (
-              <div className="absolute hidden md:block lg:scale-70 lg:bottom-[-170px] lg:right-[120px] xl:bottom-[-120px] xl:right-[-10px] bottom-[-200px] right-[50px] scale-110 pointer-events-none">
+              <div className="absolute hidden md:block lg:scale-70 lg:bottom-[-170px] lg:right-[120px] xl:bottom-[-200px] xl:right-[100px] bottom-[-200px] right-[50px] xl:scale-105 pointer-events-none">
                 <GreenMetallicPhoneMockup>
                   <AnimatedScreenContent />
                 </GreenMetallicPhoneMockup>

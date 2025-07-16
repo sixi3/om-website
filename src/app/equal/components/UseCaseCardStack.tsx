@@ -51,24 +51,24 @@ export const UseCaseCardStack = ({
       </div>
 
       <div className="flex items-center justify-center pt-2 px-4">
-        <div className="flex items-center gap-2 p-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm">
+        <div className="flex items-center gap-2 sm:gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm overflow-x-auto scrollbar-hide min-w-0 max-w-full">
           {items.map((item, index) => (
             <div
               key={item.id}
               onClick={() => handleTabChange(index)}
-              className={`relative px-4 py-2 text-sm font-medium rounded-full cursor-pointer transition-colors duration-300 ${
-                activeIndex === index
-                  ? "text-white"
-                  : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
-              }`}
-            >
-              {activeIndex === index && (
-                <motion.div
-                  layoutId="active-use-case-tab"
-                  className="absolute inset-0 bg-[#00b140] rounded-full z-0"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
+              className={`relative px-4 sm:px-8 py-4 text-sm sm:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 flex-shrink-0 ${
+                  activeIndex === index
+                    ? "text-white font-semibold"
+                    : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
+                }`}
+              >
+                {activeIndex === index && (
+                  <motion.div
+                    layoutId="active-moneyone-tab"
+                    className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
               <span className="relative z-10">{item.title}</span>
             </div>
           ))}

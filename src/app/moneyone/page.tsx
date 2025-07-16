@@ -17,7 +17,7 @@ export default function MoneyOnePage() {
   }), []);
 
   return (
-    <>
+    <div className="w-full overflow-x-hidden">
       <BackgroundGrid zIndex={-1} />
       <Hero />
       
@@ -55,6 +55,6 @@ export default function MoneyOnePage() {
       />
       
       <ContactUs />
-    </>
+    </div>
   );
 } 

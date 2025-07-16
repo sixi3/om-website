@@ -290,21 +290,21 @@ export default function TrustSecurityPage() {
         <div className="w-full px-4">
           {/* Tab Navigation */}
           <div className="flex items-center justify-center pt-2 px-4 mb-8">
-            <div className="flex items-center gap-2 p-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm">
+            <div className="flex items-center gap-2 sm:gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm overflow-x-auto scrollbar-hide min-w-0 max-w-full">
               {tabs.map((tab, index) => (
                 <div
                   key={tab.id}
                   onClick={() => setActiveTab(index)}
-                  className={`relative px-4 py-2 text-sm font-medium rounded-full cursor-pointer transition-colors duration-300 ${
+                  className={`relative px-4 sm:px-8 py-4 text-sm md:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 flex-shrink-0 ${
                     activeTab === index
-                      ? "text-white"
+                      ? "text-white font-semibold"
                       : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
                   }`}
                 >
                   {activeTab === index && (
                     <motion.div
-                      layoutId="active-use-case-tab"
-                      className="absolute inset-0 bg-[#00b140] rounded-full z-0"
+                      layoutId="active-moneyone-tab"
+                      className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
                   )}

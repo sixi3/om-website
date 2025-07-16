@@ -112,7 +112,7 @@ export function WhatIsMoneyOne() {
       </div>
 
       {/* Marquee Banner - Placed OUTSIDE the container for full width */}
-      <div className="mt-12 w-full mb-4">
+      <div className="mt-12 w-full mb-4 overflow-hidden">
         <Marquee gradient={false} speed={40} pauseOnHover={true} direction="left">
           {moneyOneFeaturesPillTexts.map((text, index) => (
             <div

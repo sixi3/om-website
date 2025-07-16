@@ -43,7 +43,7 @@ export function UseCaseGrid() {
                 case "gig-economy":
                   return "/Gig Economy Hiring.png";
                 case "bfsi":
-                  return "/Financial Services.png";
+                  return "/Financial Analytics.png";
                 case "staffing":
                   return "/Staffing & Contract Roles.png";
                 default:
@@ -77,7 +77,7 @@ export function UseCaseGrid() {
                     <p className="text-md text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
                       {item.heroHeadline}
                     </p>
-                    <span className="mt-auto inline-flex items-center justify-center rounded-full bg-background/30 backdrop-blur-md border border-[#00b140]/20 dark:border-neutral-700 px-4 py-2 text-sm font-medium text-[#00b140] group-hover/bento:bg-[#00b140] group-hover/bento:text-white transition-colors duration-300">
+                    <span className="mt-auto inline-flex items-center justify-center rounded-full bg-linear-to-br from-white to-slate-100 border border-b-4 border-slate-200 dark:border-neutral-700 px-4 py-2 text-sm font-medium text-slate-600 group-hover/bento:bg-[#00b140] group-hover/bento:text-[#00b140] transition-colors duration-300">
                       Learn More
                       <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover/bento:translate-x-1" />
                     </span>

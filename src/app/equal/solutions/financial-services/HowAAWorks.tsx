@@ -4,8 +4,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 // import { StickyScroll } from "@/components/ui/sticky-scroll-reveal"; // Removed StickyScroll import
-import { ClayPhoneMockup } from "@/app/onemoney/components/ui/ClayPhoneMockup"; // Added import
-import { GridBackground } from "@/app/onemoney/components/ui/grid-background";
+import { ClayPhoneMockup } from "@/app/onemoney/components/ui/ClayPhoneMockup";
 import { UserJourneyAnimation } from "@/app/onemoney/components/UserJourneyAnimation"; // Added import (will be created next)
 
 
@@ -97,7 +96,6 @@ export function HowAAWorks() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
-      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto mb-12 md:mb-16">
       
         {/* Title and Subtitle */}

@@ -13,6 +13,8 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import radarAnimation from '../../../../../public/radar.json';
 import { BackgroundGrid } from '@/components/ui/background-grid';
+import { ShimmerButton } from '@/components/ui/shimmer-button';
+import { GlowingDivider } from '@/components/ui/glowing-divider';
 
 // Dynamically import Lottie to avoid SSR issues
 const Lottie = dynamic(() => import('lottie-react'), { 
@@ -516,9 +518,9 @@ export default function IdentityGatewayPage() {
                </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <GlowingButton>
+              <ShimmerButton className='text-lg uppercase'>
                 Try Gateway Demo
-              </GlowingButton>
+              </ShimmerButton>
             </div>
           </div>
         </div>
@@ -550,7 +552,14 @@ export default function IdentityGatewayPage() {
             </GreenMetallicPhoneMockup>
           </div>
         </div>
-      </section>
+              </section>
+
+      <GlowingDivider 
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-8 md:my-16"
+      />
 
         <section className="relative w-full py-12 md:py-20">
          <div className="container px-4 md:px-6 mx-auto">
@@ -614,9 +623,9 @@ export default function IdentityGatewayPage() {
            </div>
            
         </div>
-      </section>
+              </section>
 
-      {/* Before and After Banners - Edge to Edge */}
+        {/* Before and After Banners - Edge to Edge */}
       <section className="relative w-full">
         <div className="grid grid-cols-1">
           <div className="relative overflow-hidden bg-linear-to-r from-[#ce4257] to-[#720026] dark:bg-red-500/10 pt-2 pb-4 text-center">
@@ -641,10 +650,10 @@ export default function IdentityGatewayPage() {
               className="absolute -bottom-2 -left-4 opacity-70"
             />
           </div>
-        </div>
+                </div>
       </section>
 
-      {/* World of IDs Section */}
+        {/* World of IDs Section */}
       <section className="relative w-full py-12 md:py-20">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-12">
@@ -675,13 +684,27 @@ export default function IdentityGatewayPage() {
               <VerificationCard key={`row2-${index}`} name={type.name} icon={type.icon} />
             ))}
           </Marquee>
-        </div>
+                </div>
       </section>
 
-      {/* Use Cases Section */}
-      <UseCaseGrid />
+      <GlowingDivider 
+        width="3/4"
+        intensity="high"
+        delay={0.5}
+        className="my-8 md:my-16"
+      />
 
-      {/* Integration & Developer Features Tabbed Section */}
+                {/* Use Cases Section */}
+        <UseCaseGrid />
+
+      <GlowingDivider 
+        width="3/4"
+        intensity="high"
+        delay={0.6}
+        className="my-8 md:my-16"
+      />
+
+        {/* Integration & Developer Features Tabbed Section */}
       <section className="relative w-full py-12 md:py-20">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-12">
@@ -696,24 +719,24 @@ export default function IdentityGatewayPage() {
 
           {/* Tab Indicator */}
           <div className="flex justify-center mb-8">
-            <div className="flex items-center gap-2 p-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md shadow-sm">
+            <div className="flex items-center gap-2 sm:gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm overflow-x-auto scrollbar-hide min-w-0 max-w-full">
               {tabsData.map((tab) => (
                 <div
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`relative px-6 py-3 text-sm sm:text-base font-medium rounded-full cursor-pointer transition-colors duration-300 ${
-                    activeTab === tab.id
-                      ? "text-white"
-                      : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
-                  }`}
-                >
-                  {activeTab === tab.id && (
-                    <motion.div
-                      layoutId="active-integration-tab"
-                      className="absolute inset-0 bg-[#00b140] rounded-full z-0"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  )}
+                  className={`relative px-4 sm:px-8 py-4 text-sm sm:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 flex-shrink-0 ${
+                  activeTab === tab.id
+                    ? "text-white font-semibold"
+                    : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
+                }`}
+              >
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="active-moneyone-tab"
+                    className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
                   <span className="relative z-10">{tab.title}</span>
                 </div>
               ))}

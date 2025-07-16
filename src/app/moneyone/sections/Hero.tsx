@@ -54,8 +54,8 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-start pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4">
+    <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-start pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden max-w-full">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4 max-w-full">
         <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
           <div className="max-w-3xl space-y-4">
             <span className="inline-flex items-center rounded-full bg-[#FFFFF]/50 backdrop-blur-sm pl-1 pr-3 py-1 text-md font-semibold text-black mb-4 space-x-2 mx-auto lg:mx-0">
@@ -81,7 +81,7 @@ export function Hero() {
           </div>
           <Dialog>
             <DialogTrigger asChild>
-              <ShimmerButton >
+              <ShimmerButton className="text-md" >
                 EXPLORE TSP SERVICES
               </ShimmerButton>
             </DialogTrigger>
@@ -101,7 +101,7 @@ export function Hero() {
       </div>
 
       {/* Right column with Lottie Animation */}
-      <div className="hidden lg:block relative w-full h-full lg:pr-12 xl:pr-20">
+      <div className="hidden lg:block relative w-full h-full lg:pr-12 xl:pr-20 overflow-hidden">
         {animationData && (
           <DynamicLottie 
             animationData={animationData} 
@@ -112,7 +112,7 @@ export function Hero() {
       </div>
 
       {/* Marquee section container: Always rendered to reserve space */}
-      <div className="lg:col-span-2 w-full mt-16 md:mt-24 min-h-[180px]"> {/* Added min-h-[180px] */}
+      <div className="lg:col-span-2 w-full mt-16 md:mt-24 min-h-[180px] overflow-hidden"> {/* Added min-h-[180px] */}
         {/* Conditionally render the content INSIDE the container */}
         {showMarquee && (
           <>

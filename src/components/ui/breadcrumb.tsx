@@ -83,9 +83,20 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     
     const isCurrentPage = index === filteredSegments.length - 1;
     
+    // Special handling for "products" breadcrumb - link to ProductShowcase section
+    let href = currentPath;
+    if (segment === "products" && !isCurrentPage) {
+      // Check if we're on a product detail page (like identity-gateway, console)
+      // Use a more deterministic approach to avoid hydration mismatches
+      const hasProductDetailSegment = segments.some(s => s === "identity-gateway" || s === "console");
+      if (hasProductDetailSegment) {
+        href = "/equal#products"; // Link to ProductShowcase section on main Equal page
+      }
+    }
+    
     items.push({
       title: routeTitleMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " "),
-      href: currentPath,
+      href: href,
       isCurrentPage,
     });
   });
@@ -100,6 +111,11 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   maxItems = 4,
 }) => {
   const pathname = usePathname();
+  const [isMounted, setIsMounted] = React.useState(false);
+  
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
   
   // Don't show breadcrumbs on home page
   if (pathname === "/") {
@@ -120,7 +136,8 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   return (
     <nav
       className={cn(
-        "flex items-center space-x-2 text-sm text-slate-600 mb-6",
+        "flex items-center space-x-2 text-sm text-slate-600",
+        "mb-4", // Use consistent margin to avoid hydration mismatch
         className
       )}
       aria-label="Breadcrumb"
@@ -135,7 +152,10 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
             )}
             {item.isCurrentPage ? (
               <span
-                className="font-medium text-slate-900"
+                className={cn(
+                  "font-medium",
+                  "text-slate-900" // Use consistent color to avoid hydration mismatch
+                )}
                 aria-current="page"
               >
                 {index === 0 && homeIcon ? (

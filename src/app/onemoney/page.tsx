@@ -1,6 +1,8 @@
 import dynamic from 'next/dynamic';
+import React, { useMemo } from 'react';
 import { Hero } from "./sections/Hero";
 import { BackgroundGrid } from '@/components/ui/background-grid';
+import { GlowingDivider } from "@/components/ui/glowing-divider";
 
 // Dynamically import the Stats component
 const Stats = dynamic(() => 
@@ -65,17 +67,66 @@ const ContactUs = dynamic(() =>
 );
 
 export default function Home() {
+  // Memoize static props for performance
+  const glowingDividerProps = useMemo(() => ({
+    width: "3/4" as const,
+    intensity: "high" as const,
+    className: "my-8 md:my-16"
+  }), []);
+
   return (
-    <>
+    <div className="w-full overflow-x-hidden">
       <BackgroundGrid zIndex={-1} />
       <Hero />
+      
+      <GlowingDivider 
+        {...glowingDividerProps}
+        delay={0.2}
+      />
+      
       <Stats />
+      
+      <GlowingDivider 
+        {...glowingDividerProps}
+        delay={0.3}
+      />
+      
       <WhatIsOneMoney />
+      
+      <GlowingDivider 
+        {...glowingDividerProps}
+        delay={0.4}
+      />
+      
       <UIFeatures />
+      
+      <GlowingDivider 
+        {...glowingDividerProps}
+        delay={0.5}
+      />
+      
       <Solutions />
+      
+      <GlowingDivider 
+        {...glowingDividerProps}
+        delay={0.6}
+      />
+      
       <SecurityCompliance />
+      
+      <GlowingDivider 
+        {...glowingDividerProps}
+        delay={0.7}
+      />
+      
       <Leadership />
+      
+      <GlowingDivider 
+        {...glowingDividerProps}
+        delay={0.8}
+      />
+      
       <ContactUs />
-    </>
+    </div>
   );
 } 

@@ -291,7 +291,7 @@ export function ProductShowcase() {
                         </span>
 
                         {activeProduct.id === 'gateway' && (
-                            <div className="absolute hidden md:block lg:scale-90 lg:bottom-[-170px] lg:right-[5px] bottom-[-200px] right-[50px] scale-110 pointer-events-none">
+                            <div className="absolute hidden md:block lg:scale-90 lg:bottom-[-170px] lg:right-[5px] xl:bottom-[-170px] xl:right-[30px] bottom-[-200px] right-[50px] scale-110 pointer-events-none">
                                 <GreenMetallicPhoneMockup>
                                     <AnimatedVerificationFlow />
                                 </GreenMetallicPhoneMockup>

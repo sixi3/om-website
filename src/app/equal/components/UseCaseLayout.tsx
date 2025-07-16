@@ -10,24 +10,56 @@ import {
   Clock, MessageSquare, Shield, Database, Workflow, 
   TrendingUp, Phone, Mail, Globe, Settings, 
   Award, Target, Truck, Smartphone, Brain,
-  Building, Scale, Eye, Lock, FileCheck
+  Building, Scale, Eye, Lock, FileCheck, ArrowRight
 } from 'lucide-react';
+import Link from 'next/link';
+import Marquee from "react-fast-marquee";
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
 
-const HorizontalPointList = ({ items, textColor }: { items: (string | undefined)[], textColor: string, }) => {
+// Mapping for solution pages
+const solutionPageMapping: Record<string, string> = {
+  'hrms': '/equal/solutions/enterprise-hiring',
+  'gig-economy': '/equal/solutions/gig-hiring',
+  'bfsi': '/equal/solutions/financial-services',
+  'staffing': '/equal/solutions/staffing',
+};
+
+const HorizontalPointList = ({ items, textColor, enableMarquee = false }: { items: (string | undefined)[], textColor: string, enableMarquee?: boolean }) => {
     const validItems = items.filter(Boolean);
     if (validItems.length === 0) return null;
 
+    const content = validItems.map((point, idx) => (
+        <React.Fragment key={idx}>
+            <span className="whitespace-nowrap">{point}</span>
+            {idx < validItems.length - 1 && <span className="text-white mx-2">&bull;</span>}
+        </React.Fragment>
+    ));
+
+    if (enableMarquee) {
+        return (
+            <>
+                {/* Mobile: Auto-scroll */}
+                <div className="w-full overflow-hidden md:hidden">
+                    <Marquee gradient={false} speed={30} pauseOnHover={true}>
+                        <div className={`flex items-center gap-x-4 text-sm font-medium text-[16px] ${textColor} mr-8`}>
+                            {content}
+                            <span className="text-white mx-2">&bull;</span>
+                        </div>
+                    </Marquee>
+                </div>
+                {/* Desktop: Normal wrapped layout */}
+                <div className={`hidden md:flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm font-medium text-[16px] ${textColor}`}>
+                    {content}
+                </div>
+            </>
+        );
+    }
+
     return (
         <div className={`flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm font-medium text-[16px] ${textColor}`}>
-            {validItems.map((point, idx) => (
-                <React.Fragment key={idx}>
-                    <span>{point}</span>
-                    {idx < validItems.length - 1 && <span className="text-slate-600">&bull;</span>}
-                </React.Fragment>
-            ))}
+            {content}
         </div>
     );
 };
@@ -267,9 +299,9 @@ export function UseCaseLayout(props: UseCase) {
   };
 
   return (
-    <section id={id} className="w-full dark:border-slate-800">
+    <section id={id} className="w-full dark:border-slate-800 overflow-x-hidden">
       <motion.div 
-        className="w-full px-4"
+        className="w-full px-2 sm:px-4"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -288,22 +320,57 @@ export function UseCaseLayout(props: UseCase) {
               <p className="mx-auto text-base text-slate-700 dark:text-slate-300 max-w-5xl mb-8">
                 {heroSubheadline}
               </p>
-              <div className="flex justify-center items-center flex-wrap gap-3">
+              <div className="flex flex-col items-center gap-3">
                 <p className="text-md text-slate-800 dark:text-slate-100 font-regular">Best for:</p>
-                {bestFor.map((item, index) => (
-                  <div key={index} className="inline-block px-4 py-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md">
-                      <div className="flex items-center gap-2">
-                          <span className="relative flex h-2 w-2">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                          </span>
-                          <p className="text-md text-slate-800 dark:text-slate-100 font-regular">{item}</p>
+                {/* Mobile: Horizontal scroll */}
+                <div className="w-full overflow-x-auto scrollbar-hide md:hidden">
+                  <div className="flex items-center gap-3 px-4 min-w-max">
+                    {bestFor.map((item, index) => (
+                      <div key={index} className="inline-block px-4 py-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md flex-shrink-0">
+                          <div className="flex items-center gap-2">
+                              <span className="relative flex h-2 w-2">
+                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                              </span>
+                              <p className="text-md text-slate-800 dark:text-slate-100 font-regular whitespace-nowrap">{item}</p>
+                          </div>
                       </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+                {/* Desktop: Original wrapped layout */}
+                <div className="hidden md:flex justify-center items-center flex-wrap gap-3">
+                  {bestFor.map((item, index) => (
+                    <div key={index} className="inline-block px-4 py-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md">
+                        <div className="flex items-center gap-2">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            </span>
+                            <p className="text-md text-slate-800 dark:text-slate-100 font-regular">{item}</p>
+                        </div>
+                    </div>
+                  ))}
+                </div>
               </div>
+              
+              {/* Learn More Button */}
+              {solutionPageMapping[id] && (
+                <div className="mt-6 flex justify-center">
+                  <Link href={solutionPageMapping[id]}>
+                    <motion.button
+                      className="inline-flex items-center justify-center rounded-full bg-linear-to-br from-white to-slate-100 border border-b-4 border-slate-200 px-6 py-3 text-md font-medium text-slate-600 hover:text-[#00b140] transition-colors duration-300 group"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Learn More
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
+                    </motion.button>
+                  </Link>
+                </div>
+              )}
             </div>
-              <BentoGrid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-6 w-full max-w-none">
+              <BentoGrid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 w-full max-w-none gap-2 sm:gap-4">
                   {allCapabilities.map((cap, idx) => {
                       let colSpan: 1 | 2 | 3 = 2; // Default for first row
                       const total = allCapabilities.length;
@@ -344,7 +411,7 @@ export function UseCaseLayout(props: UseCase) {
             <motion.div className="grid grid-cols-1" variants={itemVariants}>
                 <div className="relative overflow-hidden bg-linear-to-r from-[#ce4257]/10 to-[#720026]/20 dark:bg-red-500/10 border-t border-[#720026]/20 pt-2 pb-4 text-center">
                     <h3 className="text-md font-medium tracking-widest text-[#bc4749] uppercase mb-2">WITHOUT EQUAL</h3>
-                    <HorizontalPointList items={beforeEqual} textColor="text-[#bc4749] dark:text-red-300" />
+                    <HorizontalPointList items={beforeEqual} textColor="text-[#bc4749] dark:text-red-300" enableMarquee={true} />
                     <Image 
                         src="/thumbs-up.png"
                         alt="Thumbs Down"
@@ -355,7 +422,7 @@ export function UseCaseLayout(props: UseCase) {
                 </div>
                 <div className="relative overflow-hidden bg-linear-to-l from-[#40916c]/20 to-[#2d6a4f]/20 dark:bg-green-500/10 pt-2 pb-4 text-center border-t border-[#2d6a4f]/20">
                     <h3 className="text-md font-medium tracking-wider text-[#386641] uppercase mb-2 mt-1">WITH EQUAL</h3>
-                    <HorizontalPointList items={withEqual} textColor="text-[#386641] dark:text-green-300" />
+                    <HorizontalPointList items={withEqual} textColor="text-[#386641] dark:text-green-300" enableMarquee={true} />
                     <Image 
                         src="/thumbs-up.png"
                         alt="Thumbs Up"

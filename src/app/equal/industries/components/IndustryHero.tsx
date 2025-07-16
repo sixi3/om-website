@@ -57,7 +57,7 @@ const MainTitle = React.memo(() => {
           delay: 0.4
         }}
       >
-        <ShimmerButton className="mt-4 text-base md:text-lg">Book a Demo</ShimmerButton>
+        <ShimmerButton className="mt-4 text-base md:text-lg uppercase">Book a Demo</ShimmerButton>
       </motion.div>
     </motion.div>
   );

@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
-import { GlowingButton } from "@/app/onemoney/components/ui/glowing-button";
 import {
   Dialog,
   DialogContent,
@@ -15,6 +14,7 @@ import {
 import { GreenMetallicPhoneMockup } from "../components/ui/GreenMetallicPhoneMockup";
 import { AnimatedVerificationFlow } from "../components/AnimatedVerificationFlow";
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
@@ -101,9 +101,9 @@ export function Hero() {
           </div>
           <Dialog>
             <DialogTrigger asChild>
-              <GlowingButton>
-                Book a Demo
-              </GlowingButton>
+              <ShimmerButton className="text-lg uppercase">
+                EXPLORE OUR SERVICES
+              </ShimmerButton>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[525px]">
               <DialogHeader>

@@ -17,6 +17,7 @@ interface ResourceItem {
     height: number
   }
   href?: string
+  external?: boolean
   companyLinks?: {
     company: string
     href: string
@@ -25,28 +26,29 @@ interface ResourceItem {
 
 const resourceItems: ResourceItem[] = [
   {
-    id: "case-studies",
-    title: "Case Studies",
-    description: "Explore real-world success stories and client outcomes",
+    id: "newsletter",
+    title: "Our Newsletter",
+    description: "Read about all our advances in the BFSI and employment worlds ",
     image: {
       src: "/Access Logs.png",
       alt: "Press Releases",
       width: 40,
       height: 40
     },
-    href: "/news/latest-press-releases"
+    href: "https://equalidentity.substack.com/",
+    external: true
   },
   {
-    id: "media-coverage",
-    title: "Media Coverage",
-    description: "Read articles and features about us in the media",
+    id: "trust-security",
+    title: "Trust & Security",
+    description: "Read about how Equal bakes trust and security into every layer ",
     image: {
-      src: "/Consolidated Report Manager.png",
-      alt: "Media Coverage",
+      src: "/Quarterly VAPT Tests.png",
+      alt: "Trust and Security",
       width: 40,
       height: 40
     },
-    href: "/news/media-coverage"
+    href: "/equal/trust-security"
   },
   {
     id: "blog",
@@ -84,8 +86,7 @@ const resourceItems: ResourceItem[] = [
     },
     companyLinks: [
       { company: "Equal", href: "/common/terms-conditions?company=equal" },
-      { company: "OneMoney", href: "/common/terms-conditions?company=onemoney" },
-      { company: "MoneyOne", href: "/common/terms-conditions?company=moneyone" }
+      { company: "OneMoney", href: "/common/terms-conditions?company=onemoney" }
     ]
   },
   {
@@ -100,8 +101,7 @@ const resourceItems: ResourceItem[] = [
     },
     companyLinks: [
       { company: "Equal", href: "/common/policies?company=equal" },
-      { company: "OneMoney", href: "/common/policies?company=onemoney" },
-      { company: "MoneyOne", href: "/common/policies?company=moneyone" }
+      { company: "OneMoney", href: "/common/policies?company=onemoney" }
     ]
   }
 ]
@@ -134,6 +134,8 @@ const ResourcesDropdownContent: React.FC = () => {
               {item.href ? (
                 <Link 
                   href={item.href}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noopener noreferrer" : undefined}
                   role="menuitem"
                   className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"
                 >

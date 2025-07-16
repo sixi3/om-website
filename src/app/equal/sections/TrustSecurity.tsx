@@ -63,7 +63,7 @@ export function TrustSecurity() {
           </p>
           <div className="mt-8">
             <Link href="/equal/trust-security" passHref>
-              <span className="group inline-flex items-center justify-center rounded-full bg-background/30 backdrop-blur-md border border-[#00b140]/20 dark:border-neutral-700 px-4 py-2 text-md font-medium text-[#00b140] hover:bg-[#00b140] hover:text-white transition-colors duration-300">
+              <span className="group inline-flex items-center justify-center rounded-full bg-linear-to-br from-white to-slate-100 border border-b-4 border-slate-200 dark:border-neutral-700 px-4 py-2 text-md font-medium text-slate-600 hover:bg-[#00b140] hover:text-[#00b140] transition-colors duration-300">
                 Learn More
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
               </span>
@@ -73,7 +73,7 @@ export function TrustSecurity() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {securityFeatures.map((feature, index) => (
-            <TiltCard key={index} className="p-6 border border-slate-200 dark:border-slate-800/50 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md hover:border-green-400/50 transition-all duration-300 rounded-2xl">
+            <TiltCard key={index} className="p-6 border border-slate-200 dark:border-slate-800/50 bg-linear-to-br from-white to-[#baff29]/10 backdrop-blur-md hover:border-green-400/50 transition-all duration-300 rounded-2xl">
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 rounded-xl bg-[#00b140] text-white">
                   {feature.icon}

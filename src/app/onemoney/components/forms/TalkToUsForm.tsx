@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import { Label } from "./../ui/label"; // Aceternity Label
 import { Input } from "./../ui/input"; // Aceternity Input
 import { Textarea } from "./../ui/textarea"; // Shadcn Textarea
@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 // @ts-ignore
 import emailjs from 'emailjs-com';
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 export function TalkToUsForm() {
   const [formData, setFormData] = useState({
@@ -20,6 +21,12 @@ export function TalkToUsForm() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [textareaVisible, setTextareaVisible] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -63,11 +70,20 @@ export function TalkToUsForm() {
   };
 
   // Motion values for textarea hover effect
-  const [textareaVisible, setTextareaVisible] = useState(false);
   const textareaMouseX = useMotionValue(0);
   const textareaMouseY = useMotionValue(0);
+  
+  // Create motion template unconditionally
+  const motionTemplate = useMotionTemplate`
+    radial-gradient(
+      ${textareaVisible ? "100px" : "0px"} circle at ${textareaMouseX}px ${textareaMouseY}px,
+      var(--blue-500),
+      transparent 80%
+    )
+  `;
 
   const handleTextareaMouseMove = ({ currentTarget, clientX, clientY }: any) => {
+    if (!isMounted) return;
     let { left, top } = currentTarget.getBoundingClientRect();
     textareaMouseX.set(clientX - left);
     textareaMouseY.set(clientY - top);
@@ -102,18 +118,12 @@ export function TalkToUsForm() {
           Additional Comments <span className="text-red-500">*</span>
         </Label>
         <motion.div
-          style={{
-            background: useMotionTemplate`
-              radial-gradient(
-                ${textareaVisible ? "100px" : "0px"} circle at ${textareaMouseX}px ${textareaMouseY}px,
-                var(--blue-500),
-                transparent 80%
-              )
-            `,
-          }}
-          onMouseMove={handleTextareaMouseMove}
-          onMouseEnter={() => setTextareaVisible(true)}
-          onMouseLeave={() => setTextareaVisible(false)}
+          style={isMounted ? {
+            background: motionTemplate,
+          } : {}}
+          onMouseMove={isMounted ? handleTextareaMouseMove : undefined}
+          onMouseEnter={isMounted ? () => setTextareaVisible(true) : undefined}
+          onMouseLeave={isMounted ? () => setTextareaVisible(false) : undefined}
           className="group/input rounded-lg p-[2px] transition duration-300 shadow-input bg-gray-50 dark:bg-zinc-800 border border-transparent dark:shadow-[0px_0px_1px_1px_var(--neutral-700)]"
         >
           <Textarea
@@ -128,9 +138,9 @@ export function TalkToUsForm() {
       {/* Submit Button */}
       {!submitted ? (
         !loading ? (
-          <GlowingButton type="submit" className="w-full h-12" size="default">
+          <ShimmerButton type="submit" className="w-full h-14 text-lg uppercase">
             Submit Request
-          </GlowingButton>
+          </ShimmerButton>
         ) : (
           <button
             type="button"

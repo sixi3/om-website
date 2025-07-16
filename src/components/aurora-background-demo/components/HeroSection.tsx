@@ -87,7 +87,6 @@ const MainTitle = React.memo(() => {
 MainTitle.displayName = 'MainTitle';
 
 const VideoPlayer = React.memo(() => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef(null);
@@ -95,19 +94,22 @@ const VideoPlayer = React.memo(() => {
 
   useEffect(() => {
     if (isInView && videoRef.current) {
-      // Preload video when in view
-      videoRef.current.load();
+      // Ensure video plays when in view
+      videoRef.current.play().catch(() => {
+        // Fallback: try to play again after a short delay
+        setTimeout(() => {
+          if (videoRef.current) {
+            videoRef.current.play().catch(() => {
+              setHasError(true);
+            });
+          }
+        }, 100);
+      });
     }
   }, [isInView]);
 
-  const handleVideoLoad = () => {
-    setIsLoaded(true);
-    setHasError(false);
-  };
-
   const handleVideoError = () => {
     setHasError(true);
-    setIsLoaded(false);
   };
 
   return (
@@ -122,15 +124,6 @@ const VideoPlayer = React.memo(() => {
         }}
         className="relative w-full flex items-center justify-center"
       >
-        {!isLoaded && !hasError && (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#00b140]/20 to-[#baff29]/20 rounded-2xl flex items-center justify-center animate-pulse">
-            <div className="text-slate-500 text-center">
-              <div className="w-16 h-16 border-4 border-[#00b140] border-t-transparent rounded-full animate-spin mb-4"></div>
-              <p>Loading video...</p>
-            </div>
-          </div>
-        )}
-        
         {hasError && (
           <div className="w-full h-full bg-gradient-to-br from-[#00b140]/20 to-[#baff29]/20 rounded-2xl flex items-center justify-center">
             <div className="text-slate-500 text-center">
@@ -141,19 +134,17 @@ const VideoPlayer = React.memo(() => {
 
         <video
           ref={videoRef}
-          autoPlay={isLoaded}
+          autoPlay
           loop
           muted
           playsInline
-          className={`w-full h-full object-cover lg:mr-16 lg:mb-12 xl:ml-12 2xl:mr-56 xl:scale-105 xl:mr-40 2xl:mb-24 2xl:scale-120 transition-opacity duration-500 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
+          className="w-full h-full object-cover lg:mr-16 lg:mb-12 xl:ml-12 2xl:mr-56 xl:scale-105 xl:mr-40 2xl:mb-24 2xl:scale-120"
           style={{ backgroundColor: 'transparent' }}
-          preload={isInView ? "auto" : "none"}
-          onLoadedData={handleVideoLoad}
+          preload="metadata"
           onError={handleVideoError}
         >
           <source src="/main-landing-1.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
       </motion.div>
     </div>

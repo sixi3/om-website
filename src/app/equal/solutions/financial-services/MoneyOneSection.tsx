@@ -1,13 +1,11 @@
 'use client';
 
 import React, { useState } from "react";
-import { GridBackground } from "@/app/onemoney/components/ui/grid-background";
 import { motion, AnimatePresence } from "framer-motion";
 import { InteractiveShowcase } from '@/app/moneyone/components/InteractiveShowcase';
 import { CustomisableUIShowcase } from '@/app/moneyone/components/CustomisableUIShowcase';
 import { NudgesInsightsShowcase } from '@/app/moneyone/components/NudgesInsightsShowcase';
 import Marquee from 'react-fast-marquee';
-
 // Styling classes (consistent with other sections)
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
@@ -49,7 +47,6 @@ export function MoneyOneSection() {
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
-      <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
       
         {/* Title and Subtitle */}
@@ -67,29 +64,27 @@ export function MoneyOneSection() {
 
         {/* Tab Buttons Container */}
         <div className="flex items-center justify-center pt-2 px-4 mb-8">
-          <div className="w-full max-w-2xl">
-            <div className="flex overflow-x-auto flex-nowrap gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm scrollbar-hide whitespace-nowrap">
-              {tabsData.map((tab, index) => (
-                <div
-                  key={tab.id}
-                  onClick={() => setActiveTab(index)}
-                  className={`relative px-8 py-4 text-md font-medium rounded-full cursor-pointer transition-colors duration-300 ${
-                    activeTab === index
-                      ? "text-white font-semibold"
-                      : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
-                  }`}
-                >
-                  {activeTab === index && (
-                    <motion.div
-                      layoutId="active-moneyone-tab"
-                      className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{tab.title}</span>
-                </div>
-              ))}
-            </div>
+          <div className="flex items-center gap-2 sm:gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm overflow-x-auto scrollbar-hide min-w-0 max-w-full">
+            {tabsData.map((tab, index) => (
+              <div
+                key={tab.id}
+                onClick={() => setActiveTab(index)}
+                className={`relative px-4 sm:px-8 py-4 text-sm sm:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 flex-shrink-0 ${
+                  activeTab === index
+                    ? "text-white font-semibold"
+                    : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
+                }`}
+              >
+                {activeTab === index && (
+                  <motion.div
+                    layoutId="active-moneyone-tab"
+                    className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{tab.title}</span>
+              </div>
+            ))}
           </div>
         </div>
 
