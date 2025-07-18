@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { MainFooter } from "@/components/global";
+import { ConditionalFooter } from "@/components/global/ConditionalFooter";
+
 const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
@@ -78,7 +79,7 @@ export default function RootLayout({
         {/* Header, Footer, and AuroraBackground removed from here */}
         {/* They will be part of src/app/onemoney/layout.tsx for the OneMoney section */}
         <main className="flex-grow relative z-100 w-full">{children}</main>
-        <MainFooter />
+        <ConditionalFooter />
       </body>
     </html>
   );

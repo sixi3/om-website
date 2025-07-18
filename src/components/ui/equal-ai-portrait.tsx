@@ -120,7 +120,7 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
       }}
     >
       {/* Title at the top */}
-      <div className="absolute top-6 left-0 w-full flex justify-center z-20 pointer-events-none">
+      <div className="absolute top-6 left-0 w-full flex justify-start z-20 pointer-events-none">
         <h2 className="text-md font-semibold tracking-widest text-white uppercase px-4 py-1 rounded">
           CONSUMER
         </h2>
@@ -175,7 +175,7 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
         <div className="flex justify-center mb-4">
           <h3 className="text-[12px] drop-shadow-lg flex items-center justify-center gap-1 uppercase">
             <span className={metallicBlackTextClasses}>
-              AI Assistants for Everything
+              India's AI Assistant
             </span>
             <span className="text-md">⚡️</span>
           </h3>

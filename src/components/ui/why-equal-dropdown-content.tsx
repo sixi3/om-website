@@ -66,7 +66,7 @@ const whyEqualItems: WhyEqualItem[] = [
       width: 40,
       height: 40
     },
-    href: "/equal/values"
+    href: "/common/values"
   }
 ]
 

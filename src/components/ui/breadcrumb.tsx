@@ -68,6 +68,18 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
   // Filter out "common" from segments to skip showing it in breadcrumbs
   const filteredSegments = segments.filter(segment => segment !== "common");
   
+  // Check if we're on OneMoney terms or policies pages
+  const isOneMoneyTermsOrPolicies = pathname.includes('/common/terms-conditions') || pathname.includes('/common/policies');
+  const isOneMoneyPage = isOneMoneyTermsOrPolicies && pathname.includes('company=onemoney');
+  
+  // Add OneMoney breadcrumb if we're on OneMoney terms or policies pages
+  if (isOneMoneyPage) {
+    items.push({
+      title: "OneMoney",
+      href: "/onemoney",
+    });
+  }
+  
   // Build breadcrumb items from filtered segments
   let currentPath = "";
   let originalIndex = 0;
