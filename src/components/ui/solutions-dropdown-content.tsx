@@ -43,28 +43,28 @@ const solutionSections: SolutionSection[] = [
         href: "/equal/solutions/financial-services"
       },
       {
-        id: "HRMS BGV Integration",
-        title: "HRMS BGV Integration",
-        description: "Integrate within your HRMS for seamless BGV",
+        id: "Employee Verification",
+        title: "Employee Verification",
+        description: "Verify candidates across multiple platforms",
         image: {
           src: "/HR OPS.png",
-          alt: "HRMS BGV Integration",
+          alt: "Employement Verification",
           width: 56,
           height: 56
         },
-        href: "/equal/solutions/enterprise-hiring"
+        href: "/equal/solutions"
       },
       {
-        id: "gig-economy",
-        title: "Multi-Platform Verification",
+        id: "identity",
+        title: "Indentity Verification",
         description: "Verify candidates across multiple platforms",
         image: {
           src: "/Candidate Communication.png",
-          alt: "Multi-Platform Verification",
+          alt: "Identity Verification",
           width: 56,
           height: 56
         },
-        href: "/equal/products/identity-gateway"
+        href: "/equal"
       },
       {
         id: "custom-workflow",

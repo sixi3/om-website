@@ -1,6 +1,8 @@
 import React from "react";
 import { TiltCard } from "../components/ui/tilt-card";
 import { GridBackground } from "../components/ui/grid-background";
+import Link from "next/link";
+import { ChevronRight, Home } from "lucide-react";
 
 // Define metallic black class (consider moving to shared lib later)
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -68,6 +70,33 @@ export default function CompliancePage() {
     <main className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
       <GridBackground />
       <div className="container px-4 md:px-6 mx-auto">
+        {/* Breadcrumb */}
+        <div className="mb-8 pt-8">
+          <nav
+            className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm flex items-center space-x-2 text-sm text-slate-600"
+            aria-label="Breadcrumb"
+          >
+            <ol className="flex items-center space-x-2">
+              <li className="flex items-center">
+                <Link
+                  href="/onemoney"
+                  className="hover:text-[#00b140] transition-colors duration-200 flex items-center"
+                >
+                  <Home className="h-4 w-4" />
+                </Link>
+              </li>
+              <li className="flex items-center">
+                <span className="mr-2" aria-hidden="true">
+                  <ChevronRight className="h-4 w-4 text-slate-400" />
+                </span>
+                <span className="font-medium text-slate-900" aria-current="page">
+                  Compliance
+                </span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+
         {/* Page Title */}
         <div className="text-center mb-12 md:mb-16">
           <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
