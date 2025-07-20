@@ -67,16 +67,16 @@ const solutionSections: SolutionSection[] = [
         href: "/equal"
       },
       {
-        id: "custom-workflow",
-        title: "Custom Workflow for Businesses",
+        id: "financial-analytics",
+        title: "Financial Analytics",
         description: "Create your own workflows for your business",
         image: {
-          src: "/Compliance.png",
-          alt: "Custom Workflow for Businesses",
+          src: "/Financial Analytics.png",
+          alt: "Financial Analytics",
           width: 56,
           height: 56
         },
-        href: "/equal/industries/"
+        href: "/equal/solutions/financial-services#moneyone-section"
       },
     ]
   }

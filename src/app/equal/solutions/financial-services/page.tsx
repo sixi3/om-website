@@ -78,6 +78,23 @@ export default function FinancialServicesHero() {
     const timer = setTimeout(() => setShowMarquee(true), 300);
     return () => clearTimeout(timer);
   }, []);
+
+  // Auto-scroll to MoneyOne section if hash is present
+  React.useEffect(() => {
+    const hash = window.location.hash;
+    if (hash === '#moneyone-section') {
+      const timer = setTimeout(() => {
+        const element = document.getElementById('moneyone-section');
+        if (element) {
+          element.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 1000); // Wait for content to load
+      return () => clearTimeout(timer);
+    }
+  }, []);
   const clientLogos = [
     { src: "/client-logos/Frame 5.png", alt: "Client Logo 5" },
     { src: "/client-logos/Frame 6.png", alt: "Client Logo 6" },
@@ -253,7 +270,9 @@ export default function FinancialServicesHero() {
         className="my-12"
       />
       <Suspense fallback={<SectionLoader />}>
-        <MoneyOneSection />
+        <div id="moneyone-section">
+          <MoneyOneSection />
+        </div>
       </Suspense>
       <GlowingDivider
         width="3/4"
