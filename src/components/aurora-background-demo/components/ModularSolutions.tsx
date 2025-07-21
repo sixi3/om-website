@@ -186,16 +186,16 @@ const solutionSections: SolutionSection[] = [
         icon: <BarChart3 size={24} />
       },
       {
-        id: "oneapp",
-        title: "OneApp Platform",
-        description: "Unified financial platform with customizable UI and analytics.",
+        id: "finshare",
+        title: "FinShare",
+        description: "A powerful TSP service tailored for FIPs",
         image: {
-          src: "/Mobile UX.png",
-          alt: "OneApp",
+          src: "/Exception Managment Engine.png",
+          alt: "FinShare",
           width: 80,
           height: 80
         },
-        href: "/oneapp",
+        href: "/moneyone/products/finshare",
         icon: <Smartphone size={24} />
       }
     ]
@@ -555,6 +555,8 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 <MotionLink
                   key={item.id}
                   href={item.href}
+                  target={item.id === "onemoney-aa" || item.id === "finpro-fiu" || item.id === "finshare" ? "_blank" : undefined}
+                  rel={item.id === "onemoney-aa" || item.id === "finpro-fiu" || item.id === "finshare" ? "noopener noreferrer" : undefined}
                   initial={{ opacity: 0, y: 30, scale: 0.95 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true, margin: "-50px" }}

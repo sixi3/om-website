@@ -50,24 +50,24 @@ const industryIcons: Record<string, React.ReactNode> = {
   "travel-transportation": <Plane size={24} />
 };
 
-// Image mapping for industries (using available images from public folder)
+// Image mapping for industries (using actual industry logos from public/industries folder)
 const industryImages: Record<string, string> = {
-  "real-estate": "/Candidate Consent Records.png",
-  "co-working": "/Gig & Platform Economy.png",
-  "healthcare": "/Healthcare.png",
-  "pharmaceuticals": "/Healthcare.png", // Reuse healthcare image
-  "education": "/Recruitment.png", // Reuse recruitment image
-  "it-services": "/L&M-tech.png",
-  "digital-services": "/L&M-tech.png", // Reuse tech image
-  "banking-financial-services": "/Financial Services.png",
-  "broking": "/Financial Services.png", // Reuse financial services image
-  "manufacturing-construction": "/Government Contracts.png",
-  "housing-finance": "/homeloan.png",
-  "insurance": "/Financial Services.png", // Reuse financial services image
-  "automotive": "/Vehicle + Legal Verification.png",
-  "retail-ecommerce": "/Gig & Platform Economy.png", // Reuse gig economy image
-  "hospitality": "/Gig & Platform Economy.png", // Reuse gig economy image
-  "travel-transportation": "/Vehicle + Legal Verification.png" // Reuse vehicle image
+  "real-estate": "/industries/Real Estate.png",
+  "co-working": "/industries/Co Working.png",
+  "healthcare": "/industries/Health Care.png",
+  "pharmaceuticals": "/industries/Pharmaceuticals.png",
+  "education": "/industries/Education.png",
+  "it-services": "/industries/IT Services.png",
+  "digital-services": "/industries/Digital Services.png",
+  "banking-financial-services": "/Financial Services.png", // Keep existing as no specific BFSI image
+  "broking": "/industries/Broking.png",
+  "manufacturing-construction": "/industries/Manufacturing and Construction.png",
+  "housing-finance": "/industries/Housing Finance.png",
+  "insurance": "/industries/Insurance.png",
+  "automotive": "/industries/Automotive.png",
+  "retail-ecommerce": "/industries/E Commerce.png",
+  "hospitality": "/industries/Hospitality.png",
+  "travel-transportation": "/industries/travel.png"
 };
 
 // Industry section data (using new industryContent)

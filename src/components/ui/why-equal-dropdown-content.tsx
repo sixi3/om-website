@@ -54,7 +54,7 @@ const whyEqualItems: WhyEqualItem[] = [
       width: 40,
       height: 40
     },
-    href: "/onemoney/leadership"
+    href: "/common/leadership"
   },
   {
     id: "values",

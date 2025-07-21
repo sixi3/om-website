@@ -217,22 +217,252 @@ export const EqualBreadcrumb: React.FC<BreadcrumbProps> = (props) => (
   />
 );
 
-export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = (props) => (
-  <Breadcrumb
-    {...props}
-    className={cn(
-      "bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm",
-      props.className
-    )}
-  />
-);
+export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
+  className = "",
+  separator = <ChevronRight className="h-4 w-4 text-slate-400" />,
+  homeIcon = true,
+  maxItems = 4,
+}) => {
+  const pathname = usePathname();
+  const [isMounted, setIsMounted] = React.useState(false);
+  
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  
+  // Don't show breadcrumbs on MoneyOne landing page
+  if (pathname === "/moneyone") {
+    return null;
+  }
+  
+  // Generate breadcrumb items specifically for MoneyOne
+  const generateMoneyOneBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
+    const segments = pathname.split("/").filter(Boolean);
+    const items: BreadcrumbItem[] = [];
+    
+    // Add home pointing to MoneyOne
+    items.push({
+      title: "Home",
+      href: "/moneyone",
+    });
+    
+    // Filter out "moneyone" from segments to skip showing it in breadcrumbs
+    const filteredSegments = segments.filter(segment => segment !== "moneyone");
+    
+    // Build breadcrumb items from filtered segments
+    let currentPath = "/moneyone"; // Start from MoneyOne base path
+    
+    filteredSegments.forEach((segment, index) => {
+      currentPath += `/${segment}`;
+      const isCurrentPage = index === filteredSegments.length - 1;
+      
+      // Special handling for "products" breadcrumb - link to Products section on MoneyOne page
+      let href = currentPath;
+      if (segment === "products" && !isCurrentPage) {
+        href = "/moneyone#products"; // Link to Products section on MoneyOne page
+      }
+      
+      items.push({
+        title: routeTitleMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " "),
+        href: href,
+        isCurrentPage,
+      });
+    });
+    
+    return items;
+  };
+  
+  const items = generateMoneyOneBreadcrumbItems(pathname);
+  
+  // Limit items if maxItems is specified
+  const displayItems = items.length > maxItems 
+    ? [
+        items[0], // Always show home
+        { title: "...", href: "#", isCurrentPage: false },
+        ...items.slice(-maxItems + 2)
+      ]
+    : items;
+  
+  return (
+    <nav
+      className={cn(
+        "flex items-center space-x-2 text-sm text-slate-600",
+        "mb-4",
+        "bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm",
+        className
+      )}
+      aria-label="Breadcrumb"
+    >
+      <ol className="flex items-center space-x-2 overflow-x-auto whitespace-nowrap scrollbar-hide w-full pr-2" style={{ WebkitOverflowScrolling: 'touch', scrollBehavior: 'smooth' }}>
+        {displayItems.map((item, index) => (
+          <li key={`${item.href}-${index}`} className="flex items-center flex-shrink-0">
+            {index > 0 && (
+              <span className="mr-2" aria-hidden="true">
+                {separator}
+              </span>
+            )}
+            {item.isCurrentPage ? (
+              <span
+                className={cn(
+                  "font-medium",
+                  "text-slate-900"
+                )}
+                aria-current="page"
+              >
+                {index === 0 && homeIcon ? (
+                  <Home className="h-4 w-4" />
+                ) : (
+                  item.title
+                )}
+              </span>
+            ) : item.title === "..." ? (
+              <span className="text-slate-400">...</span>
+            ) : (
+              <Link
+                href={item.href}
+                className="hover:text-[#00b140] transition-colors duration-200"
+              >
+                {index === 0 && homeIcon ? (
+                  <Home className="h-4 w-4" />
+                ) : (
+                  item.title
+                )}
+              </Link>
+            )}
+          </li>
+        ))}
+      </ol>
+      <style jsx>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
+    </nav>
+  );
+};
 
-export const OneMoneyBreadcrumb: React.FC<BreadcrumbProps> = (props) => (
-  <Breadcrumb
-    {...props}
-    className={cn(
-      "bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm",
-      props.className
-    )}
-  />
-); 
+export const OneMoneyBreadcrumb: React.FC<BreadcrumbProps> = ({
+  className = "",
+  separator = <ChevronRight className="h-4 w-4 text-slate-400" />,
+  homeIcon = true,
+  maxItems = 4,
+}) => {
+  const pathname = usePathname();
+  const [isMounted, setIsMounted] = React.useState(false);
+  
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  
+  // Don't show breadcrumbs on OneMoney landing page
+  if (pathname === "/onemoney") {
+    return null;
+  }
+  
+  // Generate breadcrumb items specifically for OneMoney
+  const generateOneMoneyBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
+    const segments = pathname.split("/").filter(Boolean);
+    const items: BreadcrumbItem[] = [];
+    
+    // Add home pointing to OneMoney
+    items.push({
+      title: "Home",
+      href: "/onemoney",
+    });
+    
+    // Filter out "onemoney" from segments to skip showing it in breadcrumbs
+    const filteredSegments = segments.filter(segment => segment !== "onemoney");
+    
+    // Build breadcrumb items from filtered segments
+    let currentPath = "/onemoney"; // Start from OneMoney base path
+    
+    filteredSegments.forEach((segment, index) => {
+      currentPath += `/${segment}`;
+      const isCurrentPage = index === filteredSegments.length - 1;
+      
+      items.push({
+        title: routeTitleMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " "),
+        href: currentPath,
+        isCurrentPage,
+      });
+    });
+    
+    return items;
+  };
+  
+  const items = generateOneMoneyBreadcrumbItems(pathname);
+  
+  // Limit items if maxItems is specified
+  const displayItems = items.length > maxItems 
+    ? [
+        items[0], // Always show home
+        { title: "...", href: "#", isCurrentPage: false },
+        ...items.slice(-maxItems + 2)
+      ]
+    : items;
+  
+  return (
+    <nav
+      className={cn(
+        "flex items-center space-x-2 text-sm text-slate-600",
+        "mb-4",
+        "bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm",
+        className
+      )}
+      aria-label="Breadcrumb"
+    >
+      <ol className="flex items-center space-x-2 overflow-x-auto whitespace-nowrap scrollbar-hide w-full pr-2" style={{ WebkitOverflowScrolling: 'touch', scrollBehavior: 'smooth' }}>
+        {displayItems.map((item, index) => (
+          <li key={`${item.href}-${index}`} className="flex items-center flex-shrink-0">
+            {index > 0 && (
+              <span className="mr-2" aria-hidden="true">
+                {separator}
+              </span>
+            )}
+            {item.isCurrentPage ? (
+              <span
+                className={cn(
+                  "font-medium",
+                  "text-slate-900"
+                )}
+                aria-current="page"
+              >
+                {index === 0 && homeIcon ? (
+                  <Home className="h-4 w-4" />
+                ) : (
+                  item.title
+                )}
+              </span>
+            ) : item.title === "..." ? (
+              <span className="text-slate-400">...</span>
+            ) : (
+              <Link
+                href={item.href}
+                className="hover:text-[#00b140] transition-colors duration-200"
+              >
+                {index === 0 && homeIcon ? (
+                  <Home className="h-4 w-4" />
+                ) : (
+                  item.title
+                )}
+              </Link>
+            )}
+          </li>
+        ))}
+      </ol>
+      <style jsx>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
+    </nav>
+  );
+}; 

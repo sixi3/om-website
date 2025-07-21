@@ -160,6 +160,7 @@ const featuresPills = [
 export function Products() {
   return (
     <motion.section 
+      id="products"
       className="relative w-full py-16"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -185,28 +186,15 @@ export function Products() {
         {/* Product Cards Section */}
         <BentoGrid className="mx-auto md:grid-cols-2"> {/* Using md:grid-cols-2 for two cards side-by-side */}
           {productsData.map((item) => (
-            item.id === 1 ? (
-              // FinPro card - make entire card clickable
-              <Link key={item.id} href="/moneyone/products/finpro" className="block">
-                <BentoGridItem
-                  title={item.title}
-                  description={item.description}
-                  header={item.header}
-                  icon={item.icon}
-                  className={`${item.className} cursor-pointer hover:scale-[1.02] transition-transform duration-200`}
-                />
-              </Link>
-            ) : (
-              // Other cards - normal behavior
+            <Link key={item.id} href={item.id === 1 ? "/moneyone/products/finpro" : "/moneyone/products/finshare"} className="block">
               <BentoGridItem
-                key={item.id}
                 title={item.title}
                 description={item.description}
                 header={item.header}
                 icon={item.icon}
-                className={item.className}
+                className={`${item.className} cursor-pointer hover:scale-[1.02] transition-transform duration-200`}
               />
-            )
+            </Link>
           ))}
         </BentoGrid>
 

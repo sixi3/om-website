@@ -71,6 +71,19 @@ const getCompanySection = (pathname: string): CompanySection => {
   return 'default';
 };
 
+const getHomeUrl = (section: CompanySection): string => {
+  switch (section) {
+    case 'moneyone':
+      return '/moneyone';
+    case 'onemoney':
+      return '/onemoney';
+    case 'equal':
+      return '/equal';
+    default:
+      return '/';
+  }
+};
+
 const getTabConfigurations = (section: CompanySection): TabConfig[] => {
   // Unified base configuration that works across all company sections
   const unifiedConfig: TabConfig[] = [
@@ -458,7 +471,7 @@ export function MainHeader({ className }: MainHeaderProps) {
         <div className="flex h-16 items-center px-2 sm:px-4">
           {/* Left: Logo */}
           <div className="flex items-center flex-shrink-0">
-            <Link href="/" className="flex items-center">
+            <Link href={getHomeUrl(currentSection)} className="flex items-center">
               <Image
                 src={
                   currentSection === 'onemoney' 
@@ -552,7 +565,7 @@ export function MainHeader({ className }: MainHeaderProps) {
         <div className="flex h-16 items-center px-2 sm:px-4">
           {/* Left: Logo */}
           <div className="flex items-center flex-shrink-0">
-            <Link href="/" className="flex items-center">
+            <Link href={getHomeUrl(currentSection)} className="flex items-center">
               <Image
                 src={
                   currentSection === 'onemoney' 

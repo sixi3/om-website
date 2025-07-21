@@ -64,19 +64,19 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/finshare"
+        href: "/moneyone/products/finshare"
       },
       {
-        id: "oneapp",
-        title: "OneApp",
-        description: "Unified financial application platform",
+        id: "financial-analytics",
+        title: "Financial Analytics",
+        description: "Gain in-depth insights into financial history",
         image: {
           src: "/Mobile UX.png",
           alt: "OneApp",
           width: 56,
           height: 56
         },
-        href: "/oneapp"
+        href: "/equal/solutions/financial-services#moneyone-section"
       }
     ]
   },
@@ -166,8 +166,8 @@ const ProductItem = memo<{ item: ProductItem; index: number }>(({ item, index })
       <Link 
         href={item.href}
         role="menuitem"
-        target={item.id === "onemoney-aa" ? "_blank" : undefined}
-        rel={item.id === "onemoney-aa" ? "noopener noreferrer" : undefined}
+        target={item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" ? "_blank" : undefined}
+        rel={item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" ? "noopener noreferrer" : undefined}
         className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-150 group focus:border-b-1"
       >
         <div className="flex-shrink-0 relative">
