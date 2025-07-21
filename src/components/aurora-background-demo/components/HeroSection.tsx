@@ -75,9 +75,15 @@ const MainTitle = React.memo(() => {
             duration: ANIMATION_CONFIG.duration,
             ease: [0.4, 0.0, 0.2, 1]
           }}
-          className={`text-4xl md:text-4xl lg:text-5xl xl:text-7xl 2xl:text-[80px] dark:text-neutral-200 leading-tight ${METALLIC_GREEN_TEXT_CLASSES}`}
+          className={`text-3xl lg:text-5xl xl:text-7xl 2xl:text-[72px] dark:text-neutral-200 leading-tight ${METALLIC_GREEN_TEXT_CLASSES}`}
         >
-          India's <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Largest</span><br /> Data Sharing Platform
+          India's Largest{' '}
+          <span className="lg:inline-block">
+            <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Consumer -</span>
+            <br className="lg:hidden" />
+            <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Consented</span>
+          </span>
+          <br /> Data Sharing Platform
         </motion.h1>
       </div>
     </motion.div>
@@ -217,7 +223,7 @@ const LookingForSection = React.memo(() => {
   const router = useRouter();
 
   const buttons = [
-    { text: "Background Verifications", href: "/equal" },
+    { text: "Background Verifications", href: "/equal/solutions" },
     { text: "Account Aggregator", href: "/onemoney" }, 
     { text: "Financial Data Analytics", href: "/equal/solutions/financial-services" },
   ];

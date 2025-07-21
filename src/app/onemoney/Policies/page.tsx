@@ -1,12 +1,24 @@
 'use client';
 
+<<<<<<< HEAD
 import React, { useState, useRef } from "react";
 import { GridBackground } from "../components/ui/grid-background";
 import { motion } from "framer-motion";
+=======
+import React, { useState, useRef, useEffect, Suspense } from "react";
+import { BackgroundGrid } from "@/components/ui/background-grid";
+import { motion, AnimatePresence } from "framer-motion";
+import { AuroraBackground } from "@/components/ui/aurora-background";
+import { useSearchParams } from "next/navigation";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import Link from "next/link";
+import { ChevronRight, Home } from "lucide-react";
+>>>>>>> 1e0d218
 
 // Define metallic black class (consider moving to shared lib later)
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
+<<<<<<< HEAD
 interface PolicyTabData {
   id: string;
   title: string;
@@ -20,6 +32,23 @@ const policyTabsData: PolicyTabData[] = [
     title: "Privacy Policy",
     content: (
       <>
+=======
+interface PolicyData {
+  id: string;
+  title: string;
+  content: React.ReactNode;
+}
+
+const policyData: PolicyData[] = [
+  {
+    id: "onemoney",
+    title: "OneMoney",
+    content: (
+      <>
+        <h3 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 mb-6">
+          OneMoney Privacy Policy
+        </h3>
+>>>>>>> 1e0d218
         <p className="mb-4">
           At Finsec AA Solutions Private Limited (henceforth "OneMoney", "our,"
           "us" "Company" and "we") we want to ensure that you have complete
@@ -418,7 +447,11 @@ const policyTabsData: PolicyTabData[] = [
         <ul className="list-disc pl-5 mb-4 space-y-1">
           <li>Physical contact and advances;</li>
           <li>Requests/demands for sexual favours;</li>
+<<<<<<< HEAD
           <li>Sexually-coloured remarks;</li>
+=======
+          <li>Sexually-colored remarks;</li>
+>>>>>>> 1e0d218
           <li>Showing pornography; or</li>
           <li>any other unwelcome physical, verbal or non-verbal conduct of sexual nature.</li>
         </ul>
@@ -500,6 +533,7 @@ const policyTabsData: PolicyTabData[] = [
       </>
     ),
   },
+<<<<<<< HEAD
   {
     id: "terms-of-use",
     title: "Terms of Use",
@@ -1662,3 +1696,85 @@ export default function PoliciesPage() {
     </main>
   );
 } 
+=======
+];
+
+// Create a separate component that uses useSearchParams
+function PoliciesContent() {
+  const currentPolicy = policyData[0]; // Always show OneMoney policy
+
+  return (
+    <>
+      <div className="mb-8 pt-8">
+        <nav
+          className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm flex items-center space-x-2 text-sm text-slate-600"
+          aria-label="Breadcrumb"
+        >
+          <ol className="flex items-center space-x-2">
+            <li className="flex items-center">
+              <Link
+                href="/onemoney"
+                className="hover:text-[#00b140] transition-colors duration-200 flex items-center"
+              >
+                <Home className="h-4 w-4" />
+              </Link>
+            </li>
+            <li className="flex items-center">
+              <span className="mr-2" aria-hidden="true">
+                <ChevronRight className="h-4 w-4 text-slate-400" />
+              </span>
+              <span className="font-medium text-slate-900" aria-current="page">
+                Policies
+              </span>
+            </li>
+          </ol>
+        </nav>
+      </div>
+      {/* Page Title */}
+      <div className="text-center mb-12 md:mb-16">
+        <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <span className={metallicBlackTextClasses}>{currentPolicy.title} Privacy Policy</span>
+        </h1>
+        <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-2xl">
+          Review our privacy policy and data protection practices.
+        </p>
+      </div>
+
+      {/* Policy Content */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="bg-background/20 dark:bg-slate-800/50 p-6 sm:p-8 md:p-10 rounded-xl shadow-lg border border-slate-200 dark:border-neutral-700 max-w-7xl mx-auto"
+      >
+        <div className="prose prose-slate dark:prose-invert max-w-none">
+          {currentPolicy.content}
+        </div>
+      </motion.div>
+    </>
+  );
+}
+
+export default function PoliciesPage() {
+  return (
+    <>
+      
+        <BackgroundGrid />
+        <div className="container px-4 md:px-6 mx-auto z-10">
+          <Suspense fallback={
+            <div className="text-center">
+              <div className="animate-pulse">
+                <div className="h-16 bg-slate-200 dark:bg-slate-700 rounded mb-4 max-w-md mx-auto"></div>
+                <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded mb-8 max-w-lg mx-auto"></div>
+                <div className="h-96 bg-slate-200 dark:bg-slate-700 rounded"></div>
+              </div>
+            </div>
+          }>
+            <PoliciesContent />
+          </Suspense>
+        </div>
+     
+    </>
+  );
+}
+>>>>>>> 1e0d218

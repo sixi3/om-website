@@ -182,7 +182,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/solutions/analytics",
+        href: "/equal/solutions/financial-services#moneyone-section",
         icon: <BarChart3 size={24} />
       },
       {
@@ -255,7 +255,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "equal/solutions/financial-services",
+        href: "/equal/solutions/financial-services",
         icon: <UserCheck size={24} />
       }
     ]

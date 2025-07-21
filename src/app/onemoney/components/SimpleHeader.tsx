@@ -72,11 +72,11 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
   const navLinks = [
     {
       title: "Privacy Policy",
-      href: "/common/policies?company=onemoney"
+      href: "/onemoney/policies"
     },
     {
       title: "Terms & Conditions", 
-      href: "/common/terms-conditions?company=onemoney"
+      href: "/onemoney/termsconditions"
     },
     {
         title: "Timeline",
