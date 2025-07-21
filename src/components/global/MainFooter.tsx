@@ -13,24 +13,26 @@ interface FooterSection {
   }>;
 }
 
-// Footer data mirroring the header dropdown structure
+// Footer data mirroring the header dropdown structure - updated to match desktop dropdown content
 const footerSections: FooterSection[] = [
   {
     title: "ABOUT US",
     links: [
       { title: "Team", href: "/common/team" },
       { title: "Vision & Mission", href: "/common/vision-mission" },
-      { title: "Leadership", href: "/onemoney/leadership" },
+      { title: "Leadership", href: "/common/leadership" },
       { title: "Values", href: "/equal/values" }
     ]
   },
   {
     title: "PRODUCTS",
     links: [
+      // BFSI Section
       { title: "OneMoney AA", href: "/onemoney" },
       { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
-      { title: "FinShare FIP TSP", href: "/finshare" },
-      { title: "OneApp", href: "/oneapp" },
+      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
+      { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" },
+      // Employment Section
       { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
       { title: "Gig Hiring", href: "/equal/solutions/gig-hiring" },
       { title: "Financial Services", href: "/equal/solutions/financial-services" },
@@ -41,20 +43,20 @@ const footerSections: FooterSection[] = [
     title: "SOLUTIONS",
     links: [
       { title: "Financial Services", href: "/equal/solutions/financial-services" },
-      { title: "HRMS BGV Integration", href: "/equal/solutions/enterprise-hiring" },
-      { title: "Multi-Platform Verification", href: "/equal/products/identity-gateway" },
-      { title: "Custom Workflow for Businesses", href: "/equal/industries/" }
+      { title: "Employee Verification", href: "/equal/solutions" },
+      { title: "Identity Verification", href: "/equal" },
+      { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" }
     ]
   },
   {
     title: "RESOURCES",
     links: [
-      { title: "Case Studies", href: "/news/latest-press-releases" },
-      { title: "Media Coverage", href: "/news/media-coverage" },
+      { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
+      { title: "Trust & Security", href: "/equal/trust-security" },
       { title: "Blog", href: "/blog" },
       { title: "In The News", href: "/blog/in-the-news" },
-      { title: "Terms and Conditions", href: "/newsletter/subscribe" },
-      { title: "Privacy Policy", href: "/newsletter/archive" }
+      { title: "Terms and Conditions", href: "/common/terms-conditions" },
+      { title: "Privacy Policy", href: "/common/policies" }
     ]
   }
 ];

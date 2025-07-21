@@ -90,16 +90,23 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
     {
       trigger: "ABOUT US",
       content: WhyEqualDropdownContent,
-      mobileLinks: []
+      mobileLinks: [
+        { title: "Team", href: "/common/team" },
+        { title: "Vision & Mission", href: "/common/vision-mission" },
+        { title: "Leadership", href: "/common/leadership" },
+        { title: "Values", href: "/equal/values" }
+      ]
     },
     {
       trigger: "PRODUCTS", 
       content: ProductDropdownContent,
       mobileLinks: [
+        // BFSI Section
         { title: "OneMoney AA", href: "/onemoney" },
         { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
-        { title: "FinShare FIP TSP", href: "/finshare" },
-        { title: "OneApp", href: "/oneapp" },
+        { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
+        { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" },
+        // Employment Section
         { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
         { title: "Gig Hiring", href: "/equal/solutions/gig-hiring" },
         { title: "Financial Services", href: "/equal/solutions/financial-services" },
@@ -111,17 +118,17 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
       content: SolutionsDropdownContent,
       mobileLinks: [
         { title: "Financial Services", href: "/equal/solutions/financial-services" },
-        { title: "HRMS BGV Integration", href: "/equal/solutions/enterprise-hiring" },
-        { title: "Multi-Platform Verification", href: "/equal/products/identity-gateway" },
-        { title: "Custom Workflow for Businesses", href: "/equal/industries/" }
+        { title: "Employee Verification", href: "/equal/solutions" },
+        { title: "Identity Verification", href: "/equal" },
+        { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" }
       ]
     },
     {
       trigger: "RESOURCES",
       content: ResourcesDropdownContent,
       mobileLinks: [
-        { title: "Case Studies", href: "/news/latest-press-releases" },
-        { title: "Media Coverage", href: "/news/media-coverage" },
+        { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
+        { title: "Trust & Security", href: "/equal/trust-security" },
         { title: "Blog", href: "/blog" },
         { title: "In The News", href: "/blog/in-the-news" },
         { title: "Terms and Conditions", href: "/common/terms-conditions" },
@@ -133,26 +140,28 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
   return unifiedConfig;
 };
 
-// Mobile sections in the requested order
+// Mobile sections in the requested order - updated to match desktop dropdown content
 const getMobileSections = (): MobileSection[] => [
   {
-    id: "solutions",
-    title: "SOLUTIONS",
+    id: "about",
+    title: "ABOUT US",
     links: [
-      { title: "Financial Services", href: "/equal/solutions/financial-services" },
-      { title: "HRMS BGV Integration", href: "/equal/solutions/enterprise-hiring" },
-      { title: "Multi-Platform Verification", href: "/equal/products/identity-gateway" },
-      { title: "Custom Workflow for Businesses", href: "/equal/industries/" }
+      { title: "Team", href: "/common/team" },
+      { title: "Vision & Mission", href: "/common/vision-mission" },
+      { title: "Leadership", href: "/common/leadership" },
+      { title: "Values", href: "/equal/values" }
     ]
   },
   {
     id: "products",
     title: "PRODUCTS",
     links: [
+      // BFSI Section
       { title: "OneMoney AA", href: "/onemoney" },
       { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
-      { title: "FinShare FIP TSP", href: "/finshare" },
-      { title: "OneApp", href: "/oneapp" },
+      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
+      { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" },
+      // Employment Section
       { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
       { title: "Gig Hiring", href: "/equal/solutions/gig-hiring" },
       { title: "Financial Services", href: "/equal/solutions/financial-services" },
@@ -160,43 +169,25 @@ const getMobileSections = (): MobileSection[] => [
     ]
   },
   {
-    id: "about",
-    title: "ABOUT US",
+    id: "solutions",
+    title: "SOLUTIONS",
     links: [
-      { title: "Team", href: "/common/team" },
-      { title: "Vision & Mission", href: "/common/vision-mission" },
-      { title: "Leadership", href: "/onemoney/leadership" },
-      { title: "Values", href: "/equal/values" }
+      { title: "Financial Services", href: "/equal/solutions/financial-services" },
+      { title: "Employee Verification", href: "/equal/solutions" },
+      { title: "Identity Verification", href: "/equal" },
+      { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" }
     ]
   },
   {
     id: "resources",
     title: "RESOURCES",
     links: [
-      { title: "Case Studies", href: "/news/latest-press-releases" },
-      { title: "Media Coverage", href: "/news/media-coverage" },
+      { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
+      { title: "Trust & Security", href: "/equal/trust-security" },
       { title: "Blog", href: "/blog" },
       { title: "In The News", href: "/blog/in-the-news" },
-      { 
-        title: "Terms and Conditions", 
-        href: "#terms-and-conditions", 
-        isHeader: true,
-        subItems: [
-          { title: "Equal", href: "/common/terms-conditions?company=equal" },
-          { title: "OneMoney", href: "/common/terms-conditions?company=onemoney" },
-          { title: "MoneyOne", href: "/common/terms-conditions?company=moneyone" }
-        ]
-      },
-      { 
-        title: "Privacy Policy", 
-        href: "#privacy-policy", 
-        isHeader: true,
-        subItems: [
-          { title: "Equal", href: "/common/policies?company=equal" },
-          { title: "OneMoney", href: "/common/policies?company=onemoney" },
-          { title: "MoneyOne", href: "/common/policies?company=moneyone" }
-        ]
-      }
+      { title: "Terms and Conditions", href: "/common/terms-conditions" },
+      { title: "Privacy Policy", href: "/common/policies" }
     ]
   }
 ];
