@@ -271,7 +271,7 @@ export default function FinancialServicesHero() {
       />
       <Suspense fallback={<SectionLoader />}>
         <div id="moneyone-section">
-          <MoneyOneSection />
+        <MoneyOneSection />
         </div>
       </Suspense>
       <GlowingDivider
