@@ -147,17 +147,17 @@ const solutionSections: SolutionSection[] = [
     description: "Banking, Financial Services & Insurance technology solutions powered by data aggregation and AI analytics.",
     items: [
       {
-        id: "onemoney-aa",
-        title: "OneMoney AA",
-        description: "India's largest Account Aggregator platform for consent-driven data sharing.",
+        id: "financial-analytics",
+        title: "Financial Analytics",
+        description: "Powerful insights from financial data with AI analytics.",
         image: {
-          src: "/Candidate Consent Records.png",
-          alt: "OneMoney AA",
+          src: "/Financial Analytics.png",
+          alt: "Financial Analytics",
           width: 80,
           height: 80
         },
-        href: "/onemoney",
-        icon: <IndianRupee size={24} />
+        href: "/equal/solutions/financial-services#moneyone-section",
+        icon: <BarChart3 size={24} />
       },
       {
         id: "finpro-fiu",
@@ -173,19 +173,6 @@ const solutionSections: SolutionSection[] = [
         icon: <Building2 size={24} />
       },
       {
-        id: "financial-analytics",
-        title: "Financial Analytics",
-        description: "Powerful insights from financial data with AI analytics.",
-        image: {
-          src: "/Financial Analytics.png",
-          alt: "Financial Analytics",
-          width: 80,
-          height: 80
-        },
-        href: "/equal/solutions/financial-services#moneyone-section",
-        icon: <BarChart3 size={24} />
-      },
-      {
         id: "finshare",
         title: "FinShare",
         description: "A powerful TSP service tailored for FIPs",
@@ -197,6 +184,19 @@ const solutionSections: SolutionSection[] = [
         },
         href: "/moneyone/products/finshare",
         icon: <Smartphone size={24} />
+      },
+      {
+        id: "onemoney-aa",
+        title: "OneMoney AA",
+        description: "India's largest Account Aggregator platform for consent-driven data sharing.",
+        image: {
+          src: "/Candidate Consent Records.png",
+          alt: "OneMoney AA",
+          width: 80,
+          height: 80
+        },
+        href: "/onemoney",
+        icon: <IndianRupee size={24} />
       }
     ]
   },
@@ -446,7 +446,10 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
       case "employment":
         return { text: "Explore Equal BGV", href: "/equal" };
       case "financial":
-        return { text: "Explore MoneyOne", href: "/moneyone" };
+        return { 
+          primary: { text: "Explore MoneyOne", href: "/moneyone" },
+          secondary: { text: "Explore OneMoney AA", href: "/onemoney" }
+        };
       case "industry":
         return { text: "Explore Solutions", href: "/solutions" };
       default:
@@ -474,7 +477,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
               ease: "easeOut",
               delay: 0.2
             }}
-            className="space-y-4 lg:col-span-2"
+            className="space-y-4 lg:col-span-2 text-center lg:text-left"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -485,7 +488,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 delay: 0.1
               }}
             >
-              <span className="text-sm text-center md:text-left font-semibold text-[#00b140] tracking-widest uppercase mb-4 block">
+              <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-4 block">
                 {section.subtitle}
               </span>
             </motion.div>
@@ -498,7 +501,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.2
               }}
-              className={`text-2xl md:text-4xl lg:text-5xl leading-tight text-center md:text-left ${METALLIC_BLACK_TEXT_CLASSES}`}
+              className={`text-2xl md:text-4xl lg:text-5xl leading-tight ${METALLIC_BLACK_TEXT_CLASSES}`}
             >
               {section.title}
             </motion.h2>
@@ -511,7 +514,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.3
               }}
-              className="text-sm text-center md:text-left text-slate-600 leading-relaxed"
+              className="text-sm text-slate-600 leading-relaxed"
             >
               {section.description}
             </motion.p>
@@ -519,7 +522,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
             {/* Metrics Grid */}
             <MetricsGrid metrics={metrics} />
 
-            {/* CTA Button */}
+            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -528,13 +531,31 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.5
               }}
-              className="mt-8 flex justify-center md:justify-start"
+              className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
             >
-              <Link href={cta.href}>
-                <ShimmerButton className="text-md md:text-lg">
-                  {cta.text}
-                </ShimmerButton>
-              </Link>
+              {cta.primary ? (
+                // Dual CTA layout for financial section
+                <>
+                  <Link href={cta.primary.href}>
+                    <ShimmerButton className="text-md md:text-lg">
+                      {cta.primary.text}
+                    </ShimmerButton>
+                  </Link>
+                  <Link href={cta.secondary.href}>
+                    <button className="group inline-flex items-center px-4 py-4 bg-gradient-to-tr from-slate-100 to-white backdrop-blur-md border border-[#00b140]/20 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap hover:border-[#00b140] hover:shadow-md">
+                      <span>{cta.secondary.text}</span>
+                      <ArrowRight className="h-4 w-4 text-[#00b140] transition-all duration-300 opacity-0 group-hover:opacity-100 -ml-3 group-hover:ml-2 group-hover:translate-x-0" />
+                    </button>
+                  </Link>
+                </>
+              ) : (
+                // Single CTA layout for other sections
+                <Link href={cta.href}>
+                  <ShimmerButton className="text-md md:text-lg">
+                    {cta.text}
+                  </ShimmerButton>
+                </Link>
+              )}
             </motion.div>
           </motion.div>
 
@@ -626,13 +647,10 @@ const ModularSolutions = React.memo(() => {
             <h1 className={`text-2xl md:text-5xl lg:text-5xl mt-8 leading-tight ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mx-auto`}>
               A
               {" "}<span className="inline-block bg-[#baff29] px-2 text-black font-bold">
-                full integrated
+                full-integrated
               </span>{" "}
               suite of financial and identity products
             </h1>
-            <p className="text-sm md:text-xl text-slate-600 leading-relaxed max-w-4xl mx-auto">
-              Reduce costs, grow revenue, and run your business more efficiently
-            </p>
           </motion.div>
         </div>
       </section>
