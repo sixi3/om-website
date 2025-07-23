@@ -282,7 +282,7 @@ const LookingForSection = React.memo(() => {
                     ease: "easeOut"
                   }}
                   onClick={() => handleButtonClick(button.href)}
-                  className="group inline-flex items-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-3 border border-[00b140]/50 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap"
+                  className="group inline-flex items-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-4 border border-[00b140]/20 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap"
                 >
                 <span>{button.text}</span>
                 <ArrowRight className="h-4 w-4 text-[#00b140] transition-all duration-300 opacity-0 group-hover:opacity-100 -ml-3 group-hover:ml-2 group-hover:translate-x-0" />
@@ -311,7 +311,7 @@ const LookingForSection = React.memo(() => {
                     ease: "easeOut"
                   }}
                   onClick={() => handleButtonClick(button.href)}
-                  className="group inline-flex items-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-3 border border-[00b140]/50 text-[#00b140] text-sm xl:text-base font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap"
+                  className="group inline-flex items-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-4 border border-[00b140]/20 hover:border-[00b140] text-[#00b140] text-sm xl:text-base font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap"
                 >
                   <span>{button.text}</span>
                   <ArrowRight className="h-4 w-4 text-[#00b140] transition-all duration-300 opacity-0 group-hover:opacity-100 -ml-3 group-hover:ml-2 group-hover:translate-x-0" />

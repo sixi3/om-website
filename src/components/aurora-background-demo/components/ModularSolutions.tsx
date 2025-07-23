@@ -542,7 +542,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                     </ShimmerButton>
                   </Link>
                   <Link href={cta.secondary.href}>
-                    <button className="group inline-flex items-center px-4 py-4 bg-gradient-to-tr from-slate-100 to-white backdrop-blur-md border border-[#00b140]/20 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap hover:border-[#00b140] hover:shadow-md">
+                    <button className="group inline-flex items-center px-4 py-3 bg-gradient-to-tr from-slate-100 to-white backdrop-blur-md border border-b-4 border-[#00b140]/20 text-[#00b140] text-md md:text-lg font-semibold rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap hover:border-[#00b140] hover:shadow-md">
                       <span>{cta.secondary.text}</span>
                       <ArrowRight className="h-4 w-4 text-[#00b140] transition-all duration-300 opacity-0 group-hover:opacity-100 -ml-3 group-hover:ml-2 group-hover:translate-x-0" />
                     </button>
