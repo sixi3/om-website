@@ -22,7 +22,7 @@ interface BreadcrumbProps {
 // Route to title mapping
 const routeTitleMap: Record<string, string> = {
   // Equal section
-  equal: "Equal",
+  equal: "Employment",
   solutions: "Solutions",
   products: "Products",
   industries: "Industries",

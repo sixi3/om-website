@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { BackgroundGrid } from "@/components/ui/background-grid";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { MainHeader } from "@/components/global";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
@@ -159,7 +160,12 @@ export default function LeadershipPage() {
     <AuroraBackground>
       <MainHeader />
       <BackgroundGrid zIndex={-10} />
-      <div className="w-full max-w-7xl px-4 md:px-6 relative z-10 pt-24 pb-12">
+      
+      <main className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+          <Breadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
+        </div>
+        <div className="w-full max-w-7xl px-4 md:px-6 relative z-10">
         {/* Hero Section */}
         <div className="text-center my-12 md:my-16">
           <h2 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl mb-6">
@@ -261,6 +267,7 @@ export default function LeadershipPage() {
           </motion.div>
         </div>
       </div>
+      </main>
       
       {/* Custom scrollbar styles */}
       <style jsx>{`

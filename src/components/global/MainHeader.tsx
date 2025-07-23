@@ -478,8 +478,8 @@ export function MainHeader({ className }: MainHeaderProps) {
                     ? "MoneyOne Logo"
                     : "Equal Logo"
                 }
-                width={71}
-                height={21}
+                width={0}
+                height={0}
                 className="h-8 md:h-10 w-auto"
                 priority
               />
@@ -572,8 +572,8 @@ export function MainHeader({ className }: MainHeaderProps) {
                     ? "MoneyOne Logo"
                     : "Equal Logo"
                 }
-                width={71}
-                height={21}
+                width={0}
+                height={0}
                 className="h-8 md:h-10 w-auto"
                 priority
               />

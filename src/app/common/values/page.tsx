@@ -15,35 +15,35 @@ const ourValues = [
     title: "Founder Mindset, Relentless Execution",
     description: "Take Charge. Think Big. Execute Relentlessly.",
     icon: Rocket,
-    image: "/Leadership.png",
+    image: "/values/Founder Mindset.png",
     className: "md:col-span-3"
   },
   {
     title: "Stronger Together, Greater Forever",
     description: "Collaboration is Our Competitive Advantage.",
     icon: Users,
-    image: "/team.png",
+    image: "/values/Stronger Together.png",
     className: "md:col-span-3"
   },
   {
     title: "AI for India, Built for Scale",
     description: "Innovate with Purpose. Build for a Billion.",
     icon: Brain,
-    image: "/AI Intelligence.png",
+    image: "/values/AI for India.png",
     className: "md:col-span-2"
   },
   {
     title: "Privacy Complete, Trust Total",
     description: "Trust is Earned. Privacy is Sacred.",
     icon: Shield,
-    image: "/Secure Consent Capture.png",
+    image: "/values/Privacy Complete.png",
     className: "md:col-span-2"
   },
   {
     title: "Deliver the Extraordinary",
     description: "Excellence is the Standard, Not the Goal.",
     icon: Star,
-    image: "/Bulk Onboarding.png",
+    image: "/values/Deliver the Extraordinary.png",
     className: "md:col-span-2"
   }
 ];
@@ -53,22 +53,27 @@ export default function ValuesPage() {
     <AuroraBackground>
       <MainHeader />  
       <BackgroundGrid />  
-      <div className="w-full max-w-7xl px-4 md:px-6 relative z-10 pt-12">
-        <EqualBreadcrumb />
-        {/* Hero Section */}
-        <div className="text-center my-12 md:my-16">
-          <h2 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl mb-6">
-            <span className={metallicBlackTextClasses}>The</span>{" "}
-            <span className={highlightBgClass}>Values</span>{" "}
-            <span className={metallicBlackTextClasses}>That Guide Us</span>
-          </h2>
-          <p className="mx-auto text-xl text-slate-700 dark:text-slate-300 w-full mb-6">
-            Our values are the bedrock of our culture and the driving force behind our commitment to delivering excellence and building trust.
-          </p>
+      
+      <main className="relative w-full pt-6 pb-12 md:pb-16 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+          <EqualBreadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
         </div>
+        
+        <div className="w-full max-w-7xl mx-auto px-4 md:px-6 relative z-10 justify-center items-center">
+          {/* Hero Section */}
+          <div className="text-center my-12 md:my-16">
+            <h2 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl mb-6">
+              <span className={metallicBlackTextClasses}>The</span>{" "}
+              <span className={highlightBgClass}>Values</span>{" "}
+              <span className={metallicBlackTextClasses}>That Guide Us</span>
+            </h2>
+            <p className="mx-auto text-xl text-slate-700 dark:text-slate-300 w-full mb-6">
+              Our values are the bedrock of our culture and the driving force behind our commitment to delivering excellence and building trust.
+            </p>
+          </div>
 
-        {/* Values Section */}
-        <BentoGrid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-6 w-full max-w-none">
+          {/* Values Section */}
+          <BentoGrid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-6 w-full max-w-none">
             {ourValues.map((item, idx) => {
               const IconComponent = item.icon;
               return (
@@ -86,12 +91,13 @@ export default function ValuesPage() {
                     src: item.image,
                     alt: item.title
                   }}
-                  imageSize="w-40 h-40 -top-10 -right-10 md:w-40 md:h-40 md:-top-20 md:-right-10 lg:w-40 lg:h-40 lg:-top-15 lg:-right-10 xl:w-40 xl:h-40 xl:-top-15 xl:-right-10 2xl:w-40 2xl:h-40 2xl:-top-15 2xl:-right-10"
+                  imageSize="w-40 h-40 -top-10 -right-10 md:w-40 md:h-40 md:-top-20 md:-right-10 lg:w-40 lg:h-40 lg:-top-15 lg:-right-10 xl:w-40 xl:h-40 xl:-top-15 xl:-right-10 2xl:w-40 2xl:h-40 2xl:-top-10 2xl:-right-10"
                 />
               );
             })}
-        </BentoGrid>
-      </div>
+          </BentoGrid>
+        </div>
+      </main>
     </AuroraBackground>
   );
 } 

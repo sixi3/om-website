@@ -216,10 +216,11 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
           <div className="flex items-center flex-shrink-0">
             <Link href="/onemoney" className="flex items-center">
               <Image
-                src="/om-logo.svg"
+                src="/onemoney.svg"
                 alt="OneMoney Logo"
                 width={71}
                 height={21}
+                objectFit="contain"
                 className="h-8 md:h-10 w-auto"
                 priority
               />

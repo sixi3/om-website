@@ -8,18 +8,12 @@ import { AuroraBackground } from "@/components/ui/aurora-background";
 import { BackgroundGrid } from "@/components/ui/background-grid";
 import { MainHeader } from "@/components/global/MainHeader";
 import { GlowingDivider } from "@/components/ui/glowing-divider";
-import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { EqualBreadcrumb } from "@/components/ui/breadcrumb";
 
 // Define metallic black class
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
-// Company logos for the hero section
-const companyLogos = [
-  { id: "logo-1", src: "/client-logos/Frame 5.png", alt: "Equal" },
-  { id: "logo-2", src: "/client-logos/Frame 6.png", alt: "OneMoney" },
-  { id: "logo-3", src: "/client-logos/Frame 8.png", alt: "Verified" },
-  { id: "logo-4", src: "/client-logos/Frame 12.png", alt: "OM Logo" }
-];
+
 
 export default function TeamPage() {
   return (
@@ -29,10 +23,10 @@ export default function TeamPage() {
       
       <main className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-          <Breadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
+          <EqualBreadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
         </div>
         {/* Hero Section */}
-        <div className="container px-4 md:px-6 mx-auto">
+        <div className="w-full max-w-7xl mx-auto px-4 md:px-6 relative z-10 justify-center items-center">
           <div className="text-center mb-12 max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -50,7 +44,7 @@ export default function TeamPage() {
             </motion.div>
             
 
-            {/* Company Logos Grid */}
+            {/* Team Image Showcase */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -58,32 +52,31 @@ export default function TeamPage() {
               className="mt-12 md:mt-16"
             >
               <div className="flex items-center justify-center">
-                <h2 className="text-center font-semibold text-sm md:text-left tracking-widest mb-4 mx-auto">
-                  HAND-PICKED BY INDUSTRY LEADERS FROM
+                <h2 className="text-center font-semibold text-sm md:text-base tracking-widest mb-6 mx-auto text-[#00b140]">
+                  OUR AMAZING TEAM
                 </h2>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 items-center justify-items-center max-w-2xl mx-auto">
-                {companyLogos.map((logo, index) => (
-                  <motion.div
-                    key={logo.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ 
-                      duration: 0.4, 
-                      delay: 0.3 + (index * 0.1), 
-                      ease: "easeOut" 
-                    }}
-                    className="relative w-32 h-32 filter grayscale hover:grayscale-0 transition-all duration-300"
-                  >
-                    <Image
-                      src={logo.src}
-                      alt={logo.alt}
-                      fill
-                      className="object-contain"
-                      sizes="(max-width: 768px) 64px, 80px"
-                    />
-                  </motion.div>
-                ))}
+              <div className="relative max-w-4xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: 0.4, 
+                    ease: "easeOut" 
+                  }}
+                  className="relative w-full h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl"
+                >
+                  <Image
+                    src="/team.png"
+                    alt="Our amazing team"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 1200px"
+                  />
+                  {/* Gradient overlay for better text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </motion.div>
               </div>
             </motion.div>
           </div>

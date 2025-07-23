@@ -94,7 +94,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/solutions/enterprise-hiring"
+        href: "/equal/products/enterprise-hiring"
       },
       {
         id: "Gig Hiring",
@@ -106,7 +106,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/solutions/gig-hiring"
+        href: "/equal/products/gig-hiring"
       },
       {
         id: "Financial Services",
@@ -118,7 +118,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/solutions/financial-services"
+        href: "/equal/products/financial-services"
       },
       {
         id: "Staffing & Contract Roles",
@@ -130,7 +130,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/solutions/staffing"
+        href: "/equal/products/staffing"
       }
     ]
   }
