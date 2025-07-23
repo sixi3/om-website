@@ -126,10 +126,10 @@ const IndustrySection = React.memo(() => {
           transition={{ duration: ANIMATION_CONFIG.duration, delay: 0.2 }}
           className={`text-2xl md:text-4xl lg:text-5xl leading-tight ${METALLIC_BLACK_TEXT_CLASSES} mb-4`}
         >
+          Leading solutions for  {" "}
           <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
-            Custom workflows
-          </span>{" "}
-          for your industry
+            all industries
+          </span>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}

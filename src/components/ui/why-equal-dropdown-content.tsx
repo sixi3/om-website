@@ -21,18 +21,6 @@ interface WhyEqualItem {
 
 const whyEqualItems: WhyEqualItem[] = [
   {
-    id: "team",
-    title: "Team",
-    description: "Meet the visionaries and experts behind our success",
-    image: {
-      src: "/team.png",
-      alt: "Team",
-      width: 40,
-      height: 40
-    },
-    href: "/common/team"
-  },
-  {
     id: "vision-mission",
     title: "Vision & Mission",
     description: "Discover our purpose and what drives us forward",
@@ -55,6 +43,18 @@ const whyEqualItems: WhyEqualItem[] = [
       height: 40
     },
     href: "/common/leadership"
+  },
+  {
+    id: "team",
+    title: "Team",
+    description: "Meet the visionaries and experts behind our success",
+    image: {
+      src: "/team.png",
+      alt: "Team",
+      width: 40,
+      height: 40
+    },
+    href: "/common/team"
   },
   {
     id: "values",

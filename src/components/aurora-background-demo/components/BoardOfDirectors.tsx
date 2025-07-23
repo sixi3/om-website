@@ -22,28 +22,28 @@ const boardMembers = [
     id: 2,
     name: "Jagdish Capoor", 
     role: "Independent Director",
-    description: "Former Deputy Governor, RBI",
+    description: "Former Deputy Governor, Reserve Bank of India",
     imageUrl: "/board/Jagdish Capoor.png"
   },
   {
     id: 3,
     name: "Rakesh Mohan",
     role: "Independent Director", 
-    description: "Former Deputy Governor, RBI",
+    description: "Former Deputy Governor, Reserve Bank of India",
     imageUrl: "/board/Rakesh Mohan.png"
   },
   {
     id: 4,
     name: "Anand Sinha",
     role: "Independent Director",
-    description: "Former Deputy Governor, RBI",
+    description: "Former Deputy Governor, Reserve Bank of India",
     imageUrl: "/board/Anand Sinha.png"
   },
   {
     id: 5,
     name: "J Satyanarayana",
     role: "Independent Director",
-    description: "Former Chairman,​ UIDAI",
+    description: "Former Chairman, UIDAI",
     imageUrl: "/board/J Satyanarayana.png"
   },
   {

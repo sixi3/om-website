@@ -44,7 +44,32 @@ const ProfileCard = React.memo<ProfileCardProps>(({
     }
   };
 
-
+  // Special case for "more achievers" card
+  if (id === "more-achievers") {
+    return (
+      <motion.div
+        className={`relative ${className}`}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <div className="relative w-80 h-96 rounded-lg overflow-hidden shadow-lg">
+          {/* Full card with gradient background */}
+          <div className="relative w-full h-full bg-gradient-to-b from-[#00b140] to-[#baff29] flex flex-col items-center justify-center p-6">
+            <div className="text-center space-y-4">
+              <span className="text-sm font-semibold text-white tracking-widest uppercase">
+                {title}
+              </span>
+              <h3 className="text-3xl font-bold text-white">
+                {name}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -172,6 +197,14 @@ const teamMembers = [
       { id: "1", src: "/equal-icon.png", alt: "Equal" },
       { id: "2", src: "/verified.svg", alt: "Verified" }
     ]
+  },
+  {
+    id: "more-achievers",
+    name: "+100 more",
+    title: "SUPER ACHIEVERS",
+    description: "",
+    imageUrl: "",
+    logos: []
   }
 ];
 

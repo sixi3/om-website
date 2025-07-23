@@ -15,68 +15,144 @@ const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bo
 const boardMembers = [
   {
     id: 1,
-    name: "Justice BN Srikrishna",
+    name: "Justice B.N. Srikrishna",
     role: "Chairman",
-    description: "Author, Digital Personal Data Protection Bill",
+    description: "Former judge of the Supreme Court of India and distinguished legal expert. Chaired the committee that drafted India's Digital Personal Data Protection Bill, establishing frameworks for data rights and privacy. Brings deep legal and ethical oversight to the board.",
     imageUrl: "/board/BN Srikrishna.png"
   },
   {
     id: 2,
     name: "Jagdish Capoor", 
     role: "Independent Director",
-    description: "Former Deputy Governor, RBI",
+    description: "Former Deputy Governor of the Reserve Bank of India with a career spanning key financial institutions. Held leadership roles at HDFC Bank and LIC, contributing significantly to India's banking evolution. His regulatory expertise strengthens governance and risk management.",
     imageUrl: "/board/Jagdish Capoor.png"
   },
   {
     id: 3,
-    name: "Rakesh Mohan",
+    name: "Dr. Rakesh Mohan",
     role: "Independent Director", 
-    description: "Former Deputy Governor, RBI",
+    description: "Eminent economist and former Deputy Governor of the RBI. Also served as Chief Economic Advisor and Executive Director at the IMF. Known for work on economic reforms and infrastructure policy, bringing strong macroeconomic perspective to the board.",
     imageUrl: "/board/Rakesh Mohan.png"
   },
   {
     id: 4,
     name: "Anand Sinha",
     role: "Independent Director",
-    description: "Former Deputy Governor, RBI",
+    description: "Served as Deputy Governor of the RBI, overseeing banking operations, regulation, and financial supervision. Played pivotal role in implementing Basel norms in India and contributed to international regulatory forums. Reinforces board's commitment to sound financial oversight.",
     imageUrl: "/board/Anand Sinha.png"
   },
   {
     id: 5,
-    name: "J Satyanarayana",
+    name: "J. Satyanarayana",
     role: "Independent Director",
-    description: "Former Chairman,​ UIDAI",
+    description: "Former Chairman of the Unique Identification Authority of India (UIDAI). Retired IAS officer instrumental in shaping Aadhaar and India's digital governance ecosystem. His insights into public digital infrastructure are key to scaling secure technology platforms.",
     imageUrl: "/board/J Satyanarayana.png"
   },
   {
     id: 6,
     name: "Ajay Sawhney",
     role: "Independent Director",
-    description: "Former Secretary MeitY, Government of India",
+    description: "Former Secretary at the Ministry of Electronics and Information Technology (MeitY), Government of India. Played central role in driving digital India initiatives, data governance frameworks, and emerging tech adoption. Expertise bridges policy and innovation.",
     imageUrl: "/board/Ajay Sawhney.png"
   },
   {
     id: 7,
     name: "Anita Ramachandran",
     role: "Independent Director",
-    description: "Founder Cerebrus Consultants, Respected HR Leader",
+    description: "Founder of Cerebrus Consultants and respected HR and organizational strategy expert. Over three decades advising top Indian and global firms on leadership, people management, and culture. Brings strong human capital and governance focus to the board.",
     imageUrl: "/board/Anita Ramachandran.png"
   },
   {
     id: 8,
-    name: "PH Ravikumar",
+    name: "P.H. Ravikumar",
     role: "Independent Director",
-    description: "Founder CEO of NCDEX",
+    description: "Founding CEO of NCDEX and veteran in banking and financial services. Held senior positions at ICICI Bank, SMERA, and Bharat Financial Inclusion. Deep expertise in financial infrastructure brings strategic view of market-building and risk.",
     imageUrl: "/board/PH Ravikumar.png"
   },
   {
     id: 9,
     name: "Sunil Kulkarni",
     role: "Independent Director",
-    description: "Chairman, BCFI",
+    description: "Chairman of the BCFI (Business Correspondent Federation of India), advocating for last-mile banking and digital payments. Pioneer in financial inclusion, working extensively with fintechs and banks to expand rural access. Enhances board's focus on scale and inclusion.",
     imageUrl: "/board/Sunil Kulkarni.png"
   }
 ];
+
+// ProfileCard Component
+interface ProfileCardProps {
+  id: number;
+  name: string;
+  role: string;
+  description: string;
+  imageUrl: string;
+  className?: string;
+}
+
+const ProfileCard = React.memo<ProfileCardProps>(({ 
+  id, 
+  name, 
+  role, 
+  description, 
+  imageUrl, 
+  className = "" 
+}) => {
+  const cardVariants = {
+    default: {
+      y: 0,
+      transition: { duration: 0.3, ease: "easeOut" as const }
+    },
+    hover: {
+      y: -40,
+      transition: { duration: 0.3, ease: "easeOut" as const }
+    }
+  };
+
+  return (
+    <motion.div
+      className={`relative group cursor-pointer ${className}`}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      whileHover="hover"
+    >
+      <div className="relative w-80 h-96 rounded-lg overflow-hidden shadow-lg bg-white">
+        {/* Profile Image Section with Gradient Background */}
+        <div className="relative h-48 w-full bg-gradient-to-br from-white to-slate-100 overflow-hidden rounded-t-lg">
+          <div className="w-full h-full scale-110">
+            <Image
+              src={imageUrl}
+              alt={name}
+              fill
+              className="object-contain w-full h-full"
+              sizes="(max-width: 768px) 100vw, 320px"
+            />
+          </div>
+        </div>
+
+        {/* Content Section - Slides up on hover */}
+        <motion.div
+          variants={cardVariants}
+          className="absolute bottom-0 left-0 right-0 bg-white p-4 h-56"
+        >
+          <div className="text-left space-y-2">
+            <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-4">
+              {role}
+            </span>
+            <h3 className="text-2xl font-bold text-gray-900">
+              {name}
+            </h3>
+            <p className="text-xs font-medium text-gray-600 leading-relaxed">
+              {description}
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+});
+
+ProfileCard.displayName = 'ProfileCard';
 
 export default function LeadershipPage() {
   return (
@@ -131,50 +207,13 @@ export default function LeadershipPage() {
             className="relative"
           >
             <div className="overflow-x-auto pb-4 scrollbar-hide">
-              <div className="flex space-x-8 w-max px-4">
+              <div className="flex space-x-6 w-max px-4">
                 {boardMembers.map((member, index) => (
-                  <motion.div
+                  <ProfileCard
                     key={member.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.6,
-                      delay: index * 0.1
-                    }}
-                    className="flex flex-col items-center text-center space-y-4 flex-shrink-0"
-                  >
-                    {/* Circular image container with gradient */}
-                    <div className="relative w-32 h-32 md:w-40 md:h-40">
-                      <div className="w-full h-full rounded-full bg-gradient-to-br from-white to-slate-50 shadow-lg">
-                        <div className="w-full h-full rounded-full overflow-hidden">
-                          <Image
-                            src={member.imageUrl}
-                            alt={member.name}
-                            width={200}
-                            height={200}
-                            className="w-full h-full object-contain mt-4"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Member details */}
-                    <div className="space-y-2 max-w-[160px]">
-                      <h3 className="text-lg font-bold text-slate-900">
-                        {(() => {
-                          const [first, ...rest] = member.name.split(' ');
-                          return <>{first}<br />{rest.join(' ')}</>;
-                        })()}
-                      </h3>
-                      <p className="text-sm font-medium text-[#00b140]">
-                        {member.role}
-                      </p>
-                      <p className="text-sm text-slate-600 leading-relaxed">
-                        {member.description}
-                      </p>
-                    </div>
-                  </motion.div>
+                    {...member}
+                    className="flex-shrink-0"
+                  />
                 ))}
               </div>
             </div>
@@ -192,51 +231,13 @@ export default function LeadershipPage() {
               duration: 0.6,
               delay: 0.2
             }}
-            className="grid grid-cols-5 gap-12"
+            className="flex justify-center items-center space-x-6"
           >
             {boardMembers.slice(0, 5).map((member, index) => (
-              <motion.div
+              <ProfileCard
                 key={member.id}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.1
-                }}
-                className="flex flex-col items-center text-center space-y-4"
-              >
-                {/* Circular image container with gradient */}
-                <div className="relative w-48 h-48">
-                  <div className="w-full h-full rounded-full bg-background/20 backdrop-blur-md border border-slate-200">
-                    <div className="w-full h-full rounded-full overflow-hidden">
-                      <Image
-                        src={member.imageUrl}
-                        alt={member.name}
-                        width={200}
-                        height={200}
-                        className="w-full h-full object-contain mt-4"
-                      />
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Member details */}
-                <div className="space-y-2">
-                  <h3 className="text-xl font-bold text-slate-900">
-                    {(() => {
-                      const [first, ...rest] = member.name.split(' ');
-                      return <>{first}<br />{rest.join(' ')}</>;
-                    })()}
-                  </h3>
-                  <p className="text-base font-medium text-[#00b140]">
-                    {member.role}
-                  </p>
-                  <p className="text-sm text-slate-600 leading-relaxed max-w-[200px]">
-                    {member.description}
-                  </p>
-                </div>
-              </motion.div>
+                {...member}
+              />
             ))}
           </motion.div>
 
@@ -249,51 +250,13 @@ export default function LeadershipPage() {
               duration: 0.6,
               delay: 0.4
             }}
-            className="grid grid-cols-4 gap-12 mt-16 max-w-5xl mx-auto"
+            className="flex justify-center items-center space-x-6 mt-12"
           >
             {boardMembers.slice(5).map((member, index) => (
-              <motion.div
+              <ProfileCard
                 key={member.id}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.6,
-                  delay: (index + 5) * 0.1
-                }}
-                className="flex flex-col items-center text-center space-y-4"
-              >
-                {/* Circular image container with gradient */}
-                <div className="relative w-48 h-48">
-                  <div className="w-full h-full rounded-full bg-background/20 backdrop-blur-md border border-slate-200">
-                    <div className="w-full h-full rounded-full overflow-hidden">
-                      <Image
-                        src={member.imageUrl}
-                        alt={member.name}
-                        width={200}
-                        height={200}
-                        className="w-full h-full object-contain mt-4"
-                      />
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Member details */}
-                <div className="space-y-2">
-                  <h3 className="text-xl font-bold text-slate-900">
-                    {(() => {
-                      const [first, ...rest] = member.name.split(' ');
-                      return <>{first}<br />{rest.join(' ')}</>;
-                    })()}
-                  </h3>
-                  <p className="text-base font-medium text-[#00b140]">
-                    {member.role}
-                  </p>
-                  <p className="text-sm text-slate-600 leading-relaxed max-w-[200px]">
-                    {member.description}
-                  </p>
-                </div>
-              </motion.div>
+                {...member}
+              />
             ))}
           </motion.div>
         </div>

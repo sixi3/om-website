@@ -10,6 +10,7 @@ interface FooterSection {
   links: Array<{
     title: string;
     href: string;
+    isSubheading?: boolean;
   }>;
 }
 
@@ -28,15 +29,19 @@ const footerSections: FooterSection[] = [
     title: "PRODUCTS",
     links: [
       // BFSI Section
+      { title: "BFSI", href: "#", isSubheading: true },
       { title: "OneMoney AA", href: "/onemoney" },
       { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
       { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
       { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" },
       // Employment Section
+      { title: "Employment", href: "#", isSubheading: true },
       { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
       { title: "Gig Hiring", href: "/equal/solutions/gig-hiring" },
-      { title: "Financial Services", href: "/equal/solutions/financial-services" },
-      { title: "Staffing & Contract", href: "/equal/solutions/staffing" }
+      { title: "Staffing & Contract", href: "/equal/solutions/staffing" },
+      // Consumer Section
+      { title: "Consumer", href: "#", isSubheading: true },
+      { title: "Equal AI", href: "/equal" }
     ]
   },
   {
@@ -75,12 +80,12 @@ export function MainFooter() {
                 alt="Equal Logo"
                 width={71}
                 height={21}
-                className="h-8 md:h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300"
+                className="h-8 md:h-12 w-auto hover:scale-105 transition-all duration-300"
                 priority
                 />
             </Link>
             </div>
-            <h1 className="text-sm ml-1 font-light text-left mb-8 text-slate-500">made with 💚 in Hyderabad, India</h1>
+            <h1 className="text-sm ml-1 font-light text-left mb-8 text-slate-500">Made with 💚 in India</h1>
 
         {/* Links Grid - Desktop: horizontal, Mobile: 2 columns */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -90,18 +95,24 @@ export function MainFooter() {
                 {section.title}
               </h3>
               <ul className="space-y-3">
-                {section.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className={`text-sm transition-colors duration-200 ${
-                        pathname === link.href
-                          ? "text-[#00b140] font-medium"
-                          : "text-gray-600 hover:text-[#00b140]"
-                      }`}
-                    >
-                      {link.title}
-                    </Link>
+                {section.links.map((link, index) => (
+                  <li key={`${section.title}-${link.title}-${index}`}>
+                    {link.isSubheading ? (
+                      <div className="text-xs font-semibold text-[#00b140] tracking-widest uppercase mt-4 mb-2">
+                        {link.title}
+                      </div>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className={`text-sm transition-colors duration-200 ${
+                          pathname === link.href
+                            ? "text-[#00b140] font-medium"
+                            : "text-gray-600 hover:text-[#00b140]"
+                        }`}
+                      >
+                        {link.title}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -143,7 +143,7 @@ const solutionSections: SolutionSection[] = [
   {
     id: "financial",
     title: "Financial Services",
-    subtitle: "BFSI SOLUTIONS",
+    subtitle: "BFSI Products",
     description: "Banking, Financial Services & Insurance technology solutions powered by data aggregation and AI analytics.",
     items: [
       {
@@ -202,8 +202,8 @@ const solutionSections: SolutionSection[] = [
   },
   {
     id: "employment",
-    title: "Employment Solutions",
-    subtitle: "WORKFORCE MANAGEMENT",
+    title: "Employee Verification",
+    subtitle: "KYE Products",
     description: "Identity verification and background check solutions for workforce management across all industries and company sizes.",
     items: [
       {
@@ -265,7 +265,7 @@ const solutionSections: SolutionSection[] = [
 // New Industry Innovation Section Component
 const IndustryInnovationSection = React.memo(() => {
   const metrics = industryMetrics;
-  const cta = { text: "Explore Equal AI", href: "/innovation" };
+  const cta = { text: "Download Equal AI", href: "/innovation" };
 
   return (
     <section className="relative w-full px-8 pt-16 mt-12 pb-16 md:py-20 xl:px-12 2xl:px-24 transform -skew-y-2 overflow-hidden mb-24">
@@ -350,14 +350,12 @@ const IndustryInnovationSection = React.memo(() => {
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.2
               }}
-              className={`text-3xl md:text-4xl lg:text-7xl drop-shadow-lg leading-tight text-center md:text-left text-white font-bold`}
+              className={`text-3xl md:text-4xl lg:text-8xl drop-shadow-lg leading-tight text-center md:text-left text-white font-bold`}
             >
-              India's {" "}
+              India's <br />
               <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
-                Most Advanced
-              </span>{" "}
-              <br />
-              AI Agent Ecosystem
+                AI Assistant
+              </span>
             </motion.h2>
 
             <motion.p
@@ -370,7 +368,7 @@ const IndustryInnovationSection = React.memo(() => {
               }}
               className="text-md md:text-lg text-center md:text-left text-white font-medium leading-relaxed"
             >
-              Make spams and scams a thing of the past with Equal AI.
+              Let Equal AI handle all your unknown calls
             </motion.p>
 
             {/* CTA Button */}
@@ -647,9 +645,9 @@ const ModularSolutions = React.memo(() => {
             <h1 className={`text-2xl md:text-5xl lg:text-5xl mt-8 leading-tight ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mx-auto`}>
               A
               {" "}<span className="inline-block bg-[#baff29] px-2 text-black font-bold">
-                full-integrated
+                fully-integrated
               </span>{" "}
-              suite of financial and identity products
+              suite of data sharing products
             </h1>
           </motion.div>
         </div>
