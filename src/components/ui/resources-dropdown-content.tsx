@@ -75,7 +75,7 @@ const ResourcesDropdownContent: React.FC = () => {
       },
       href: "/equal/trust-security"
     },
-    {
+    /* {
       id: "blog",
       title: "Blog",
       description: "Insights, updates, and thought leadership from our team",
@@ -86,8 +86,8 @@ const ResourcesDropdownContent: React.FC = () => {
         height: 40
       },
       href: "/blog"
-    },
-    {
+    }, */
+    /* {
       id: "in-the-news",
       title: "In The News",
       description: "See our latest news mentions and press highlights",
@@ -98,7 +98,7 @@ const ResourcesDropdownContent: React.FC = () => {
         height: 40
       },
       href: "/blog/in-the-news"
-    },
+    }, */
     {
       id: "terms-and-conditions",
       title: "Terms and Conditions",

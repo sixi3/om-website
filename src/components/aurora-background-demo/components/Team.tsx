@@ -200,8 +200,8 @@ const teamMembers = [
   },
   {
     id: "more-achievers",
-    name: "+100 more",
-    title: "SUPER ACHIEVERS",
+    name: "SUPER ACHIEVERS",
+    title: "+100 More",
     description: "",
     imageUrl: "",
     logos: []
@@ -258,8 +258,8 @@ const Team = React.memo(() => {
         }}
         className="relative"
       >
-        {/* Mobile: Full-bleed horizontal scroll container */}
-        <div ref={scrollRef} className="md:hidden overflow-x-auto overflow-y-hidden pb-4 scrollbar-hide w-screen -mx-4 min-h-[384px]">
+        {/* Mobile and Tablet: Full-bleed horizontal scroll container */}
+        <div ref={scrollRef} className="lg:hidden overflow-x-auto overflow-y-hidden pb-4 scrollbar-hide w-screen -mx-4 min-h-[384px]">
           <div className="flex space-x-6 w-max h-96" style={{ paddingLeft: 'max(1rem, calc((100vw - 1280px) / 2))', paddingRight: '1rem' }}>
             {teamMembers.map((member, index) => (
               <ProfileCard
@@ -272,7 +272,7 @@ const Team = React.memo(() => {
         </div>
 
         {/* Desktop: Centered cards container */}
-        <div className="hidden md:flex justify-center items-center space-x-6 min-h-[384px]">
+        <div className="hidden lg:flex justify-center items-center space-x-6 min-h-[384px]">
           {teamMembers.map((member, index) => (
             <ProfileCard
               key={member.id}
@@ -281,8 +281,8 @@ const Team = React.memo(() => {
           ))}
         </div>
 
-        {/* Chevron controls - only show on mobile */}
-        <div className="w-full flex justify-center items-center space-x-3 z-10 md:hidden mt-4 mb-2">
+        {/* Chevron controls - show on mobile and tablet */}
+        <div className="w-full flex justify-center items-center space-x-3 z-10 lg:hidden mt-4 mb-2">
           <button
             type="button"
             className=" group w-10 h-10 flex items-center justify-center rounded-full bg-[#00b140]/10 hover:bg-[#00b140] transition-colors"

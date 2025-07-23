@@ -16,6 +16,12 @@ const ModularSolutions = dynamic(() =>
   ssr: false
 });
 
+const SolutionsSection = dynamic(() => 
+  import("./aurora-background-demo/components/SolutionsSection").then(mod => ({ default: mod.SolutionsSection })), {
+  loading: () => <SolutionsSectionLoader />,
+  ssr: false
+});
+
 const BoardOfDirectors = dynamic(() => 
   import("./aurora-background-demo/components/BoardOfDirectors").then(mod => ({ default: mod.BoardOfDirectors })), {
   loading: () => <BoardLoader />,
@@ -353,6 +359,28 @@ const TeamLoader = React.memo(() => (
 
 TeamLoader.displayName = 'TeamLoader';
 
+const SolutionsSectionLoader = React.memo(() => (
+  <div className="relative w-full py-16 px-4">
+    <div className="max-w-7xl mx-auto">
+      <div className="animate-pulse">
+        <div className="text-center space-y-6 mb-16">
+          <div className="h-4 bg-gradient-to-r from-slate-200 to-slate-300 rounded w-64 mx-auto"></div>
+          <div className="h-12 bg-gradient-to-r from-slate-200 to-slate-300 rounded w-96 mx-auto"></div>
+          <div className="h-6 bg-gradient-to-r from-slate-200 to-slate-300 rounded w-80 mx-auto"></div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="md:col-span-2 h-64 bg-gradient-to-r from-slate-200 to-slate-300 rounded-lg"></div>
+          <div className="h-64 bg-gradient-to-r from-slate-200 to-slate-300 rounded-lg"></div>
+          <div className="h-64 bg-gradient-to-r from-slate-200 to-slate-300 rounded-lg"></div>
+          <div className="md:col-span-2 h-64 bg-gradient-to-r from-slate-200 to-slate-300 rounded-lg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+));
+
+SolutionsSectionLoader.displayName = 'SolutionsSectionLoader';
+
 // Enhanced Section Wrapper with Intersection Observer
 interface SectionWrapperProps {
   children: React.ReactNode;
@@ -451,6 +479,20 @@ export default function AuroraBackgroundDemo() {
           >
             <Suspense fallback={<ModularSolutionsLoader />}>
               <ModularSolutions />
+            </Suspense>
+          </SectionWrapper>
+          
+          <MemoizedGlowingDivider 
+            {...glowingDividerProps}
+            delay={0.3}
+          />
+          
+          <SectionWrapper 
+            fallback={<SolutionsSectionLoader />}
+            rootMargin="150px"
+          >
+            <Suspense fallback={<SolutionsSectionLoader />}>
+              <SolutionsSection />
             </Suspense>
           </SectionWrapper>
           

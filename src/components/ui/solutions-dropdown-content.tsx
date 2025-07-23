@@ -35,7 +35,7 @@ const solutionSections: SolutionSection[] = [
         title: "Financial Services",
         description: "Digital transformation for banks and NBFCs",
         image: {
-          src: "/Financial Services.png",
+          src: "/Hosted Page.png",
           alt: "Financial Services",
           width: 56,
           height: 56

@@ -31,21 +31,13 @@ interface MainHeaderProps {
   className?: string;
 }
 
-// Company section detection and tab configurations
+// Company section detection and unified navigation configuration
 type CompanySection = 'equal' | 'moneyone' | 'onemoney' | 'default';
 
-interface TabConfig {
-  trigger: string;
-  content: React.ComponentType;
-  mobileLinks: Array<{
-    title: string;
-    href: string;
-  }>;
-}
-
-interface MobileSection {
+interface NavigationSection {
   id: string;
   title: string;
+  content: React.ComponentType;
   links: Array<{
     title: string;
     href: string;
@@ -84,23 +76,25 @@ const getHomeUrl = (section: CompanySection): string => {
   }
 };
 
-const getTabConfigurations = (section: CompanySection): TabConfig[] => {
-  // Unified base configuration that works across all company sections
-  const unifiedConfig: TabConfig[] = [
+const getNavigationSections = (section: CompanySection): NavigationSection[] => {
+  // Unified navigation configuration that works across all company sections
+  const unifiedConfig: NavigationSection[] = [
     {
-      trigger: "ABOUT US",
+      id: "about",
+      title: "ABOUT US",
       content: WhyEqualDropdownContent,
-      mobileLinks: [
-        { title: "Team", href: "/common/team" },
-        { title: "Vision & Mission", href: "/common/vision-mission" },
+      links: [
+        { title: "Vision", href: "/common/vision-mission" },
         { title: "Leadership", href: "/common/leadership" },
+        { title: "Team", href: "/common/team" },
         { title: "Values", href: "/equal/values" }
       ]
     },
     {
-      trigger: "PRODUCTS", 
+      id: "products",
+      title: "PRODUCTS", 
       content: ProductDropdownContent,
-      mobileLinks: [
+      links: [
         // BFSI Section
         { title: "OneMoney AA", href: "/onemoney" },
         { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
@@ -114,9 +108,10 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
       ]
     },
     {
-      trigger: "SOLUTIONS",
+      id: "solutions",
+      title: "SOLUTIONS",
       content: SolutionsDropdownContent,
-      mobileLinks: [
+      links: [
         { title: "Financial Services", href: "/equal/solutions/financial-services" },
         { title: "Employee Verification", href: "/equal/solutions" },
         { title: "Identity Verification", href: "/equal" },
@@ -124,13 +119,14 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
       ]
     },
     {
-      trigger: "RESOURCES",
+      id: "resources",
+      title: "RESOURCES",
       content: ResourcesDropdownContent,
-      mobileLinks: [
+      links: [
         { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
         { title: "Trust & Security", href: "/equal/trust-security" },
-        { title: "Blog", href: "/blog" },
-        { title: "In The News", href: "/blog/in-the-news" },
+        /* { title: "Blog", href: "/blog" }, */
+        /* { title: "In The News", href: "/blog/in-the-news" }, */
         { title: "Terms and Conditions", href: "/common/terms-conditions" },
         { title: "Privacy Policy", href: "/common/policies" }
       ]
@@ -139,58 +135,6 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
 
   return unifiedConfig;
 };
-
-// Mobile sections in the requested order - updated to match desktop dropdown content
-const getMobileSections = (): MobileSection[] => [
-  {
-    id: "about",
-    title: "ABOUT US",
-    links: [
-      { title: "Team", href: "/common/team" },
-      { title: "Vision & Mission", href: "/common/vision-mission" },
-      { title: "Leadership", href: "/common/leadership" },
-      { title: "Values", href: "/equal/values" }
-    ]
-  },
-  {
-    id: "products",
-    title: "PRODUCTS",
-    links: [
-      // BFSI Section
-      { title: "OneMoney AA", href: "/onemoney" },
-      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
-      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
-      { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" },
-      // Employment Section
-      { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
-      { title: "Gig Hiring", href: "/equal/solutions/gig-hiring" },
-      { title: "Financial Services", href: "/equal/solutions/financial-services" },
-      { title: "Staffing & Contract", href: "/equal/solutions/staffing" }
-    ]
-  },
-  {
-    id: "solutions",
-    title: "SOLUTIONS",
-    links: [
-      { title: "Financial Services", href: "/equal/solutions/financial-services" },
-      { title: "Employee Verification", href: "/equal/solutions" },
-      { title: "Identity Verification", href: "/equal" },
-      { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" }
-    ]
-  },
-  {
-    id: "resources",
-    title: "RESOURCES",
-    links: [
-      { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
-      { title: "Trust & Security", href: "/equal/trust-security" },
-      { title: "Blog", href: "/blog" },
-      { title: "In The News", href: "/blog/in-the-news" },
-      { title: "Terms and Conditions", href: "/common/terms-conditions" },
-      { title: "Privacy Policy", href: "/common/policies" }
-    ]
-  }
-];
 
 // Animated hamburger menu component
 const AnimatedHamburger = memo(({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) => (
@@ -236,7 +180,7 @@ const MobileCollapsibleSection = memo(({
   pathname,
   onLinkClick 
 }: { 
-  section: MobileSection; 
+  section: NavigationSection; 
   isOpen: boolean; 
   onToggle: () => void;
   pathname: string;
@@ -370,10 +314,9 @@ export function MainHeader({ className }: MainHeaderProps) {
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
   const pathname = usePathname();
   
-  // Get dynamic tab configuration based on current section
+  // Get dynamic navigation configuration based on current section
   const currentSection = getCompanySection(pathname);
-  const tabConfigs = getTabConfigurations(currentSection);
-  const mobileSections = getMobileSections();
+  const navigationSections = getNavigationSections(currentSection);
 
   // CSS variables for theming
   const cssVars = {
@@ -504,7 +447,7 @@ export function MainHeader({ className }: MainHeaderProps) {
             >
               <nav className="flex flex-col">
                 {/* Collapsible Sections */}
-                {mobileSections.map((section) => (
+                {navigationSections.map((section) => (
                   <MobileCollapsibleSection
                     key={section.id}
                     section={section}
@@ -585,14 +528,14 @@ export function MainHeader({ className }: MainHeaderProps) {
             <div className="flex items-center gap-2 md:gap-4">
               <DropdownMenu>
                 <TriggerWrapper>
-                  {tabConfigs.map((config, index) => (
-                    <Trigger key={index}>{config.trigger}</Trigger>
+                  {navigationSections.map((section, index) => (
+                    <Trigger key={index}>{section.title}</Trigger>
                   ))}
                 </TriggerWrapper>
                 
                 <TabsContainer>
-                  {tabConfigs.map((config, index) => {
-                    const ContentComponent = config.content;
+                  {navigationSections.map((section, index) => {
+                    const ContentComponent = section.content;
                     return (
                       <Tab key={index}>
                         <ContentComponent />
