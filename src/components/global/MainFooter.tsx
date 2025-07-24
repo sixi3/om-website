@@ -58,8 +58,8 @@ const footerSections: FooterSection[] = [
     links: [
       { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
       { title: "Trust & Security", href: "/equal/trust-security" },
-      { title: "Blog", href: "/blog" },
-      { title: "In The News", href: "/blog/in-the-news" },
+      /* { title: "Blog", href: "/blog" },
+      { title: "In The News", href: "/blog/in-the-news" }, */
       { title: "Terms and Conditions", href: "/common/terms-conditions" },
       { title: "Privacy Policy", href: "/common/policies" }
     ]
@@ -124,22 +124,8 @@ export function MainFooter() {
         <div className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
             <p className="text-sm text-gray-600">
-              © {new Date().getFullYear()} Equal. All rights reserved.
+              © {new Date().getFullYear()} Equal Identity Private Limited. All rights reserved.
             </p>
-            <div className="flex space-x-6">
-              <Link 
-                href="/privacy" 
-                className="text-sm text-gray-600 hover:text-[#00b140] transition-colors duration-200"
-              >
-                Privacy Policy
-              </Link>
-              <Link 
-                href="/terms" 
-                className="text-sm text-gray-600 hover:text-[#00b140] transition-colors duration-200"
-              >
-                Terms of Service
-              </Link>
-            </div>
           </div>
         </div>
       </div>

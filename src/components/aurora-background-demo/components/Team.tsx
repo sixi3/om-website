@@ -7,7 +7,7 @@ import {
   METALLIC_BLACK_TEXT_CLASSES, 
   ANIMATION_CONFIG
 } from "../constants";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, LinkedinIcon, Instagram, Linkedin } from "lucide-react";
 
 // ProfileCard Component
 interface ProfileCardProps {
@@ -16,10 +16,11 @@ interface ProfileCardProps {
   title: string;
   description: string;
   imageUrl: string;
-  logos?: Array<{
+  socialLinks?: Array<{
     id: string;
-    src: string;
-    alt: string;
+    platform: string;
+    url: string;
+    icon: React.ReactNode;
   }>;
   className?: string;
 }
@@ -30,7 +31,7 @@ const ProfileCard = React.memo<ProfileCardProps>(({
   title, 
   description, 
   imageUrl, 
-  logos = [],
+  socialLinks = [],
   className = "" 
 }) => {
   const cardVariants = {
@@ -110,45 +111,39 @@ const ProfileCard = React.memo<ProfileCardProps>(({
               {description}
             </p>
             
-            {/* Logos Section - Part of content, revealed on card hover */}
-            {/* Always show logos on mobile, hover on desktop */}
-            {logos.length > 0 && (
+            {/* Social Links Section - Part of content, revealed on card hover */}
+            {/* Always show social links on mobile, hover on desktop */}
+            {socialLinks.length > 0 && (
               <>
                 {/* Mobile: always visible, smaller, with bottom gap */}
                 <div className="flex w-full justify-center items-center gap-x-4 pb-2 block md:hidden">
-                  {logos.map((logo) => (
-                    <div
-                      key={logo.id}
-                      className="relative w-6 h-6 opacity-80"
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.id}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-6 h-6 opacity-80 hover:opacity-100 transition-all duration-200 text-[#00b140] hover:text-[#baff29]"
                     >
-                      <Image
-                        src={logo.src}
-                        alt={logo.alt}
-                        fill
-                        className="object-contain"
-                        sizes="24px"
-                      />
-                    </div>
+                      {social.icon}
+                    </a>
                   ))}
                 </div>
                 {/* Desktop: hover to reveal */}
                 <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 delay-200 pt-4 transform translate-y-2 group-hover:translate-y-0 w-full hidden md:flex justify-center items-center gap-x-8 pb-2">
-                  {logos.map((logo, index) => (
-                    <div
-                      key={logo.id}
-                      className="relative w-8 h-8 opacity-70 hover:opacity-100 transition-all duration-200"
+                  {socialLinks.map((social, index) => (
+                    <a
+                      key={social.id}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-6 h-6 opacity-70 hover:opacity-100 transition-all duration-200 text-slate-600 hover:text-[#00b140]"
                       style={{
                         transitionDelay: `${(index * 0.1) + 0.3}s`
                       }}
                     >
-                      <Image
-                        src={logo.src}
-                        alt={logo.alt}
-                        fill
-                        className="object-contain"
-                        sizes="32px"
-                      />
-                    </div>
+                      {social.icon}
+                    </a>
                   ))}
                 </div>
               </>
@@ -170,10 +165,19 @@ const teamMembers = [
     title: "FOUNDER",
     description: "Keshav Reddy is a seasoned founder with over 15 years of experience in building scalable fintech.",
     imageUrl: "/team-pictures/keshav-reddy.png",
-    logos: [
-      { id: "1", src: "/equal-icon.png", alt: "Equal" },
-      { id: "2", src: "/onemoney-icon.png", alt: "OneMoney" },
-      { id: "3", src: "/verified.svg", alt: "Verified" }
+    socialLinks: [
+      { 
+        id: "linkedin", 
+        platform: "LinkedIn", 
+        url: "https://www.linkedin.com/in/keshavreddy?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", 
+        icon: <LinkedinIcon className="w-full h-full" />
+      },
+      { 
+        id: "instagram", 
+        platform: "Instagram", 
+        url: "https://www.instagram.com/gvkjr?igsh=MTlraHNzYm1ubjNh", 
+        icon: <Instagram className="w-full h-full" />
+      }
     ]
   },
   {
@@ -182,9 +186,13 @@ const teamMembers = [
     title: "CO-FOUNDER",
     description: "A technology veteran with over 15 years of experience in building scalable fintech solutions and driving digital transformation across industries.",
     imageUrl: "/team-pictures/rajeev-ranjan.png",
-    logos: [
-      { id: "1", src: "/equal-icon.png", alt: "Equal" },
-      { id: "2", src: "/onemoney-icon.png", alt: "OneMoney" }
+    socialLinks: [
+      { 
+        id: "linkedin", 
+        platform: "LinkedIn", 
+        url: "https://www.linkedin.com/in/rajeevjranjan?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", 
+        icon: <LinkedinIcon className="w-full h-full" />
+      }
     ]
   },
   {
@@ -193,9 +201,13 @@ const teamMembers = [
     title: "CO-FOUNDER",
     description: "Leading our technical vision with expertise in AI, blockchain, and distributed systems. Previously led engineering teams at top-tier technology companies.",
     imageUrl: "/team-pictures/KP.png",
-    logos: [
-      { id: "1", src: "/equal-icon.png", alt: "Equal" },
-      { id: "2", src: "/verified.svg", alt: "Verified" }
+    socialLinks: [
+      { 
+        id: "linkedin", 
+        platform: "LinkedIn", 
+        url: "https://www.linkedin.com/in/kpatluri?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", 
+        icon: <LinkedinIcon className="w-full h-full" />
+      }
     ]
   },
   {
@@ -204,7 +216,7 @@ const teamMembers = [
     title: "+100 More",
     description: "",
     imageUrl: "",
-    logos: []
+    socialLinks: []
   }
 ];
 
