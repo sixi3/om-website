@@ -14,6 +14,7 @@ const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bo
 export function UseCaseGrid() {
   return (
     <motion.section
+      id="use-cases"
       className="relative w-full py-20 md:py-24"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -51,8 +52,24 @@ export function UseCaseGrid() {
               }
             };
 
+            // Map use case IDs to product page URLs
+            const getProductUrl = (id: string) => {
+              switch (id) {
+                case "hrms":
+                  return "/equal/products/enterprise-hiring";
+                case "gig-economy":
+                  return "/equal/products/gig-hiring";
+                case "bfsi":
+                  return "/equal/products/financial-services";
+                case "staffing":
+                  return "/equal/products/staffing";
+                default:
+                  return `/equal/solutions?tab=${id}`;
+              }
+            };
+
             return (
-              <Link href={`/equal/solutions?tab=${item.id}`} key={item.id} className="block">
+              <Link href={getProductUrl(item.id)} key={item.id} className="block">
                 <BentoGridItem
                   className="group/bento flex flex-col transition-shadow duration-300 hover:shadow-2xl cursor-pointer"
                   title={
@@ -77,7 +94,7 @@ export function UseCaseGrid() {
                     <p className="text-md text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
                       {item.heroHeadline}
                     </p>
-                    <span className="mt-auto inline-flex items-center justify-center rounded-full bg-linear-to-br from-white to-slate-100 border border-b-4 border-slate-200 dark:border-neutral-700 px-4 py-2 text-sm font-medium text-slate-600 group-hover/bento:bg-[#00b140] group-hover/bento:text-[#00b140] transition-colors duration-300">
+                    <span className="mt-auto inline-flex items-center justify-center rounded-full bg-linear-to-br from-white to-slate-100 border border-b-4 border-slate-200 dark:border-neutral-700 px-4 py-2 text-sm font-medium text-slate-600 group-hover/bento:bg-[#00b140] group-hover/bento:text-[#00b140] group-hover/bento:border-[#00b140] transition-colors duration-300">
                       Learn More
                       <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover/bento:translate-x-1" />
                     </span>

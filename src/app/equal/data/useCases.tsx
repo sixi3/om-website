@@ -43,9 +43,9 @@ export interface UseCase {
 export const useCasesData: UseCase[] = [
   {
     id: "hrms",
-    title: "HRMS Integration",
+    title: "Enterprise Hiring",
     icon: <Building size={24} strokeWidth={2} className="text-green-600" />,
-    heroHeadline: "Seamless Background Verification Inside Your HRMS",
+    heroHeadline: "Seamless Background Verification Directly Inside Your HRMS",
     heroSubheadline: "Enable real-time background checks directly within platforms like Darwinbox, Workday, and SAP — no switching, no delays.",
     bestFor: ["Large enterprises", "Existing HR tech stacks", "MSME's"],
     ctas: [

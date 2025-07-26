@@ -95,14 +95,14 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     
     const isCurrentPage = index === filteredSegments.length - 1;
     
-    // Special handling for "products" breadcrumb - link to ProductShowcase section
+    // Special handling for "products" breadcrumb - link to UseCaseGrid section
     let href = currentPath;
     if (segment === "products" && !isCurrentPage) {
-      // Check if we're on a product detail page (like identity-gateway, console)
+      // Check if we're on any product detail page under /equal/products/
       // Use a more deterministic approach to avoid hydration mismatches
-      const hasProductDetailSegment = segments.some(s => s === "identity-gateway" || s === "console");
-      if (hasProductDetailSegment) {
-        href = "/equal#products"; // Link to ProductShowcase section on main Equal page
+      const isEqualProductPage = pathname.startsWith('/equal/products/') && pathname !== '/equal/products';
+      if (isEqualProductPage) {
+        href = "/equal#use-cases"; // Link to UseCaseGrid section on main Equal page
       }
     }
     

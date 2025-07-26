@@ -23,7 +23,7 @@ const HowAAWorks = lazy(() => import("./HowAAWorks").then(module => ({ default: 
 const MoneyOneSection = lazy(() => import("./MoneyOneSection").then(module => ({ default: module.MoneyOneSection })));
 const Solutions = lazy(() => import("@/app/onemoney/sections/Solutions").then(module => ({ default: module.Solutions })));
 const ContactUs = lazy(() => import("@/app/moneyone/sections/ContactUs").then(module => ({ default: module.ContactUs })));
-
+const FOIRSection = lazy(() => import("./FOIRSection").then(module => ({ default: module.FOIRSection })));
 // Loading component
 const SectionLoader = () => (
   <div className="w-full h-64 flex items-center justify-center">
@@ -182,11 +182,12 @@ export default function FinancialServicesHero() {
           />
         </div>
       </section>
-      <GlowingDivider width="3/4" intensity="high" delay={0.2} className="my-12" />
-      <Suspense fallback={<SectionLoader />}>
-        <FinancialServicesStats />
-      </Suspense>
-      <GlowingDivider width="3/4" intensity="high" delay={0.2} className="my-12" />
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
       {/* WHY CHOOSE EQUAL SECTION - CUSTOMIZED FOR FINANCIAL SERVICES */}
       <section className="relative w-full py-12 md:py-20">
         <div className="container px-4 md:px-6 mx-auto">
@@ -253,15 +254,9 @@ export default function FinancialServicesHero() {
           </div>
         </div>
       </section>
-    
-      <GlowingDivider
-        width="3/4"
-        intensity="high"
-        delay={0.2}
-        className="my-12"
-      />
+      <GlowingDivider width="3/4" intensity="high" delay={0.2} className="my-12" />
       <Suspense fallback={<SectionLoader />}>
-        <HowAAWorks/>
+        <FinancialServicesStats />
       </Suspense>
       <GlowingDivider
         width="3/4"
@@ -281,6 +276,15 @@ export default function FinancialServicesHero() {
         className="my-12"
       />
       <Suspense fallback={<SectionLoader />}>
+        <FOIRSection />
+      </Suspense>
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
+      <Suspense fallback={<SectionLoader />}>
         <Solutions />
       </Suspense>
       <GlowingDivider
@@ -292,7 +296,7 @@ export default function FinancialServicesHero() {
       <Suspense fallback={<SectionLoader />}>
         <ContactUs />
       </Suspense>
-      
+              
       </>
     </div>
   );
