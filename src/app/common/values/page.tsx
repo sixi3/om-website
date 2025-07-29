@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import { Rocket, Users, Brain, Shield, Star } from 'lucide-react';
-import { BentoGrid, BentoGridItem } from '@/app/onemoney/components/ui/bento-grid';
 import { BackgroundGrid } from "@/components/ui/background-grid";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { EqualBreadcrumb } from "@/components/ui/breadcrumb";
+import { GlowingDivider } from "@/components/ui/glowing-divider";
 import { MainHeader } from "@/components/global";
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -15,36 +15,31 @@ const ourValues = [
     title: "Founder Mindset, Relentless Execution",
     description: "Take Charge. Think Big. Execute Relentlessly.",
     icon: Rocket,
-    image: "/values/Founder Mindset.png",
-    className: "md:col-span-3"
+    image: "/values/Foundermindset.png",
   },
   {
     title: "Stronger Together, Greater Forever",
     description: "Collaboration is Our Competitive Advantage.",
     icon: Users,
-    image: "/values/Stronger Together.png",
-    className: "md:col-span-3"
+    image: "/values/Strongertogether.png",
   },
   {
     title: "AI for India, Built for Scale",
     description: "Innovate with Purpose. Build for a Billion.",
     icon: Brain,
-    image: "/values/AI for India.png",
-    className: "md:col-span-2"
+    image: "/values/AIforindia.png",
   },
   {
     title: "Privacy Complete, Trust Total",
     description: "Trust is Earned. Privacy is Sacred.",
     icon: Shield,
-    image: "/values/Privacy Complete.png",
-    className: "md:col-span-2"
+    image: "/values/Privacy.png",
   },
   {
     title: "Deliver the Extraordinary",
     description: "Excellence is the Standard, Not the Goal.",
     icon: Star,
-    image: "/values/Deliver the Extraordinary.png",
-    className: "md:col-span-2"
+    image: "/values/Extraordinary.png",
   }
 ];
 
@@ -59,7 +54,7 @@ export default function ValuesPage() {
           <EqualBreadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
         </div>
         
-        <div className="w-full max-w-7xl mx-auto px-4 md:px-6 relative z-10 justify-center items-center">
+        <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 relative z-10 justify-center items-center">
           {/* Hero Section */}
           <div className="text-center my-12 md:my-16">
             <h2 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl mb-6">
@@ -72,30 +67,52 @@ export default function ValuesPage() {
             </p>
           </div>
 
-          {/* Values Section */}
-          <BentoGrid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-6 w-full max-w-none">
+          {/* Values Cards Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             {ourValues.map((item, idx) => {
               const IconComponent = item.icon;
               return (
-                <BentoGridItem
+                <div
                   key={idx}
-                  className={`${item.className} shadow-sm`}
-                  icon={
-                    <div className="p-3 rounded-xl bg-[#00b140] text-white inline-block mb-2">
-                      <IconComponent className="w-6 h-6" />
+                  className="relative group overflow-hidden rounded-2xl shadow-lg "
+                >
+                  {/* Gradient Background */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#baff29]/30 to-white/20 backdrop-blur-md border border-[#2F5734]/10 rounded-2xl" />
+                  
+                  {/* Card Content */}
+                  <div className="relative p-8 flex flex-col h-full min-h-[400px] w-full">
+                    {/* Title */}
+                    <h3 className={`text-lg text-center font-bold mb-6 leading-wide tracking-wide ${metallicBlackTextClasses}`}>
+                      {item.title}
+                    </h3>
+                    
+                    {/* Image */}
+                    <div className="flex justify-center mb-6">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-40 h-40 object-contain"
+                      />
                     </div>
-                  }
-                  title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{item.title}</span>}
-                  description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{item.description}</span>}
-                  image={{
-                    src: item.image,
-                    alt: item.title
-                  }}
-                  imageSize="w-40 h-40 -top-10 -right-10 md:w-40 md:h-40 md:-top-20 md:-right-10 lg:w-40 lg:h-40 lg:-top-15 lg:-right-10 xl:w-40 xl:h-40 xl:-top-15 xl:-right-10 2xl:w-40 2xl:h-40 2xl:-top-10 2xl:-right-10"
-                />
+                    
+                    {/* Glowing Divider */}
+                    <div className="mb-6">
+                      <GlowingDivider 
+                        width="1/2" 
+                        intensity="medium" 
+                        delay={idx * 0.1}
+                      />
+                    </div>
+                    
+                    {/* Description */}
+                    <p className="text-[#2F5734] font-medium text-md text-center leading-relaxed flex-grow">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
               );
             })}
-          </BentoGrid>
+          </div>
         </div>
       </main>
     </AuroraBackground>
