@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { motion, useAnimation, Variants, AnimatePresence } from 'framer-motion';
 import { BarChart, BarElementSlotProps } from '@mui/x-charts/BarChart';
 import { axisClasses } from '@mui/x-charts/ChartsAxis';
@@ -9,6 +9,49 @@ interface AnimatedEODBarChartCardProps {
   onAnimationComplete?: () => void;
   disableAutoRotate?: boolean;
 }
+
+// Performance monitoring hook
+const usePerformanceMode = () => {
+  const [isLowPerformance, setIsLowPerformance] = useState(false);
+  const [isReducedMotion, setIsReducedMotion] = useState(false);
+
+  useEffect(() => {
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setIsReducedMotion(mediaQuery.matches);
+
+    const handleReducedMotionChange = (e: MediaQueryListEvent) => {
+      setIsReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleReducedMotionChange);
+
+    // Check device performance capabilities
+    const checkPerformance = () => {
+      const connection = (navigator as any).connection;
+      const hardwareConcurrency = navigator.hardwareConcurrency || 4;
+      const memory = (performance as any).memory?.usedJSHeapSize || 0;
+      
+      // Determine if device is low performance
+      const isLowPerf = (
+        connection?.effectiveType === 'slow-2g' ||
+        connection?.effectiveType === '2g' ||
+        hardwareConcurrency <= 2 ||
+        memory > 50 * 1024 * 1024 // 50MB threshold
+      );
+      
+      setIsLowPerformance(isLowPerf);
+    };
+
+    checkPerformance();
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleReducedMotionChange);
+    };
+  }, []);
+
+  return { isLowPerformance, isReducedMotion };
+};
 
 // EOD Balance data structure
 interface EODDataPoint {
@@ -26,12 +69,13 @@ const eodData: EODDataPoint[] = [
   { month: 'Jun 23', balance: 130000 },
 ];
 
+// Simplified animations for lower-powered devices
 const cardVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.4, ease: 'easeOut' },
+    transition: { duration: 0.3, ease: 'easeOut' },
   },
 };
 
@@ -40,13 +84,13 @@ const headerItemVariants: Variants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: 0.2 + i * 0.1, duration: 0.4, ease: 'easeOut' },
+    transition: { delay: 0.1 + i * 0.05, duration: 0.3, ease: 'easeOut' },
   }),
 };
 
 const chartContentVariants: Variants = {
   initial: { opacity: 0, x: 20 },
-  animate: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  animate: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" } },
   exit: { opacity: 0, x: -20, transition: { duration: 0.2, ease: "easeIn" } },
 };
 
@@ -55,7 +99,7 @@ const notificationVariants: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { delay: 0.8, duration: 0.4, ease: 'easeOut' },
+    transition: { delay: 0.6, duration: 0.3, ease: 'easeOut' },
   },
 };
 
@@ -108,19 +152,55 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
   const [clientLastUpdated, setClientLastUpdated] = useState('');
   const [animationCycle, setAnimationCycle] = useState(0);
 
+  const { isLowPerformance, isReducedMotion } = usePerformanceMode();
+  const shouldDisableAnimations = isLowPerformance || isReducedMotion;
+
   const onCompleteTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Memoize expensive computations
+  const chartSetting = useMemo(() => ({
+    height: 320,
+    margin: { top: 20, right: 20, bottom: 20, left: 5 },
+  }), []);
+
+  const formatYAxisLabel = useCallback((value: number): string => {
+    if (value >= 100000) {
+      return `₹${(value / 100000).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 1 })}L`;
+    } else if (value >= 1000) {
+      return `₹${(value / 1000).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 1 })}K`;
+    }
+    return `₹${value.toLocaleString()}`;
+  }, []);
+
+  const legendItemVariants: Variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: (i: number) => ({
+        opacity: 1,
+        y: 0,
+        transition: { delay: shouldDisableAnimations ? 0.1 : 0.8 + i * 0.05, duration: 0.3 }
+    }),
+  };
+
+  const footerItemVariants: Variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { delay: shouldDisableAnimations ? 0.2 : 1.2, duration: 0.3 }
+    }
+  };
 
   useEffect(() => {
     setIsClient(true);
     setClientLastUpdated(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' }));
   }, []);
 
-  const getAnimationDelay = (baseDelay: number) => {
-    return animationCycle > 0 ? baseDelay * 0.5 : baseDelay; 
-  };
+  const getAnimationDelay = useCallback((baseDelay: number) => {
+    return shouldDisableAnimations ? baseDelay * 0.2 : animationCycle > 0 ? baseDelay * 0.5 : baseDelay; 
+  }, [shouldDisableAnimations, animationCycle]);
 
   useEffect(() => {
-    const maxAnimationDuration = 3.0; // Total animation duration
+    const maxAnimationDuration = shouldDisableAnimations ? 1.0 : 2.0; // Reduced duration for low performance
 
     const animateCardAndChart = async () => {
       await cardControls.start('visible');
@@ -139,67 +219,35 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
     return () => {
       if (onCompleteTimerRef.current) clearTimeout(onCompleteTimerRef.current);
     };
-  }, [cardControls, onAnimationComplete, animationCycle]);
-
-  const formatYAxisLabel = (value: number): string => {
-    if (value >= 100000) {
-      return `₹${(value / 100000).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 1 })}L`;
-    } else if (value >= 1000) {
-      return `₹${(value / 1000).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 1 })}K`;
-    }
-    return `₹${value.toLocaleString()}`;
-  };
-
-  const chartSetting = {
-    height: 320,
-    margin: { top: 20, right: 20, bottom: 20, left: 5 },
-  };
-
-  const legendItemVariants: Variants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: (i: number) => ({
-        opacity: 1,
-        y: 0,
-        transition: { delay: 1.2 + i * 0.1, duration: 0.3 }
-    }),
-  };
-
-  const footerItemVariants: Variants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { delay: 1.5, duration: 0.3 }
-    }
-  };
+  }, [cardControls, onAnimationComplete, animationCycle, shouldDisableAnimations]);
 
   return (
     <motion.div
-      className="bg-background/70 backdrop-blur-md dark:bg-neutral-900 rounded-xl shadow-lg overflow-hidden max-w-xl mx-auto flex flex-col"
-      variants={cardVariants}
-      initial="hidden"
-      animate={cardControls}
+      className="bg-background/70 backdrop-blur-md dark:bg-neutral-900 rounded-xl shadow-lg overflow-visible max-w-xl mx-auto flex flex-col"
+      variants={shouldDisableAnimations ? {} : cardVariants}
+      initial={shouldDisableAnimations ? undefined : "hidden"}
+      animate={shouldDisableAnimations ? undefined : cardControls}
     >
       {/* Header Section */}
       <div className="p-4 border-b border-slate-200 dark:border-neutral-800">
         <div className="flex justify-between items-center">
           <motion.h3
             custom={0}
-            variants={headerItemVariants}
-            initial="hidden"
-            animate={cardControls}
+            variants={shouldDisableAnimations ? {} : headerItemVariants}
+            initial={shouldDisableAnimations ? undefined : "hidden"}
+            animate={shouldDisableAnimations ? undefined : cardControls}
             className="text-md lg:text-lg font-medium text-slate-800 dark:text-neutral-200"
           >
-            Monthly Average EOD Balance
+            Average EOD Balance
           </motion.h3>
         </div>
       </div>
 
       {/* Notification Banner */}
       <motion.div
-        variants={notificationVariants}
-        initial="hidden"
-        animate="visible"
+        variants={shouldDisableAnimations ? {} : notificationVariants}
+        initial={shouldDisableAnimations ? undefined : "hidden"}
+        animate={shouldDisableAnimations ? undefined : "visible"}
         className="px-4 pt-3 mb-2"
       >
         <div className="flex items-center p-2">
@@ -214,9 +262,9 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
 
       <motion.div
         custom={1}
-        variants={headerItemVariants}
-        initial="hidden"
-        animate={cardControls}
+        variants={shouldDisableAnimations ? {} : headerItemVariants}
+        initial={shouldDisableAnimations ? undefined : "hidden"}
+        animate={shouldDisableAnimations ? undefined : cardControls}
         className="px-4 pt-1 mb-4"
       >
         <p className="text-sm text-slate-600 dark:text-neutral-400">
@@ -225,15 +273,15 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
       </motion.div>
 
       {/* Bar Chart Section */}
-      <div className="pt-2 pb-0 min-h-[320px] px-2">
+      <div className="pt-2 pb-4 min-h-[340px] px-2">
         <AnimatePresence mode="wait">
           <motion.div
             key={`eod-chart-${animationCycle}`}
-            variants={chartContentVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="w-full min-h-[320px]"
+            variants={shouldDisableAnimations ? {} : chartContentVariants}
+            initial={shouldDisableAnimations ? undefined : "initial"}
+            animate={shouldDisableAnimations ? undefined : "animate"}
+            exit={shouldDisableAnimations ? undefined : "exit"}
+            className="w-full min-h-[340px]"
           >
             {isClient && eodData && eodData.length > 0 && (
               <div className="relative w-full">
@@ -289,7 +337,7 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
                   {...chartSetting}
                   slots={{ bar: BarWithTopRadius }}
                   borderRadius={5} 
-                  skipAnimation={false}
+                  skipAnimation={shouldDisableAnimations}
                   hideLegend
                 />
                 
@@ -300,7 +348,7 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
                       key={item.month}
                       className="flex-1 flex justify-center"
                     >
-                      <div className="bg-slate-200 text-slate-600 text-xs font-semibold px-2 py-1 rounded-xl">
+                      <div className="bg-slate-200 text-slate-600 text-[10px] md:text-xs font-semibold px-1 md:px-2 py-0.5 py-1 rounded-xl">
                         ₹{(item.balance / 1000).toFixed(0)}K
                       </div>
                     </div>
@@ -309,7 +357,7 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
               </div>
             )}
             {(!isClient || !eodData || eodData.length === 0) && (
-              <div className="w-full min-h-[320px] flex items-center justify-center">
+              <div className="w-full min-h-[340px] flex items-center justify-center">
                 <p className="text-slate-500">Loading chart data...</p>
               </div>
             )}
@@ -319,7 +367,7 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
 
       {/* Custom Legend Section */}
       <motion.div 
-        className="flex justify-center items-center space-x-6 pb-4"
+        className="flex justify-center items-center space-x-6 pb-6"
         initial="hidden"
         animate="visible"
         variants={{
@@ -327,8 +375,8 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
             visible: {
                 opacity: 1,
                 transition: { 
-                    delayChildren: 1.2,
-                    staggerChildren: 0.1 
+                    delayChildren: shouldDisableAnimations ? 0.1 : 0.8,
+                    staggerChildren: shouldDisableAnimations ? 0.05 : 0.1 
                 }
             }
         }}
@@ -348,7 +396,7 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
       </motion.div>
 
       {/* Last Updated Footer */}
-      <div className="p-4 dark:bg-neutral-800/30">
+      <div className="p-4 pb-6 dark:bg-neutral-800/30">
         <motion.div 
           className="flex justify-between items-center"
           initial="hidden"

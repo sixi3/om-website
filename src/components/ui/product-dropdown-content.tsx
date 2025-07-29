@@ -67,8 +67,8 @@ const productSections: ProductSection[] = [
         href: "/moneyone/products/finshare"
       },
       {
-        id: "financial-analytics",
-        title: "Financial Analytics",
+        id: "financial-services",
+        title: "Financial Services",
         description: "Gain in-depth insights into financial history",
         image: {
           src: "/Mobile UX.png",
@@ -76,7 +76,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/solutions/financial-services#moneyone-section"
+        href: "/moneyone/financial-services"
       }
     ]
   },
@@ -109,9 +109,9 @@ const productSections: ProductSection[] = [
         href: "/equal/products/gig-hiring"
       },
       {
-        id: "Financial Services",
-        title: "Financial Services",
-        description: "Get powerful insights from financial data, powered by AI",
+        id: "Financial Analytics",
+        title: "Financial Analytics",
+        description: "Get powerful insights from financial data",
         image: {
           src: "/Financial Analytics.png",
           alt: "Financial Services",

@@ -40,7 +40,7 @@ const solutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/solutions/financial-services"
+        href: "/moneyone/financial-services"
       },
       {
         id: "Employee Verification",
@@ -76,7 +76,7 @@ const solutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/solutions/financial-services#moneyone-section"
+        href: "/moneyone/financial-services#moneyone-section"
       },
     ]
   }

@@ -32,8 +32,8 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 
 const financialReasons = [
   {
-    title: "India’s Largest AA Platform",
-    description: "Powering 120+ FIPs and 50% of all Account Aggregator traffic in India.",
+    title: "Real-Time Income Verification",
+    description: "Verify salaried and self-employed income instantly with categorised bank transaction data. No document uploads. No waiting. Just real, up-to-date financial proof",
     image: {
       src: "/Collect Now, Verify Later.png",
       alt: "Account Aggregator"
@@ -41,8 +41,8 @@ const financialReasons = [
     icon: <CreditCard size={20} className="text-white" />
   },
   {
-    title: "Consent-Driven Data Sharing",
-    description: "Empower users with secure, consent-based access to their financial data.",
+    title: "Spending Pattern Insights",
+    description: "Assess affordability with categorized expense analysis and monthly cash flow tracking. Identify high-risk spending behavior or financial strain at a glance",
     image: {
       src: "/Secure Consent Capture.png",
       alt: "Consent Driven"
@@ -50,8 +50,8 @@ const financialReasons = [
     icon: <ShieldCheck size={20} className="text-white" />
   },
   {
-    title: "AI-Powered Financial Analytics",
-    description: "Unlock actionable insights with advanced analytics and reporting tools.",
+    title: "Liability & Loan Exposure Detection",
+    description: "Detect ongoing EMIs, credit card payments, and existing liabilities from bank statements. Get a full picture of financial obligations—no guesswork involved",
     image: {
       src: "/Financial Analytics.png",
       alt: "Financial Analytics"
@@ -59,8 +59,8 @@ const financialReasons = [
     icon: <Zap size={20} className="text-white" />
   },
   {
-    title: "Compliant & Secure",
-    description: "RBI, SEBI, IRDAI compliant. ISO 27001, SOC 2, and GDPR-ready infrastructure.",
+    title: "Custom Risk Scoring & Financial Health Index",
+    description: "AI-powered scoring models built on verified transactional data. Use Equal's insights to build trust and automate approval logic.",
     image: {
       src: "/Role-based Access Control.png",
       alt: "Compliance"
@@ -115,17 +115,19 @@ export default function FinancialServicesHero() {
                   width={24}
                   height={24}
                 />
-                <span>India’s Most Trusted Financial Data Infrastructure</span>
+                <span>Intelligence That Builds Trust</span>
               </span>
               <h1 className="text-4xl tracking-tight leading-tight sm:text-8xl md:text-4xl lg:text-5xl xl:text-7xl">
-                <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">Comprehensive</span>{" "}
-                <span className={metallicBlackTextClasses}>
-                  Financial Suite
+              <span className={metallicBlackTextClasses}>
+                  Unlock
                 </span>{" "}
-                <span className={metallicBlackTextClasses}>for All</span>
+                <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">Deeper</span>{" "}
+                <span className={metallicBlackTextClasses}>
+                  Financial Insights
+                </span>
               </h1>
               <p className="font-medium text-lg sm:text-md text-slate-600 dark:text-slate-300 mb-4">
-                Empowering financial institutions with secure, consent-driven data access and analytics.
+              Real-time analytics, intelligent summaries, and risk signals to help you verify financial health with clarity and confidence
               </p>
             </div>
             
@@ -214,13 +216,13 @@ export default function FinancialServicesHero() {
                       <span className="text-lg font-semibold">{item.title}</span>
                     </div>
                   }
-                  description={<p className="text-md text-slate-600 dark:text-slate-300 leading-relaxed">{item.description}</p>}
+                  description={<p className="text-md text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">{item.description}</p>}
                   image={{
                     src: item.image.src,
                     alt: item.image.alt
                   }}
                   imagePosition="top-right"
-                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
+                  imageSize="w-32 h-32 top-[-20px] right-[-30px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-48 xl:h-48 xl:top-[-30px] xl:right-[-50px]"
                 />
               ))}
             </BentoGrid>
@@ -238,13 +240,13 @@ export default function FinancialServicesHero() {
                       <span className="text-lg font-semibold">{item.title}</span>
                     </div>
                   }
-                  description={<p className="text-md text-slate-600 dark:text-slate-300 leading-relaxed">{item.description}</p>}
+                  description={<p className="text-md text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">{item.description}</p>}
                   image={{
                     src: item.image.src,
                     alt: item.image.alt
                   }}
                   imagePosition="top-right"
-                  imageSize="w-24 h-24 top-[-20px] right-[-10px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-32 xl:h-32 xl:top-[-30px] xl:right-[-20px]"
+                  imageSize="w-32 h-32 top-[-40px] right-[-20px] md:w-20 md:h-20 md:top-[-10px] md:right-[-5px] xl:w-48 xl:h-48 xl:top-[-30px] xl:right-[-50px]"
                 />
               ))}
             </BentoGrid>

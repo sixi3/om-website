@@ -33,12 +33,13 @@ const footerSections: FooterSection[] = [
       { title: "OneMoney AA", href: "/onemoney" },
       { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
       { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
-      { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" },
+      { title: "Financial Services", href: "/moneyone/financial-services" },
       // Employment Section
       { title: "Employment", href: "#", isSubheading: true },
-      { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
-      { title: "Gig Hiring", href: "/equal/solutions/gig-hiring" },
-      { title: "Staffing & Contract", href: "/equal/solutions/staffing" },
+      { title: "Enterprise Hiring", href: "/equal/products/enterprise-hiring" },
+      { title: "Gig Hiring", href: "/equal/products/gig-hiring" },
+      { title: "Financial Analytics", href: "/equal/products/financial-services" },
+      { title: "Staffing & Contract", href: "/equal/products/staffing" },
       // Consumer Section
       { title: "Consumer", href: "#", isSubheading: true },
       { title: "Equal AI", href: "/equal" }
@@ -47,10 +48,10 @@ const footerSections: FooterSection[] = [
   {
     title: "SOLUTIONS",
     links: [
-      { title: "Financial Services", href: "/equal/solutions/financial-services" },
+      { title: "Financial Services", href: "/moneyone/financial-services" },
       { title: "Employee Verification", href: "/equal/solutions" },
       { title: "Identity Verification", href: "/equal" },
-      { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" }
+      { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section" }
     ]
   },
   {

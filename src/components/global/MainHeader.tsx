@@ -31,13 +31,21 @@ interface MainHeaderProps {
   className?: string;
 }
 
-// Company section detection and unified navigation configuration
+// Company section detection and tab configurations
 type CompanySection = 'equal' | 'moneyone' | 'onemoney' | 'default';
 
-interface NavigationSection {
+interface TabConfig {
+  trigger: string;
+  content: React.ComponentType;
+  mobileLinks: Array<{
+    title: string;
+    href: string;
+  }>;
+}
+
+interface MobileSection {
   id: string;
   title: string;
-  content: React.ComponentType;
   links: Array<{
     title: string;
     href: string;
@@ -76,57 +84,53 @@ const getHomeUrl = (section: CompanySection): string => {
   }
 };
 
-const getNavigationSections = (section: CompanySection): NavigationSection[] => {
-  // Unified navigation configuration that works across all company sections
-  const unifiedConfig: NavigationSection[] = [
+const getTabConfigurations = (section: CompanySection): TabConfig[] => {
+  // Unified base configuration that works across all company sections
+  const unifiedConfig: TabConfig[] = [
     {
-      id: "about",
-      title: "ABOUT US",
+      trigger: "ABOUT US",
       content: WhyEqualDropdownContent,
-      links: [
-        { title: "Vision", href: "/common/vision-mission" },
-        { title: "Leadership", href: "/common/leadership" },
+      mobileLinks: [
         { title: "Team", href: "/common/team" },
+        { title: "Vision & Mission", href: "/common/vision-mission" },
+        { title: "Leadership", href: "/common/leadership" },
         { title: "Values", href: "/equal/values" }
       ]
     },
     {
-      id: "products",
-      title: "PRODUCTS", 
+      trigger: "PRODUCTS", 
       content: ProductDropdownContent,
-      links: [
+      mobileLinks: [
         // BFSI Section
         { title: "OneMoney AA", href: "/onemoney" },
         { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
         { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
-        { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" },
+        { title: "Financial Services", href: "/moneyone/financial-services" },
         // Employment Section
-        { title: "Enterprise Hiring", href: "/equal/solutions/enterprise-hiring" },
-        { title: "Gig Hiring", href: "/equal/solutions/gig-hiring" },
-        { title: "Financial Services", href: "/equal/solutions/financial-services" },
-        { title: "Staffing & Contract", href: "/equal/solutions/staffing" }
+        { title: "Enterprise Hiring", href: "/equal/products/enterprise-hiring" },
+        { title: "Gig Hiring", href: "/equal/products/gig-hiring" },
+        { title: "Financial Analytics", href: "/equal/products/financial-services" },
+        { title: "Staffing & Contract", href: "/equal/products/staffing" }
       ]
     },
     {
-      id: "solutions",
-      title: "SOLUTIONS",
+      trigger: "SOLUTIONS",
       content: SolutionsDropdownContent,
-      links: [
-        { title: "Financial Services", href: "/equal/solutions/financial-services" },
+      mobileLinks: [
+        { title: "Financial Services", href: "/moneyone/financial-services" },
         { title: "Employee Verification", href: "/equal/solutions" },
         { title: "Identity Verification", href: "/equal" },
-        { title: "Financial Analytics", href: "/equal/solutions/financial-services#moneyone-section" }
+        { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section" }
       ]
     },
     {
-      id: "resources",
-      title: "RESOURCES",
+      trigger: "RESOURCES",
       content: ResourcesDropdownContent,
-      links: [
+      mobileLinks: [
         { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
         { title: "Trust & Security", href: "/equal/trust-security" },
-        /* { title: "Blog", href: "/blog" }, */
-        /* { title: "In The News", href: "/blog/in-the-news" }, */
+        { title: "Blog", href: "/blog" },
+        { title: "In The News", href: "/blog/in-the-news" },
         { title: "Terms and Conditions", href: "/common/terms-conditions" },
         { title: "Privacy Policy", href: "/common/policies" }
       ]
@@ -135,6 +139,58 @@ const getNavigationSections = (section: CompanySection): NavigationSection[] => 
 
   return unifiedConfig;
 };
+
+// Mobile sections in the requested order - updated to match desktop dropdown content
+const getMobileSections = (): MobileSection[] => [
+  {
+    id: "about",
+    title: "ABOUT US",
+    links: [
+      { title: "Team", href: "/common/team" },
+      { title: "Vision & Mission", href: "/common/vision-mission" },
+      { title: "Leadership", href: "/common/leadership" },
+      { title: "Values", href: "/equal/values" }
+    ]
+  },
+  {
+    id: "products",
+    title: "PRODUCTS",
+    links: [
+      // BFSI Section
+      { title: "OneMoney AA", href: "/onemoney" },
+      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
+      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
+      { title: "Financial Services", href: "/moneyone/financial-services" },
+      // Employment Section
+      { title: "Enterprise Hiring", href: "/equal/products/enterprise-hiring" },
+      { title: "Gig Hiring", href: "/equal/products/gig-hiring" },
+      { title: "Financial Analytics", href: "/equal/products/financial-services" },
+      { title: "Staffing & Contract", href: "/equal/products/staffing" }
+    ]
+  },
+  {
+    id: "solutions",
+    title: "SOLUTIONS",
+    links: [
+      { title: "Financial Services", href: "/moneyone/financial-services" },
+      { title: "Employee Verification", href: "/equal/solutions" },
+      { title: "Identity Verification", href: "/equal" },
+      { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section" }
+    ]
+  },
+  {
+    id: "resources",
+    title: "RESOURCES",
+    links: [
+      { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
+      { title: "Trust & Security", href: "/equal/trust-security" },
+      { title: "Blog", href: "/blog" },
+      { title: "In The News", href: "/blog/in-the-news" },
+      { title: "Terms and Conditions", href: "/common/terms-conditions" },
+      { title: "Privacy Policy", href: "/common/policies" }
+    ]
+  }
+];
 
 // Animated hamburger menu component
 const AnimatedHamburger = memo(({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) => (
@@ -180,7 +236,7 @@ const MobileCollapsibleSection = memo(({
   pathname,
   onLinkClick 
 }: { 
-  section: NavigationSection; 
+  section: MobileSection; 
   isOpen: boolean; 
   onToggle: () => void;
   pathname: string;
@@ -314,9 +370,10 @@ export function MainHeader({ className }: MainHeaderProps) {
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
   const pathname = usePathname();
   
-  // Get dynamic navigation configuration based on current section
+  // Get dynamic tab configuration based on current section
   const currentSection = getCompanySection(pathname);
-  const navigationSections = getNavigationSections(currentSection);
+  const tabConfigs = getTabConfigurations(currentSection);
+  const mobileSections = getMobileSections();
 
   // CSS variables for theming
   const cssVars = {
@@ -421,8 +478,8 @@ export function MainHeader({ className }: MainHeaderProps) {
                     ? "MoneyOne Logo"
                     : "Equal Logo"
                 }
-                width={0}
-                height={0}
+                width={71}
+                height={21}
                 className="h-8 md:h-10 w-auto"
                 priority
               />
@@ -447,7 +504,7 @@ export function MainHeader({ className }: MainHeaderProps) {
             >
               <nav className="flex flex-col">
                 {/* Collapsible Sections */}
-                {navigationSections.map((section) => (
+                {mobileSections.map((section) => (
                   <MobileCollapsibleSection
                     key={section.id}
                     section={section}
@@ -515,8 +572,8 @@ export function MainHeader({ className }: MainHeaderProps) {
                     ? "MoneyOne Logo"
                     : "Equal Logo"
                 }
-                width={0}
-                height={0}
+                width={71}
+                height={21}
                 className="h-8 md:h-10 w-auto"
                 priority
               />
@@ -528,14 +585,14 @@ export function MainHeader({ className }: MainHeaderProps) {
             <div className="flex items-center gap-2 md:gap-4">
               <DropdownMenu>
                 <TriggerWrapper>
-                  {navigationSections.map((section, index) => (
-                    <Trigger key={index}>{section.title}</Trigger>
+                  {tabConfigs.map((config, index) => (
+                    <Trigger key={index}>{config.trigger}</Trigger>
                   ))}
                 </TriggerWrapper>
                 
                 <TabsContainer>
-                  {navigationSections.map((section, index) => {
-                    const ContentComponent = section.content;
+                  {tabConfigs.map((config, index) => {
+                    const ContentComponent = config.content;
                     return (
                       <Tab key={index}>
                         <ContentComponent />

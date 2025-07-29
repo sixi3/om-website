@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { motion, useAnimation, Variants, AnimatePresence } from 'framer-motion';
 import { BarChart, BarElementSlotProps } from '@mui/x-charts/BarChart';
 import { LineChart } from '@mui/x-charts/LineChart';
@@ -10,6 +10,49 @@ interface AnimatedFOIRChartCardProps {
   onAnimationComplete?: () => void;
   disableAutoRotate?: boolean;
 }
+
+// Performance monitoring hook
+const usePerformanceMode = () => {
+  const [isLowPerformance, setIsLowPerformance] = useState(false);
+  const [isReducedMotion, setIsReducedMotion] = useState(false);
+
+  useEffect(() => {
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setIsReducedMotion(mediaQuery.matches);
+
+    const handleReducedMotionChange = (e: MediaQueryListEvent) => {
+      setIsReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleReducedMotionChange);
+
+    // Check device performance capabilities
+    const checkPerformance = () => {
+      const connection = (navigator as any).connection;
+      const hardwareConcurrency = navigator.hardwareConcurrency || 4;
+      const memory = (performance as any).memory?.usedJSHeapSize || 0;
+      
+      // Determine if device is low performance
+      const isLowPerf = (
+        connection?.effectiveType === 'slow-2g' ||
+        connection?.effectiveType === '2g' ||
+        hardwareConcurrency <= 2 ||
+        memory > 50 * 1024 * 1024 // 50MB threshold
+      );
+      
+      setIsLowPerformance(isLowPerf);
+    };
+
+    checkPerformance();
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleReducedMotionChange);
+    };
+  }, []);
+
+  return { isLowPerformance, isReducedMotion };
+};
 
 // Duration selector options
 const durationTabs = [
@@ -60,12 +103,13 @@ const getFOIRDataForDuration = (durationId: string): FOIRDataPoint[] => {
   }
 };
 
+// Simplified animations for lower-powered devices
 const cardVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.4, ease: 'easeOut' },
+    transition: { duration: 0.3, ease: 'easeOut' },
   },
 };
 
@@ -74,13 +118,13 @@ const headerItemVariants: Variants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: 0.2 + i * 0.1, duration: 0.4, ease: 'easeOut' },
+    transition: { delay: 0.1 + i * 0.05, duration: 0.3, ease: 'easeOut' },
   }),
 };
 
 const chartContentVariants: Variants = {
   initial: { opacity: 0, x: 20 },
-  animate: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  animate: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" } },
   exit: { opacity: 0, x: -20, transition: { duration: 0.2, ease: "easeIn" } },
 };
 
@@ -135,8 +179,63 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
   const [clientLastUpdated, setClientLastUpdated] = useState('');
   const [cycleCount, setCycleCount] = useState(0);
 
+  const { isLowPerformance, isReducedMotion } = usePerformanceMode();
+  const shouldDisableAnimations = isLowPerformance || isReducedMotion;
+
   const durationAnimationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const mountedRef = useRef(false);
+
+  // Memoize expensive computations
+  const chartSetting = useMemo(() => ({
+    height: 320,
+    margin: { top: 20, right: 20, bottom: 20, left: 5 },
+  }), []);
+
+  const formatYAxisLabel = useCallback((value: number): string => {
+    if (value >= 100000) {
+      return `₹${(value / 100000).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 1 })}L`;
+    } else if (value >= 1000) {
+      return `₹${(value / 1000).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 1 })}K`;
+    }
+    return `₹${value.toLocaleString()}`;
+  }, []);
+
+  // Transform data for the combined chart with FOIR percentage
+  const transformedChartData = useMemo(() => 
+    chartData.map(item => ({
+      month: item.month,
+      inflow: item.inflow,
+      outflow: item.outflow,
+      foirPercentage: Math.round((item.outflow / item.inflow) * 100),
+    })), [chartData]
+  );
+
+  const barSeries = useMemo(() => [
+    { dataKey: 'inflow', label: 'Inflow', color: '#166534' }, // dark green
+    { dataKey: 'outflow', label: 'Outflow', color: '#22c55e' }, // light green
+  ], []);
+
+  // Calculate delays for animations
+  const legendAnimationDelayStart = shouldDisableAnimations ? 0.3 : 0.7 + 0.2; // After chart content animates in
+  const footerAnimationDelayStart = legendAnimationDelayStart + (barSeries.length) * 0.1 + 0.1;
+
+  const legendItemVariants: Variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: (i: number) => ({
+        opacity: 1,
+        y: 0,
+        transition: { delay: legendAnimationDelayStart + i * 0.1, duration: 0.3 }
+    }),
+  };
+
+  const footerItemVariants: Variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { delay: footerAnimationDelayStart, duration: 0.3 }
+    }
+  };
 
   useEffect(() => {
     setIsClient(true);
@@ -151,8 +250,6 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
       }
     };
   }, []);
-
-
 
   useEffect(() => {
     cardControls.start('visible');
@@ -175,9 +272,9 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
       durationAnimationTimeoutRef.current = null; 
     }
 
-    const currentDurationDisplayTime = 3000;
+    const currentDurationDisplayTime = shouldDisableAnimations ? 2000 : 3000;
 
-    if (disableAutoRotate) {
+    if (disableAutoRotate || shouldDisableAnimations) {
       if (cycleCount === 0 && onAnimationComplete) {
         durationAnimationTimeoutRef.current = setTimeout(() => {
           if (mountedRef.current) {
@@ -216,10 +313,10 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
         durationAnimationTimeoutRef.current = null;
       }
     };
-  }, [activeDuration, disableAutoRotate, onAnimationComplete, cycleCount, isClient]);
+  }, [activeDuration, disableAutoRotate, onAnimationComplete, cycleCount, isClient, shouldDisableAnimations]);
 
   // Manual duration change function for button clicks
-  const handleManualDurationChange = (durationId: string) => {
+  const handleManualDurationChange = useCallback((durationId: string) => {
     if (!mountedRef.current) return;
     // Clear any ongoing automatic duration switching timer
     if (durationAnimationTimeoutRef.current) {
@@ -229,76 +326,23 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
     // Reset cycleCount on manual change
     setCycleCount(0); 
     setActiveDuration(durationId);
-  };
-
-  const formatYAxisLabel = (value: number): string => {
-    if (value >= 100000) {
-      return `₹${(value / 100000).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 1 })}L`;
-    } else if (value >= 1000) {
-      return `₹${(value / 1000).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 1 })}K`;
-    }
-    return `₹${value.toLocaleString()}`;
-  };
-
-
-
-  const chartSetting = {
-    height: 320,
-    margin: { top: 20, right: 20, bottom: 20, left: 5 },
-  };
-
-  const legendItemVariants: Variants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: (i: number) => ({
-        opacity: 1,
-        y: 0,
-        transition: { delay: 0.7 + i * 0.15, duration: 0.3 }
-    }),
-  };
-
-
-
-  // Transform data for the combined chart with FOIR percentage
-  const transformedChartData = chartData.map(item => ({
-    month: item.month,
-    inflow: item.inflow,
-    outflow: item.outflow,
-    foirPercentage: Math.round((item.outflow / item.inflow) * 100),
-  }));
-
-
-
-  const barSeries = [
-    { dataKey: 'inflow', label: 'Inflow', color: '#166534' }, // dark green
-    { dataKey: 'outflow', label: 'Outflow', color: '#22c55e' }, // light green
-  ];
-
-  // Calculate delays for animations
-  const legendAnimationDelayStart = 0.7 + 0.2; // After chart content animates in
-  const footerAnimationDelayStart = legendAnimationDelayStart + (barSeries.length) * 0.15 + 0.1;
-
-  const footerItemVariants: Variants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { delay: footerAnimationDelayStart, duration: 0.3 }
-    }
-  };
+  }, []);
 
   return (
     <motion.div
-      className="bg-background/70 backdrop-blur-md dark:bg-neutral-900 rounded-xl shadow-lg overflow-hidden max-w-xl mx-auto flex flex-col"
-      variants={cardVariants}
-      initial="hidden"
-      animate={cardControls}
+      className="bg-background/70 backdrop-blur-md dark:bg-neutral-900 rounded-xl shadow-lg overflow-visible max-w-xl mx-auto flex flex-col"
+      variants={shouldDisableAnimations ? {} : cardVariants}
+      initial={shouldDisableAnimations ? undefined : "hidden"}
+      animate={shouldDisableAnimations ? undefined : cardControls}
     >
       {/* Header Section */}
       <div className="p-4 border-b border-slate-200 dark:border-neutral-800">
         <div className="flex justify-between items-center">
           <motion.div
             custom={0}
-            variants={headerItemVariants}
+            variants={shouldDisableAnimations ? {} : headerItemVariants}
+            initial={shouldDisableAnimations ? undefined : "hidden"}
+            animate={shouldDisableAnimations ? undefined : cardControls}
             className="flex items-center space-x-2"
           >
             <h3 className="text-md lg:text-lg font-medium text-slate-800 dark:text-neutral-200">
@@ -306,10 +350,10 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
             </h3>
           </motion.div>
           <motion.div 
-            initial="hidden" 
-            animate={cardControls} 
+            initial={shouldDisableAnimations ? undefined : "hidden"} 
+            animate={shouldDisableAnimations ? undefined : cardControls} 
             custom={1} 
-            variants={headerItemVariants} 
+            variants={shouldDisableAnimations ? {} : headerItemVariants} 
             className="flex"
           >
             <div className="flex space-x-1 bg-slate-400/10 backdrop-blur-md dark:bg-neutral-800 rounded-full p-0.5">
@@ -334,7 +378,9 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
       {/* FOIR Explainer Section */}
       <motion.div
         custom={2}
-        variants={headerItemVariants}
+        variants={shouldDisableAnimations ? {} : headerItemVariants}
+        initial={shouldDisableAnimations ? undefined : "hidden"}
+        animate={shouldDisableAnimations ? undefined : cardControls}
         className="px-4 pt-3 mb-4"
       >
         <div className="text-left">
@@ -345,15 +391,15 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
       </motion.div>
 
       {/* Combined Chart Section */}
-      <div className="pt-2 pb-0 min-h-[320px] px-2">
+      <div className="pt-2 pb-4 min-h-[340px] px-2">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeDuration}
-            variants={chartContentVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="w-full min-h-[320px]"
+            variants={shouldDisableAnimations ? {} : chartContentVariants}
+            initial={shouldDisableAnimations ? undefined : "initial"}
+            animate={shouldDisableAnimations ? undefined : "animate"}
+            exit={shouldDisableAnimations ? undefined : "exit"}
+            className="w-full min-h-[340px]"
           >
             {isClient && transformedChartData && transformedChartData.length > 0 && (
               <div className="relative w-full">
@@ -410,18 +456,18 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
                   {...chartSetting}
                   slots={{ bar: BarWithTopRadius }}
                   borderRadius={5} 
-                  skipAnimation={false}
+                  skipAnimation={shouldDisableAnimations}
                   hideLegend
                 />
                 
                 {/* FOIR Percentage Labels */}
-                <div className="absolute inset-0 pointer-events-none flex justify-between items-start px-8 pt-2 ml-4">
+                <div className="absolute inset-0 pointer-events-none flex justify-between items-start px-8 pt-2 ml-8">
                   {transformedChartData.map((item, index) => (
                     <div
                       key={item.month}
                       className="flex-1 flex justify-center"
                     >
-                      <div className="bg-slate-200 text-slate-600 text-xs font-semibold px-2 py-1 rounded-xl">
+                      <div className="bg-slate-200 text-slate-600 text-[10px] md:text-xs font-semibold px-1 md:px-2 py-0.5 py-1 rounded-xl">
                         {item.foirPercentage}%
                       </div>
                     </div>
@@ -430,7 +476,7 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
               </div>
             )}
             {(!isClient || !transformedChartData || transformedChartData.length === 0) && (
-              <div className="w-full min-h-[320px] flex items-center justify-center">
+              <div className="w-full min-h-[340px] flex items-center justify-center">
                 <p className="text-slate-500">Loading chart data...</p>
               </div>
             )}
@@ -440,7 +486,7 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
 
       {/* Custom Legend Section */}
       <motion.div 
-        className="flex justify-center items-center space-x-6 pb-4"
+        className="flex justify-center items-center space-x-6 pb-6"
         initial="hidden"
         animate="visible"
         variants={{
@@ -449,7 +495,7 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
                 opacity: 1,
                 transition: { 
                     delayChildren: legendAnimationDelayStart,
-                    staggerChildren: 0.15 
+                    staggerChildren: shouldDisableAnimations ? 0.05 : 0.15 
                 }
             }
         }}
@@ -473,14 +519,14 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
       </motion.div>
 
       {/* Last Updated Footer */}
-      <div className="p-4 dark:bg-neutral-800/30">
+      <div className="p-4 pb-6 dark:bg-neutral-800/30">
         <motion.div 
           className="flex justify-between items-center"
           initial="hidden"
           animate="visible"
           variants={footerItemVariants} 
         >
-          <div className="text-xs text-slate-500 dark:text-neutral-400">
+          <div className="text-[10px] md:text-xs text-slate-500 dark:text-neutral-400">
             Last updated: {isClient ? clientLastUpdated : '...'}
           </div>
           <div className="text-xs text-right font-medium text-green-600 dark:text-green-400">
