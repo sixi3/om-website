@@ -16,12 +16,10 @@ import {
   DialogTrigger,
 } from "@/app/onemoney/components/ui/dialog";
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
+import { BackgroundGrid } from "@/components/ui/background-grid";
 
 // Lazy load heavy components
 const FinancialServicesStats = lazy(() => import('./FinancialServicesStats').then(module => ({ default: module.FinancialServicesStats })));
-const HowAAWorks = lazy(() => import("./HowAAWorks").then(module => ({ default: module.HowAAWorks })));
-const MoneyOneSection = lazy(() => import("./MoneyOneSection").then(module => ({ default: module.MoneyOneSection })));
-const Solutions = lazy(() => import("@/app/onemoney/sections/Solutions").then(module => ({ default: module.Solutions })));
 const ContactUs = lazy(() => import("@/app/moneyone/sections/ContactUs").then(module => ({ default: module.ContactUs })));
 const FOIRSection = lazy(() => import("./FOIRSection").then(module => ({ default: module.FOIRSection })));
 // Loading component
@@ -265,27 +263,7 @@ export default function FinancialServicesHero() {
         className="my-12"
       />
       <Suspense fallback={<SectionLoader />}>
-        <div id="moneyone-section">
-        <MoneyOneSection />
-        </div>
-      </Suspense>
-      <GlowingDivider
-        width="3/4"
-        intensity="high"
-        delay={0.2}
-        className="my-12"
-      />
-      <Suspense fallback={<SectionLoader />}>
         <FOIRSection />
-      </Suspense>
-      <GlowingDivider
-        width="3/4"
-        intensity="high"
-        delay={0.2}
-        className="my-12"
-      />
-      <Suspense fallback={<SectionLoader />}>
-        <Solutions />
       </Suspense>
       <GlowingDivider
         width="3/4"

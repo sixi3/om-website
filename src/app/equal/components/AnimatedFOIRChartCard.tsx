@@ -11,22 +11,54 @@ interface AnimatedFOIRChartCardProps {
   disableAutoRotate?: boolean;
 }
 
+// Duration selector options
+const durationTabs = [
+  { id: 'lastmonth', label: 'Last Month' },
+  { id: '3months', label: '3 Months' },
+  { id: '6months', label: '6 Months' },
+];
+
 // FOIR data structure
 interface FOIRDataPoint {
   month: string;
   inflow: number;
   outflow: number;
-  foirPercentage: number;
 }
 
-const foirData: FOIRDataPoint[] = [
-  { month: 'Jan 23', inflow: 60000, outflow: 40000, foirPercentage: 30 },
-  { month: 'Feb 23', inflow: 90000, outflow: 70000, foirPercentage: 30 },
-  { month: 'Mar 23', inflow: 70000, outflow: 60000, foirPercentage: 30 },
-  { month: 'Apr 23', inflow: 70000, outflow: 60000, foirPercentage: 30 },
-  { month: 'May 23', inflow: 70000, outflow: 60000, foirPercentage: 30 },
-  { month: 'Jun 23', inflow: 80000, outflow: 70000, foirPercentage: 40 },
+const foirDataLastMonth: FOIRDataPoint[] = [
+  { month: 'Week 1', inflow: 65000, outflow: 55000 },
+  { month: 'Week 2', inflow: 70000, outflow: 60000 },
+  { month: 'Week 3', inflow: 75000, outflow: 65000 },
+  { month: 'Week 4', inflow: 80000, outflow: 70000 },
 ];
+
+const foirData3Months: FOIRDataPoint[] = [
+  { month: 'Apr 23', inflow: 70000, outflow: 60000 },
+  { month: 'May 23', inflow: 70000, outflow: 60000 },
+  { month: 'Jun 23', inflow: 80000, outflow: 70000 },
+];
+
+const foirData6Months: FOIRDataPoint[] = [
+  { month: 'Jan 23', inflow: 60000, outflow: 40000 },
+  { month: 'Feb 23', inflow: 90000, outflow: 70000 },
+  { month: 'Mar 23', inflow: 70000, outflow: 60000 },
+  { month: 'Apr 23', inflow: 70000, outflow: 60000 },
+  { month: 'May 23', inflow: 70000, outflow: 60000 },
+  { month: 'Jun 23', inflow: 80000, outflow: 70000 },
+];
+
+const getFOIRDataForDuration = (durationId: string): FOIRDataPoint[] => {
+  switch (durationId) {
+    case 'lastmonth':
+      return foirDataLastMonth;
+    case '3months':
+      return foirData3Months;
+    case '6months':
+      return foirData6Months;
+    default:
+      return foirDataLastMonth;
+  }
+};
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95 },
@@ -97,17 +129,107 @@ const BarWithTopRadius = React.forwardRef<
 
 export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate = false }: AnimatedFOIRChartCardProps) => {
   const cardControls = useAnimation();
+  const [activeDuration, setActiveDuration] = useState('lastmonth');
+  const [chartData, setChartData] = useState(() => getFOIRDataForDuration('lastmonth'));
   const [isClient, setIsClient] = useState(false);
   const [clientLastUpdated, setClientLastUpdated] = useState('');
+  const [cycleCount, setCycleCount] = useState(0);
+
+  const durationAnimationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const mountedRef = useRef(false);
 
   useEffect(() => {
     setIsClient(true);
     setClientLastUpdated(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' }));
+    mountedRef.current = true;
+    
+    return () => {
+      mountedRef.current = false;
+      if (durationAnimationTimeoutRef.current) {
+        clearTimeout(durationAnimationTimeoutRef.current);
+        durationAnimationTimeoutRef.current = null;
+      }
+    };
   }, []);
+
+
 
   useEffect(() => {
     cardControls.start('visible');
   }, [cardControls]);
+
+  // Effect to update chart data when activeDuration or isClient changes
+  useEffect(() => {
+    if (!isClient) return;
+    setChartData(getFOIRDataForDuration(activeDuration));
+  }, [activeDuration, isClient]);
+
+  // Effect for auto-rotation and onAnimationComplete callback
+  useEffect(() => {
+    if (!mountedRef.current || !isClient) {
+      return; 
+    }
+
+    if (durationAnimationTimeoutRef.current) {
+      clearTimeout(durationAnimationTimeoutRef.current);
+      durationAnimationTimeoutRef.current = null; 
+    }
+
+    const currentDurationDisplayTime = 3000;
+
+    if (disableAutoRotate) {
+      if (cycleCount === 0 && onAnimationComplete) {
+        durationAnimationTimeoutRef.current = setTimeout(() => {
+          if (mountedRef.current) {
+            onAnimationComplete();
+            setCycleCount(1); 
+          }
+        }, currentDurationDisplayTime);
+      }
+      return; 
+    }
+
+    durationAnimationTimeoutRef.current = setTimeout(() => {
+      if (!mountedRef.current) {
+        return;
+      }
+
+      const currentIndex = durationTabs.findIndex(tab => tab.id === activeDuration);
+      let nextIndex = (currentIndex + 1) % durationTabs.length;
+      
+      let currentCycle = cycleCount;
+      if (nextIndex === 0) { 
+        currentCycle = cycleCount + 1;
+        setCycleCount(currentCycle); 
+      }
+
+      if (currentCycle === 1 && nextIndex === 0 && onAnimationComplete) {
+        onAnimationComplete();
+      }
+      
+      setActiveDuration(durationTabs[nextIndex].id);
+    }, currentDurationDisplayTime);
+
+    return () => {
+      if (durationAnimationTimeoutRef.current) {
+        clearTimeout(durationAnimationTimeoutRef.current);
+        durationAnimationTimeoutRef.current = null;
+      }
+    };
+  }, [activeDuration, disableAutoRotate, onAnimationComplete, cycleCount, isClient]);
+
+  // Manual duration change function for button clicks
+  const handleManualDurationChange = (durationId: string) => {
+    if (!mountedRef.current) return;
+    // Clear any ongoing automatic duration switching timer
+    if (durationAnimationTimeoutRef.current) {
+      clearTimeout(durationAnimationTimeoutRef.current);
+      durationAnimationTimeoutRef.current = null;
+    }
+    // Reset cycleCount on manual change
+    setCycleCount(0); 
+    setActiveDuration(durationId);
+  };
 
   const formatYAxisLabel = (value: number): string => {
     if (value >= 100000) {
@@ -118,13 +240,11 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
     return `₹${value.toLocaleString()}`;
   };
 
-  const formatPercentageLabel = (value: number): string => {
-    return `${value}%`;
-  };
+
 
   const chartSetting = {
-    height: 240,
-    margin: { top: 20, right: 40, bottom: 20, left: 60 },
+    height: 320,
+    margin: { top: 20, right: 20, bottom: 20, left: 5 },
   };
 
   const legendItemVariants: Variants = {
@@ -136,31 +256,35 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
     }),
   };
 
+
+
+  // Transform data for the combined chart with FOIR percentage
+  const transformedChartData = chartData.map(item => ({
+    month: item.month,
+    inflow: item.inflow,
+    outflow: item.outflow,
+    foirPercentage: Math.round((item.outflow / item.inflow) * 100),
+  }));
+
+
+
+  const barSeries = [
+    { dataKey: 'inflow', label: 'Inflow', color: '#166534' }, // dark green
+    { dataKey: 'outflow', label: 'Outflow', color: '#22c55e' }, // light green
+  ];
+
+  // Calculate delays for animations
+  const legendAnimationDelayStart = 0.7 + 0.2; // After chart content animates in
+  const footerAnimationDelayStart = legendAnimationDelayStart + (barSeries.length) * 0.15 + 0.1;
+
   const footerItemVariants: Variants = {
     hidden: { opacity: 0, y: 10 },
     visible: {
         opacity: 1,
         y: 0,
-        transition: { delay: 1.2, duration: 0.3 }
+        transition: { delay: footerAnimationDelayStart, duration: 0.3 }
     }
   };
-
-  // Transform data for the combined chart
-  const chartData = foirData.map(item => ({
-    month: item.month,
-    inflow: item.inflow,
-    outflow: item.outflow,
-    foirPercentage: item.foirPercentage,
-  }));
-
-  const barSeries = [
-    { dataKey: 'inflow', label: 'Inflow: Average End of Day Bank Balance per month', color: '#166534' }, // dark green
-    { dataKey: 'outflow', label: 'Outflow: Average End of Day Bank Balance per month', color: '#22c55e' }, // light green
-  ];
-
-  const lineSeries = [
-    { dataKey: 'foirPercentage', label: 'FOIR Percentage: Average End of Day Bank Balance per month', color: '#6b7280' }, // grey
-  ];
 
   return (
     <motion.div
@@ -177,62 +301,65 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
             variants={headerItemVariants}
             className="flex items-center space-x-2"
           >
-            <div className="w-6 h-6 bg-green-600 rounded flex items-center justify-center">
-              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-              </svg>
-            </div>
             <h3 className="text-md lg:text-lg font-medium text-slate-800 dark:text-neutral-200">
               FOIR Percentage
             </h3>
           </motion.div>
-          <motion.div
-            custom={1}
-            variants={headerItemVariants}
-            className="text-right"
+          <motion.div 
+            initial="hidden" 
+            animate={cardControls} 
+            custom={1} 
+            variants={headerItemVariants} 
+            className="flex"
           >
-            <div className="text-xs text-slate-600 dark:text-neutral-400">
-              DURATION AVAILABLE: January 23 - June 23
-            </div>
-            <div className="text-xs text-slate-600 dark:text-neutral-400">
-              INSIGHT: Less than 40%
+            <div className="flex space-x-1 bg-slate-400/10 backdrop-blur-md dark:bg-neutral-800 rounded-full p-0.5">
+              {durationTabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => handleManualDurationChange(tab.id)}
+                  className={`px-3 py-1 text-xs font-medium rounded-full transition-all ${
+                    activeDuration === tab.id
+                      ? "bg-white dark:bg-neutral-700 text-green-600 dark:text-green-400 shadow-sm"
+                      : "text-slate-600 dark:text-neutral-400 hover:bg-white/50 dark:hover:bg-neutral-700/50"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Insights Section */}
+      {/* FOIR Explainer Section */}
       <motion.div
         custom={2}
         variants={headerItemVariants}
         className="px-4 pt-3 mb-4"
       >
-        <div className="space-y-1">
-          <p className="text-sm text-slate-600 dark:text-neutral-400">
-            • We have detected FOIR(Fixed Obligation to Income Ratio) Percentage less than 40%
-          </p>
-          <p className="text-sm text-slate-600 dark:text-neutral-400">
-            • We have detected FOIR(Fixed Obligation to Income Ratio) Percentage less than 40%
+        <div className="text-left">
+          <p className="text-sm text-slate-600 dark:text-neutral-400 leading-relaxed ">
+            Understand FOIR (Fixed Income to Obligation Ratio) of your users
           </p>
         </div>
       </motion.div>
 
       {/* Combined Chart Section */}
-      <div className="pt-2 pb-0 min-h-[240px]">
+      <div className="pt-2 pb-0 min-h-[320px] px-2">
         <AnimatePresence mode="wait">
           <motion.div
-            key="foir-chart"
+            key={activeDuration}
             variants={chartContentVariants}
             initial="initial"
             animate="animate"
             exit="exit"
-            className="w-full min-h-[240px]"
+            className="w-full min-h-[320px]"
           >
-            {isClient && chartData && chartData.length > 0 && (
-              <div className="relative">
+            {isClient && transformedChartData && transformedChartData.length > 0 && (
+              <div className="relative w-full">
                 {/* Bar Chart */}
                 <BarChart
-                  dataset={chartData}
+                  dataset={transformedChartData}
                   xAxis={[{ 
                     scaleType: 'band', 
                     dataKey: 'month',
@@ -259,6 +386,8 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
                       fill: '#475569',
                     },
                     valueFormatter: formatYAxisLabel,
+                    min: 0,
+                    max: 100000,
                     sx: {
                       [`.${axisClasses.left} .${axisClasses.label}`]: {
                         transform: 'translate(-20px, 0)',
@@ -285,44 +414,23 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
                   hideLegend
                 />
                 
-                {/* Line Chart Overlay */}
-                <div className="absolute inset-0 pointer-events-none">
-                  <LineChart
-                    dataset={chartData}
-                    xAxis={[{ 
-                      scaleType: 'band', 
-                      dataKey: 'month',
-                      sx: {
-                        ".MuiChartsAxis-line": { display: 'none' },
-                        ".MuiChartsAxis-tick": { display: 'none' },
-                        ".MuiChartsAxis-label": { display: 'none' },
-                      }
-                    }]}
-                    yAxis={[{
-                      min: 0,
-                      max: 70,
-                      valueFormatter: formatPercentageLabel,
-                      sx: {
-                        ".MuiChartsAxis-line": { display: 'none' },
-                        ".MuiChartsAxis-tick": { display: 'none' },
-                        ".MuiChartsAxis-label": { display: 'none' },
-                      }
-                    }]}
-                    series={lineSeries.map(s => ({ 
-                      dataKey: s.dataKey, 
-                      label: s.label, 
-                      color: s.color,
-                      curve: 'linear',
-                      strokeDasharray: '5,5',
-                    }))}
-                    {...chartSetting}
-                    hideLegend
-                  />
+                {/* FOIR Percentage Labels */}
+                <div className="absolute inset-0 pointer-events-none flex justify-between items-start px-8 pt-2 ml-4">
+                  {transformedChartData.map((item, index) => (
+                    <div
+                      key={item.month}
+                      className="flex-1 flex justify-center"
+                    >
+                      <div className="bg-slate-200 text-slate-600 text-xs font-semibold px-2 py-1 rounded-xl">
+                        {item.foirPercentage}%
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
-            {(!isClient || !chartData || chartData.length === 0) && (
-              <div className="w-full min-h-[240px] flex items-center justify-center">
+            {(!isClient || !transformedChartData || transformedChartData.length === 0) && (
+              <div className="w-full min-h-[320px] flex items-center justify-center">
                 <p className="text-slate-500">Loading chart data...</p>
               </div>
             )}
@@ -340,7 +448,7 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
             visible: {
                 opacity: 1,
                 transition: { 
-                    delayChildren: 0.7,
+                    delayChildren: legendAnimationDelayStart,
                     staggerChildren: 0.15 
                 }
             }
@@ -353,30 +461,15 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
             custom={index}
             variants={legendItemVariants}
           >
-            <div 
-              className="w-3 h-3 rounded-sm" 
-              style={{ backgroundColor: item.color }}
-            />
-            <span className="text-xs text-slate-600 dark:text-neutral-400 font-medium">
-              {item.label}
-            </span>
-          </motion.div>
-        ))}
-        {lineSeries.map((item, index) => (
-          <motion.div 
-            key={item.label}
-            className="flex items-center space-x-2"
-            custom={index + barSeries.length}
-            variants={legendItemVariants}
-          >
             <svg width="12" height="12" viewBox="0 0 16 16">
-              <circle cx="8" cy="8" r="3" fill={item.color} />
+              <circle cx="8" cy="8" r="5" fill="none" stroke={item.color} strokeWidth="3" />
             </svg>
             <span className="text-xs text-slate-600 dark:text-neutral-400 font-medium">
               {item.label}
             </span>
           </motion.div>
         ))}
+
       </motion.div>
 
       {/* Last Updated Footer */}
@@ -391,7 +484,7 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
             Last updated: {isClient ? clientLastUpdated : '...'}
           </div>
           <div className="text-xs text-right font-medium text-green-600 dark:text-green-400">
-            FOIR analysis completed successfully
+            User has consistent FOIR of &gt;80%
           </div>
         </motion.div>
       </div>

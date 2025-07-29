@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { AnimatedFOIRChartCard } from '@/app/equal/components/AnimatedFOIRChartCard';
+import { AnimatedExpensePieChartCard } from '@/app/equal/components/AnimatedExpensePieChartCard';
+import { AnimatedEODBarChartCard } from '@/app/equal/components/AnimatedEODBarChartCard';
+import { cn } from '@/lib/utils';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Marquee from 'react-fast-marquee';
-
-// Styling classes (consistent with other sections)
-const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 // FOIR-related features for the marquee
 const foirFeaturesPillTexts = [
@@ -27,85 +28,355 @@ const foirFeaturesPillTexts = [
   "API Integration"
 ];
 
+// Define content for the clickable cards
+const foirCardsData = [
+  {
+    id: 'foir',
+    title: 'FOIR Percentage',
+    description: 'Monitor Fixed Obligation to Income Ratio with real-time insights and comprehensive financial data analysis.',
+    duration: 8,
+  },
+  {
+    id: 'eod',
+    title: 'Average EOD Balance',
+    description: 'Track end-of-day balance patterns to understand cash flow trends and financial stability indicators.',
+    duration: 6,
+  },
+  {
+    id: 'expense',
+    title: 'Expense Summary',
+    description: 'Analyze spending patterns and categorize expenses to identify optimization opportunities.',
+    duration: 10,
+  },
+];
+
+const cardSlideVariants: Variants = {
+  initial: (direction: number) => ({
+    x: direction > 0 ? "100%" : "-100%",
+    opacity: 0,
+  }),
+  animate: {
+    x: "0%",
+    opacity: 1,
+    transition: { duration: 0.4, ease: 'easeInOut' },
+  },
+  exit: (direction: number) => ({
+    x: direction < 0 ? "100%" : "-100%",
+    opacity: 0,
+    transition: { duration: 0.3, ease: 'easeInOut' },
+  }),
+};
+
 export function FOIRSection() {
+  const [activeCardId, setActiveCardId] = useState(foirCardsData[0].id);
   const [hasBeenInView, setHasBeenInView] = useState(false);
+  const [progressResetKey, setProgressResetKey] = useState(0);
+  const autoAdvanceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [slideDirection, setSlideDirection] = useState(1);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  useEffect(() => {
+    setHasBeenInView(true);
+  }, []);
+
+  const handleCardClick = (cardId: string, direction = 1) => {
+    const currentIdx = foirCardsData.findIndex(c => c.id === activeCardId);
+    const nextIdx = foirCardsData.findIndex(c => c.id === cardId);
+    setSlideDirection(nextIdx > currentIdx ? 1 : -1);
+
+    setActiveCardId(cardId);
+    setProgressResetKey(prev => prev + 1);
+  };
+
+  useEffect(() => {
+    if (!hasBeenInView || isSmallScreen) {
+      return;
+    }
+
+    if (autoAdvanceTimerRef.current) {
+      clearTimeout(autoAdvanceTimerRef.current);
+    }
+
+    const currentCardIndex = foirCardsData.findIndex(card => card.id === activeCardId);
+    const currentCard = foirCardsData[currentCardIndex];
+
+    if (currentCard) {
+      autoAdvanceTimerRef.current = setTimeout(() => {
+        const nextIndex = (currentCardIndex + 1) % foirCardsData.length;
+        handleCardClick(foirCardsData[nextIndex].id, 1);
+      }, currentCard.duration * 1000);
+    }
+
+    return () => {
+      if (autoAdvanceTimerRef.current) {
+        clearTimeout(autoAdvanceTimerRef.current);
+      }
+    };
+  }, [activeCardId, progressResetKey, hasBeenInView, isSmallScreen]);
+
+  const activeCardData = foirCardsData.find(card => card.id === activeCardId);
+
+  const handlePrevCard = () => {
+    const currentIndex = foirCardsData.findIndex(card => card.id === activeCardId);
+    const prevIndex = currentIndex === 0 ? foirCardsData.length - 1 : currentIndex - 1;
+    setSlideDirection(-1);
+    handleCardClick(foirCardsData[prevIndex].id, -1);
+  };
+
+  const handleNextCard = () => {
+    const currentIndex = foirCardsData.findIndex(card => card.id === activeCardId);
+    const nextIndex = (currentIndex + 1) % foirCardsData.length;
+    setSlideDirection(1);
+    handleCardClick(foirCardsData[nextIndex].id, 1);
+  };
 
   return (
-    <motion.section 
-      className="relative w-full py-12 md:py-12 overflow-hidden"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      onViewportEnter={() => setHasBeenInView(true)}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
-    >
+    <>
+      <motion.section 
+        className="relative w-full overflow-hidden"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+      >
       <div className="container px-4 md:px-6 mx-auto">
-      
         {/* Title and Subtitle */}
         <div className="text-center mb-12">
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
             <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
-              FOIR Analysis
+              Financial Health
             </span>{" "}
-            <span className={metallicBlackTextClasses}>for Financial Health</span>
+            <span className="font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900">
+              Analytics
+            </span>
           </h2>
           <p className="w-full mx-auto text-lg text-slate-700 dark:text-slate-300">
-            Monitor Fixed Obligation to Income Ratio with real-time insights and comprehensive financial data analysis.
+            Comprehensive financial data analysis with real-time insights and monitoring capabilities.
           </p>
         </div>
 
-        {/* FOIR Chart Card */}
-        <div className="flex justify-center mb-8">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full max-w-2xl"
-          >
-            <AnimatedFOIRChartCard 
-              onAnimationComplete={() => console.log('FOIR chart animation complete')}
-              disableAutoRotate={true}
-            />
-          </motion.div>
-        </div>
-
-        {/* Description Section */}
+        {/* Interactive Showcase */}
         <motion.div 
-          className="text-center mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          className={cn(
+            "flex gap-8 p-4 pb-0 min-h-[500px]",
+            isSmallScreen ? "flex-col" : "flex-col md:flex-row"
+          )}
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          transition={{ duration: 0.3 }}
         >
-          <div className="max-w-3xl mx-auto">
-            <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4">
-              Comprehensive Financial Health Monitoring
-            </h3>
-            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-              Our FOIR analysis provides deep insights into financial obligations and income patterns, 
-              helping institutions make informed lending decisions while ensuring regulatory compliance 
-              and risk management.
-            </p>
-          </div>
-        </motion.div>
-            
-      </div>
+          {/* Left Panel: Clickable Cards */}
+          <div className={cn("space-y-4", isSmallScreen ? "w-full" : "w-full md:w-1/2")}>
+            {isSmallScreen ? (
+              <div className="relative">
+                <AnimatePresence initial={false} custom={slideDirection} mode="wait">
+                  {activeCardData && (
+                    <motion.div
+                      key={activeCardData.id}
+                      custom={slideDirection}
+                      variants={cardSlideVariants}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                      className={'p-6 rounded-lg border bg-background/10 backdrop-blur-md dark:bg-neutral-800 shadow-xl border-slate-300 dark:border-neutral-600'}
+                    >
+                      <h3 className={'text-xl font-semibold mb-3 flex items-center text-slate-800 dark:text-green-400'}>
+                        <span className="relative flex h-2.5 w-2.5 mr-3">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                        </span>
+                        {activeCardData.title}
+                      </h3>
+                      <p className={'text-sm mb-4 text-slate-700 dark:text-neutral-300'}>
+                        {activeCardData.description}
+                      </p>
+                      <div 
+                        className={'mt-auto h-2 rounded-full overflow-hidden bg-slate-200 dark:bg-neutral-700'}
+                      >
+                        <motion.div
+                          key={`progress-${activeCardData.id}-${progressResetKey}`}
+                          className="h-full bg-green-500"
+                          initial={{ width: "0%" }}
+                          animate={hasBeenInView ? { width: "100%" } : { width: "0%" }}
+                          transition={{ duration: hasBeenInView ? activeCardData.duration : 0, ease: "linear" }}
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-      {/* Marquee Banner - Placed OUTSIDE the container for full width */}
-      <div className="mt-12 w-full mb-4">
-        <Marquee gradient={false} speed={40} pauseOnHover={true} direction="left">
-          {foirFeaturesPillTexts.map((text, index) => (
-            <div
-              key={`foir-pill-${index}`}
-              className="inline-block bg-background/10 backdrop-blur-md rounded-sm border border-slate-200 dark:border-neutral-700 mr-3 px-4 py-2 text-sm font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
-            >
-              {text}
-            </div>
-          ))}
-        </Marquee>
-      </div>
-      
-    </motion.section>
+                {/* Pagination with navigation for small screens */}
+                <div className="flex items-center justify-center mt-6 gap-2">
+                  <button 
+                    onClick={handlePrevCard}
+                    className="p-1 rounded-full bg-slate-100 dark:bg-neutral-700 hover:bg-slate-300 dark:hover:bg-neutral-600 transition-colors"
+                    aria-label="Previous card"
+                  >
+                    <ChevronLeft className="w-4 h-4 text-slate-700 dark:text-neutral-200" />
+                  </button>
+                  
+                  <div className="flex items-center space-x-2">
+                    {foirCardsData.map((card, index) => (
+                      <button
+                        key={`dot-${card.id}`}
+                        onClick={() => {
+                          const currentIndex = foirCardsData.findIndex(c => c.id === activeCardId);
+                          setSlideDirection(index > currentIndex ? 1 : -1);
+                          handleCardClick(card.id);
+                        }}
+                        className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                          activeCardId === card.id 
+                            ? 'bg-green-500 scale-150' 
+                            : 'bg-slate-300 dark:bg-neutral-600 hover:bg-slate-400 dark:hover:bg-neutral-500'
+                        }`}
+                        aria-label={`Go to ${card.title}`}
+                      />
+                    ))}
+                  </div>
+                  
+                  <button 
+                    onClick={handleNextCard}
+                    className="p-1 rounded-full bg-slate-100 dark:bg-neutral-700 hover:bg-slate-300 dark:hover:bg-neutral-600 transition-colors"
+                    aria-label="Next card"
+                  >
+                    <ChevronRight className="w-4 h-4 text-slate-700 dark:text-neutral-200" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              // Desktop: Stacked View
+              foirCardsData.map((card, index) => {
+                const isActive = activeCardId === card.id;
+                return (
+                  <motion.div
+                    key={card.id}
+                    onClick={() => handleCardClick(card.id)}
+                    className={`p-6 rounded-lg cursor-pointer border transition-all duration-300 ease-in-out 
+                    ${ isActive 
+                      ? 'bg-background/10 backdrop-blur-md dark:bg-neutral-800 shadow-xl border-slate-300 dark:border-neutral-600 scale-105' 
+                      : ' dark:bg-neutral-800/60 dark:border-neutral-700/70 hover:shadow-lg hover:bg-slate-100 hover:border-slate-300 dark:hover:border-neutral-600'
+                    }`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0, transition: { delay: index * 0.1 + 0.1} }}
+                  >
+                    <h3 className={`text-xl font-semibold mb-3 flex items-center ${isActive ? 'text-slate-800 dark:text-green-400' : 'text-slate-400 dark:text-neutral-200'}`}>
+                      {isActive && (
+                        <span className="relative flex h-2.5 w-2.5 mr-3">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                        </span>
+                      )}
+                      {card.title}
+                    </h3>
+                    <p className={`text-sm mb-4 ${isActive ? 'text-slate-700 dark:text-neutral-300' : 'text-slate-500 dark:text-neutral-400'}`}>
+                      {card.description}
+                    </p>
+                    <div 
+                      className={`mt-auto h-2 rounded-full overflow-hidden transition-colors duration-300 ease-in-out ${
+                        isActive ? 'bg-slate-200 dark:bg-neutral-700' : 'bg-transparent'
+                      }`}
+                    >
+                      <motion.div
+                        key={`progress-${card.id}-${progressResetKey}`}
+                        className="h-full bg-green-500"
+                        initial={{ width: "0%" }}
+                        animate={isActive && hasBeenInView ? { width: "100%" } : { width: "0%" }}
+                        transition={{ duration: isActive && hasBeenInView ? card.duration : 0, ease: "linear" }}
+                      />
+                    </div>
+                  </motion.div>
+                );
+              })
+            )}
+          </div>
+
+          {/* Right Panel: Chart Display Area */}
+          <div className={cn("relative", isSmallScreen ? "w-full h-[500px] overflow-hidden" : "w-full md:w-2/3 min-h-[600px]")}>
+            <AnimatePresence mode="wait">
+              {activeCardId === 'foir' && (
+                <motion.div
+                  key="foir"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                >
+                  <AnimatedFOIRChartCard 
+                    onAnimationComplete={() => console.log('FOIR chart animation complete')}
+                    disableAutoRotate={false}
+                  />
+                </motion.div>
+              )}
+              {activeCardId === 'eod' && (
+                <motion.div
+                  key="eod"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                >
+                  <AnimatedEODBarChartCard 
+                    onAnimationComplete={() => console.log('EOD chart animation complete')}
+                    disableAutoRotate={false}
+                  />
+                </motion.div>
+              )}
+              {activeCardId === 'expense' && (
+                <motion.div
+                  key="expense"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                >
+                  <AnimatedExpensePieChartCard 
+                    onAnimationComplete={() => console.log('Expense chart animation complete')}
+                    disableAutoRotate={false}
+                  />
+                </motion.div>
+                          )}
+          </AnimatePresence>
+        </div>
+      </motion.div>
+
+      {/* AND MANY MORE Text */}
+      <motion.div 
+        className="text-center mt-8 mb-6"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        <h3 className="text-md font-light text-slate-600 dark:text-slate-200">
+          AND MANY MORE
+        </h3>
+      </motion.div>
+
+    </div>
+  </motion.section>
+
+  {/* Marquee Banner - Placed OUTSIDE the section for full width */}
+  <div className="w-full py-4">
+    <Marquee gradient={false} speed={40} pauseOnHover={true} direction="left">
+      {foirFeaturesPillTexts.map((text, index) => (
+        <div
+          key={`foir-pill-${index}`}
+          className="inline-block bg-background/10 backdrop-blur-md rounded-sm border border-slate-200 dark:border-neutral-700 mr-3 px-4 py-2 text-sm font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
+        >
+          {text}
+        </div>
+      ))}
+    </Marquee>
+  </div>
+    </>
   );
 } 
