@@ -30,12 +30,12 @@ const usePerformanceMode = () => {
       const hardwareConcurrency = navigator.hardwareConcurrency || 4;
       const memory = (performance as any).memory?.usedJSHeapSize || 0;
       
-      // Determine if device is low performance
+      // Determine if device is low performance - more conservative approach
       const isLowPerf = (
         connection?.effectiveType === 'slow-2g' ||
         connection?.effectiveType === '2g' ||
-        hardwareConcurrency <= 2 ||
-        memory > 50 * 1024 * 1024 // 50MB threshold
+        hardwareConcurrency <= 1 ||
+        memory > 200 * 1024 * 1024 // 200MB threshold - much higher
       );
       
       setIsLowPerformance(isLowPerf);
@@ -197,7 +197,8 @@ export const AnimatedExpensePieChartCard = ({ onAnimationComplete, disableAutoRo
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const { isLowPerformance, isReducedMotion } = usePerformanceMode();
-  const shouldDisableAnimations = isLowPerformance || isReducedMotion;
+  // Only disable animations for very low performance devices, but always render charts
+  const shouldDisableAnimations = (isLowPerformance && isReducedMotion) || isReducedMotion;
 
   // Memoize expensive computations
   const totalValue = useMemo(() => 

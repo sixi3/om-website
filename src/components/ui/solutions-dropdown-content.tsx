@@ -40,7 +40,7 @@ const solutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/moneyone/financial-services"
+        href: "/moneyone"
       },
       {
         id: "Employee Verification",
@@ -56,7 +56,7 @@ const solutionSections: SolutionSection[] = [
       },
       {
         id: "identity",
-        title: "Indentity Verification",
+        title: "Identity Verification",
         description: "Verify candidates across multiple platforms",
         image: {
           src: "/Candidate Communication.png",

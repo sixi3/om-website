@@ -446,6 +446,39 @@ export default function AuroraBackgroundDemo() {
     zIndex: 1
   }), []);
 
+  // Handle hash-based scrolling after content loads
+  useEffect(() => {
+    if (isContentReady && typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      
+      const scrollToSection = (sectionId: string) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return true;
+        }
+        return false;
+      };
+
+      const retryScroll = (sectionId: string) => {
+        // Try immediately, then retry with delays
+        if (!scrollToSection(sectionId)) {
+          setTimeout(() => {
+            if (!scrollToSection(sectionId)) {
+              setTimeout(() => scrollToSection(sectionId), 1000);
+            }
+          }, 500);
+        }
+      };
+
+      if (hash === '#employment-verification') {
+        retryScroll('employment-verification');
+      } else if (hash === '#bfsi-section') {
+        retryScroll('bfsi-section');
+      }
+    }
+  }, [isContentReady]);
+
   // Show loader until content is ready
   if (!isContentReady) {
     return <PageLoader />;

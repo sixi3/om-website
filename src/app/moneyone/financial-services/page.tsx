@@ -23,6 +23,7 @@ const HowAAWorks = lazy(() => import("./HowAAWorks").then(module => ({ default: 
 const MoneyOneSection = lazy(() => import("./MoneyOneSection").then(module => ({ default: module.MoneyOneSection })));
 const Solutions = lazy(() => import("@/app/onemoney/sections/Solutions").then(module => ({ default: module.Solutions })));
 const ContactUs = lazy(() => import("@/app/moneyone/sections/ContactUs").then(module => ({ default: module.ContactUs })));
+const FinancialAnalyticsSection = lazy(() => import("@/app/equal/products/financial-services/FOIRSection").then(module => ({ default: module.FOIRSection })));
 
 // Loading component
 const SectionLoader = () => (
@@ -34,7 +35,7 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 
 const financialReasons = [
   {
-    title: "India’s Largest AA Platform",
+    title: "Largest Number of AA Integrations",
     description: "Powering 120+ FIPs and 50% of all Account Aggregator traffic in India.",
     image: {
       src: "/Collect Now, Verify Later.png",
@@ -52,7 +53,7 @@ const financialReasons = [
     icon: <ShieldCheck size={20} className="text-white" />
   },
   {
-    title: "AI-Powered Financial Analytics",
+    title: "Data-Driven Financial Analytics",
     description: "Unlock actionable insights with advanced analytics and reporting tools.",
     image: {
       src: "/Financial Analytics.png",
@@ -192,7 +193,7 @@ export default function FinancialServicesHero() {
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-              <span className={metallicBlackTextClasses}>Why Choose Equal for</span>{" "}
+              <span className={metallicBlackTextClasses}>Why Choose MoneyOne for</span>{" "}
               <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Financial Services</span>
             </h2>
             <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-3xl">
@@ -254,6 +255,17 @@ export default function FinancialServicesHero() {
         </div>
       </section>
     
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <div id="financial-analytics-section">
+          <FinancialAnalyticsSection />
+        </div>
+      </Suspense>
       <GlowingDivider
         width="3/4"
         intensity="high"

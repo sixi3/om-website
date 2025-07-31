@@ -81,6 +81,53 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     });
   }
   
+  // Special handling for Equal main page - add Products breadcrumb
+  if (pathname === "/equal") {
+    items.push({
+      title: "Products",
+      href: "/#employment-verification",
+    });
+  }
+  
+  // Special handling for Equal solutions pages - add Products and Employment breadcrumbs
+  if (pathname.startsWith("/equal/solutions")) {
+    items.push({
+      title: "Products",
+      href: "/#employment-verification",
+    });
+    items.push({
+      title: "Employment",
+      href: "/equal",
+    });
+    
+    // Filter out "equal" and "solutions" from segments to avoid showing them in breadcrumbs
+    const filteredSegments = segments.filter(segment => segment !== "equal" && segment !== "solutions");
+    
+    // Build breadcrumb items from remaining segments (like "enterprise-hiring", "gig-hiring", etc.)
+    let currentPath = "/equal/solutions";
+    
+    filteredSegments.forEach((segment, index) => {
+      currentPath += `/${segment}`;
+      const isCurrentPage = index === filteredSegments.length - 1;
+      
+      items.push({
+        title: routeTitleMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " "),
+        href: currentPath,
+        isCurrentPage,
+      });
+    });
+    
+    return items; // Return early to avoid duplicate processing
+  }
+  
+  // Special handling for MoneyOne main page - add Products breadcrumb
+  if (pathname === "/moneyone") {
+    items.push({
+      title: "Products",
+      href: "/#bfsi-section",
+    });
+  }
+  
   // Build breadcrumb items from filtered segments
   let currentPath = "";
   let originalIndex = 0;
@@ -231,11 +278,6 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
     setIsMounted(true);
   }, []);
   
-  // Don't show breadcrumbs on MoneyOne landing page
-  if (pathname === "/moneyone") {
-    return null;
-  }
-  
   // Generate breadcrumb items specifically for MoneyOne
   const generateMoneyOneBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     const segments = pathname.split("/").filter(Boolean);
@@ -246,6 +288,61 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
       title: "Home",
       href: "/moneyone",
     });
+    
+    // Special handling for MoneyOne main page - add Products and MoneyOne breadcrumbs
+    if (pathname === "/moneyone") {
+      items.push({
+        title: "Products",
+        href: "/#bfsi-section",
+      });
+      items.push({
+        title: "MoneyOne",
+        href: "/moneyone",
+        isCurrentPage: true,
+      });
+      return items;
+    }
+    
+    // Special handling for MoneyOne product pages - add Products, MoneyOne, and Product breadcrumbs
+    if (pathname.startsWith("/moneyone/products/")) {
+      items.push({
+        title: "Products",
+        href: "/#bfsi-section",
+      });
+      items.push({
+        title: "MoneyOne",
+        href: "/moneyone",
+      });
+      
+      // Get the product name from the URL
+      const productSegment = segments[segments.length - 1]; // Last segment is the product name
+      items.push({
+        title: routeTitleMap[productSegment] || productSegment.charAt(0).toUpperCase() + productSegment.slice(1).replace(/-/g, " "),
+        href: pathname,
+        isCurrentPage: true,
+      });
+      
+      return items;
+    }
+    
+    // Special handling for MoneyOne financial-services page - add Products, MoneyOne, and Financial Services breadcrumbs
+    if (pathname === "/moneyone/financial-services") {
+      items.push({
+        title: "Products",
+        href: "/#bfsi-section",
+      });
+      items.push({
+        title: "MoneyOne",
+        href: "/moneyone",
+      });
+      items.push({
+        title: "Financial Services",
+        href: "/moneyone/financial-services",
+        isCurrentPage: true,
+      });
+      
+      return items;
+    }
     
     // Filter out "moneyone" from segments to skip showing it in breadcrumbs
     const filteredSegments = segments.filter(segment => segment !== "moneyone");
@@ -272,6 +369,8 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
     
     return items;
   };
+  
+
   
   const items = generateMoneyOneBreadcrumbItems(pathname);
   

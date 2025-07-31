@@ -67,16 +67,16 @@ const productSections: ProductSection[] = [
         href: "/moneyone/products/finshare"
       },
       {
-        id: "financial-services",
-        title: "Financial Services",
+        id: "financial-analytics",
+        title: "Financial Analytics",
         description: "Gain in-depth insights into financial history",
         image: {
           src: "/Mobile UX.png",
-          alt: "OneApp",
+          alt: "Financial Analytics",
           width: 56,
           height: 56
         },
-        href: "/moneyone/financial-services"
+        href: "/moneyone/financial-services#financial-analytics-section"
       }
     ]
   },
@@ -109,18 +109,6 @@ const productSections: ProductSection[] = [
         href: "/equal/products/gig-hiring"
       },
       {
-        id: "Financial Analytics",
-        title: "Financial Analytics",
-        description: "Get powerful insights from financial data",
-        image: {
-          src: "/Financial Analytics.png",
-          alt: "Financial Services",
-          width: 56,
-          height: 56
-        },
-        href: "/equal/products/financial-services"
-      },
-      {
         id: "Staffing & Contract Roles",
         title: "Staffing & Contract",
         description: "Hire and manage contract workers with ease",
@@ -131,6 +119,18 @@ const productSections: ProductSection[] = [
           height: 56
         },
         href: "/equal/products/staffing"
+      },
+      {
+        id: "Custom Workflows",
+        title: "Custom Workflows",
+        description: "Create custom verification flows for your business",
+        image: {
+          src: "/Collect Now, Verify Later.png",
+          alt: "Custom Workflows",
+          width: 56,
+          height: 56
+        },
+        href: "/equal/Industries"
       }
     ]
   }
@@ -166,8 +166,8 @@ const ProductItem = memo<{ item: ProductItem; index: number }>(({ item, index })
       <Link 
         href={item.href}
         role="menuitem"
-        target={item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" ? "_blank" : undefined}
-        rel={item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" ? "noopener noreferrer" : undefined}
+        target={item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "Financial Analytics" ? "_blank" : undefined}
+        rel={item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "Financial Analytics" ? "noopener noreferrer" : undefined}
         className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-150 group focus:border-b-1"
       >
         <div className="flex-shrink-0 relative">

@@ -156,7 +156,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/equal/solutions/financial-services#moneyone-section",
+        href: "/moneyone/financial-services#financial-analytics-section",
         icon: <BarChart3 size={24} />
       },
       {
@@ -265,7 +265,7 @@ const solutionSections: SolutionSection[] = [
 // New Industry Innovation Section Component
 const IndustryInnovationSection = React.memo(() => {
   const metrics = industryMetrics;
-  const cta = { text: "Download Equal AI", href: "/innovation" };
+  const cta = { text: "Explore Equal AI", href: "/innovation" };
 
   return (
     <section className="relative w-full px-8 pt-16 mt-12 pb-16 md:py-20 xl:px-12 2xl:px-24 transform -skew-y-2 overflow-hidden mb-24">
@@ -371,7 +371,7 @@ const IndustryInnovationSection = React.memo(() => {
               Let Equal AI handle all your unknown calls
             </motion.p>
 
-            {/* CTA Button */}
+            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -380,12 +380,26 @@ const IndustryInnovationSection = React.memo(() => {
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.5
               }}
-              className="mt-8 flex justify-center md:justify-start"
+              className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
             >
               <Link href={cta.href}>
                 <ShimmerButton className="text-md md:text-lg">
                   {cta.text}
                 </ShimmerButton>
+              </Link>
+              
+              {/* Play Store Download Button */}
+              <Link href="https://play.google.com/store/apps/details?id=com.equal.ai" target="_blank" rel="noopener noreferrer">
+                <div className="group inline-flex items-center px-6 py-3 bg-black/30 border border-[#baff29]/70 text-white text-md md:text-lg font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap hover:bg-white/10 hover:border-white/40 hover:shadow-lg hover:shadow-white/10 hover:bh-white/20">
+                  <Image
+                    src="/playstore.png"
+                    alt="Google Play Store"
+                    width={24}
+                    height={24}
+                    className="mr-2"
+                  />
+                  <span>Download on Play Store</span>
+                </div>
               </Link>
             </motion.div>
           </motion.div>
@@ -445,7 +459,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
         return { text: "Explore Equal BGV", href: "/equal" };
       case "financial":
         return { 
-          primary: { text: "Explore MoneyOne", href: "/moneyone" },
+          primary: { text: "Explore MoneyOne TSP", href: "/moneyone" },
           secondary: { text: "Explore OneMoney AA", href: "/onemoney" }
         };
       case "industry":
@@ -461,7 +475,10 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
 
 
   return (
-    <section className="relative w-full px-8 pt-4 pb-12 md:py-12 xl:px-12 2xl:px-24">
+    <section 
+      id={section.id === "employment" ? "employment-verification" : section.id === "financial" ? "bfsi-section" : undefined}
+      className="relative w-full px-8 pt-4 pb-12 md:py-12 xl:px-12 2xl:px-24"
+    >
       <div className=" mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
           
@@ -540,10 +557,9 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                     </ShimmerButton>
                   </Link>
                   <Link href={cta.secondary.href}>
-                    <button className="group inline-flex items-center px-4 py-3 bg-gradient-to-tr from-slate-100 to-white backdrop-blur-md border border-b-4 border-[#00b140]/20 text-[#00b140] text-md md:text-lg font-semibold rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap hover:border-[#00b140] hover:shadow-md">
-                      <span>{cta.secondary.text}</span>
-                      <ArrowRight className="h-4 w-4 text-[#00b140] transition-all duration-300 opacity-0 group-hover:opacity-100 -ml-3 group-hover:ml-2 group-hover:translate-x-0" />
-                    </button>
+                    <ShimmerButton className="text-md md:text-lg">
+                      {cta.secondary.text}
+                    </ShimmerButton>
                   </Link>
                 </>
               ) : (

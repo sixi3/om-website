@@ -221,9 +221,9 @@ const LookingForSection = React.memo(() => {
   const router = useRouter();
 
   const buttons = [
-    { text: "Background Verifications", href: "/equal/solutions" },
+    { text: "Employee Verifications", href: "/equal/solutions" },
     { text: "Account Aggregator", href: "/onemoney" }, 
-    { text: "Financial Data Analytics", href: "/equal/solutions/financial-services" },
+    { text: "Financial Data Analytics", href: "/moneyone/financial-services" },
   ];
 
   const handleButtonClick = (href: string) => {

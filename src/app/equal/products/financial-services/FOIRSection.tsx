@@ -6,12 +6,12 @@ import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
-// Lazy load heavy components
+// Lazy load heavy components with error handling
 const AnimatedFOIRChartCard = dynamic(
   () => import('@/app/equal/components/AnimatedFOIRChartCard').then(mod => ({ default: mod.AnimatedFOIRChartCard })),
   { 
     loading: () => <div className="w-full h-[400px] bg-slate-100 dark:bg-neutral-800 rounded-lg animate-pulse" />,
-    ssr: false 
+    ssr: true
   }
 );
 
@@ -19,7 +19,7 @@ const AnimatedExpensePieChartCard = dynamic(
   () => import('@/app/equal/components/AnimatedExpensePieChartCard').then(mod => ({ default: mod.AnimatedExpensePieChartCard })),
   { 
     loading: () => <div className="w-full h-[400px] bg-slate-100 dark:bg-neutral-800 rounded-lg animate-pulse" />,
-    ssr: false 
+    ssr: true
   }
 );
 
@@ -27,12 +27,12 @@ const AnimatedEODBarChartCard = dynamic(
   () => import('@/app/equal/components/AnimatedEODBarChartCard').then(mod => ({ default: mod.AnimatedEODBarChartCard })),
   { 
     loading: () => <div className="w-full h-[400px] bg-slate-100 dark:bg-neutral-800 rounded-lg animate-pulse" />,
-    ssr: false 
+    ssr: true
   }
 );
 
 // Lazy load Marquee component
-const Marquee = dynamic(() => import('react-fast-marquee'), { ssr: false });
+const Marquee = dynamic(() => import('react-fast-marquee'));
 
 // FOIR-related features for the marquee
 const foirFeaturesPillTexts = [
@@ -115,12 +115,12 @@ const usePerformanceMode = () => {
       const hardwareConcurrency = navigator.hardwareConcurrency || 4;
       const memory = (performance as any).memory?.usedJSHeapSize || 0;
       
-      // Determine if device is low performance
+      // Determine if device is low performance - more conservative approach
       const isLowPerf = (
         connection?.effectiveType === 'slow-2g' ||
         connection?.effectiveType === '2g' ||
-        hardwareConcurrency <= 2 ||
-        memory > 50 * 1024 * 1024 // 50MB threshold
+        hardwareConcurrency <= 1 ||
+        memory > 200 * 1024 * 1024 // 200MB threshold - much higher
       );
       
       setIsLowPerformance(isLowPerf);
@@ -153,7 +153,10 @@ export function FOIRSection() {
     [activeCardId]
   );
 
-  const shouldDisableAnimations = isLowPerformance || isReducedMotion;
+  // Only disable animations for very low performance devices, but always render charts
+  const shouldDisableAnimations = (isLowPerformance && isReducedMotion) || isReducedMotion;
+  
+
 
   // Debounce function for performance
   const debounce = useCallback((func: Function, wait: number) => {
@@ -268,10 +271,10 @@ export function FOIRSection() {
         <div className="text-center mb-12">
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
             <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
-              Financial Health
+              Complete
             </span>{" "}
             <span className="font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900">
-              Analytics
+              Financial Analytics Suite
             </span>
           </h2>
           <p className="w-full mx-auto text-lg text-slate-700 dark:text-slate-300">
@@ -432,10 +435,12 @@ export function FOIRSection() {
                     exit={shouldDisableAnimations ? undefined : { opacity: 0, x: -20 }}
                     transition={{ duration: shouldDisableAnimations ? 0 : 0.4, ease: 'easeInOut' }}
                   >
-                    <AnimatedFOIRChartCard 
-                      onAnimationComplete={() => console.log('FOIR chart animation complete')}
-                      disableAutoRotate={shouldDisableAnimations}
-                    />
+                    <Suspense fallback={<div className="w-full h-[400px] bg-slate-100 dark:bg-neutral-800 rounded-lg animate-pulse" />}>
+                      <AnimatedFOIRChartCard 
+                        onAnimationComplete={() => console.log('FOIR chart animation complete')}
+                        disableAutoRotate={shouldDisableAnimations}
+                      />
+                    </Suspense>
                   </motion.div>
                 )}
                 {activeCardId === 'eod' && (
@@ -446,10 +451,12 @@ export function FOIRSection() {
                     exit={shouldDisableAnimations ? undefined : { opacity: 0, x: -20 }}
                     transition={{ duration: shouldDisableAnimations ? 0 : 0.4, ease: 'easeInOut' }}
                   >
-                    <AnimatedEODBarChartCard 
-                      onAnimationComplete={() => console.log('EOD chart animation complete')}
-                      disableAutoRotate={shouldDisableAnimations}
-                    />
+                    <Suspense fallback={<div className="w-full h-[400px] bg-slate-100 dark:bg-neutral-800 rounded-lg animate-pulse" />}>
+                      <AnimatedEODBarChartCard 
+                        onAnimationComplete={() => console.log('EOD chart animation complete')}
+                        disableAutoRotate={shouldDisableAnimations}
+                      />
+                    </Suspense>
                   </motion.div>
                 )}
                 {activeCardId === 'expense' && (
@@ -460,10 +467,12 @@ export function FOIRSection() {
                     exit={shouldDisableAnimations ? undefined : { opacity: 0, x: -20 }}
                     transition={{ duration: shouldDisableAnimations ? 0 : 0.4, ease: 'easeInOut' }}
                   >
-                    <AnimatedExpensePieChartCard 
-                      onAnimationComplete={() => console.log('Expense chart animation complete')}
-                      disableAutoRotate={shouldDisableAnimations}
-                    />
+                    <Suspense fallback={<div className="w-full h-[400px] bg-slate-100 dark:bg-neutral-800 rounded-lg animate-pulse" />}>
+                      <AnimatedExpensePieChartCard 
+                        onAnimationComplete={() => console.log('Expense chart animation complete')}
+                        disableAutoRotate={shouldDisableAnimations}
+                      />
+                    </Suspense>
                   </motion.div>
                 )}
               </AnimatePresence>

@@ -32,12 +32,12 @@ const usePerformanceMode = () => {
       const hardwareConcurrency = navigator.hardwareConcurrency || 4;
       const memory = (performance as any).memory?.usedJSHeapSize || 0;
       
-      // Determine if device is low performance
+      // Determine if device is low performance - more conservative approach
       const isLowPerf = (
         connection?.effectiveType === 'slow-2g' ||
         connection?.effectiveType === '2g' ||
-        hardwareConcurrency <= 2 ||
-        memory > 50 * 1024 * 1024 // 50MB threshold
+        hardwareConcurrency <= 1 ||
+        memory > 200 * 1024 * 1024 // 200MB threshold - much higher
       );
       
       setIsLowPerformance(isLowPerf);
@@ -153,7 +153,8 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
   const [animationCycle, setAnimationCycle] = useState(0);
 
   const { isLowPerformance, isReducedMotion } = usePerformanceMode();
-  const shouldDisableAnimations = isLowPerformance || isReducedMotion;
+  // Only disable animations for very low performance devices, but always render charts
+  const shouldDisableAnimations = (isLowPerformance && isReducedMotion) || isReducedMotion;
 
   const onCompleteTimerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -191,6 +192,7 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
   };
 
   useEffect(() => {
+    // Set client immediately to ensure chart renders
     setIsClient(true);
     setClientLastUpdated(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' }));
   }, []);
@@ -283,7 +285,7 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
             exit={shouldDisableAnimations ? undefined : "exit"}
             className="w-full min-h-[340px]"
           >
-            {isClient && eodData && eodData.length > 0 && (
+            {eodData && eodData.length > 0 ? (
               <div className="relative w-full">
                 <BarChart
                   dataset={eodData}
@@ -355,8 +357,7 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
                   ))}
                 </div>
               </div>
-            )}
-            {(!isClient || !eodData || eodData.length === 0) && (
+            ) : (
               <div className="w-full min-h-[340px] flex items-center justify-center">
                 <p className="text-slate-500">Loading chart data...</p>
               </div>
@@ -404,7 +405,7 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
           variants={footerItemVariants} 
         >
           <div className="text-xs text-slate-500 dark:text-neutral-400">
-            Last updated: {isClient ? clientLastUpdated : '...'}
+            Last updated: {clientLastUpdated || '...'}
           </div>
           <div className="text-xs text-right font-medium text-green-600 dark:text-green-400">
             Consistent positive balance maintained

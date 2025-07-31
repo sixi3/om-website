@@ -33,12 +33,12 @@ const usePerformanceMode = () => {
       const hardwareConcurrency = navigator.hardwareConcurrency || 4;
       const memory = (performance as any).memory?.usedJSHeapSize || 0;
       
-      // Determine if device is low performance
+      // Determine if device is low performance - more conservative approach
       const isLowPerf = (
         connection?.effectiveType === 'slow-2g' ||
         connection?.effectiveType === '2g' ||
-        hardwareConcurrency <= 2 ||
-        memory > 50 * 1024 * 1024 // 50MB threshold
+        hardwareConcurrency <= 1 ||
+        memory > 200 * 1024 * 1024 // 200MB threshold - much higher
       );
       
       setIsLowPerformance(isLowPerf);
@@ -180,7 +180,8 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
   const [cycleCount, setCycleCount] = useState(0);
 
   const { isLowPerformance, isReducedMotion } = usePerformanceMode();
-  const shouldDisableAnimations = isLowPerformance || isReducedMotion;
+  // Only disable animations for very low performance devices, but always render charts
+  const shouldDisableAnimations = (isLowPerformance && isReducedMotion) || isReducedMotion;
 
   const durationAnimationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const mountedRef = useRef(false);
@@ -238,6 +239,7 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
   };
 
   useEffect(() => {
+    // Set client immediately to ensure chart renders
     setIsClient(true);
     setClientLastUpdated(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' }));
     mountedRef.current = true;
@@ -255,15 +257,14 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
     cardControls.start('visible');
   }, [cardControls]);
 
-  // Effect to update chart data when activeDuration or isClient changes
+  // Effect to update chart data when activeDuration changes
   useEffect(() => {
-    if (!isClient) return;
     setChartData(getFOIRDataForDuration(activeDuration));
-  }, [activeDuration, isClient]);
+  }, [activeDuration]);
 
   // Effect for auto-rotation and onAnimationComplete callback
   useEffect(() => {
-    if (!mountedRef.current || !isClient) {
+    if (!mountedRef.current) {
       return; 
     }
 
@@ -313,7 +314,7 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
         durationAnimationTimeoutRef.current = null;
       }
     };
-  }, [activeDuration, disableAutoRotate, onAnimationComplete, cycleCount, isClient, shouldDisableAnimations]);
+  }, [activeDuration, disableAutoRotate, onAnimationComplete, cycleCount, shouldDisableAnimations]);
 
   // Manual duration change function for button clicks
   const handleManualDurationChange = useCallback((durationId: string) => {
@@ -401,7 +402,7 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
             exit={shouldDisableAnimations ? undefined : "exit"}
             className="w-full min-h-[340px]"
           >
-            {isClient && transformedChartData && transformedChartData.length > 0 && (
+            {transformedChartData && transformedChartData.length > 0 ? (
               <div className="relative w-full">
                 {/* Bar Chart */}
                 <BarChart
@@ -474,8 +475,7 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
                   ))}
                 </div>
               </div>
-            )}
-            {(!isClient || !transformedChartData || transformedChartData.length === 0) && (
+            ) : (
               <div className="w-full min-h-[340px] flex items-center justify-center">
                 <p className="text-slate-500">Loading chart data...</p>
               </div>
@@ -527,7 +527,7 @@ export const AnimatedFOIRChartCard = ({ onAnimationComplete, disableAutoRotate =
           variants={footerItemVariants} 
         >
           <div className="text-[10px] md:text-xs text-slate-500 dark:text-neutral-400">
-            Last updated: {isClient ? clientLastUpdated : '...'}
+            Last updated: {clientLastUpdated || '...'}
           </div>
           <div className="text-xs text-right font-medium text-green-600 dark:text-green-400">
             User has consistent FOIR of &gt;80%
