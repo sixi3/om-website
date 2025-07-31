@@ -1,6 +1,6 @@
 import React from "react";
 import { TiltCard } from "../components/ui/tilt-card";
-import { GridBackground } from "../components/ui/grid-background";
+import { BackgroundGrid } from "@/components/ui/background-grid";
 
 
 // Define metallic black class (consider moving to shared lib later)
@@ -67,12 +67,12 @@ const complianceContent = [
 export default function CompliancePage() {
   return (
     <main className="relative w-full pb-12 md:pb-16 overflow-hidden">
-      <GridBackground />
+      <BackgroundGrid />
       <div className="container px-4 md:px-6 mx-auto">
 
 
         {/* Page Title */}
-        <div className="text-center mb-12 md:mb-16">
+        <div className="text-center my-12 md:my-16">
           <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <span className={metallicBlackTextClasses}>Compliance</span>
           </h1>

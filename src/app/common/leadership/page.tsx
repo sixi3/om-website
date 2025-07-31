@@ -159,13 +159,13 @@ export default function LeadershipPage() {
   return (
     <AuroraBackground>
       <MainHeader />
-      <BackgroundGrid zIndex={-10} />
+      <BackgroundGrid />
       
       <main className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
           <Breadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
         </div>
-        <div className="w-full max-w-7xl px-4 md:px-6 relative z-10">
+        <div className="w-full max-w-7xl px-4 md:px-6 mx-auto relative z-10">
         {/* Hero Section */}
         <div className="text-center my-12 md:my-16">
           <h2 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl mb-6">

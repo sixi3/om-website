@@ -54,7 +54,7 @@ export default function ValuesPage() {
           <EqualBreadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
         </div>
         
-        <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 relative z-10 justify-center items-center">
+        <div className="w-full max-w-7xl mx-auto px-4 md:px-6 relative z-10">
           {/* Hero Section */}
           <div className="text-center my-12 md:my-16">
             <h2 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl mb-6">
@@ -68,31 +68,35 @@ export default function ValuesPage() {
           </div>
 
           {/* Values Cards Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 md:gap-2">
             {ourValues.map((item, idx) => {
               const IconComponent = item.icon;
               return (
                 <div
                   key={idx}
-                  className="relative group overflow-hidden rounded-2xl shadow-lg "
+                  className="relative group overflow-hidden rounded-2xl shadow-lg w-full"
                 >
                   {/* Gradient Background */}
                   <div className="absolute inset-0 bg-gradient-to-b from-[#baff29]/30 to-white/20 backdrop-blur-md border border-[#2F5734]/10 rounded-2xl" />
                   
                   {/* Card Content */}
-                  <div className="relative p-8 flex flex-col h-full min-h-[400px] w-full">
+                  <div className="relative p-4 pt-6 flex flex-col h-full">
                     {/* Title */}
-                    <h3 className={`text-lg text-center font-bold mb-6 leading-wide tracking-wide ${metallicBlackTextClasses}`}>
+                    <h3 className={`text-lg text-center font-bold mb-6 leading-wide tracking-wide text-[#062E14] drop-shadow-lg bg-clip-text dark:from-neutral-700 dark:to-neutral-900`}>
                       {item.title}
                     </h3>
                     
                     {/* Image */}
                     <div className="flex justify-center mb-6">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-40 h-40 object-contain"
-                      />
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-[#baff29]/30 blur-xl rounded-full scale-110"></div>
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-40 h-40 object-contain relative z-10"
+                        />
+                      </div>
                     </div>
                     
                     {/* Glowing Divider */}
@@ -112,6 +116,7 @@ export default function ValuesPage() {
                 </div>
               );
             })}
+            </div>
           </div>
         </div>
       </main>

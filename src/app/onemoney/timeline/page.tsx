@@ -1,5 +1,6 @@
 import React from "react";
 import { Timeline } from "../components/ui/timeline";
+import { BackgroundGrid } from "@/components/ui/background-grid";
 
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -148,7 +149,8 @@ const timelineData = [
 
 export default function TimelinePage() {
   return (
-    <main className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
+    <main className="relative w-full my-12 md:my-16 overflow-hidden">
+      <BackgroundGrid />
       <div className="container px-4 md:px-6 mx-auto">
 
 

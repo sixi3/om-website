@@ -44,6 +44,7 @@ const routeTitleMap: Record<string, string> = {
   leadership: "Leadership",
   timeline: "Timeline",
   "vision-mission": "Vision & Mission",
+  termsconditions: "Terms & Conditions",
   
   // Common pages
   common: "Common",

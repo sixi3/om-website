@@ -103,6 +103,7 @@ export default function FinancialServicesHero() {
   return (
     <div className="overflow-x-hidden">
       <>
+      <BackgroundGrid />
       <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-center pt-16 pb-12 overflow-hidden min-h-[600px]">
         {/* Left: Content */}
         <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4 z-10">

@@ -234,7 +234,7 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "text-md font-semibold px-2 py-3 rounded-md transition-colors duration-200 hover:text-[#00b140] hover:bg-background/70 hover:backdrop-blur-xl hover:shadow-lg hover:border hover:border-slate-200 uppercase",
+                  "text-md font-medium px-2 py-3 rounded-md transition-colors duration-200 hover:text-[#00b140] hover:bg-background/70 hover:backdrop-blur-xl hover:shadow-lg hover:border hover:border-slate-200 uppercase tracking-wide",
                   pathname === link.href
                     ? "text-[#00b140]"
                     : "text-foreground/80"

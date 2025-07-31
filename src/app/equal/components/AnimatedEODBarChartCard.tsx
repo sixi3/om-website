@@ -273,7 +273,7 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
       </motion.div>
 
       {/* Bar Chart Section */}
-      <div className="pt-2 pb-4 min-h-[340px] px-2">
+      <div className="pt-2 min-h-[340px] px-2">
         <AnimatePresence mode="wait">
           <motion.div
             key={`eod-chart-${animationCycle}`}
@@ -367,7 +367,7 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
 
       {/* Custom Legend Section */}
       <motion.div 
-        className="flex justify-center items-center space-x-6 pb-6"
+        className="flex justify-center items-center space-x-6"
         initial="hidden"
         animate="visible"
         variants={{
@@ -396,7 +396,7 @@ export const AnimatedEODBarChartCard = ({ onAnimationComplete, disableAutoRotate
       </motion.div>
 
       {/* Last Updated Footer */}
-      <div className="p-4 pb-6 dark:bg-neutral-800/30">
+      <div className="p-4 pb-4 dark:bg-neutral-800/30">
         <motion.div 
           className="flex justify-between items-center"
           initial="hidden"
