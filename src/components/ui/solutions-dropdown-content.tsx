@@ -33,8 +33,8 @@ const originalSolutionSections: SolutionSection[] = [
     description: "Specialised solutions tailored for specific industry verticals and their unique requirements",
     items: [
       {
-        id: "financial-services",
-        title: "Financial Services",
+        id: "bfsi-services",
+        title: "BFSI Services",
         description: "Digital transformation for banks and NBFCs",
         image: {
           src: "/Hosted Page.png",

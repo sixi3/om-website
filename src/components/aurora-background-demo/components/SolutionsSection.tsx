@@ -20,7 +20,7 @@ const solutionsData = [
       width: 56,
       height: 56
     },
-    href: "/equal/solutions/financial-services",
+    href: "/moneyone/financial-services",
     icon: <Building size={24} />,
     colSpan: 2 as const,
     rowSpan: 1 as const,
@@ -28,8 +28,8 @@ const solutionsData = [
     imageClassName: "absolute top-[-20px] right-[-40px] w-32 h-32 lg:w-40 lg:h-40 lg:top-[-40px] lg:right-[-10px] lg:w-40 lg:h-40 xl:top-[-50px] xl:right-[-80px] xl:w-72 xl:h-72"
   },
   {
-    id: "employee-verification",
-    title: "Employee Verification",
+    id: "verification-services",
+    title: "Verification Services",
     description: "Verify candidates across multiple platforms with comprehensive background checks and employment verification.",
     image: {
       src: "/HR OPS.png",
@@ -37,7 +37,7 @@ const solutionsData = [
       width: 56,
       height: 56
     },
-    href: "/equal/solutions",
+    href: "/equal",
     icon: <Users size={24} />,
     colSpan: 1 as const,
     rowSpan: 1 as const,
@@ -62,16 +62,16 @@ const solutionsData = [
     imageClassName: "absolute top-[-10px] right-[-30px] w-32 h-32 lg:top-[-50px] lg:right-[-50px] lg:w-40 lg:h-40"
   },
   {
-    id: "financial-analytics",
-    title: "Financial Analytics",
-    description: "Create your own workflows for your business with advanced analytics and customizable reporting solutions.",
+    id: "financial-tsp",
+    title: "Financial TSPs",
+    description: "Explore our financial technology service providers",
     image: {
       src: "/Financial Analytics.png",
       alt: "Financial Analytics",
       width: 56,
       height: 56
     },
-    href: "/equal/solutions/financial-services#moneyone-section",
+    href: "/moneyone",
     icon: <BarChart3 size={24} />,
     colSpan: 2 as const,
     rowSpan: 1 as const,
@@ -131,12 +131,24 @@ export function SolutionsSection() {
               header={
                 <div 
                   className="absolute inset-0 z-10 cursor-pointer" 
-                  onClick={() => window.location.href = item.href}
+                  onClick={() => {
+                    // Open first and last items in new tab
+                    if (item.id === "financial-services" || item.id === "financial-tsp") {
+                      window.open(item.href, '_blank', 'noopener,noreferrer');
+                    } else {
+                      window.location.href = item.href;
+                    }
+                  }}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
-                      window.location.href = item.href;
+                      // Open first and last items in new tab
+                      if (item.id === "financial-services" || item.id === "financial-tsp") {
+                        window.open(item.href, '_blank', 'noopener,noreferrer');
+                      } else {
+                        window.location.href = item.href;
+                      }
                     }
                   }}
                 />

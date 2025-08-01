@@ -1,13 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
+
+// Import dropdown components
+import { DropdownMenu, TriggerWrapper, Trigger, TabsContainer, Tab } from "@/components/ui/dropdown-menu";
+import { AboutUsDropdownContent } from "./AboutUsDropdownContent";
+import { ResourcesDropdownContent } from "./ResourcesDropdownContent";
 
 // Import dialog components
 import {
@@ -24,22 +29,249 @@ interface SimpleHeaderProps {
   className?: string;
 }
 
+interface TabConfig {
+  trigger: string;
+  content: React.ComponentType;
+  mobileLinks: Array<{
+    title: string;
+    href: string;
+  }>;
+}
+
+interface MobileSection {
+  id: string;
+  title: string;
+  links: Array<{
+    title: string;
+    href: string;
+  }>;
+}
+
+// Animated hamburger menu component
+const AnimatedHamburger = memo(({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) => (
+  <button
+    className="relative w-6 h-6 flex flex-col justify-center items-center"
+    onClick={onClick}
+    aria-label="Toggle mobile menu"
+  >
+    <motion.span
+      className="absolute w-5 h-0.5 bg-current transition-all duration-300"
+      animate={{
+        rotate: isOpen ? 45 : 0,
+        y: isOpen ? 0 : -6,
+      }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    />
+    <motion.span
+      className="absolute w-5 h-0.5 bg-current transition-all duration-300"
+      animate={{
+        opacity: isOpen ? 0 : 1,
+        x: isOpen ? -20 : 0,
+      }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    />
+    <motion.span
+      className="absolute w-5 h-0.5 bg-current transition-all duration-300"
+      animate={{
+        rotate: isOpen ? -45 : 0,
+        y: isOpen ? 0 : 6,
+      }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    />
+  </button>
+));
+
+AnimatedHamburger.displayName = 'AnimatedHamburger';
+
+// Mobile collapsible section component
+const MobileCollapsibleSection = memo(({ 
+  section, 
+  isOpen, 
+  onToggle, 
+  pathname,
+  onLinkClick 
+}: { 
+  section: MobileSection; 
+  isOpen: boolean; 
+  onToggle: () => void;
+  pathname: string;
+  onLinkClick: () => void;
+}) => {
+  const sectionVariants = {
+    closed: {
+      height: 0,
+      opacity: 0,
+      transition: {
+        height: { duration: 0.3 },
+        opacity: { duration: 0.2 }
+      }
+    },
+    open: {
+      height: "auto",
+      opacity: 1,
+      transition: {
+        height: { duration: 0.3 },
+        opacity: { duration: 0.3, delay: 0.1 }
+      }
+    }
+  };
+
+  const chevronVariants = {
+    closed: { rotate: 0 },
+    open: { rotate: 180 }
+  };
+
+  return (
+    <div className="border-b border-slate-200/30 lg:border-white/20">
+      <button
+        onClick={onToggle}
+        className="flex items-center justify-between w-full px-4 py-4 text-left hover:bg-slate-50/50 transition-colors duration-200"
+      >
+        <span className="text-sm font-semibold text-[#00b140] uppercase tracking-widest">
+          {section.title}
+        </span>
+        <motion.div
+          variants={chevronVariants}
+          animate={isOpen ? "open" : "closed"}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
+          <ChevronDown className="w-4 h-4 text-slate-600" />
+        </motion.div>
+      </button>
+      
+      <motion.div
+        variants={sectionVariants}
+        animate={isOpen ? "open" : "closed"}
+        initial="closed"
+        className="overflow-hidden"
+      >
+        <div className="pb-2">
+          {section.links.map((link, index) => (
+            <motion.div
+              key={link.href}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ 
+                opacity: isOpen ? 1 : 0, 
+                x: isOpen ? 0 : -20 
+              }}
+              transition={{ 
+                duration: 0.3, 
+                delay: isOpen ? index * 0.05 + 0.1 : 0,
+                ease: "easeOut" 
+              }}
+            >
+              <Link
+                href={link.href}
+                className={cn(
+                  "flex items-center px-6 py-3 text-base font-medium transition-colors",
+                  pathname === link.href
+                    ? "bg-[#00b140] text-white"
+                    : "text-foreground/80 hover:bg-slate-50 hover:text-foreground"
+                )}
+                onClick={onLinkClick}
+              >
+                {link.title}
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+});
+
+MobileCollapsibleSection.displayName = 'MobileCollapsibleSection';
+
 export function SimpleHeader({ className }: SimpleHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
   const pathname = usePathname();
+
+  // Tab configurations
+  const tabConfigs: TabConfig[] = [
+    {
+      trigger: "ABOUT US",
+      content: AboutUsDropdownContent,
+      mobileLinks: [
+        { title: "Team", href: "/onemoney/team" },
+        { title: "Vision & Mission", href: "/onemoney/vision-mission" },
+        { title: "Leadership", href: "/onemoney/leadership" },
+        { title: "Values", href: "/onemoney/values" }
+      ]
+    },
+    {
+      trigger: "RESOURCES",
+      content: ResourcesDropdownContent,
+      mobileLinks: [
+        { title: "Privacy Policy", href: "/onemoney/policies" },
+        { title: "Terms & Conditions", href: "/onemoney/termsconditions" },
+        { title: "Timeline", href: "/onemoney/timeline" },
+        { title: "Compliance", href: "/onemoney/compliance" }
+      ]
+    }
+  ];
+
+  // Mobile sections
+  const mobileSections: MobileSection[] = [
+    {
+      id: "about",
+      title: "ABOUT US",
+      links: [
+        { title: "Team", href: "/onemoney/team" },
+        { title: "Vision & Mission", href: "/onemoney/vision-mission" },
+        { title: "Leadership", href: "/onemoney/leadership" },
+        { title: "Values", href: "/onemoney/values" }
+      ]
+    },
+    {
+      id: "resources",
+      title: "RESOURCES",
+      links: [
+        { title: "Privacy Policy", href: "/onemoney/policies" },
+        { title: "Terms & Conditions", href: "/onemoney/termsconditions" },
+        { title: "Timeline", href: "/onemoney/timeline" },
+        { title: "Compliance", href: "/onemoney/compliance" }
+      ]
+    }
+  ];
+
+  // CSS variables for theming
+  const cssVars = {
+    "--accent-color": "#00b140",
+    "--accent-hover": "#087C32",
+    "--button-text": "#ffffff",
+    "--glow-color": "#00b140",
+    "--hover-glow-color": "#087C32",
+  } as React.CSSProperties;
 
   // Scroll handler
   const handleScroll = useCallback(() => {
     setIsScrolled(window.scrollY > 10);
   }, []);
 
+  // Resize handler
+  const handleResize = useCallback(() => {
+    setIsSmallScreen(window.innerWidth < 768);
+  }, []);
+
   useEffect(() => {
+    // Add event listeners
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
+
+    // Initial checks
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    handleResize();
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleScroll, handleResize]);
 
   // Lock background scroll when mobile menu is open
   useEffect(() => {
@@ -55,10 +287,19 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
 
   const toggleMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(prev => !prev);
-  }, []);
+    // Close any open mobile sections when closing the menu
+    if (isMobileMenuOpen) {
+      setOpenMobileSection(null);
+    }
+  }, [isMobileMenuOpen]);
 
   const closeMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(false);
+    setOpenMobileSection(null);
+  }, []);
+
+  const toggleMobileSection = useCallback((sectionId: string) => {
+    setOpenMobileSection(prev => prev === sectionId ? null : sectionId);
   }, []);
 
   const openDialog = useCallback(() => {
@@ -69,27 +310,19 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
     setIsDialogOpen(false);
   }, []);
 
-  const navLinks = [
-    {
-      title: "Privacy Policy",
-      href: "/onemoney/policies"
-    },
-    {
-      title: "Terms & Conditions", 
-      href: "/onemoney/termsconditions"
-    },
-    {
-        title: "Timeline",
-        href:"/onemoney/timeline"
-    },
-    {
-        title: "Compliance",
-        href:"/onemoney/compliance"
+  // Scroll to WhatIsOneMoney section
+  const scrollToWhatIsOneMoney = useCallback(() => {
+    const element = document.getElementById('what-is-onemoney-section');
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
-  ];
+  }, []);
 
   return (
-    <div className={cn("fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:p-3 pointer-events-none", className)}>
+    <div className={cn("fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:p-3 pointer-events-none will-change-transform", className)}>
       {/* Mobile Header */}
       <header
         className={cn(
@@ -98,6 +331,7 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
             ? "border border-white/20 bg-background/40 backdrop-blur-md shadow-md rounded-2xl"
             : "border border-transparent bg-transparent shadow-none rounded-2xl"
         )}
+        style={cssVars}
       >
         <div className="flex h-16 items-center px-2 sm:px-4">
           {/* Left: Logo */}
@@ -116,36 +350,7 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
 
           {/* Right: Mobile Menu Toggle */}
           <div className="flex items-center flex-shrink-0 ml-auto px-4">
-            <button
-              className="relative w-6 h-6 flex flex-col justify-center items-center"
-              onClick={toggleMobileMenu}
-              aria-label="Toggle mobile menu"
-            >
-              <motion.span
-                className="absolute w-5 h-0.5 bg-current transition-all duration-300"
-                animate={{
-                  rotate: isMobileMenuOpen ? 45 : 0,
-                  y: isMobileMenuOpen ? 0 : -6,
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              />
-              <motion.span
-                className="absolute w-5 h-0.5 bg-current transition-all duration-300"
-                animate={{
-                  opacity: isMobileMenuOpen ? 0 : 1,
-                  x: isMobileMenuOpen ? -20 : 0,
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              />
-              <motion.span
-                className="absolute w-5 h-0.5 bg-current transition-all duration-300"
-                animate={{
-                  rotate: isMobileMenuOpen ? -45 : 0,
-                  y: isMobileMenuOpen ? 0 : 6,
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              />
-            </button>
+            <AnimatedHamburger isOpen={isMobileMenuOpen} onClick={toggleMobileMenu} />
           </div>
         </div>
 
@@ -159,21 +364,32 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <nav className="flex flex-col p-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={cn(
-                      "flex items-center px-4 py-3 text-base font-medium transition-colors rounded-lg",
-                      pathname === link.href
-                        ? "bg-[#00b140] text-white"
-                        : "text-foreground/80 hover:bg-slate-50 hover:text-foreground"
-                    )}
-                    onClick={closeMobileMenu}
+              <nav className="flex flex-col">
+                {/* Product Link */}
+                <div className="border-b border-slate-200/30 lg:border-white/20">
+                  <button
+                    onClick={() => {
+                      scrollToWhatIsOneMoney();
+                      closeMobileMenu();
+                    }}
+                    className="flex items-center w-full px-4 py-4 text-left hover:bg-slate-50/50 transition-colors duration-200"
                   >
-                    {link.title}
-                  </Link>
+                    <span className="text-sm font-semibold text-[#00b140] uppercase tracking-widest">
+                      PRODUCT
+                    </span>
+                  </button>
+                </div>
+
+                {/* Collapsible Sections */}
+                {mobileSections.map((section) => (
+                  <MobileCollapsibleSection
+                    key={section.id}
+                    section={section}
+                    isOpen={openMobileSection === section.id}
+                    onToggle={() => toggleMobileSection(section.id)}
+                    pathname={pathname}
+                    onLinkClick={closeMobileMenu}
+                  />
                 ))}
 
                 {/* GET IN TOUCH Button for Mobile */}
@@ -197,12 +413,14 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
       {/* Desktop Header */}
       <motion.header
         className={cn(
-          "hidden lg:block pointer-events-auto transition-all duration-300 ease-in-out",
+          "hidden lg:block pointer-events-auto transition-all duration-300 ease-in-out will-change-transform",
           "rounded-full border",
           isScrolled
             ? "border-white/20 bg-background/40 backdrop-blur-md shadow-md"
-            : "border-transparent bg-transparent shadow-none"
+            : "border-transparent bg-transparent shadow-none",
+          "overflow-visible"
         )}
+        style={cssVars}
         animate={{
           borderRadius: isScrolled ? "9999px" : "0px"
         }}
@@ -227,24 +445,39 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
             </Link>
           </div>
           
-          {/* Center: Navigation Links */}
-          <nav className="flex items-center justify-center flex-1 gap-12">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "text-md font-medium px-2 py-3 rounded-md transition-colors duration-200 hover:text-[#00b140] hover:bg-background/70 hover:backdrop-blur-xl hover:shadow-lg hover:border hover:border-slate-200 uppercase tracking-wide",
-                  pathname === link.href
-                    ? "text-[#00b140]"
-                    : "text-foreground/80"
-                )}
+          {/* Center: Desktop Navigation with Dropdowns */}
+          <nav className="flex items-center justify-center flex-1">
+            <div className="flex items-center gap-2 md:gap-4">
+              {/* Product Button */}
+              <button
+                onClick={scrollToWhatIsOneMoney}
+                className="flex h-10 md:h-12 items-center gap-1 rounded-lg px-3 md:px-4 py-1 text-base font-bold tracking-widest transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2 min-h-[44px] min-w-[44px] text-slate-800 hover:bg-white/70 hover:backdrop-blur-xl hover:text-[#00b140] hover:border hover:border-slate-200 hover:shadow-lg"
               >
-                {link.title}
-              </Link>
-            ))}
-          </nav>
+                PRODUCT
+              </button>
 
+              {/* Dropdown Menu */}
+              <DropdownMenu>
+                <TriggerWrapper>
+                  {tabConfigs.map((config, index) => (
+                    <Trigger key={index}>{config.trigger}</Trigger>
+                  ))}
+                </TriggerWrapper>
+                
+                <TabsContainer>
+                  {tabConfigs.map((config, index) => {
+                    const ContentComponent = config.content;
+                    return (
+                      <Tab key={index}>
+                        <ContentComponent />
+                      </Tab>
+                    );
+                  })}
+                </TabsContainer>
+              </DropdownMenu>
+            </div>
+          </nav>
+          
           {/* Right: GET IN TOUCH Button (Desktop only) */}
           <div className="flex items-center flex-shrink-0 ml-auto pl-4">
             <ShimmerButton onClick={openDialog}>

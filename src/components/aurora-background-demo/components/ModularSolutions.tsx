@@ -246,16 +246,16 @@ const solutionSections: SolutionSection[] = [
         icon: <Briefcase size={24} />
       },
       {
-        id: "financial-services",
-        title: "Financial Services",
-        description: "Gain in-depth insights into financial history with our AI-powered analytics.",
+        id: "custom-workflows",
+        title: "Custom Workflows",
+        description: "Create custom verification workflows for your business.",
         image: {
-          src: "/Financial Analytics.png",
+          src: "/Collect Now, Verify Later.png",
           alt: "Financial Analytics",
           width: 80,
           height: 80
         },
-        href: "/equal/solutions/financial-services",
+        href: "/equal/industries",
         icon: <UserCheck size={24} />
       }
     ]

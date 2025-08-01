@@ -399,12 +399,8 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
       return items;
     }
     
-      // Special handling for MoneyOne financial-services page - add Products and Financial Services breadcrumbs
+      // Special handling for MoneyOne financial-services page - add Financial Services breadcrumb directly
   if (pathname === "/moneyone/financial-services") {
-    items.push({
-      title: "Products",
-      href: "/moneyone#products",
-    });
     items.push({
       title: "Financial Services",
       href: "/moneyone/financial-services",

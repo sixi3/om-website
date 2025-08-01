@@ -88,6 +88,7 @@ export function WhatIsOneMoney() {
 
   return (
     <motion.section 
+      id="what-is-onemoney-section"
       className="relative w-full py-16 md:py-24"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}

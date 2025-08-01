@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface GlowingDividerProps {
@@ -45,7 +45,7 @@ export function GlowingDivider({
       transition: {
         duration: 1.2,
         delay: delay,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeOut
       }
     }
   };
