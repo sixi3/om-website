@@ -167,8 +167,8 @@ const ProductItem = memo<{ item: ProductItem; index: number }>(({ item, index })
       <Link 
         href={item.href}
         role="menuitem"
-        target={item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "Financial Analytics" ? "_blank" : undefined}
-        rel={item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "Financial Analytics" ? "noopener noreferrer" : undefined}
+        target={item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "financial-analytics" ? "_blank" : undefined}
+        rel={item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "financial-analytics" ? "noopener noreferrer" : undefined}
         className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-150 group focus:border-b-1"
       >
         <div className="flex-shrink-0 relative">

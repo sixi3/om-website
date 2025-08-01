@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react"; // Reusing from onemoney for now
 import { motion } from "framer-motion";
 import Image from "next/image"; // Import next/image
+import Link from "next/link"; // Added for navigation
 import { CustomAccordion, CustomAccordionItemProps } from "@/components/ui/CustomAccordion"; // Added import
 import { ArrowRight } from "lucide-react";
 // Styling classes (consistent with other sections)
@@ -182,6 +183,7 @@ export function Solutions() {
 
   return (
     <motion.section 
+      id="solutions"
       className="relative w-full py-12" // Increased padding
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -250,10 +252,12 @@ export function Solutions() {
                 
                 {/* Learn More Button */}
                 <div className="mt-6">
-                  <button className="inline-flex items-center justify-center rounded-full bg-linear-to-br from-white to-slate-100 backdrop-blur-md border border-b-4 border-slate-200 dark:border-neutral-700 px-6 py-3 text-md font-medium uppercase text-slate-600 hover:text-[#00b140] focus:border-b-1 transition duration-300 group">
-                    Learn More
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover/bento:translate-x-1" />
-                  </button>
+                  <Link href={`/moneyone/solutions/${currentTabContent.id}`}>
+                    <button className="inline-flex items-center justify-center rounded-full bg-linear-to-br from-white to-slate-100 backdrop-blur-md border border-b-4 border-slate-200 dark:border-neutral-700 px-6 py-3 text-md font-semibold uppercase text-slate-600 hover:text-[#00b140] hover:border-[#00b140] focus:border-b-1 transition duration-300 group">
+                      Learn More
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover/bento:translate-x-1" />
+                    </button>
+                  </Link>
                 </div>
               </div>
               

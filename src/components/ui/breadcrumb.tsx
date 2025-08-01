@@ -37,6 +37,7 @@ const routeTitleMap: Record<string, string> = {
   // MoneyOne section
   moneyone: "MoneyOne",
   finpro: "FinPro",
+  finshare: "FinShare",
   "wealth-management": "Wealth Management",
   lending: "Lending",
   advisory: "Advisory",
@@ -85,8 +86,12 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     });
   }
   
-  // Special handling for Equal trust-security page - add Employment breadcrumb
+  // Special handling for Equal trust-security page - add Solutions and Employment breadcrumbs
   if (pathname === "/equal/trust-security") {
+    items.push({
+      title: "Solutions",
+      href: "/#employment-verification",
+    });
     items.push({
       title: "Employment",
       href: "/equal",
@@ -99,10 +104,10 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     return items;
   }
   
-  // Special handling for Equal product pages - add Products, Employment, and page name breadcrumbs
+  // Special handling for Equal product pages - add Solutions, Employment, and page name breadcrumbs
   if (pathname.startsWith("/equal/products/")) {
     items.push({
-      title: "Products",
+      title: "Solutions",
       href: "/#employment-verification",
     });
     items.push({
@@ -127,6 +132,10 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
   
   if (isEqualRelatedPage) {
     items.push({
+      title: "Solutions",
+      href: "/#employment-verification",
+    });
+    items.push({
       title: "Employment",
       href: "/equal",
     });
@@ -149,18 +158,18 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     return items;
   }
   
-  // Special handling for Equal main page - add Products breadcrumb
+  // Special handling for Equal main page - add Solutions breadcrumb
   if (pathname === "/equal") {
     items.push({
-      title: "Products",
+      title: "Solutions",
       href: "/#employment-verification",
     });
   }
   
-  // Special handling for Equal solutions pages - add Products and Employment breadcrumbs
+  // Special handling for Equal solutions pages - add Solutions and Employment breadcrumbs
   if (pathname.startsWith("/equal/solutions")) {
     items.push({
-      title: "Products",
+      title: "Solutions",
       href: "/#employment-verification",
     });
     items.push({
@@ -247,6 +256,11 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   
   // Don't show breadcrumbs on home page
   if (pathname === "/") {
+    return null;
+  }
+  
+  // Don't render until mounted to prevent hydration mismatch
+  if (!isMounted) {
     return null;
   }
   
@@ -346,6 +360,16 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
     setIsMounted(true);
   }, []);
   
+  // Don't show breadcrumbs on MoneyOne landing page
+  if (pathname === "/moneyone") {
+    return null;
+  }
+  
+  // Don't render until mounted to prevent hydration mismatch
+  if (!isMounted) {
+    return null;
+  }
+  
   // Generate breadcrumb items specifically for MoneyOne
   const generateMoneyOneBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     const segments = pathname.split("/").filter(Boolean);
@@ -357,29 +381,11 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
       href: "/moneyone",
     });
     
-    // Special handling for MoneyOne main page - add Products and MoneyOne breadcrumbs
-    if (pathname === "/moneyone") {
-      items.push({
-        title: "Products",
-        href: "/#bfsi-section",
-      });
-      items.push({
-        title: "MoneyOne",
-        href: "/moneyone",
-        isCurrentPage: true,
-      });
-      return items;
-    }
-    
-    // Special handling for MoneyOne product pages - add Products, MoneyOne, and Product breadcrumbs
+    // Special handling for MoneyOne product pages - add Products and Product breadcrumbs
     if (pathname.startsWith("/moneyone/products/")) {
       items.push({
         title: "Products",
-        href: "/#bfsi-section",
-      });
-      items.push({
-        title: "MoneyOne",
-        href: "/moneyone",
+        href: "/moneyone#products",
       });
       
       // Get the product name from the URL
@@ -393,15 +399,11 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
       return items;
     }
     
-      // Special handling for MoneyOne financial-services page - add Products, MoneyOne, and Financial Services breadcrumbs
+      // Special handling for MoneyOne financial-services page - add Products and Financial Services breadcrumbs
   if (pathname === "/moneyone/financial-services") {
     items.push({
       title: "Products",
-      href: "/#bfsi-section",
-    });
-    items.push({
-      title: "MoneyOne",
-      href: "/moneyone",
+      href: "/moneyone#products",
     });
     items.push({
       title: "Financial Services",
@@ -412,15 +414,11 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
     return items;
   }
   
-  // Special handling for MoneyOne solutions pages - add Products, MoneyOne, and page name breadcrumbs
+  // Special handling for MoneyOne solutions pages - add Solutions and page name breadcrumbs
   if (pathname.startsWith("/moneyone/solutions/")) {
     items.push({
-      title: "Products",
-      href: "/#bfsi-section",
-    });
-    items.push({
-      title: "MoneyOne",
-      href: "/moneyone",
+      title: "Solutions",
+      href: "/moneyone#solutions",
     });
     
     // Get the solution name from the URL
@@ -550,6 +548,11 @@ export const OneMoneyBreadcrumb: React.FC<BreadcrumbProps> = ({
   
   // Don't show breadcrumbs on OneMoney landing page
   if (pathname === "/onemoney") {
+    return null;
+  }
+  
+  // Don't render until mounted to prevent hydration mismatch
+  if (!isMounted) {
     return null;
   }
   

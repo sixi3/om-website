@@ -39,19 +39,20 @@ export default function MoneyOnePage() {
         {...glowingDividerProps}
         delay={0.6}
       />
-      
-      <Services />
-      
-      <GlowingDivider 
-        {...glowingDividerProps}
-        delay={0.4}
-      />
+
       
       <Products />
       
       <GlowingDivider 
         {...glowingDividerProps}
         delay={0.5}
+      />
+      
+      <Services />
+      
+      <GlowingDivider 
+        {...glowingDividerProps}
+        delay={0.4}
       />
       
       <ContactUs />

@@ -279,4 +279,55 @@ export function Products() {
 
     </motion.section>
   );
+}
+
+// Version without stats and pills for solution pages
+export function ProductsWithoutStats() {
+  return (
+    <motion.section 
+      id="products"
+      className="relative w-full py-16"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+    >
+      <div className="container px-4 md:px-6 mx-auto">
+      
+        {/* Title and Subtitle */}
+        <div className="text-center mb-12 md:mb-16">
+          <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-8 block">
+            Product Suite
+          </span>
+          <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
+            <span className={metallicBlackTextClasses}>Our</span>{" "}
+            <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
+              Core
+            </span>
+            <span className={metallicBlackTextClasses}> Products</span>
+          </h2>
+          <p className="w-full mx-auto text-lg text-slate-700 dark:text-slate-300">
+            Discover the innovative solutions designed to enhance your financial data management and governance capabilities.
+          </p>
+        </div>
+
+        {/* Product Cards Section */}
+        <BentoGrid className="mx-auto md:grid-cols-2"> {/* Using md:grid-cols-2 for two cards side-by-side */}
+          {productsData.map((item) => (
+            <Link key={item.id} href={item.id === 1 ? "/moneyone/products/finpro" : "/moneyone/products/finshare"} className="block">
+              <BentoGridItem
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                icon={item.icon}
+                className={`${item.className} cursor-pointer hover:scale-[1.02] transition-transform duration-200`}
+              />
+            </Link>
+          ))}
+        </BentoGrid>
+
+      </div> {/* End of the main container div */}
+
+    </motion.section>
+  );
 } 

@@ -42,7 +42,7 @@ const originalSolutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/moneyone"
+        href: "/#bfsi-section"
       },
       {
         id: "Employee Verification",
@@ -54,7 +54,7 @@ const originalSolutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/solutions"
+        href: "/#employment-verification"
       },
       {
         id: "identity",
@@ -69,16 +69,17 @@ const originalSolutionSections: SolutionSection[] = [
         href: "/equal/products/identity-gateway"
       },
       {
-        id: "financial-analytics",
-        title: "Financial Analytics",
-        description: "Create your own workflows for your business",
+        id: "technology-provider",
+        title: "Financial TSP",
+        description: "Explore our financial technology service providers",
         image: {
           src: "/Financial Analytics.png",
           alt: "Financial Analytics",
           width: 56,
           height: 56
         },
-        href: "/moneyone/financial-services#moneyone-section"
+        href: "/moneyone"
+        
       },
     ]
   }
@@ -143,6 +144,9 @@ const moneyOneSolutionSections: SolutionSection[] = [
 ]
 
 const SolutionItem: React.FC<{ item: SolutionItem; index: number }> = ({ item, index }) => {
+  // Check if this is the Financial Services item that should open in new tab
+  const shouldOpenInNewTab = item.id === "technology-provider" && item.href === "/moneyone";
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -155,6 +159,8 @@ const SolutionItem: React.FC<{ item: SolutionItem; index: number }> = ({ item, i
     >
       <Link 
         href={item.href}
+        target={shouldOpenInNewTab ? "_blank" : undefined}
+        rel={shouldOpenInNewTab ? "noopener noreferrer" : undefined}
         role="menuitem"
         className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"
       >

@@ -5,9 +5,10 @@ import Image from "next/image";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
 import { motion, AnimatePresence } from "framer-motion";
-import { Building, FileText, Zap, MessageCircle, ShieldCheck, Link, CreditCard, Vote, Car, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck, Settings, Code, Webhook, Terminal, TrendingUp, PieChart, BarChart3, Target, RotateCcw, Leaf, Droplets } from "lucide-react";
+import { Building, FileText, Zap, MessageCircle, ShieldCheck, Link, CreditCard, Vote, Car, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck, Settings, Code, Webhook, Terminal, TrendingUp, PieChart, BarChart3, Target, RotateCcw, Leaf, Droplets, BanknoteArrowUp, CandlestickChart, LineChart, ReceiptIndianRupee } from "lucide-react";
 import { CLIENT_LOGOS } from "@/components/aurora-background-demo/constants";
 import { GlowingDivider } from "@/components/ui/glowing-divider";
+import { BackgroundGrid } from "@/components/ui/background-grid";
 import {
   Dialog,
   DialogContent,
@@ -17,13 +18,13 @@ import {
   DialogTrigger,
 } from "@/app/onemoney/components/ui/dialog";
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
+import { AnimatedCounter } from "@/app/onemoney/components/ui/animated-counter";
 
 // Lazy load heavy components
-const Stats = lazy(() => import('@/app/equal/sections/Stats').then(module => ({ default: module.Stats })));
-const ProductShowcase = lazy(() => import("@/app/equal/sections/ProductShowcase").then(module => ({ default: module.ProductShowcase })));
-const IndustrySection = lazy(() => import("@/components/aurora-background-demo/components/industries").then(module => ({ default: module.IndustrySection })));
+const Products = lazy(() => import("@/app/moneyone/sections/Products").then(module => ({ default: module.ProductsWithoutStats })));
 const Marquee = lazy(() => import("react-fast-marquee"));
-
+const FOIRSection = lazy(() => import("@/app/equal/products/financial-services/FOIRSection").then(module => ({ default: module.FOIRSection })));
+const ContactUs = lazy(() => import("@/app/moneyone/sections/ContactUs").then(module => ({ default: module.ContactUs })));
 // Loading component
 const SectionLoader = () => (
   <div className="w-full h-64 flex items-center justify-center">
@@ -32,10 +33,31 @@ const SectionLoader = () => (
 );
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+const moneyOneMetallicTextClasses = "font-bold bg-gradient-to-b from-[#3cd070] to-[#00b140] bg-clip-text text-transparent";
+
+// Combined stats data from both Products.tsx and Stats.tsx
+const combinedStatsData = [
+  { id: "fip", value: 1, label: "FIP Coverage in India", prefix: "#", suffix: "" },
+  { id: "fiu", value: 49, label: "FIUs use MoneyOne", prefix: "", suffix: "%+" },
+  { id: "data", value: 79.9, label: "Data Packets Delivered", prefix: "", suffix: "M", fixedDecimals: 1 },
+  { id: "consents", value: 28, label: "Consents Fulfilled Monthly", prefix: "", suffix: "M" },
+];
+
+// Features pills from both files
+const featuresPills = [
+  { text: "Bank Statements", icon: FileText },
+  { text: "Term & Recurring Deposits", icon: BanknoteArrowUp },
+  { text: "Mutual Fund", icon: CandlestickChart },
+  { text: "Insurance", icon: ShieldCheck },
+  { text: "Equities", icon: LineChart },
+  { text: "GSTN Data", icon: ReceiptIndianRupee },
+  { text: "National Pension Scheme", icon: Briefcase },
+];
 
 export default function WealthManagementHero() {
   return (
     <div className="overflow-x-hidden">
+      <BackgroundGrid />
       <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-center pt-12 pb-12 overflow-hidden min-h-[600px]">
         {/* Left: Content */}
         <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4 z-10">
@@ -51,7 +73,7 @@ export default function WealthManagementHero() {
                 <span>Portfolio Management & Investment Insights</span>
               </span>
               <h1 className="text-4xl tracking-tight leading-tight sm:text-8xl md:text-3xl lg:text-4xl xl:text-7xl">
-                <span className={metallicBlackTextClasses}>Advanced</span>{" "}
+                <span className={metallicBlackTextClasses}>Easy</span>{" "}
                 <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
                   Wealth Management
                 </span>{" "}
@@ -118,37 +140,6 @@ export default function WealthManagementHero() {
         delay={0.2}
         className="my-12"
       />
-      <Suspense fallback={<SectionLoader />}>
-        <Stats showVerifyBanner={false} />
-      </Suspense>
-      {/* Portfolio Analytics Section */}
-      <section className="relative w-full pb-12 md:py-10 overflow-hidden">
-        <Suspense fallback={<SectionLoader />}>
-          {/* First Marquee - Full Width */}
-          <div className="mb-0 md:mb-2">
-            <Marquee gradient={false} speed={80} pauseOnHover={true} className="py-2 scale-75 md:scale-100">
-              {[...portfolioAnalyticsRow1, ...portfolioAnalyticsRow1].map((type, index) => (
-                <AnalyticsCard key={`row1-${index}`} name={type.name} icon={type.icon} />
-              ))}
-            </Marquee>
-          </div>
-
-          {/* Second Marquee - Full Width - Reverse Direction */}
-          <div className="md:py-4">
-            <Marquee gradient={false} speed={80} pauseOnHover={true} direction="right" className="py-2 scale-75 md:scale-100">
-              {[...portfolioAnalyticsRow2, ...portfolioAnalyticsRow2].map((type, index) => (
-                <AnalyticsCard key={`row2-${index}`} name={type.name} icon={type.icon} />
-              ))}
-            </Marquee>
-          </div>
-        </Suspense>
-      </section>
-      <GlowingDivider
-        width="3/4"
-        intensity="high"
-        delay={0.2}
-        className="my-12"
-      />
       <motion.section
         className="relative w-full py-12 md:py-20"
         initial={{ opacity: 0, y: 50 }}
@@ -159,11 +150,11 @@ export default function WealthManagementHero() {
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-              <span className={metallicBlackTextClasses}>Why Wealth Managers Choose</span>{" "}
+              <span className={metallicBlackTextClasses}>Why Choose</span>{" "}
               <span className="inline-block bg-[#baff29] px-2 text-black font-bold">MoneyOne</span>{" "}
               <span className={metallicBlackTextClasses}>for Portfolio Management</span>
             </h2>
-            <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-3xl">
+            <p className="mx-auto text-lg text-slate-700 dark:text-slate-300 max-w-6xl">
               Advanced analytics, real-time insights, and comprehensive portfolio management for MFDs, brokerages, and AMCs.
             </p>
           </div>
@@ -219,41 +210,157 @@ export default function WealthManagementHero() {
           </div>
         </div>
       </motion.section>
+      
+      
       <GlowingDivider
         width="3/4"
         intensity="high"
         delay={0.2}
         className="my-12"
       />
-      <Suspense fallback={<SectionLoader />}>
-        <ProductShowcase />
-      </Suspense>
-      <GlowingDivider
-        width="3/4"
-        intensity="high"
-        delay={0.2}
-        className="my-12"
-      />
-      <Suspense fallback={<SectionLoader />}>
-        <IndustrySection />
-      </Suspense>
-      {/* Integration & Developer Features Tabbed Section */}
-      <section className="relative w-full py-12 md:py-20">
+      {/* Combined Stats Section */}
+      <section className="relative w-full py-24">
         <div className="container px-4 md:px-6 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-              <span className={metallicBlackTextClasses}>Build & Deploy with</span>{" "}
-              <span className="inline-block bg-[#baff29] px-2 text-black font-bold">MoneyOne</span>
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl">
+              <span className={metallicBlackTextClasses}>India&apos;s</span>{" "}
+              <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
+                Largest
+              </span>{" "}
+              <span className={metallicBlackTextClasses}>Account Aggregator</span>
             </h2>
-            <p className="mx-auto text-md text-slate-700 dark:text-slate-300 max-w-4xl md:text-lg">
-              Choose from multiple integration modes and leverage powerful developer tools to implement MoneyOne's Wealth Management platform in your workflow.
-            </p>
           </div>
-
-          {/* Tab Indicator */}
-          <IntegrationDeveloperTabs />
+          
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 justify-items-center mx-auto">
+            {combinedStatsData.map((stat) => (
+              <div key={stat.id} className="flex flex-col items-center text-center p-4 mx-auto">
+                <div className="text-4xl md:text-5xl lg:text-[90px] mb-2">
+                  <span className={moneyOneMetallicTextClasses}>{stat.prefix}</span>
+                  {stat.id === 'fip' ? (
+                    <span className={moneyOneMetallicTextClasses}>1</span>
+                  ) : (
+                    <AnimatedCounter 
+                      value={stat.value} 
+                      fixedDecimals={stat.fixedDecimals}
+                      className={moneyOneMetallicTextClasses}
+                    />
+                  )}
+                  <span className={moneyOneMetallicTextClasses}>{stat.suffix}</span>
+                </div>
+                <p className="text-lg font-semibold text-slate-600 pt-2">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Container for the title and lines */}
+        <div className="w-full">
+          <div className="flex items-center gap-2 sm:gap-4 md:gap-8 mt-12 mb-8">
+            <div className="flex-grow h-px bg-foreground/20"></div>
+            <h2 className="text-sm md:text-base font-regular text-foreground/80 tracking-wider uppercase text-center flex-shrink">
+              Unlock access to diverse data sets
+            </h2>
+            <div className="flex-grow h-px bg-foreground/20"></div>
+          </div>
+        </div>
+        
+        {/* Pills Section */}
+        <div className="mt-8 flex flex-col items-center space-y-4">
+          {/* Row 1 (4 pills) */}
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4 font-medium">
+            {featuresPills.slice(0, 4).map((pill, index) => {
+              const Icon = pill.icon;
+              return (
+                <div
+                  key={index}
+                  className="flex items-center whitespace-nowrap rounded-full bg-linear-to-br from-white to-[#baff29]/20 backdrop-blur-md border border-[#00b140]/30 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
+                >
+                  <span className="relative flex h-2 w-2 mr-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <Icon className="h-4 w-4 mr-2 text-slate-600 dark:text-slate-400" />
+                  {pill.text}
+                </div>
+              );
+            })}
+          </div>
+          {/* Row 2 (3 pills) */}
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+            {featuresPills.slice(4, 7).map((pill, index) => {
+              const Icon = pill.icon;
+              return (
+                <div
+                  key={index + 4}
+                  className="flex items-center whitespace-nowrap rounded-full bg-linear-to-br from-white to-[#baff29]/20 backdrop-blur-md border border-[#00b140]/30 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
+                >
+                  <span className="relative flex h-2 w-2 mr-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <Icon className="h-4 w-4 mr-2 text-slate-600 dark:text-slate-400" />
+                  {pill.text}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
+      {/* Portfolio Analytics Section */}
+      <section className="relative w-full pb-12 md:py-10 overflow-hidden">
+        <Suspense fallback={<SectionLoader />}>
+          {/* First Marquee - Full Width */}
+          <div className="mb-0 md:mb-2">
+            <Marquee gradient={false} speed={80} pauseOnHover={true} className="py-2 scale-75 md:scale-100">
+              {[...portfolioAnalyticsRow1, ...portfolioAnalyticsRow1].map((type, index) => (
+                <AnalyticsCard key={`row1-${index}`} name={type.name} icon={type.icon} />
+              ))}
+            </Marquee>
+          </div>
+
+          {/* Second Marquee - Full Width - Reverse Direction */}
+          <div className="md:py-4">
+            <Marquee gradient={false} speed={80} pauseOnHover={true} direction="right" className="py-2 scale-75 md:scale-100">
+              {[...portfolioAnalyticsRow2, ...portfolioAnalyticsRow2].map((type, index) => (
+                <AnalyticsCard key={`row2-${index}`} name={type.name} icon={type.icon} />
+              ))}
+            </Marquee>
+          </div>
+        </Suspense>
+      </section>
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
+      <div className="mt-24">
+        <Suspense fallback={<SectionLoader />}>
+          <FOIRSection />
+        </Suspense>
+      </div>
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <Products />
+      </Suspense>
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
+      <div className="-mt-20">
+        <Suspense fallback={<SectionLoader />}>
+          <ContactUs />
+        </Suspense>
+      </div>
     </div>
   );
 }
@@ -405,147 +512,3 @@ const developerFeatures = [
     image: "/JavaScript SDK.png",
   }
 ];
-
-function IntegrationDeveloperTabs() {
-  const [activeTab, setActiveTab] = React.useState<string>("integration");
-  const tabsData = [
-    { id: "integration", title: "Integration Modes" },
-    { id: "developer", title: "Developer Features" }
-  ];
-  const [progressKey, setProgressKey] = React.useState(0);
-
-  return (
-    <div className="w-full mx-auto border border-[#00b140]/30 bg-linear-to-br from-background/90 to-[#baff29]/20 backdrop-blur-lg rounded-xl overflow-hidden">
-      <div className="flex justify-center my-8 mx-2">
-        <div className="flex items-center gap-2 sm:gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm overflow-x-auto scrollbar-hide min-w-0 max-w-full">
-          {tabsData.map((tab) => (
-            <div
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`relative px-4 sm:px-8 py-4 text-sm sm:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 flex-shrink-0 ${
-                activeTab === tab.id
-                  ? "text-white font-semibold"
-                  : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
-              }`}
-            >
-              {activeTab === tab.id && (
-                <motion.div
-                  layoutId="active-moneyone-tab"
-                  className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
-              <span className="relative z-10">{tab.title}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          {activeTab === "integration" ? (
-            <>
-              <div className="p-8">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl tracking-tight leading-tight sm:text-3xl md:text-4xl mb-4">
-                    <span className={metallicBlackTextClasses}>Multiple Ways to Integrate</span>
-                  </h3>
-                  <p className="mx-auto text-base text-slate-700 dark:text-slate-300 max-w-7xl">
-                    From API integration to white-label solutions, choose the method that best fits your wealth management platform.
-                  </p>
-                </div>
-                <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4 shadow-none">
-                  {integrationOptions.map((option, index) => (
-                    <BentoGridItem
-                      key={index}
-                      className="shadow-sm"
-                      icon={
-                        <div className="p-3 rounded-lg bg-[#00b140] text-white inline-block mb-2">
-                          {option.icon}
-                        </div>
-                      }
-                      title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{option.title}</span>}
-                      description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{option.description}</span>}
-                      image={{
-                        src: option.image,
-                        alt: option.title
-                      }}
-                      imagePosition="top-right"
-                      imageSize="w-40 h-40 -top-10 -right-10 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-64 2xl:h-64 2xl:-top-5 2xl:-right-10"
-                    />
-                  ))}
-                </BentoGrid>
-              </div>
-              {/* Integration Architecture Visual */}
-              <div className="hidden md:block overflow-hidden h-100 relative mt-8">
-                <div className="mt-8 text-center">
-                  <Image
-                    src="/Aggregator of Aggregators.png"
-                    alt="Integration Architecture Diagram"
-                    width={600}
-                    height={600}
-                    className="mx-auto"
-                  />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/20 via-black/10 to-transparent pointer-events-none"></div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="px-8 pt-8 pb-8">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl tracking-tight leading-tight sm:text-3xl md:text-4xl mb-4">
-                    <span className={metallicBlackTextClasses}>Developer-First Platform</span>
-                  </h3>
-                  <p className="mx-auto text-base text-slate-700 dark:text-slate-300 max-w-5xl mb-8">
-                    Built with developers in mind, MoneyOne provides comprehensive APIs, SDKs, and tools for seamless wealth management integration.
-                  </p>
-                </div>
-                {/* Developer Features Grid */}
-                <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4">
-                  {developerFeatures.map((feature, index) => (
-                    <BentoGridItem
-                      key={index}
-                      className="shadow-sm"
-                      icon={
-                        <div className="p-3 rounded-lg bg-[#00b140] text-white inline-block mb-2">
-                          {feature.icon}
-                        </div>
-                      }
-                      title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{feature.title}</span>}
-                      description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{feature.description}</span>}
-                      image={{
-                        src: feature.image,
-                        alt: feature.title
-                      }}
-                      imagePosition="top-right"
-                      imageSize="w-40 h-40 -top-10 -right-10 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-64 2xl:h-64 2xl:-top-20 2xl:-right-15"
-                    />
-                  ))}
-                </BentoGrid>
-              </div>
-              {/* Developer Code Example - Edge to Edge */}
-              <div className="hidden md:block overflow-hidden h-100 relative mt-8">
-                <div className="mt-8 text-center">
-                  <Image
-                    src="/dev-image.png"
-                    alt="Developer API Code Example"
-                    width={1200}
-                    height={1200}
-                    className="mx-auto"
-                  />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/20 via-black/10 to-transparent pointer-events-none"></div>
-              </div>
-            </>
-          )}
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  );
-} 

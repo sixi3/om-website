@@ -380,17 +380,17 @@ const IndustryInnovationSection = React.memo(() => {
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.5
               }}
-              className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+              className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full"
             >
-              <Link href={cta.href}>
-                <ShimmerButton className="text-md md:text-lg">
+              <Link href={cta.href} className="w-full sm:w-auto flex justify-center">
+                <ShimmerButton className="text-md md:text-lg w-full sm:w-auto">
                   {cta.text}
                 </ShimmerButton>
               </Link>
               
               {/* Play Store Download Button */}
-              <Link href="https://play.google.com/store/apps/details?id=com.equal.ai" target="_blank" rel="noopener noreferrer">
-                <div className="group inline-flex items-center px-6 py-3 bg-black/30 border border-[#baff29]/70 text-white text-md md:text-lg font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap hover:bg-white/10 hover:border-white/40 hover:shadow-lg hover:shadow-white/10 hover:bh-white/20">
+              <Link href="https://play.google.com/store/apps/details?id=com.equal.ai" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex justify-center">
+                <div className="group inline-flex items-center px-6 py-3 bg-black/30 border border-[#baff29]/70 text-white text-md md:text-lg font-semibold rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap hover:bg-white/10 hover:border-white/40 hover:shadow-lg hover:shadow-white/10 hover:bh-white/20 w-full sm:w-auto justify-center">
                   <Image
                     src="/playstore.png"
                     alt="Google Play Store"
@@ -551,12 +551,12 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
               {cta.primary ? (
                 // Dual CTA layout for financial section
                 <>
-                  <Link href={cta.primary.href}>
+                  <Link href={cta.primary.href} target="_blank" rel="noopener noreferrer">
                     <ShimmerButton className="text-md md:text-lg">
                       {cta.primary.text}
                     </ShimmerButton>
                   </Link>
-                  <Link href={cta.secondary.href}>
+                  <Link href={cta.secondary.href} target="_blank" rel="noopener noreferrer">
                     <ShimmerButton className="text-md md:text-lg">
                       {cta.secondary.text}
                     </ShimmerButton>

@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Building, FileText, Zap, MessageCircle, ShieldCheck, Link, CreditCard, Vote, Car, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck, Settings, Code, Webhook, Terminal, TrendingUp, PieChart, BarChart3, Target, Lightbulb, Brain, BookOpen, Award, Star, Compass, DollarSign, Clock, Leaf } from "lucide-react";
 import { CLIENT_LOGOS } from "@/components/aurora-background-demo/constants";
 import { GlowingDivider } from "@/components/ui/glowing-divider";
+import { BackgroundGrid } from "@/components/ui/background-grid";
 import {
   Dialog,
   DialogContent,
@@ -20,9 +21,10 @@ import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 
 // Lazy load heavy components
 const Stats = lazy(() => import('@/app/equal/sections/Stats').then(module => ({ default: module.Stats })));
-const ProductShowcase = lazy(() => import("@/app/equal/sections/ProductShowcase").then(module => ({ default: module.ProductShowcase })));
-const IndustrySection = lazy(() => import("@/components/aurora-background-demo/components/industries").then(module => ({ default: module.IndustrySection })));
+const Products = lazy(() => import("@/app/moneyone/sections/Products").then(module => ({ default: module.ProductsWithoutStats })));
 const Marquee = lazy(() => import("react-fast-marquee"));
+const FOIRSection = lazy(() => import("@/app/equal/products/financial-services/FOIRSection").then(module => ({ default: module.FOIRSection })));
+const ContactUs = lazy(() => import("@/app/moneyone/sections/ContactUs").then(module => ({ default: module.ContactUs })));
 
 // Loading component
 const SectionLoader = () => (
@@ -36,6 +38,7 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 export default function AdvisoryHero() {
   return (
     <div className="overflow-x-hidden">
+      <BackgroundGrid />
       <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-center pt-12 pb-12 overflow-hidden min-h-[600px]">
         {/* Left: Content */}
         <div className="container mx-auto px-4 md:px-6 lg:px-8 py-4 z-10">
@@ -226,7 +229,7 @@ export default function AdvisoryHero() {
         className="my-12"
       />
       <Suspense fallback={<SectionLoader />}>
-        <ProductShowcase />
+        <Products />
       </Suspense>
       <GlowingDivider
         width="3/4"
@@ -234,26 +237,31 @@ export default function AdvisoryHero() {
         delay={0.2}
         className="my-12"
       />
+      <div className="mt-24">
+        <Suspense fallback={<SectionLoader />}>
+          <FOIRSection />
+        </Suspense>
+      </div>
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
       <Suspense fallback={<SectionLoader />}>
-        <IndustrySection />
+        <Products />
       </Suspense>
-      {/* Integration & Developer Features Tabbed Section */}
-      <section className="relative w-full py-12 md:py-20">
-        <div className="container px-4 md:px-6 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-              <span className={metallicBlackTextClasses}>Build & Deploy with</span>{" "}
-              <span className="inline-block bg-[#baff29] px-2 text-black font-bold">MoneyOne</span>
-            </h2>
-            <p className="mx-auto text-md text-slate-700 dark:text-slate-300 max-w-4xl md:text-lg">
-              Choose from multiple integration modes and leverage powerful developer tools to implement MoneyOne's Advisory platform in your workflow.
-            </p>
-          </div>
-
-          {/* Tab Indicator */}
-          <IntegrationDeveloperTabs />
-        </div>
-      </section>
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
+      <div className="-mt-20">
+        <Suspense fallback={<SectionLoader />}>
+          <ContactUs />
+        </Suspense>
+      </div>
     </div>
   );
 }
@@ -352,200 +360,5 @@ const ServiceCard = ({ name, icon }: { name: string; icon: React.ReactNode }) =>
   </div>
 ); 
 
-const integrationOptions = [
-  {
-    title: "CRM Integration",
-    description: "Seamless integration with existing CRM and advisory platforms",
-    icon: <Code className="w-6 h-6" />,
-    image: "/API Integration.png",
-  },
-  {
-    title: "Portfolio Management",
-    description: "Connect with portfolio management systems and custodians",
-    icon: <Webhook className="w-6 h-6" />,
-    image: "/Webhook Support.png",
-  },
-  {
-    title: "Client Portal",
-    description: "White-label client portal for financial planning",
-    icon: <Settings className="w-6 h-6" />,
-    image: "/Hosted Page.png",
-  },
-  {
-    title: "Mobile Advisory App",
-    description: "Native mobile applications for advisors and clients",
-    icon: <Terminal className="w-6 h-6" />,
-    image: "/JavaScript SDK.png",
-  }
-];
 
-const developerFeatures = [
-  {
-    title: "Advisory API",
-    description: "Comprehensive API for financial planning and advisory services",
-    icon: <Code className="w-6 h-6" />,
-    image: "/API Integration.png",
-  },
-  {
-    title: "Real-Time Data", 
-    description: "Live market data and portfolio updates via WebSocket",
-    icon: <Webhook className="w-6 h-6" />,
-    image: "/Webhook Notification.png",
-  },
-  {
-    title: "Analytics Engine",
-    description: "Advanced analytics and AI-driven insights",
-    icon: <Settings className="w-6 h-6" />,
-    image: "/Field-level Config.png",
-  },
-  {
-    title: "Reporting SDK",
-    description: "Customizable reporting and visualization tools",
-    icon: <Terminal className="w-6 h-6" />,
-    image: "/JavaScript SDK.png",
-  }
-];
 
-function IntegrationDeveloperTabs() {
-  const [activeTab, setActiveTab] = React.useState<string>("integration");
-  const tabsData = [
-    { id: "integration", title: "Integration Modes" },
-    { id: "developer", title: "Developer Features" }
-  ];
-  const [progressKey, setProgressKey] = React.useState(0);
-
-  return (
-    <div className="w-full mx-auto border border-[#00b140]/30 bg-linear-to-br from-background/90 to-[#baff29]/20 backdrop-blur-lg rounded-xl overflow-hidden">
-      <div className="flex justify-center my-8 mx-2">
-        <div className="flex items-center gap-2 sm:gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm overflow-x-auto scrollbar-hide min-w-0 max-w-full">
-          {tabsData.map((tab) => (
-            <div
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`relative px-4 sm:px-8 py-4 text-sm sm:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 flex-shrink-0 ${
-                activeTab === tab.id
-                  ? "text-white font-semibold"
-                  : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
-              }`}
-            >
-              {activeTab === tab.id && (
-                <motion.div
-                  layoutId="active-moneyone-tab"
-                  className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
-              <span className="relative z-10">{tab.title}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          {activeTab === "integration" ? (
-            <>
-              <div className="p-8">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl tracking-tight leading-tight sm:text-3xl md:text-4xl mb-4">
-                    <span className={metallicBlackTextClasses}>Multiple Ways to Integrate</span>
-                  </h3>
-                  <p className="mx-auto text-base text-slate-700 dark:text-slate-300 max-w-7xl">
-                    From CRM integration to mobile apps, choose the method that best fits your advisory platform.
-                  </p>
-                </div>
-                <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4 shadow-none">
-                  {integrationOptions.map((option, index) => (
-                    <BentoGridItem
-                      key={index}
-                      className="shadow-sm"
-                      icon={
-                        <div className="p-3 rounded-lg bg-[#00b140] text-white inline-block mb-2">
-                          {option.icon}
-                        </div>
-                      }
-                      title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{option.title}</span>}
-                      description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{option.description}</span>}
-                      image={{
-                        src: option.image,
-                        alt: option.title
-                      }}
-                      imagePosition="top-right"
-                      imageSize="w-40 h-40 -top-10 -right-10 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-64 2xl:h-64 2xl:-top-5 2xl:-right-10"
-                    />
-                  ))}
-                </BentoGrid>
-              </div>
-              {/* Integration Architecture Visual */}
-              <div className="hidden md:block overflow-hidden h-100 relative mt-8">
-                <div className="mt-8 text-center">
-                  <Image
-                    src="/Aggregator of Aggregators.png"
-                    alt="Integration Architecture Diagram"
-                    width={600}
-                    height={600}
-                    className="mx-auto"
-                  />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/20 via-black/10 to-transparent pointer-events-none"></div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="px-8 pt-8 pb-8">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl tracking-tight leading-tight sm:text-3xl md:text-4xl mb-4">
-                    <span className={metallicBlackTextClasses}>Developer-First Platform</span>
-                  </h3>
-                  <p className="mx-auto text-base text-slate-700 dark:text-slate-300 max-w-5xl mb-8">
-                    Built with developers in mind, MoneyOne provides comprehensive APIs, SDKs, and tools for seamless advisory integration.
-                  </p>
-                </div>
-                {/* Developer Features Grid */}
-                <BentoGrid className="grid-cols-1 md:grid-cols-2 gap-4">
-                  {developerFeatures.map((feature, index) => (
-                    <BentoGridItem
-                      key={index}
-                      className="shadow-sm"
-                      icon={
-                        <div className="p-3 rounded-lg bg-[#00b140] text-white inline-block mb-2">
-                          {feature.icon}
-                        </div>
-                      }
-                      title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{feature.title}</span>}
-                      description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{feature.description}</span>}
-                      image={{
-                        src: feature.image,
-                        alt: feature.title
-                      }}
-                      imagePosition="top-right"
-                      imageSize="w-40 h-40 -top-10 -right-10 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-40 xl:h-40 xl:-top-10 xl:-right-10 2xl:w-64 2xl:h-64 2xl:-top-20 2xl:-right-15"
-                    />
-                  ))}
-                </BentoGrid>
-              </div>
-              {/* Developer Code Example - Edge to Edge */}
-              <div className="hidden md:block overflow-hidden h-100 relative mt-8">
-                <div className="mt-8 text-center">
-                  <Image
-                    src="/dev-image.png"
-                    alt="Developer API Code Example"
-                    width={1200}
-                    height={1200}
-                    className="mx-auto"
-                  />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/20 via-black/10 to-transparent pointer-events-none"></div>
-              </div>
-            </>
-          )}
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  );
-} 
