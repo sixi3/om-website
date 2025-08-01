@@ -85,8 +85,8 @@ const getHomeUrl = (section: CompanySection): string => {
 };
 
 const getTabConfigurations = (section: CompanySection): TabConfig[] => {
-  // Unified base configuration that works across all company sections
-  const unifiedConfig: TabConfig[] = [
+  // Base configuration that adapts based on company section
+  const baseConfig: TabConfig[] = [
     {
       trigger: "ABOUT US",
       content: WhyEqualDropdownContent,
@@ -100,7 +100,13 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
     {
       trigger: "PRODUCTS", 
       content: ProductDropdownContent,
-      mobileLinks: [
+      mobileLinks: section === 'moneyone' ? [
+        // BFSI Section only for MoneyOne
+        { title: "OneMoney AA", href: "/onemoney" },
+        { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
+        { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
+        { title: "Financial Services", href: "/moneyone/financial-services" }
+      ] : [
         // BFSI Section
         { title: "OneMoney AA", href: "/onemoney" },
         { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
@@ -116,7 +122,14 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
     {
       trigger: "SOLUTIONS",
       content: SolutionsDropdownContent,
-      mobileLinks: [
+      mobileLinks: section === 'moneyone' ? [
+        // MoneyOne specific solutions
+        { title: "Wealth Management", href: "/moneyone/financial-services#wealth-management" },
+        { title: "Lending", href: "/moneyone/financial-services#lending" },
+        { title: "Advisory", href: "/moneyone/financial-services#advisory" },
+        { title: "Brokerage", href: "/moneyone/financial-services#brokerage" }
+      ] : [
+        // Original solutions for other sections
         { title: "Financial Services", href: "/moneyone/financial-services" },
         { title: "Employee Verification", href: "/equal/solutions" },
         { title: "Identity Verification", href: "/equal" },
@@ -137,11 +150,11 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
     }
   ];
 
-  return unifiedConfig;
+  return baseConfig;
 };
 
 // Mobile sections in the requested order - updated to match desktop dropdown content
-const getMobileSections = (): MobileSection[] => [
+const getMobileSections = (section: CompanySection): MobileSection[] => [
   {
     id: "about",
     title: "ABOUT US",
@@ -155,7 +168,13 @@ const getMobileSections = (): MobileSection[] => [
   {
     id: "products",
     title: "PRODUCTS",
-    links: [
+    links: section === 'moneyone' ? [
+      // BFSI Section only for MoneyOne
+      { title: "OneMoney AA", href: "/onemoney" },
+      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
+      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
+      { title: "Financial Services", href: "/moneyone/financial-services" }
+    ] : [
       // BFSI Section
       { title: "OneMoney AA", href: "/onemoney" },
       { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
@@ -171,7 +190,14 @@ const getMobileSections = (): MobileSection[] => [
   {
     id: "solutions",
     title: "SOLUTIONS",
-    links: [
+    links: section === 'moneyone' ? [
+      // MoneyOne specific solutions
+      { title: "Wealth Management", href: "/moneyone/financial-services#wealth-management" },
+      { title: "Lending", href: "/moneyone/financial-services#lending" },
+      { title: "Advisory", href: "/moneyone/financial-services#advisory" },
+      { title: "Brokerage", href: "/moneyone/financial-services#brokerage" }
+    ] : [
+      // Original solutions for other sections
       { title: "Financial Services", href: "/moneyone/financial-services" },
       { title: "Employee Verification", href: "/equal/solutions" },
       { title: "Identity Verification", href: "/equal" },
@@ -373,7 +399,7 @@ export function MainHeader({ className }: MainHeaderProps) {
   // Get dynamic tab configuration based on current section
   const currentSection = getCompanySection(pathname);
   const tabConfigs = getTabConfigurations(currentSection);
-  const mobileSections = getMobileSections();
+  const mobileSections = getMobileSections(currentSection);
 
   // CSS variables for theming
   const cssVars = {
@@ -480,7 +506,11 @@ export function MainHeader({ className }: MainHeaderProps) {
                 }
                 width={71}
                 height={21}
-                className="h-8 md:h-10 w-auto"
+                className={
+                  currentSection === 'moneyone'
+                    ? "h-8 md:h-8 lg:h-8 xl:h-8 2xl:h-10 w-auto"
+                    : "h-8 md:h-10 w-auto"
+                }
                 priority
               />
             </Link>
@@ -574,7 +604,11 @@ export function MainHeader({ className }: MainHeaderProps) {
                 }
                 width={71}
                 height={21}
-                className="h-8 md:h-10 w-auto"
+                className={
+                  currentSection === 'moneyone'
+                    ? "h-8 md:h-8 lg:h-8 xl:h-8 2xl:h-10 w-auto"
+                    : "h-8 md:h-10 w-auto"
+                }
                 priority
               />
             </Link>

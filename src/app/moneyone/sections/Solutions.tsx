@@ -192,6 +192,9 @@ export function Solutions() {
       
         {/* Title and Subtitle */}
         <div className="text-center mb-12">
+          <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-8 block">
+            Use Cases
+          </span>
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
             <span className={metallicBlackTextClasses}>Tailored Solutions for</span>{" "}
             <span className="inline-block bg-[#baff29] px-2 py-1 text-black font-bold"> {/* Styled "All Use Cases" */}

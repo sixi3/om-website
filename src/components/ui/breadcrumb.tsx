@@ -37,6 +37,10 @@ const routeTitleMap: Record<string, string> = {
   // MoneyOne section
   moneyone: "MoneyOne",
   finpro: "FinPro",
+  "wealth-management": "Wealth Management",
+  lending: "Lending",
+  advisory: "Advisory",
+  brokerage: "Brokerage",
   
   // OneMoney section
   onemoney: "OneMoney",
@@ -79,6 +83,70 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
       title: "OneMoney",
       href: "/onemoney",
     });
+  }
+  
+  // Special handling for Equal trust-security page - add Employment breadcrumb
+  if (pathname === "/equal/trust-security") {
+    items.push({
+      title: "Employment",
+      href: "/equal",
+    });
+    items.push({
+      title: "Trust & Security",
+      href: "/equal/trust-security",
+      isCurrentPage: true,
+    });
+    return items;
+  }
+  
+  // Special handling for Equal product pages - add Products, Employment, and page name breadcrumbs
+  if (pathname.startsWith("/equal/products/")) {
+    items.push({
+      title: "Products",
+      href: "/#employment-verification",
+    });
+    items.push({
+      title: "Employment",
+      href: "/equal",
+    });
+    
+    // Get the product name from the URL
+    const productSegment = segments[segments.length - 1]; // Last segment is the product name
+    items.push({
+      title: routeTitleMap[productSegment] || productSegment.charAt(0).toUpperCase() + productSegment.slice(1).replace(/-/g, " "),
+      href: pathname,
+      isCurrentPage: true,
+    });
+    
+    return items;
+  }
+  
+  // Special handling for common pages when they're related to Equal (no company parameter or equal parameter)
+  const isCommonPage = pathname.includes('/common/terms-conditions') || pathname.includes('/common/policies');
+  const isEqualRelatedPage = isCommonPage && (!pathname.includes('company=') || pathname.includes('company=equal'));
+  
+  if (isEqualRelatedPage) {
+    items.push({
+      title: "Employment",
+      href: "/equal",
+    });
+    
+    // Add the specific page name
+    if (pathname.includes('/common/terms-conditions')) {
+      items.push({
+        title: "Terms & Conditions",
+        href: pathname,
+        isCurrentPage: true,
+      });
+    } else if (pathname.includes('/common/policies')) {
+      items.push({
+        title: "Policies",
+        href: pathname,
+        isCurrentPage: true,
+      });
+    }
+    
+    return items;
   }
   
   // Special handling for Equal main page - add Products breadcrumb
@@ -325,24 +393,46 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
       return items;
     }
     
-    // Special handling for MoneyOne financial-services page - add Products, MoneyOne, and Financial Services breadcrumbs
-    if (pathname === "/moneyone/financial-services") {
-      items.push({
-        title: "Products",
-        href: "/#bfsi-section",
-      });
-      items.push({
-        title: "MoneyOne",
-        href: "/moneyone",
-      });
-      items.push({
-        title: "Financial Services",
-        href: "/moneyone/financial-services",
-        isCurrentPage: true,
-      });
-      
-      return items;
-    }
+      // Special handling for MoneyOne financial-services page - add Products, MoneyOne, and Financial Services breadcrumbs
+  if (pathname === "/moneyone/financial-services") {
+    items.push({
+      title: "Products",
+      href: "/#bfsi-section",
+    });
+    items.push({
+      title: "MoneyOne",
+      href: "/moneyone",
+    });
+    items.push({
+      title: "Financial Services",
+      href: "/moneyone/financial-services",
+      isCurrentPage: true,
+    });
+    
+    return items;
+  }
+  
+  // Special handling for MoneyOne solutions pages - add Products, MoneyOne, and page name breadcrumbs
+  if (pathname.startsWith("/moneyone/solutions/")) {
+    items.push({
+      title: "Products",
+      href: "/#bfsi-section",
+    });
+    items.push({
+      title: "MoneyOne",
+      href: "/moneyone",
+    });
+    
+    // Get the solution name from the URL
+    const solutionSegment = segments[segments.length - 1]; // Last segment is the solution name
+    items.push({
+      title: routeTitleMap[solutionSegment] || solutionSegment.charAt(0).toUpperCase() + solutionSegment.slice(1).replace(/-/g, " "),
+      href: pathname,
+      isCurrentPage: true,
+    });
+    
+    return items;
+  }
     
     // Filter out "moneyone" from segments to skip showing it in breadcrumbs
     const filteredSegments = segments.filter(segment => segment !== "moneyone");

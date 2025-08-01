@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 interface SolutionItem {
   id: string
@@ -25,7 +26,8 @@ interface SolutionSection {
   items: SolutionItem[]
 }
 
-const solutionSections: SolutionSection[] = [
+// Original solution sections for non-MoneyOne pages
+const originalSolutionSections: SolutionSection[] = [
   {
     title: "OUR FULLY INTEGRATED SUITE",
     description: "Specialised solutions tailored for specific industry verticals and their unique requirements",
@@ -64,7 +66,7 @@ const solutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal"
+        href: "/equal/products/identity-gateway"
       },
       {
         id: "financial-analytics",
@@ -77,6 +79,64 @@ const solutionSections: SolutionSection[] = [
           height: 56
         },
         href: "/moneyone/financial-services#moneyone-section"
+      },
+    ]
+  }
+]
+
+// MoneyOne specific solution sections based on Solutions.tsx
+const moneyOneSolutionSections: SolutionSection[] = [
+  {
+    title: "FINANCIAL SERVICES SOLUTIONS",
+    description: "Comprehensive solutions tailored for wealth management, lending, advisory, and brokerage operations",
+    items: [
+      {
+        id: "wealth-management",
+        title: "Wealth Management",
+        description: "Portfolio management and investment insights for MFDs, brokerages and AMCs",
+        image: {
+          src: "/Smart Document parsing.png",
+          alt: "Wealth Management",
+          width: 56,
+          height: 56
+        },
+        href: "/moneyone/solutions/wealth-management"
+      },
+      {
+        id: "lending",
+        title: "Lending",
+        description: "Optimize lending processes from application to collection with data-driven insights",
+        image: {
+          src: "/Field-level Config.png",
+          alt: "Lending",
+          width: 56,
+          height: 56
+        },
+        href: "/moneyone/solutions/lending"
+      },
+      {
+        id: "advisory",
+        title: "Advisory",
+        description: "Data-driven financial advisory with consolidated data and advanced analytics",
+        image: {
+          src: "/Staffing & Contract Roles.png",
+          alt: "Advisory",
+          width: 56,
+          height: 56
+        },
+        href: "/moneyone/solutions/advisory"
+      },
+      {
+        id: "brokerage",
+        title: "Brokerage",
+        description: "Enhanced brokerage operations with streamlined trade lifecycle and compliance",
+        image: {
+          src: "/Collect Now, Verify Later.png",
+          alt: "Brokerage",
+          width: 56,
+          height: 56
+        },
+        href: "/moneyone/solutions/brokerage"
       },
     ]
   }
@@ -160,6 +220,12 @@ const SolutionSection: React.FC<{ section: SolutionSection; sectionIndex: number
 }
 
 export const SolutionsDropdownContent: React.FC = () => {
+  const pathname = usePathname()
+  const isMoneyOnePage = pathname.startsWith('/moneyone')
+  
+  // Use MoneyOne specific sections when on MoneyOne pages, otherwise use original
+  const solutionSections = isMoneyOnePage ? moneyOneSolutionSections : originalSolutionSections
+
   return (
     <div className="space-y-2 min-w-[300px] md:min-w-[600px]">
       {solutionSections.map((section, index) => (

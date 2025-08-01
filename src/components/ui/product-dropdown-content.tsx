@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 interface ProductItem {
   id: string
@@ -263,6 +264,17 @@ ProductSection.displayName = 'ProductSection'
 
 // Memoized main component
 export const ProductDropdownContent = memo(() => {
+  const pathname = usePathname()
+  const isMoneyOnePage = pathname.startsWith('/moneyone')
+  
+  // Filter out employment section when on MoneyOne pages
+  const filteredSections = useMemo(() => {
+    if (isMoneyOnePage) {
+      return productSections.filter(section => section.title !== "EMPLOYMENT")
+    }
+    return productSections
+  }, [isMoneyOnePage])
+
   // Container animation with stagger
   const containerVariants = useMemo(() => ({
     hidden: { opacity: 0 },
@@ -284,7 +296,7 @@ export const ProductDropdownContent = memo(() => {
       animate="visible"
       style={{ transform: 'translate3d(0,0,0)' }} // Force GPU acceleration
     >
-      {productSections.map((section, index) => (
+      {filteredSections.map((section, index) => (
         <ProductSection 
           key={section.title} 
           section={section} 

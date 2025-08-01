@@ -1,13 +1,15 @@
-import React, { useMemo } from 'react';
+'use client';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Hero } from './sections/Hero';
 import { WhatMakesEqualDifferent } from './sections/WhatMakesEqualDifferent';
-import { UseCaseGrid } from './sections/UseCaseGrid';
 import { ProductShowcase } from './sections/ProductShowcase';
 import { TrustSecurity } from './sections/TrustSecurity';
 import { Stats } from './sections/Stats';
 import { ContactUs } from './sections/ContactUs';
 import { BackgroundGrid } from '@/components/ui/background-grid';
 import { GlowingDivider } from "@/components/ui/glowing-divider";
+import { useCasesData, UseCase } from './data/useCases';
+import { UseCaseCardStack } from "./components/UseCaseCardStack";
 
 export default function EqualPage() {
   // Memoize static props for performance
@@ -16,6 +18,20 @@ export default function EqualPage() {
     intensity: "high" as const,
     className: "my-8 md:my-16"
   }), []);
+
+  // Solutions section state - similar to solutions page
+  const orderedUseCaseIds = [
+    'hrms',
+    'gig-economy',
+    'bfsi',
+    'staffing',
+  ];
+  
+  const allUseCases = orderedUseCaseIds
+    .map(id => useCasesData.find(uc => uc.id === id))
+    .filter((uc): uc is UseCase => !!uc);
+
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <div className="relative w-full overflow-x-hidden">
@@ -48,7 +64,15 @@ export default function EqualPage() {
         delay={0.5}
       />
       
-      <UseCaseGrid />
+      <section className="relative w-full py-20 md:py-24">
+        <div className="container px-4 md:px-6 mx-auto">
+          <UseCaseCardStack 
+            items={allUseCases} 
+            activeIndex={activeIndex} 
+            onTabChange={setActiveIndex} 
+          />
+        </div>
+      </section>
       
       <GlowingDivider 
         {...glowingDividerProps}

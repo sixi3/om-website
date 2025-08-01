@@ -33,12 +33,12 @@ const whyEqualItems: WhyEqualItem[] = [
     href: "/common/vision-mission"
   },
   {
-    id: "leadership",
-    title: "Leadership",
-    description: "Learn about our leadership team and their experience",
+    id: "board",
+    title: "Board",
+    description: "Learn about our board of directors and their experience",
     image: {
       src: "/Leadership.png",
-      alt: "Leadership",
+      alt: "Board",
       width: 40,
       height: 40
     },
@@ -46,7 +46,7 @@ const whyEqualItems: WhyEqualItem[] = [
   },
   {
     id: "team",
-    title: "Team",
+    title: "Team & Leadership",
     description: "Meet the visionaries and experts behind our success",
     image: {
       src: "/team.png",

@@ -82,14 +82,18 @@ export function Services() {
     >
       <div className="container px-4 md:px-6 mx-auto">
         <div className="text-center mb-12 md:mb-16">
+          <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-8 block">
+            Core Services
+          </span>
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-            <span className={metallicBlackTextClasses}>Our Core</span>{" "}
+            <span className={metallicBlackTextClasses}>Experience</span>{" "}
             <span className={highlightBgClass}>
-              Services
+              Enterprise-Grade
             </span>
+            <span className={metallicBlackTextClasses}> Infrastructure</span>
           </h2>
           <p className="mx-auto text-lg text-slate-700 dark:text-slate-300">
-            Discover how MoneyOne empowers financial institutions and fintechs with cutting-edge data solutions.
+            Built for scale with enterprise-grade infrastructure that ensures reliability, security, and seamless integration across your Account Aggregator ecosystem.
           </p>
         </div>
 

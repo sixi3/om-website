@@ -33,6 +33,13 @@ export default function MoneyOnePage() {
         delay={0.3}
       />
       
+      <Solutions />
+      
+      <GlowingDivider 
+        {...glowingDividerProps}
+        delay={0.6}
+      />
+      
       <Services />
       
       <GlowingDivider 
@@ -45,13 +52,6 @@ export default function MoneyOnePage() {
       <GlowingDivider 
         {...glowingDividerProps}
         delay={0.5}
-      />
-      
-      <Solutions />
-      
-      <GlowingDivider 
-        {...glowingDividerProps}
-        delay={0.6}
       />
       
       <ContactUs />

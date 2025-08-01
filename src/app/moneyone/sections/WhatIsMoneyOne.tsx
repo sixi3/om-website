@@ -53,15 +53,17 @@ export function WhatIsMoneyOne() {
       
         {/* Title and Subtitle */}
         <div className="text-center mb-12">
+          <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-8 block">
+            Platform Overview
+          </span>
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-            <span className={metallicBlackTextClasses}>What is</span>{" "}
             <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
-              MoneyOne
+              Complete Visibility
             </span>{" "}
-            <span className={metallicBlackTextClasses}>?</span>
+            <span className={metallicBlackTextClasses}> Over Financial Journeys</span>
           </h2>
           <p className="w-full mx-auto text-lg text-slate-700 dark:text-slate-300">
-          MoneyOne is a data governance platform that helps institutions securely manage and share financial data in India's digital economy
+          Complete visibility and control over your Account Aggregator ecosystem with real-time analytics and actionable insights
           </p>
         </div>
 

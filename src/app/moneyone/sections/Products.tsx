@@ -171,6 +171,9 @@ export function Products() {
       
         {/* Title and Subtitle */}
         <div className="text-center mb-12 md:mb-16">
+          <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-8 block">
+            Product Suite
+          </span>
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
             <span className={metallicBlackTextClasses}>Our</span>{" "}
             <span className="inline-block bg-[#baff29] px-2 text-black font-bold">

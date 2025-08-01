@@ -53,7 +53,7 @@ const ResourcesDropdownContent: React.FC = () => {
     {
       id: "newsletter",
       title: "Our Newsletter",
-      description: "Read about all Equal's advances in the BFSI and employment worlds ",
+      description: "Read about our advances in the BFSI and employment worlds ",
       image: {
         src: "/Access Logs.png",
         alt: "Press Releases",
@@ -66,7 +66,7 @@ const ResourcesDropdownContent: React.FC = () => {
     {
       id: "trust-security",
       title: "Trust & Security",
-      description: "Read about how Equal bakes trust and security into every layer ",
+      description: "Learn how Equal bakes trust and security into every layer ",
       image: {
         src: "/Quarterly VAPT Tests.png",
         alt: "Trust and Security",

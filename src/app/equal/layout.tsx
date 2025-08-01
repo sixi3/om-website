@@ -21,11 +21,11 @@ export default function EqualLayout({
   children: React.ReactNode;
 }) {
   return (
-    <AuroraBackground>
+    <AuroraBackground className="pt-24 pb-12 md:pt-32 md:pb-16">
       <MainHeader />
-      <main className="flex-grow relative z-10 pt-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <EqualBreadcrumb />
+      <main className="flex-grow relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+          <EqualBreadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
         </div>
         {children}
       </main>
