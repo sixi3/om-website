@@ -100,7 +100,7 @@ const ResourcesDropdownContent: React.FC = () => {
                 role="menuitem"
                 className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"
               >
-                <div className="flex-shrink-0 relative">
+                <div className="flex-shrink-0 relative w-10 h-10">
                   <Image
                     src={item.image.src}
                     alt={item.image.alt}
@@ -108,7 +108,7 @@ const ResourcesDropdownContent: React.FC = () => {
                     height={item.image.height}
                     loading="eager"
                     priority={index < 2}
-                    className="transition-all duration-300 filter grayscale group-hover:grayscale-0 rounded will-change-[filter] group-hover:scale-110"
+                    className="w-full h-full object-contain transition-all duration-300 filter grayscale group-hover:grayscale-0 rounded will-change-[filter] group-hover:scale-110"
                   />
                 </div>
                 <div className="flex-1 min-w-0">

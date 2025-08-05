@@ -3,6 +3,7 @@
 import React, { useState, createContext, useContext, useCallback, useRef, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { usePathname } from 'next/navigation'
 
 // Lazy load EqualAIPortrait with delay
 const EqualAIPortrait = React.lazy(() => 
@@ -208,6 +209,23 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
   const [dropdownWidth, setDropdownWidth] = React.useState<number>(0)
   const [showEqualAI, setShowEqualAI] = React.useState(false)
   const positioningTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const pathname = usePathname()
+
+  // Company section detection
+  const getCompanySection = (pathname: string): 'equal' | 'moneyone' | 'onemoney' | 'default' => {
+    if (pathname.startsWith('/equal') || pathname.startsWith('/solutions')) {
+      return 'equal';
+    }
+    if (pathname.startsWith('/moneyone')) {
+      return 'moneyone'; 
+    }
+    if (pathname.startsWith('/onemoney')) {
+      return 'onemoney';
+    }
+    return 'default';
+  };
+
+  const currentSection = getCompanySection(pathname);
 
   // Find the index of the ProductDropdownContent tab
   const childrenArray = React.Children.toArray(children);
@@ -442,7 +460,7 @@ export const TabsContainer: React.FC<{ children: React.ReactNode; className?: st
           </div>
 
           {/* Equal AI Portrait - Lazy loaded with delay */}
-          {currentTab === productTabIndex + 1 && showEqualAI && (
+          {currentTab === productTabIndex + 1 && showEqualAI && currentSection !== 'moneyone' && (
             <div className="hidden lg:block">
               <React.Suspense fallback={
                 <div className="w-[280px] h-[350px] animate-pulse bg-white/10 rounded-xl border border-[#baff29]/20" />

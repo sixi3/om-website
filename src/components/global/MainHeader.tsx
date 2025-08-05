@@ -120,7 +120,7 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => {
       ]
     },
     {
-      trigger: "SOLUTIONS",
+      trigger: "USECASES",
       content: SolutionsDropdownContent,
       mobileLinks: section === 'moneyone' ? [
         // MoneyOne specific solutions
