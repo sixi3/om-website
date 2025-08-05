@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, Suspense } from 'react';
 import { Hero } from './sections/Hero';
 import { WhatMakesEqualDifferent } from './sections/WhatMakesEqualDifferent';
 import { ProductShowcase } from './sections/ProductShowcase';
@@ -66,11 +66,13 @@ export default function EqualPage() {
       
       <section className="relative w-full py-20 md:py-24">
         <div className="container px-4 md:px-6 mx-auto">
-          <UseCaseCardStack 
-            items={allUseCases} 
-            activeIndex={activeIndex} 
-            onTabChange={setActiveIndex} 
-          />
+          <Suspense fallback={<div className="w-full h-96 flex justify-center items-center"><p>Loading...</p></div>}>
+            <UseCaseCardStack 
+              items={allUseCases} 
+              activeIndex={activeIndex} 
+              onTabChange={setActiveIndex} 
+            />
+          </Suspense>
         </div>
       </section>
       

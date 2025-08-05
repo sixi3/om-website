@@ -70,7 +70,7 @@ const originalSolutionSections: SolutionSection[] = [
       },
       {
         id: "technology-provider",
-        title: "Financial TSP",
+        title: "Financial TSPs",
         description: "Explore our financial technology service providers",
         image: {
           src: "/Financial Analytics.png",
