@@ -163,7 +163,7 @@ const teamMembers = [
     id: "keshav-reddy",
     name: "Keshav Reddy",
     title: "FOUNDER",
-    description: "Keshav Reddy is a seasoned founder with over 15 years of experience in building scalable fintech.",
+    description: "Keshav Reddy is a seasoned entrepreneur having built, operated, and invested in over 30+ companies.",
     imageUrl: "/team-pictures/keshav-reddy.png",
     socialLinks: [
       { 
@@ -184,7 +184,7 @@ const teamMembers = [
     id: "co-founder",
     name: "Rajeev Ranjan",
     title: "CO-FOUNDER",
-    description: "A technology veteran with over 15 years of experience in building scalable fintech solutions and driving digital transformation across industries.",
+    description: "A technology pioneer with 10+ years of experience in building some of India's largest platforms",
     imageUrl: "/team-pictures/rajeev-ranjan.png",
     socialLinks: [
       { 
@@ -199,7 +199,7 @@ const teamMembers = [
     id: "co-founder-2",
     name: "KP Atluri",
     title: "CO-FOUNDER",
-    description: "Leading our technical vision with expertise in AI, blockchain, and distributed systems. Previously led engineering teams at top-tier technology companies.",
+    description: "A well-respected and innovative leader who has built one of India's largest financial service platforms.",
     imageUrl: "/team-pictures/KP.png",
     socialLinks: [
       { 

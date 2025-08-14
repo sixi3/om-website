@@ -34,7 +34,7 @@ const productSections: ProductSection[] = [
       {
         id: "onemoney-aa",
         title: "OneMoney AA",
-        description: "India's largest Account Aggregator platform",
+        description: "India's largest Account Aggregator",
         image: {
           src: "/Candidate Consent Records.png",
           alt: "OneMoney AA",
@@ -46,7 +46,7 @@ const productSections: ProductSection[] = [
       {
         id: "finpro-fiu-tsp",
         title: "FinPro FIU TSP",
-        description: "Financial Information User Technology Service Provider",
+        description: "Indsutry-leading FIU TSP",
         image: {
           src: "/HR OPS.png",
           alt: "FinPro FIU TSP",
@@ -58,7 +58,7 @@ const productSections: ProductSection[] = [
       {
         id: "finshare-fip-tsp",
         title: "FinShare FIP TSP",
-        description: "Financial Information Provider Technology Service Provider",
+        description: "Indsutry-leading FIP TSP",
         image: {
           src: "/Exception Managment Engine.png",
           alt: "FinShare FIP TSP",
@@ -70,7 +70,7 @@ const productSections: ProductSection[] = [
       {
         id: "financial-analytics",
         title: "Financial Analytics",
-        description: "Gain in-depth insights into financial history",
+        description: "AI-powered analytics of bank statements",
         image: {
           src: "/Mobile UX.png",
           alt: "Financial Analytics",

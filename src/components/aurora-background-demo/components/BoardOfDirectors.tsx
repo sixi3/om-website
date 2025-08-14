@@ -106,7 +106,7 @@ const BoardOfDirectors = React.memo(() => {
           Advisory Board and Board of Directors
           </span>
           <h2 className={`text-2xl md:text-5xl lg:text-5xl leading-tight ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mt-8 mx-auto`}>
-            Strategic{" "}
+            Highest{" "}
             <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
               governance
             </span>{" "}
@@ -163,9 +163,6 @@ const BoardOfDirectors = React.memo(() => {
                           return <>{first}<br />{rest.join(' ')}</>;
                         })()}
                       </h3>
-                      <p className="text-sm font-medium text-[#00b140]">
-                        {member.role}
-                      </p>
                       <p className="text-sm text-slate-600 leading-relaxed">
                         {member.description}
                       </p>
@@ -245,9 +242,6 @@ const BoardOfDirectors = React.memo(() => {
                       return <>{first}<br />{rest.join(' ')}</>;
                     })()}
                   </h3>
-                  <p className="text-base font-medium text-[#00b140]">
-                    {member.role}
-                  </p>
                   <p className="text-sm text-slate-600 leading-relaxed max-w-[200px]">
                     {member.description}
                   </p>
@@ -302,9 +296,6 @@ const BoardOfDirectors = React.memo(() => {
                       return <>{first}<br />{rest.join(' ')}</>;
                     })()}
                   </h3>
-                  <p className="text-base font-medium text-[#00b140]">
-                    {member.role}
-                  </p>
                   <p className="text-sm text-slate-600 leading-relaxed max-w-[200px]">
                     {member.description}
                   </p>

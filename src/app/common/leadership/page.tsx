@@ -134,12 +134,9 @@ const ProfileCard = React.memo<ProfileCardProps>(({
         {/* Content Section - Slides up on hover */}
         <motion.div
           variants={cardVariants}
-          className="absolute bottom-0 left-0 right-0 bg-white p-4 h-56"
+          className="absolute bottom-0 left-0 right-0 bg-white p-4 h-48"
         >
           <div className="text-left space-y-2">
-            <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-4">
-              {role}
-            </span>
             <h3 className="text-2xl font-bold text-gray-900">
               {name}
             </h3>
@@ -170,35 +167,12 @@ export default function LeadershipPage() {
         <div className="text-center my-12 md:my-16">
           <h2 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl mb-6">
             <span className={metallicBlackTextClasses}>Meet Our</span>{" "}
-            <span className={highlightBgClass}>Advisory Board</span>
+            <span className={highlightBgClass}>Board</span>
           </h2>
           <p className="mx-auto text-xl text-slate-700 dark:text-slate-300 w-full mb-6 max-w-5xl">
             Our board and advisors are a powerhouse of India's most respected leaders in finance, technology, governance, and policy, shaping our vision to build the most advanced data sharing platform in India.
           </p>
         </div>
-
-        {/* Page Title & Subtitle - from BoardOfDirectors.tsx */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0.6,
-            ease: "easeOut"
-          }}
-          className="text-center space-y-6 mb-16"
-        >
-          <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase">
-            Advisory Board and Board of Directors
-          </span>
-          <h1 className={`text-2xl md:text-5xl lg:text-5xl leading-tight ${metallicBlackTextClasses} max-w-6xl mt-8 mx-auto`}>
-            Strategic{" "}
-            <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
-              governance
-            </span>{" "}
-            from industry leaders
-          </h1>
-        </motion.div>
 
         {/* Mobile: Horizontal scroll layout */}
         <div className="lg:hidden">

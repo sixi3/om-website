@@ -158,6 +158,17 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     return items;
   }
   
+  // Special handling for leadership page - show "Board" instead of "Leadership"
+  if (pathname === "/common/leadership") {
+    items.push({
+      title: "Board",
+      href: pathname,
+      isCurrentPage: true,
+    });
+    
+    return items;
+  }
+  
   // Special handling for Equal main page - add Solutions breadcrumb
   if (pathname === "/equal") {
     items.push({

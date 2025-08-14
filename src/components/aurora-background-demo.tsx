@@ -515,11 +515,6 @@ export default function AuroraBackgroundDemo() {
             </Suspense>
           </SectionWrapper>
           
-          <MemoizedGlowingDivider 
-            {...glowingDividerProps}
-            delay={0.3}
-          />
-          
           <SectionWrapper 
             fallback={<SolutionsSectionLoader />}
             rootMargin="150px"
@@ -528,6 +523,11 @@ export default function AuroraBackgroundDemo() {
               <SolutionsSection />
             </Suspense>
           </SectionWrapper>
+
+          <MemoizedGlowingDivider 
+            {...glowingDividerProps}
+            delay={0.3}
+          />
           
           <SectionWrapper 
             fallback={<BoardLoader />}
@@ -543,7 +543,7 @@ export default function AuroraBackgroundDemo() {
             delay={0.4}
           />
           
-          <SectionWrapper 
+          {/* <SectionWrapper 
             fallback={<IndustrySectionLoader />}
             rootMargin="150px"
           >
@@ -555,7 +555,7 @@ export default function AuroraBackgroundDemo() {
           <MemoizedGlowingDivider 
             {...glowingDividerProps}
             delay={0.4}
-          />
+          /> */}
           
           <SectionWrapper 
             fallback={<TeamLoader />}

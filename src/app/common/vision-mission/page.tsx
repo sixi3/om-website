@@ -12,7 +12,16 @@ const visionContent = {
   title: "Our Vision",
   body: (
     <p>
-      At Equal, we envision a future where every Indian — from urban professionals to rural entrepreneurs — can access secure, seamless, and consent-driven financial services with complete trust and transparency. India stands at the forefront of digital transformation, powered by initiatives like Aadhaar, UPI, and the Account Aggregator framework. Equal aspires to be the enabling infrastructure behind this shift — providing the trusted rails for KYC onboarding and verification, Account Aggregator connectivity, and FIU/FIP TSP platform services that power financial institutions, NBFCs, fintechs, and public utilities. Our goal is to simplify and standardize how individuals and institutions share and consume financial data. We believe access to finance should not be limited by location, literacy, or legacy systems. Through our secure and scalable platforms, we enable faster onboarding, real-time data access, and meaningful financial inclusion — all while ensuring compliance with India’s evolving data privacy and regulatory frameworks. In a rapidly digitizing economy, Equal stands for fairness, transparency, and interoperability. By creating trust-first infrastructure for data and identity, we aim to become the backbone of India’s digital financial future — where every citizen’s data works for them, not against them. We are Equal — powering trust, access, and opportunity in India’s digital economy.
+      At Equal, we’re building a better place for all Indians.
+We see a future where every Indian — whether in a metro city or a remote village — has the same access to opportunities, services, and tools to improve their lives.
+
+India is moving faster than ever in the digital era, powered by innovations like Aadhaar, UPI, and the Account Aggregator framework. Equal is here to be the trusted backbone of this transformation — connecting people, businesses, and institutions through secure, consent-driven platforms for identity, data, and access.
+
+Our mission is bigger than technology. It’s about breaking down barriers — of distance, language, and legacy systems — so that access and fairness are built into the system from day one. Whether it’s helping a young entrepreneur start a business, enabling farmers to get better credit, or making public services easier to reach, we’re here to make it possible.
+
+We stand for trust, transparency, and interoperability. Your data should work for you, opening doors and unlocking opportunities, not creating roadblocks. By building trust-first infrastructure for India, we’re creating a level playing field where everyone can participate and thrive.
+
+We are Equal — building a better India, one connection at a time.
     </p>
   ),
 };

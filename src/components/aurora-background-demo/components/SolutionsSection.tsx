@@ -13,7 +13,7 @@ const solutionsData = [
   {
     id: "financial-services",
     title: "Financial Services",
-    description: "Digital transformation for banks and NBFCs with comprehensive identity verification and compliance solutions.",
+    description: "Digital transformation for RBI, SEBI, IRDAI, and PFRDA regulated entities for comprehensive data sharing for seamless products.",
     image: {
       src: "/Hosted Page.png",
       alt: "Financial Services",
@@ -28,8 +28,8 @@ const solutionsData = [
     imageClassName: "absolute top-[-20px] right-[-40px] w-32 h-32 lg:w-40 lg:h-40 lg:top-[-40px] lg:right-[-10px] lg:w-40 lg:h-40 xl:top-[-50px] xl:right-[-80px] xl:w-72 xl:h-72"
   },
   {
-    id: "verification-services",
-    title: "Verification Services",
+    id: "employment-services",
+    title: "Employment Services",
     description: "Verify candidates across multiple platforms with comprehensive background checks and employment verification.",
     image: {
       src: "/HR OPS.png",
@@ -54,7 +54,7 @@ const solutionsData = [
       width: 56,
       height: 56
     },
-    href: "/equal",
+    href: "/equal/products/identity-gateway",
     icon: <Shield size={24} />,
     colSpan: 1 as const,
     rowSpan: 1 as const,
@@ -62,16 +62,16 @@ const solutionsData = [
     imageClassName: "absolute top-[-10px] right-[-30px] w-32 h-32 lg:top-[-50px] lg:right-[-50px] lg:w-40 lg:h-40"
   },
   {
-    id: "financial-tsp",
-    title: "Financial TSPs",
-    description: "Explore our financial technology service providers",
+    id: "financial-analytics",
+    title: "Financial Analytics",
+    description: "Gain comprehensive insights into financial history and behavior patterns with our AI-powered analytics engine and advanced visualisation tools.",
     image: {
       src: "/Financial Analytics.png",
       alt: "Financial Analytics",
       width: 56,
       height: 56
     },
-    href: "/moneyone",
+    href: "/moneyone/financial-services#financial-analytics-section",
     icon: <BarChart3 size={24} />,
     colSpan: 2 as const,
     rowSpan: 1 as const,
@@ -91,14 +91,17 @@ export function SolutionsSection() {
     >
       <div className="container px-4 md:px-6 mx-auto">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-2xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
+        <span className="text-sm md:text-base font-semibold text-[#00b140] tracking-widest uppercase">
+          DATA SHARING SOLUTIONS     
+          </span>
+          <h2 className="text-2xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4 mt-8">
             <span className={metallicBlackTextClasses}>Empowering business with </span>{" "}
             <span className={highlightBgClass}>
               purpose-built solutions
             </span>
           </h2>
           <p className="w-4/5 mx-auto font-medium text-sm md:text-lg text-slate-700 dark:text-slate-300">
-          A unified suite tailored for BFSI, HR, and compliance needs — enabling secure identity verification, analytics, and digital transformation.
+          A unified suite tailored for BFSI, employment, and consumer needs - enabling data sharing for all Indians
           </p>
         </div>
 
@@ -132,8 +135,8 @@ export function SolutionsSection() {
                 <div 
                   className="absolute inset-0 z-10 cursor-pointer" 
                   onClick={() => {
-                    // Open first and last items in new tab
-                    if (item.id === "financial-services" || item.id === "financial-tsp") {
+                    // Open financial services and financial analytics in new tab
+                    if (item.id === "financial-services" || item.id === "financial-analytics") {
                       window.open(item.href, '_blank', 'noopener,noreferrer');
                     } else {
                       window.location.href = item.href;
@@ -143,8 +146,8 @@ export function SolutionsSection() {
                   tabIndex={0}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
-                      // Open first and last items in new tab
-                      if (item.id === "financial-services" || item.id === "financial-tsp") {
+                      // Open financial services and financial analytics in new tab
+                      if (item.id === "financial-services" || item.id === "financial-analytics") {
                         window.open(item.href, '_blank', 'noopener,noreferrer');
                       } else {
                         window.location.href = item.href;

@@ -12,8 +12,8 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "OneEqual - India's Most Advanced Data Sharing Platform", // Generic Title
-  description: "OneEqual is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.", // Generic Description
+  title: "Equal - India's Most Advanced Data Sharing Platform", // Generic Title
+  description: "Equal is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.", // Generic Description
   icons: {
     icon: "/equal-icon.png",
   },
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://oneequal.com',
-    title: "OneEqual - India's Most Advanced Data Sharing Platform",
-    description: "OneEqual is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.",
-    siteName: 'OneEqual',
+    title: "Equal - India's Most Advanced Data Sharing Platform",
+    description: "Equal is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.",
+    siteName: 'Equal',
     images: [
       {
         url: '/equal-icon.png',
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "OneEqual - India's Most Advanced Data Sharing Platform",
-    description: "OneEqual is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.",
+    title: "Equal - India's Most Advanced Data Sharing Platform",
+    description: "Equal is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.",
     images: ['/equal-icon.png'],
   },
 };

@@ -58,7 +58,7 @@ MetricsCounter.displayName = 'MetricsCounter';
 const employmentMetrics = [
   { id: "uptime", value: 99, label: "Service Uptime", prefix: "", suffix: "%" },
   { id: "users", value: 10, label: "Indians Using Equal", prefix: "", suffix: "L+" },
-  { id: "companies", value: 50, label: "Companies using Equal", prefix: "", suffix: "+" },
+  { id: "companies", value: 50, label: "Case closure", prefix: "", suffix: "%" },
 ];
 
 const financialMetrics = [
@@ -338,7 +338,7 @@ const IndustryInnovationSection = React.memo(() => {
               }}
             >
               <span className="text-sm text-center md:text-left font-semibold text-white tracking-widest uppercase mb-4 block">
-                ✨ CONSUMER
+                ✨ CONSUMER PRODUCT
               </span>
             </motion.div>
 

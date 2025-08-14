@@ -3,9 +3,9 @@
 import Link from "next/link";
 import React, { useState, useEffect, useCallback, memo } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import { ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence, easeInOut } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 // Import the existing dropdown components
@@ -23,7 +23,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/app/onemoney/components/ui/dialog";
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 
@@ -49,7 +48,6 @@ interface MobileSection {
   links: Array<{
     title: string;
     href: string;
-    isSubItem?: boolean;
     isHeader?: boolean;
     subItems?: Array<{
       title: string;
@@ -84,74 +82,69 @@ const getHomeUrl = (section: CompanySection): string => {
   }
 };
 
-const getTabConfigurations = (section: CompanySection): TabConfig[] => {
-  // Base configuration that adapts based on company section
-  const baseConfig: TabConfig[] = [
-    {
-      trigger: "ABOUT US",
-      content: WhyEqualDropdownContent,
-      mobileLinks: [
-        { title: "Team", href: "/common/team" },
-        { title: "Vision & Mission", href: "/common/vision-mission" },
-        { title: "Leadership", href: "/common/leadership" },
-        { title: "Values", href: "/equal/values" }
-      ]
-    },
-    {
-      trigger: "PRODUCTS", 
-      content: ProductDropdownContent,
-      mobileLinks: section === 'moneyone' ? [
-        // BFSI Section only for MoneyOne
-        { title: "OneMoney AA", href: "/onemoney" },
-        { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
-        { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
-        { title: "Financial Services", href: "/moneyone/financial-services" }
-      ] : [
-        // BFSI Section
-        { title: "OneMoney AA", href: "/onemoney" },
-        { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
-        { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
-        { title: "Financial Services", href: "/moneyone/financial-services" },
-        // Employment Section
-        { title: "Enterprise Hiring", href: "/equal/products/enterprise-hiring" },
-        { title: "Gig Hiring", href: "/equal/products/gig-hiring" },
-        { title: "Financial Analytics", href: "/equal/products/financial-services" },
-        { title: "Staffing & Contract", href: "/equal/products/staffing" }
-      ]
-    },
-    {
-      trigger: "USECASES",
-      content: SolutionsDropdownContent,
-      mobileLinks: section === 'moneyone' ? [
-        // MoneyOne specific solutions
-        { title: "Wealth Management", href: "/moneyone/financial-services#wealth-management" },
-        { title: "Lending", href: "/moneyone/financial-services#lending" },
-        { title: "Advisory", href: "/moneyone/financial-services#advisory" },
-        { title: "Brokerage", href: "/moneyone/financial-services#brokerage" }
-      ] : [
-        // Original solutions for other sections
-        { title: "Financial Services", href: "/moneyone/financial-services" },
-        { title: "Employee Verification", href: "/equal/solutions" },
-        { title: "Identity Verification", href: "/equal" },
-        { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section" }
-      ]
-    },
-    {
-      trigger: "RESOURCES",
-      content: ResourcesDropdownContent,
-      mobileLinks: [
-        { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
-        { title: "Trust & Security", href: "/equal/trust-security" },
-        { title: "Blog", href: "/blog" },
-        { title: "In The News", href: "/blog/in-the-news" },
-        { title: "Terms and Conditions", href: "/common/terms-conditions" },
-        { title: "Privacy Policy", href: "/common/policies" }
-      ]
-    }
-  ];
-
-  return baseConfig;
-};
+const getTabConfigurations = (section: CompanySection): TabConfig[] => [
+  {
+    trigger: "ABOUT US",
+    content: WhyEqualDropdownContent,
+    mobileLinks: [
+      { title: "Team", href: "/common/team" },
+      { title: "Vision & Mission", href: "/common/vision-mission" },
+      { title: "Leadership", href: "/common/leadership" },
+      { title: "Values", href: "/equal/values" }
+    ]
+  },
+  {
+    trigger: "PRODUCTS", 
+    content: ProductDropdownContent,
+    mobileLinks: section === 'moneyone' ? [
+      // BFSI Section only for MoneyOne
+      { title: "OneMoney AA", href: "/onemoney" },
+      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
+      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
+      { title: "Financial Services", href: "/moneyone/financial-services" }
+    ] : [
+      // BFSI Section
+      { title: "OneMoney AA", href: "/onemoney" },
+      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
+      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
+      { title: "Financial Services", href: "/moneyone/financial-services" },
+      // Employment Section
+      { title: "Enterprise Hiring", href: "/equal/products/enterprise-hiring" },
+      { title: "Gig Hiring", href: "/equal/products/gig-hiring" },
+      { title: "Financial Analytics", href: "/equal/products/financial-services" },
+      { title: "Staffing & Contract", href: "/equal/products/staffing" }
+    ]
+  },
+  {
+    trigger: "USECASES",
+    content: SolutionsDropdownContent,
+    mobileLinks: section === 'moneyone' ? [
+      // MoneyOne specific solutions
+      { title: "Wealth Management", href: "/moneyone/financial-services#wealth-management" },
+      { title: "Lending", href: "/moneyone/financial-services#lending" },
+      { title: "Advisory", href: "/moneyone/financial-services#advisory" },
+      { title: "Brokerage", href: "/moneyone/financial-services#brokerage" }
+    ] : [
+      // Original solutions for other sections
+      { title: "Financial Services", href: "/moneyone/financial-services" },
+      { title: "Employee Verification", href: "/equal/solutions" },
+      { title: "Identity Verification", href: "/equal" },
+      { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section" }
+    ]
+  },
+  {
+    trigger: "RESOURCES",
+    content: ResourcesDropdownContent,
+    mobileLinks: [
+      { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
+      { title: "Trust & Security", href: "/equal/trust-security" },
+      { title: "Blog", href: "/blog" },
+      { title: "In The News", href: "/blog/in-the-news" },
+      { title: "Terms and Conditions", href: "/common/terms-conditions" },
+      { title: "Privacy Policy", href: "/common/policies" }
+    ]
+  }
+];
 
 // Mobile sections in the requested order - updated to match desktop dropdown content
 const getMobileSections = (section: CompanySection): MobileSection[] => [
@@ -231,7 +224,7 @@ const AnimatedHamburger = memo(({ isOpen, onClick }: { isOpen: boolean; onClick:
         rotate: isOpen ? 45 : 0,
         y: isOpen ? 0 : -6,
       }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
+      transition={{ duration: 0.3 }}
     />
     <motion.span
       className="absolute w-5 h-0.5 bg-current transition-all duration-300"
@@ -239,7 +232,7 @@ const AnimatedHamburger = memo(({ isOpen, onClick }: { isOpen: boolean; onClick:
         opacity: isOpen ? 0 : 1,
         x: isOpen ? -20 : 0,
       }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
+      transition={{ duration: 0.3 }}
     />
     <motion.span
       className="absolute w-5 h-0.5 bg-current transition-all duration-300"
@@ -247,7 +240,7 @@ const AnimatedHamburger = memo(({ isOpen, onClick }: { isOpen: boolean; onClick:
         rotate: isOpen ? -45 : 0,
         y: isOpen ? 0 : 6,
       }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
+      transition={{ duration: 0.3 }}
     />
   </button>
 ));
@@ -304,7 +297,7 @@ const MobileCollapsibleSection = memo(({
         <motion.div
           variants={chevronVariants}
           animate={isOpen ? "open" : "closed"}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          transition={{ duration: 0.3 }}
         >
           <ChevronDown className="w-4 h-4 text-slate-600" />
         </motion.div>
@@ -391,7 +384,6 @@ MobileCollapsibleSection.displayName = 'MobileCollapsibleSection';
 export function MainHeader({ className }: MainHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
   const pathname = usePathname();
@@ -415,26 +407,18 @@ export function MainHeader({ className }: MainHeaderProps) {
     setIsScrolled(window.scrollY > 10);
   }, []);
 
-  // Resize handler
-  const handleResize = useCallback(() => {
-    setIsSmallScreen(window.innerWidth < 768);
-  }, []);
-
   useEffect(() => {
     // Add event listeners
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleResize, { passive: true });
 
     // Initial checks
     handleScroll();
-    handleResize();
 
     // Cleanup
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
     };
-  }, [handleScroll, handleResize]);
+  }, [handleScroll]);
 
   // Lock background scroll when mobile menu is open
   useEffect(() => {
@@ -467,10 +451,6 @@ export function MainHeader({ className }: MainHeaderProps) {
 
   const openDialog = useCallback(() => {
     setIsDialogOpen(true);
-  }, []);
-
-  const closeDialog = useCallback(() => {
-    setIsDialogOpen(false);
   }, []);
 
   return (
@@ -530,7 +510,7 @@ export function MainHeader({ className }: MainHeaderProps) {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              transition={{ duration: 0.3 }}
             >
               <nav className="flex flex-col">
                 {/* Collapsible Sections */}
@@ -579,10 +559,9 @@ export function MainHeader({ className }: MainHeaderProps) {
           borderRadius: isScrolled ? "9999px" : "0px"
         }}
         transition={{ 
-          duration: 0.2,
-          ease: "easeInOut"
+          duration: 0.2
         }}
-              >
+      >
         <div className="flex h-16 items-center px-2 sm:px-4">
           {/* Left: Logo */}
           <div className="flex items-center flex-shrink-0">

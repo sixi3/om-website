@@ -11,47 +11,77 @@ interface FooterSection {
     title: string;
     href: string;
     isSubheading?: boolean;
+    openInNewTab?: boolean;
   }>;
 }
 
-// Footer data mirroring the header dropdown structure - updated to match desktop dropdown content
-const footerSections: FooterSection[] = [
+// Company section detection logic (same as MainHeader.tsx)
+type CompanySection = 'equal' | 'moneyone' | 'onemoney' | 'default';
+
+const getCompanySection = (pathname: string): CompanySection => {
+  if (pathname.startsWith('/equal') || pathname.startsWith('/solutions')) {
+    return 'equal';
+  }
+  if (pathname.startsWith('/moneyone')) {
+    return 'moneyone'; 
+  }
+  if (pathname.startsWith('/onemoney')) {
+    return 'onemoney';
+  }
+  return 'default';
+};
+
+// Dynamic footer sections based on company section
+const getFooterSections = (section: CompanySection): FooterSection[] => [
   {
     title: "ABOUT US",
     links: [
-      { title: "Team", href: "/common/team" },
       { title: "Vision & Mission", href: "/common/vision-mission" },
-      { title: "Leadership", href: "/common/leadership" },
+      { title: "Team & Leadership", href: "/common/team" },
+      { title: "Board", href: "/common/leadership" },
       { title: "Values", href: "/equal/values" }
     ]
   },
   {
     title: "PRODUCTS",
-    links: [
+    links: section === 'moneyone' ? [
+      // BFSI Section only for MoneyOne
+      { title: "BFSI", href: "#", isSubheading: true },
+      { title: "OneMoney AA", href: "/onemoney" },
+      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
+      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
+      { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section" }
+    ] : [
       // BFSI Section
       { title: "BFSI", href: "#", isSubheading: true },
       { title: "OneMoney AA", href: "/onemoney" },
       { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
       { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
-      { title: "Financial Services", href: "/moneyone/financial-services" },
+      { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section" },
       // Employment Section
       { title: "Employment", href: "#", isSubheading: true },
       { title: "Enterprise Hiring", href: "/equal/products/enterprise-hiring" },
       { title: "Gig Hiring", href: "/equal/products/gig-hiring" },
-      { title: "Financial Analytics", href: "/equal/products/financial-services" },
-      { title: "Staffing & Contract", href: "/equal/products/staffing" },
+      { title: "Custom Workflows", href: "/equal/Industries" },
       // Consumer Section
       { title: "Consumer", href: "#", isSubheading: true },
       { title: "Equal AI", href: "/equal" }
     ]
   },
   {
-    title: "SOLUTIONS",
-    links: [
-      { title: "Financial Services", href: "/moneyone/financial-services" },
-      { title: "Employee Verification", href: "/equal/solutions" },
-      { title: "Identity Verification", href: "/equal" },
-      { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section" }
+    title: "USECASES",
+    links: section === 'moneyone' ? [
+      // MoneyOne specific solutions
+      { title: "Wealth Management", href: "/moneyone/financial-services#wealth-management" },
+      { title: "Lending", href: "/moneyone/financial-services#lending" },
+      { title: "Advisory", href: "/moneyone/financial-services#advisory" },
+      { title: "Brokerage", href: "/moneyone/financial-services#brokerage" }
+    ] : [
+      // Original solutions for other sections - matching solutions-dropdown-content.tsx
+      { title: "BFSI Services", href: "/#bfsi-section" },
+      { title: "Employee Verification", href: "/#employment-verification" },
+      { title: "Identity Verification", href: "/equal/products/identity-gateway" },
+      { title: "Financial TSPs", href: "/moneyone", openInNewTab: true }
     ]
   },
   {
@@ -59,8 +89,8 @@ const footerSections: FooterSection[] = [
     links: [
       { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
       { title: "Trust & Security", href: "/equal/trust-security" },
-      /* { title: "Blog", href: "/blog" },
-      { title: "In The News", href: "/blog/in-the-news" }, */
+      { title: "Blog", href: "/blog" },
+      { title: "In The News", href: "/blog/in-the-news" },
       { title: "Terms and Conditions", href: "/common/terms-conditions" },
       { title: "Privacy Policy", href: "/common/policies" }
     ]
@@ -69,6 +99,10 @@ const footerSections: FooterSection[] = [
 
 export function MainFooter() {
   const pathname = usePathname();
+  
+  // Get dynamic footer sections based on current section
+  const currentSection = getCompanySection(pathname);
+  const footerSections = getFooterSections(currentSection);
 
   return (
     <footer className="bg-linear-b from-white to-[#00b140]/10 border-t-2 border-gray-200 py-12">
@@ -110,6 +144,8 @@ export function MainFooter() {
                             ? "text-[#00b140] font-medium"
                             : "text-gray-600 hover:text-[#00b140]"
                         }`}
+                        target={link.openInNewTab ? "_blank" : undefined}
+                        rel={link.openInNewTab ? "noopener noreferrer" : undefined}
                       >
                         {link.title}
                       </Link>

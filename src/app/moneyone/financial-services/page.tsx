@@ -80,20 +80,29 @@ export default function FinancialServicesHero() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-scroll to MoneyOne section if hash is present
+  // Auto-scroll to section if hash is present (handles lazy-loaded content)
   React.useEffect(() => {
     const hash = window.location.hash;
-    if (hash === '#moneyone-section') {
-      const timer = setTimeout(() => {
-        const element = document.getElementById('moneyone-section');
+    if (hash) {
+      const id = hash.replace('#', '');
+      const attemptScroll = () => {
+        const element = document.getElementById(id);
         if (element) {
-          element.scrollIntoView({ 
+          element.scrollIntoView({
             behavior: 'smooth',
             block: 'start'
           });
         }
-      }, 1000); // Wait for content to load
-      return () => clearTimeout(timer);
+      };
+      // Try a few times to account for suspense/lazy content layout shifts
+      const t1 = setTimeout(attemptScroll, 100);
+      const t2 = setTimeout(attemptScroll, 800);
+      const t3 = setTimeout(attemptScroll, 1600);
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+        clearTimeout(t3);
+      };
     }
   }, []);
   const clientLogos = [
