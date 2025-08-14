@@ -162,7 +162,7 @@ const StatsSection = React.memo(() => {
   const isInView = useInView(ref, { once: true, margin: "100px" });
 
   const stats = [
-    { id: "data", value: 1.2, label: "Data Transactions Yearly", suffix: "B", fixedDecimals: 1 },
+    { id: "data", value: 1.2, label: "Data Transactions Yearly", suffix: "B+", fixedDecimals: 1 },
     { id: "consents", value: 95, label: "Unique Indians Users", suffix: "M+" },
     { id: "checks", value: 350, label: "Enterprise Customers", suffix: "+" },
   ];
@@ -226,7 +226,13 @@ const LookingForSection = React.memo(() => {
     { text: "Financial Data Analytics", href: "/moneyone/financial-services" },
   ];
 
+  const newTabLinks = new Set<string>(["/onemoney", "/moneyone/financial-services"]);
+
   const handleButtonClick = (href: string) => {
+    if (newTabLinks.has(href)) {
+      window.open(href, "_blank", "noopener,noreferrer");
+      return;
+    }
     router.push(href);
   };
 

@@ -64,7 +64,7 @@ const employmentMetrics = [
 const financialMetrics = [
   { id: "fips", value: 120, label: "FIPs use MoneyOne", prefix: "", suffix: "+" },
   { id: "traffic", value: 50, label: "of all AA traffic", prefix: "", suffix: "%" },
-  { id: "transfers", value: 160, label: "Data transfers complete", prefix: "", suffix: "M" },
+  { id: "transfers", value: 1, label: "Data transfers complete", prefix: "", suffix: "B+" },
 ];
 
 const industryMetrics = [
@@ -144,7 +144,7 @@ const solutionSections: SolutionSection[] = [
     id: "financial",
     title: "Financial Services",
     subtitle: "BFSI Products",
-    description: "Banking, Financial Services & Insurance technology solutions powered by data aggregation and AI analytics.",
+    description: "Banking, Financial Services & Insurance technology solutions powered by account aggregation and AI analytics.",
     items: [
       {
         id: "financial-analytics",
@@ -174,7 +174,7 @@ const solutionSections: SolutionSection[] = [
       },
       {
         id: "finshare",
-        title: "FinShare",
+        title: "FinShare FIP TSP",
         description: "A powerful TSP service tailored for FIPs",
         image: {
           src: "/Exception Managment Engine.png",
@@ -590,8 +590,8 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 <MotionLink
                   key={item.id}
                   href={item.href}
-                  target={item.id === "onemoney-aa" || item.id === "finpro-fiu" || item.id === "finshare" ? "_blank" : undefined}
-                  rel={item.id === "onemoney-aa" || item.id === "finpro-fiu" || item.id === "finshare" ? "noopener noreferrer" : undefined}
+                  target={section.id === "financial" ? "_blank" : undefined}
+                  rel={section.id === "financial" ? "noopener noreferrer" : undefined}
                   initial={{ opacity: 0, y: 30, scale: 0.95 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true, margin: "-50px" }}
@@ -656,7 +656,7 @@ const ModularSolutions = React.memo(() => {
             className="space-y-6"
           >
             <span className="text-sm md:text-base font-semibold text-[#00b140] tracking-widest uppercase">
-              OUR PRODUCT SUITE
+              PRODUCT SUITE
             </span>
             <h1 className={`text-2xl md:text-5xl lg:text-5xl mt-8 leading-tight ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mx-auto`}>
               A

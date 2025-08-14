@@ -12,7 +12,7 @@ interface ClientLogoProps {
 }
 
 const ClientLogo = React.memo<ClientLogoProps>(({ logo, index, priority = false }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
+const [isLoaded, setIsLoaded] = useState(false);
   
   return (
     <motion.div

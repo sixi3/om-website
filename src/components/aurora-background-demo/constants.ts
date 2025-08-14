@@ -15,11 +15,11 @@ export const ANIMATION_CONFIG: AnimationConfig = {
 export const CLIENT_LOGOS = [
   "Frame 5.png",
   "Frame 6.png", 
-  "Frame 8.png",
+  "Fi-money.png",
   "Frame 12.png",
   "Frame 7.png",
   "Frame 10.png",
-  "Frame 11.png",
+  "Frame 13.png",
   "Frame 9.png",
   "Frame 13.png",
   "Frame 14.png",
