@@ -454,7 +454,9 @@ export default function AuroraBackgroundDemo() {
       const scrollToSection = (sectionId: string) => {
         const element = document.getElementById(sectionId);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const headerHeight = 80; // approximate header height
+          const y = element.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+          window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
           return true;
         }
         return false;
@@ -479,9 +481,56 @@ export default function AuroraBackgroundDemo() {
     }
   }, [isContentReady]);
 
+  // Immediate and on-hashchange scroll handler to ensure cross-page hash scroll works
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const headerHeight = 80;
+    const scrollWithOffset = (id: string) => {
+      const el = document.getElementById(id);
+      if (!el) return false;
+      const y = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      return true;
+    };
+
+    const tryScroll = (id: string) => {
+      if (scrollWithOffset(id)) return;
+      setTimeout(() => {
+        if (scrollWithOffset(id)) return;
+        setTimeout(() => {
+          if (scrollWithOffset(id)) return;
+          setTimeout(() => scrollWithOffset(id), 1000);
+        }, 300);
+      }, 50);
+    };
+
+    const handleInitial = () => {
+      const hash = window.location.hash?.slice(1);
+      if (hash) tryScroll(hash);
+    };
+
+    const onHashChange = () => {
+      const hash = window.location.hash?.slice(1);
+      if (hash) tryScroll(hash);
+    };
+
+    // Run on mount and listen to hash changes
+    handleInitial();
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
   // Show loader until content is ready
   if (!isContentReady) {
-    return <PageLoader />;
+    return (
+      <>
+        {/* Provide anchor targets even before content mounts to allow cross-page hash scroll */}
+        <div id="bfsi-section" className="h-0 scroll-mt-28 md:scroll-mt-32" aria-hidden="true" />
+        <div id="employment-verification" className="h-0 scroll-mt-28 md:scroll-mt-32" aria-hidden="true" />
+        <PageLoader />
+      </>
+    );
   }
 
   return (
@@ -504,6 +553,10 @@ export default function AuroraBackgroundDemo() {
             {...glowingDividerProps}
             delay={0.2}
           />
+          
+          {/* Anchor targets for cross-page hash navigation (ensure elements exist even before lazy content mounts) */}
+          <div id="bfsi-section" className="h-0 scroll-mt-28 md:scroll-mt-32" aria-hidden="true" />
+          <div id="employment-verification" className="h-0 scroll-mt-28 md:scroll-mt-32" aria-hidden="true" />
           
           {/* Enhanced lazy loading with intersection observer */}
           <SectionWrapper 

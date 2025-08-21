@@ -476,7 +476,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
 
   return (
     <section 
-      id={section.id === "employment" ? "employment-verification" : section.id === "financial" ? "bfsi-section" : undefined}
+
       className="relative w-full px-8 pt-4 pb-12 md:py-12 xl:px-12 2xl:px-24"
     >
       <div className=" mx-auto">

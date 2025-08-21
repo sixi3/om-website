@@ -513,7 +513,7 @@ export default function IdentityGatewayPage() {
                 <span className={metallicBlackTextClasses}>— Instantly</span>
               </h1>
               <p className="font-medium text-lg sm:text-md text-slate-600 dark:text-slate-300 mb-4">
-                 Equal's Identity Verification Gateway (IDG) is your digital front door for onboarding. 
+                 Equal's BGV (IDG) is your digital front door for onboarding. 
                  Collect, verify, and confirm identity documents from any user in real-time — no coding, no chasing.
                </p>
             </div>

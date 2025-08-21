@@ -6,7 +6,7 @@ import Marquee from "react-fast-marquee";
 // Updated data based on the image
 const statsData = [
   { id: "uptime", value: 99, label: "Uptime", prefix: "", suffix: "%" },
-  { id: "users", value: 10, label: "Indians Using Equal", prefix: "", suffix: "L+" },
+  { id: "users", value: 10, label: "Verified using Equal", prefix: "", suffix: "L+" },
   { id: "companies", value: 50, label: "Top companies using Equal", prefix: "", suffix: "+" },
   { id: "IDs", value: 30, label: "Checks in Production", prefix: "", suffix: "+" },
 ];
@@ -39,7 +39,7 @@ export function Stats({ showVerifyBanner = true }: { showVerifyBanner?: boolean 
             <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
               Comprehensive
             </span>{" "}
-            <span className={metallicBlackTextClasses}>Verification Suite</span>
+            <span className={metallicBlackTextClasses}>BGV Suite</span>
           </h2>
         </div>
         

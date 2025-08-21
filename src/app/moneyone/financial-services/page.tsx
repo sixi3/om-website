@@ -88,9 +88,17 @@ export default function FinancialServicesHero() {
       const attemptScroll = () => {
         const element = document.getElementById(id);
         if (element) {
-          element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+          // Calculate offset to account for header height and ensure title is visible
+          const headerHeight = 80; // Approximate header height
+          const elementTop = element.offsetTop;
+          const scrollPosition = elementTop - headerHeight - 20; // 20px additional padding
+          
+          // Ensure we don't scroll past the top of the page
+          const finalScrollPosition = Math.max(0, scrollPosition);
+          
+          window.scrollTo({
+            top: finalScrollPosition,
+            behavior: 'smooth'
           });
         }
       };

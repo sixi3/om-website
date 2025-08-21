@@ -29,7 +29,7 @@ interface SolutionSection {
 // Original solution sections for non-MoneyOne pages
 const originalSolutionSections: SolutionSection[] = [
   {
-    title: "OUR FULLY INTEGRATED SUITE",
+    title: "USECASES",
     description: "Specialised solutions tailored for specific industry verticals and their unique requirements",
     items: [
       {

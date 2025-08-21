@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Heart, Building, Users } from "lucide-react";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
@@ -96,7 +96,6 @@ const CARD_GAP = 24; // space-x-6 in px
 
 const IndustrySection = React.memo(() => {
   const section = industrySection;
-  const cta = { text: "Explore Industries", href: "/equal/industries" };
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scrollByCard = (direction: "left" | "right") => {
@@ -140,19 +139,7 @@ const IndustrySection = React.memo(() => {
         >
           {section.description}
         </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: ANIMATION_CONFIG.duration, delay: 0.4 }}
-          className="mb-8"
-        >
-          <Link href={cta.href}>
-            <ShimmerButton className="w-full md:w-auto text-md md:text-lg">
-              {cta.text}
-            </ShimmerButton>
-          </Link>
-        </motion.div>
+
       </div>
       {/* Full-bleed horizontal scroll container */}
       <motion.div
@@ -179,30 +166,24 @@ const IndustrySection = React.memo(() => {
                 key={item.id}
                 className="group relative flex-shrink-0 w-80"
               >
-                <Link
+                {/* <Link
                   href={item.href}
                   className="block w-full h-full"
-                >
+                > */}
                   <BentoGridItem
                     title={
-                      <div className="flex flex-col items-start w-full mt-auto mb-4 md:mb-4 md:transition-transform md:duration-300 md:group-hover:-translate-y-8">
-                        <div className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center text-white mb-4 ml-0 md:transition-transform md:duration-300 md:group-hover:-translate-y-2">
+                      <div className="flex flex-col items-start w-full mt-auto mb-4 md:mb-4">
+                        <div className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center text-white mb-4 ml-0">
                           {item.icon}
                         </div>
-                        <span className="group-hover:text-[#00b140] transition-colors duration-300 text-md md:text-xl">
+                        <span className="text-md md:text-xl text-slate-800">
                           {item.title}
                         </span>
                       </div>
                     }
                     description={
-                      <div className="text-left w-full md:mb-4 md:transition-transform md:duration-300 md:group-hover:-translate-y-8">
+                      <div className="text-left w-full md:mb-4">
                         <p className="text-sm line-clamp-3">{item.description}</p>
-                        <div className="block md:hidden mt-4">
-                          <div className="inline-flex items-center justify-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-3 border border-[#00b140]/50 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden">
-                            <span>Learn More</span>
-                            <ArrowRight className="h-4 w-4 text-[#00b140] ml-2" />
-                          </div>
-                        </div>
                       </div>
                     }
                     image={{
@@ -211,15 +192,10 @@ const IndustrySection = React.memo(() => {
                     }}
                     imagePosition="top-right"
                     imageSize="w-32 h-32 top-[-20] right-[-24] xl:w-56 xl:h-56 xl:top-[-60px] xl:right-[-55px]"
-                    className="h-full min-h-[300px] md:min-h-[320px] bg-white/50 backdrop-blur-md border-slate-200 hover:border-[#00b140]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00b140]/10 flex flex-col justify-end items-start p-6"
+                    className="h-full min-h-[300px] md:min-h-[320px] bg-white/50 backdrop-blur-md border-slate-200 hover:border-[#00b140]/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,177,64,0.3)] flex flex-col justify-end items-start p-6"
                   />
-                </Link>
-                <div className="absolute bottom-6 left-6 right-6 transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-10">
-                  <div className="w-full inline-flex items-center justify-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-3 border border-[#00b140]/50 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden group-hover:bg-[#00b140]/5">
-                    <span>Learn More</span>
-                    <ArrowRight className="h-4 w-4 text-[#00b140] transition-all duration-500 opacity-0 group-hover:opacity-100 -ml-3 group-hover:ml-2 group-hover:translate-x-0 delay-200" />
-                  </div>
-                </div>
+                {/* </Link> */}
+
               </div>
             ))}
           </div>

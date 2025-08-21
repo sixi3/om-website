@@ -23,7 +23,7 @@ interface BreadcrumbProps {
 const routeTitleMap: Record<string, string> = {
   // Equal section
   equal: "Employment",
-  solutions: "Solutions",
+  solutions: "Products",
   products: "Products",
   industries: "Industries",
   "trust-security": "Trust & Security",
@@ -86,10 +86,10 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     });
   }
   
-  // Special handling for Equal trust-security page - add Solutions and Employment breadcrumbs
+  // Special handling for Equal trust-security page - add Products and Employment breadcrumbs
   if (pathname === "/equal/trust-security") {
     items.push({
-      title: "Solutions",
+      title: "Products",
       href: "/#employment-verification",
     });
     items.push({
@@ -104,10 +104,10 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     return items;
   }
   
-  // Special handling for Equal product pages - add Solutions, Employment, and page name breadcrumbs
+  // Special handling for Equal product pages - add Products, Employment, and page name breadcrumbs
   if (pathname.startsWith("/equal/products/")) {
     items.push({
-      title: "Solutions",
+      title: "Products",
       href: "/#employment-verification",
     });
     items.push({
@@ -132,7 +132,7 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
   
   if (isEqualRelatedPage) {
     items.push({
-      title: "Solutions",
+      title: "Products",
       href: "/#employment-verification",
     });
     items.push({
@@ -169,18 +169,18 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     return items;
   }
   
-  // Special handling for Equal main page - add Solutions breadcrumb
+  // Special handling for Equal main page - add Products breadcrumb
   if (pathname === "/equal") {
     items.push({
-      title: "Solutions",
+      title: "Products",
       href: "/#employment-verification",
     });
   }
   
-  // Special handling for Equal solutions pages - add Solutions and Employment breadcrumbs
+  // Special handling for Equal solutions pages - add Products and Employment breadcrumbs
   if (pathname.startsWith("/equal/solutions")) {
     items.push({
-      title: "Solutions",
+      title: "Products",
       href: "/#employment-verification",
     });
     items.push({
@@ -231,14 +231,14 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     
     const isCurrentPage = index === filteredSegments.length - 1;
     
-    // Special handling for "products" breadcrumb - link to UseCaseGrid section
+    // Special handling for "products" breadcrumb - link to ModularSolutions section
     let href = currentPath;
     if (segment === "products" && !isCurrentPage) {
       // Check if we're on any product detail page under /equal/products/
       // Use a more deterministic approach to avoid hydration mismatches
       const isEqualProductPage = pathname.startsWith('/equal/products/') && pathname !== '/equal/products';
       if (isEqualProductPage) {
-        href = "/equal#use-cases"; // Link to UseCaseGrid section on main Equal page
+        href = "/#employment-verification"; // Link to ModularSolutions section on main page
       }
     }
     
@@ -322,6 +322,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
             ) : (
               <Link
                 href={item.href}
+                scroll={item.href.includes('#') ? false : undefined}
                 className="hover:text-[#00b140] transition-colors duration-200"
               >
                 {index === 0 && homeIcon ? (
@@ -515,6 +516,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
             ) : (
               <Link
                 href={item.href}
+                scroll={item.href.includes('#') ? false : undefined}
                 className="hover:text-[#00b140] transition-colors duration-200"
               >
                 {index === 0 && homeIcon ? (
@@ -642,6 +644,7 @@ export const OneMoneyBreadcrumb: React.FC<BreadcrumbProps> = ({
             ) : (
               <Link
                 href={item.href}
+                scroll={item.href.includes('#') ? false : undefined}
                 className="hover:text-[#00b140] transition-colors duration-200"
               >
                 {index === 0 && homeIcon ? (

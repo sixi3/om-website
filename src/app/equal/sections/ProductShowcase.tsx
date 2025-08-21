@@ -18,11 +18,11 @@ const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bo
 const productsData = [
   {
     id: 'gateway',
-    title: 'Identity Verification Gateway',
+    title: 'BGV Gateway',
     description: 'One gateway to verify all candidate identities — instantly.',
     icon: <ShieldCheck size={28} className="text-green-500" />,
     heroHeadline: 'One Gateway to Verify All Candidate Identities — Instantly',
-    heroSubheadline: "Equal's Identity Verification Gateway (IDG) is your digital front door for onboarding. Collect, verify, and confirm identity documents from any user in real-time — no coding, no chasing.",
+    heroSubheadline: "Equal's BGV (IDG) is your digital front door for onboarding. Collect, verify, and confirm identity documents from any user in real-time — no coding, no chasing.",
     features: [
       { icon: <Send />, text: 'Multi-Channel Candidate Access (WhatsApp, SMS, Email)' },
       { icon: <UploadCloud />, text: 'Real-Time Document Upload & Validation' },
@@ -41,7 +41,7 @@ const productsData = [
     features: [
         { icon: <LayoutDashboard />, text: 'Real-time dashboard to monitor candidate progress' },
         { icon: <Fingerprint />, text: 'Resolve issues and manage bulk hiring' },
-        { icon: <LinkIcon />, text: 'Export to Darwinbox, Workday, SAP' },
+        { icon: <LinkIcon />, text: 'Export to HRMS/ATS' },
         { icon: <Settings />, text: 'Connect BI dashboards (PowerBI, Tableau)' },
     ],
     cta: { text: 'Learn About Console', href: '/equal/products/console' },

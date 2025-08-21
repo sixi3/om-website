@@ -46,7 +46,7 @@ const productSections: ProductSection[] = [
       {
         id: "finpro-fiu-tsp",
         title: "FinPro FIU TSP",
-        description: "Indsutry-leading FIU TSP",
+        description: "Industry-leading FIU TSP",
         image: {
           src: "/HR OPS.png",
           alt: "FinPro FIU TSP",
@@ -58,7 +58,7 @@ const productSections: ProductSection[] = [
       {
         id: "finshare-fip-tsp",
         title: "FinShare FIP TSP",
-        description: "Indsutry-leading FIP TSP",
+        description: "Industry-leading FIP TSP",
         image: {
           src: "/Exception Managment Engine.png",
           alt: "FinShare FIP TSP",
@@ -88,7 +88,7 @@ const productSections: ProductSection[] = [
       {
         id: "Enterprise Hiring",
         title: "Enterprise Hiring",
-        description: "Advanced identity and KYC solutions for enterprise hiring",
+        description: "Automate enterprise background checks inside your HRMS",
         image: {
           src: "/Recruitment.png",
           alt: "Enterprise Hiring",
@@ -131,7 +131,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/Industries"
+        href: "/equal/industries"
       }
     ]
   }

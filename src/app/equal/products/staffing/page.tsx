@@ -385,7 +385,7 @@ const VerificationCard = ({ name, icon }: { name: string; icon: React.ReactNode 
         {icon}
       </div>
     </div>
-    <div className="absolute bottom-4 right-4 px-2 text-right">
+    <div className="absolute bottom-4 left-2 px-2 text-left">
       <span className="text-md font-medium text-slate-800 leading-tight">{name}</span>
     </div>
   </div>
