@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, FormEvent, useEffect } from "react";
+import React, { useState, FormEvent, useEffect, useRef } from "react";
 import { Label } from "./../ui/label"; // Aceternity Label
 import { Input } from "./../ui/input"; // Aceternity Input
 import { Textarea } from "./../ui/textarea"; // Shadcn Textarea
@@ -17,20 +17,39 @@ export function TalkToUsForm() {
     lastName: "",
     email: "",
     phone: "",
+    purpose: "",
     comments: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [textareaVisible, setTextareaVisible] = useState(false);
+  const [purposeDropdownOpen, setPurposeDropdownOpen] = useState(false);
+  const purposeDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (purposeDropdownRef.current && !purposeDropdownRef.current.contains(event.target as Node)) {
+        setPurposeDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handlePurposeSelect = (value: string) => {
+    setFormData((prev) => ({ ...prev, purpose: value }));
+    setPurposeDropdownOpen(false);
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -48,6 +67,7 @@ export function TalkToUsForm() {
         lastName: formData.lastName,
         email: formData.email,
         phone: formData.phone,
+        purpose: formData.purpose,
         comments: formData.comments,
       },
       USER_ID
@@ -60,6 +80,7 @@ export function TalkToUsForm() {
           lastName: "",
           email: "",
           phone: "",
+          purpose: "",
           comments: "",
         });
     }, (error: any) => {
@@ -112,6 +133,53 @@ export function TalkToUsForm() {
        <div className="space-y-2">
         <Label htmlFor="phone">Phone Number</Label>
         <Input id="phone" placeholder="+91 90100 98899" type="tel" value={formData.phone} onChange={handleChange} />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="purpose">
+          Purpose <span className="text-red-500">*</span>
+        </Label>
+        <div className="relative" ref={purposeDropdownRef}>
+          <button
+            type="button"
+            onClick={() => setPurposeDropdownOpen(!purposeDropdownOpen)}
+            className="flex h-10 w-full border-none bg-gray-50 dark:bg-zinc-800 text-black dark:text-white shadow-input rounded-md px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 dark:placeholder-text-neutral-600 focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600 disabled:cursor-not-allowed disabled:opacity-50 dark:shadow-[0px_0px_1px_1px_var(--neutral-700)] group-hover/input:shadow-none transition duration-400 items-center justify-between"
+          >
+            <span className={formData.purpose ? "text-black dark:text-white" : "text-neutral-400 dark:text-neutral-600 placeholder:text-neutral-400 dark:placeholder-text-neutral-600"}>
+              {formData.purpose || "Select a purpose"}
+            </span>
+            <svg
+              className={cn(
+                "w-4 h-4 transition-transform duration-200",
+                purposeDropdownOpen ? "rotate-180" : ""
+              )}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          
+          {purposeDropdownOpen && (
+            <div className="absolute z-10 w-full mt-1 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-neutral-700 rounded-md shadow-lg">
+              {[
+                { value: "Employment", label: "Employment" },
+                { value: "BFSI", label: "BFSI" },
+                { value: "Consumer", label: "Consumer" },
+                { value: "General", label: "General" }
+              ].map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => handlePurposeSelect(option.value)}
+                  className="w-full px-3 py-2 text-left text-sm text-black dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-700 first:rounded-t-md last:rounded-b-md transition-colors"
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       <div className="space-y-2">
         <Label htmlFor="comments">
