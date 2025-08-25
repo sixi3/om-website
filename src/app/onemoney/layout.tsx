@@ -22,6 +22,13 @@ export default function OneMoneyLayout({
 }>) {
   return (
     <AuroraBackground>
+      <head>
+        {/* Explicit favicon declarations to prevent Vercel override */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/onemoney-icon.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/onemoney-icon.png" />
+        <link rel="shortcut icon" href="/onemoney-icon.png" />
+        <link rel="apple-touch-icon" href="/onemoney-icon.png" />
+      </head>
       <div className={cn("min-h-screen bg-transparent font-sans antialiased flex flex-col")}>
         <SimpleHeader />
         <main className="flex-grow relative z-10">

@@ -50,6 +50,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Explicit favicon declarations to prevent Vercel override */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/equal-icon.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/equal-icon.png" />
+        <link rel="shortcut icon" href="/equal-icon.png" />
+        <link rel="apple-touch-icon" href="/equal-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        
         <script
           dangerouslySetInnerHTML={{
             __html: `
