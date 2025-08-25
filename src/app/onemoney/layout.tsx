@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description: "A secure financial data-sharing ecosystem",
   icons: {
     icon: "/onemoney-icon.png",
+    shortcut: "/onemoney-icon.png",
   },
 };
 

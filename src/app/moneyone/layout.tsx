@@ -11,7 +11,8 @@ export const metadata: Metadata = {
   title: "MoneyOne - Financial Solutions",
   description: "Your all-in-one financial management solution",
   icons: {
-    icon: "/moneyone-icon.png",
+    icon: "/mo-logo.png",
+    shortcut: "/mo-logo.png",
   },
 };
 

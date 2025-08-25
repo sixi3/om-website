@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   description: "Democratizing finance for everyone",
   icons: {
     icon: "/equal-icon.png",
+    shortcut: "/equal-icon.png",
   },
 };
 

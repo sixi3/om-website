@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   description: "Equal is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.", // Generic Description
   icons: {
     icon: "/equal-icon.png",
+    shortcut: "/equal-icon.png",
   },
   openGraph: {
     type: 'website',
