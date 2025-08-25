@@ -17,7 +17,19 @@ interface BreadcrumbProps {
   separator?: React.ReactNode;
   homeIcon?: boolean;
   maxItems?: number;
+  sectionName?: string; // Add section name prop
 }
+
+// Helper function to render home icon with section name
+const renderHomeIcon = (homeIcon: boolean, sectionName: string = "Equal") => {
+  if (!homeIcon) return null;
+  return (
+    <div className="flex items-center gap-2">
+      <Home className="h-4 w-4" />
+      <span>{sectionName}</span>
+    </div>
+  );
+};
 
 // Route to title mapping
 const routeTitleMap: Record<string, string> = {
@@ -257,6 +269,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   separator = <ChevronRight className="h-4 w-4 text-slate-400" />,
   homeIcon = true,
   maxItems = 4,
+  sectionName = "Equal",
 }) => {
   const pathname = usePathname();
   const [isMounted, setIsMounted] = React.useState(false);
@@ -312,7 +325,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
                 aria-current="page"
               >
                 {index === 0 && homeIcon ? (
-                  <Home className="h-4 w-4" />
+                  renderHomeIcon(homeIcon, sectionName)
                 ) : (
                   item.title
                 )}
@@ -326,7 +339,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
                 className="hover:text-[#00b140] transition-colors duration-200"
               >
                 {index === 0 && homeIcon ? (
-                  <Home className="h-4 w-4" />
+                  renderHomeIcon(homeIcon, sectionName)
                 ) : (
                   item.title
                 )}
@@ -364,6 +377,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
   separator = <ChevronRight className="h-4 w-4 text-slate-400" />,
   homeIcon = true,
   maxItems = 4,
+  sectionName = "MoneyOne",
 }) => {
   const pathname = usePathname();
   const [isMounted, setIsMounted] = React.useState(false);
@@ -459,7 +473,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
       items.push({
         title: routeTitleMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " "),
         href: href,
-        isCurrentPage,
+        isCurrentPage: true,
       });
     });
     
@@ -506,7 +520,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
                 aria-current="page"
               >
                 {index === 0 && homeIcon ? (
-                  <Home className="h-4 w-4" />
+                  renderHomeIcon(homeIcon, sectionName)
                 ) : (
                   item.title
                 )}
@@ -520,7 +534,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
                 className="hover:text-[#00b140] transition-colors duration-200"
               >
                 {index === 0 && homeIcon ? (
-                  <Home className="h-4 w-4" />
+                  renderHomeIcon(homeIcon, sectionName)
                 ) : (
                   item.title
                 )}
@@ -547,6 +561,7 @@ export const OneMoneyBreadcrumb: React.FC<BreadcrumbProps> = ({
   separator = <ChevronRight className="h-4 w-4 text-slate-400" />,
   homeIcon = true,
   maxItems = 4,
+  sectionName = "OneMoney",
 }) => {
   const pathname = usePathname();
   const [isMounted, setIsMounted] = React.useState(false);
@@ -634,7 +649,7 @@ export const OneMoneyBreadcrumb: React.FC<BreadcrumbProps> = ({
                 aria-current="page"
               >
                 {index === 0 && homeIcon ? (
-                  <Home className="h-4 w-4" />
+                  renderHomeIcon(homeIcon, sectionName)
                 ) : (
                   item.title
                 )}
@@ -648,7 +663,7 @@ export const OneMoneyBreadcrumb: React.FC<BreadcrumbProps> = ({
                 className="hover:text-[#00b140] transition-colors duration-200"
               >
                 {index === 0 && homeIcon ? (
-                  <Home className="h-4 w-4" />
+                  renderHomeIcon(homeIcon, sectionName)
                 ) : (
                   item.title
                 )}

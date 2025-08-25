@@ -95,7 +95,7 @@ const BoardOfDirectors = React.memo(() => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{
             duration: ANIMATION_CONFIG.duration,
             ease: "easeOut"
@@ -119,7 +119,7 @@ const BoardOfDirectors = React.memo(() => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.3 }}
             transition={{
               duration: ANIMATION_CONFIG.duration,
               delay: 0.2
@@ -133,7 +133,7 @@ const BoardOfDirectors = React.memo(() => {
                     key={member.id}
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false, amount: 0.3 }}
                     transition={{
                       duration: ANIMATION_CONFIG.duration,
                       delay: index * 0.1
@@ -200,7 +200,7 @@ const BoardOfDirectors = React.memo(() => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.3 }}
             transition={{
               duration: ANIMATION_CONFIG.duration,
               delay: 0.2
@@ -212,7 +212,7 @@ const BoardOfDirectors = React.memo(() => {
                 key={member.id}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.3 }}
                 transition={{
                   duration: ANIMATION_CONFIG.duration,
                   delay: index * 0.1
@@ -254,7 +254,7 @@ const BoardOfDirectors = React.memo(() => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.3 }}
             transition={{
               duration: ANIMATION_CONFIG.duration,
               delay: 0.4
@@ -266,7 +266,7 @@ const BoardOfDirectors = React.memo(() => {
                 key={member.id}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.3 }}
                 transition={{
                   duration: ANIMATION_CONFIG.duration,
                   delay: (index + 5) * 0.1

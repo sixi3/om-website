@@ -52,7 +52,7 @@ const ProfileCard = React.memo<ProfileCardProps>(({
         className={`relative ${className}`}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: false, amount: 0.3 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <div className="relative w-80 h-96 rounded-lg overflow-hidden shadow-lg">
@@ -77,7 +77,7 @@ const ProfileCard = React.memo<ProfileCardProps>(({
       className={`relative group cursor-pointer ${className}`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: false, amount: 0.3 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       whileHover="hover"
     >
@@ -240,7 +240,7 @@ const Team = React.memo(() => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{
             duration: ANIMATION_CONFIG.duration,
             ease: "easeOut"
@@ -263,7 +263,7 @@ const Team = React.memo(() => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: false, amount: 0.3 }}
         transition={{
           duration: ANIMATION_CONFIG.duration,
           delay: 0.2

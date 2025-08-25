@@ -33,6 +33,29 @@ export default function EqualPage() {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Handle hash-based navigation and auto-scroll
+  useEffect(() => {
+    // Check if there's a hash in the URL (e.g., #use-cases)
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hash = window.location.hash.substring(1); // Remove the # symbol
+      
+      if (hash === 'use-cases') {
+        // Add a small delay to ensure the page content is fully rendered
+        const timer = setTimeout(() => {
+          const element = document.getElementById('use-cases');
+          if (element) {
+            element.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start' 
+            });
+          }
+        }, 300);
+        
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []); // Empty dependency array means this runs once when component mounts
+
   return (
     <div className="relative w-full overflow-x-hidden">
       <BackgroundGrid zIndex={-1} />
@@ -64,7 +87,7 @@ export default function EqualPage() {
         delay={0.5}
       />
       
-      <section className="relative w-full py-20 md:py-24">
+      <section id="use-cases" className="relative w-full py-20 md:py-24">
         <div className="container px-4 md:px-6 mx-auto">
           <Suspense fallback={<div className="w-full h-96 flex justify-center items-center"><p>Loading...</p></div>}>
             <UseCaseCardStack 

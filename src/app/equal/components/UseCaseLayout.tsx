@@ -20,10 +20,10 @@ const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bo
 
 // Mapping for solution pages
 const solutionPageMapping: Record<string, string> = {
-  'hrms': '/equal/solutions/enterprise-hiring',
-  'gig-economy': '/equal/solutions/gig-hiring',
-  'bfsi': '/equal/solutions/financial-services',
-  'staffing': '/equal/solutions/staffing',
+  'hrms': '/equal/products/enterprise-hiring',
+  'gig-economy': '/equal/products/gig-hiring',
+  'bfsi': '/equal/products/financial-services',
+  'staffing': '/equal/products/staffing',
 };
 
 const HorizontalPointList = ({ items, textColor, enableMarquee = false }: { items: (string | undefined)[], textColor: string, enableMarquee?: boolean }) => {

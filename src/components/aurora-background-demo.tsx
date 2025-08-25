@@ -462,14 +462,17 @@ export default function AuroraBackgroundDemo() {
         return false;
       };
 
-      const retryScroll = (sectionId: string) => {
-        // Try immediately, then retry with delays
+      const retryScroll = (sectionId: string, maxRetries: number = 5, currentTry: number = 0) => {
+        if (currentTry >= maxRetries) {
+          console.warn(`Failed to scroll to section ${sectionId} after ${maxRetries} attempts`);
+          return;
+        }
+
         if (!scrollToSection(sectionId)) {
+          const delay = currentTry === 0 ? 100 : currentTry * 500; // Progressive delay
           setTimeout(() => {
-            if (!scrollToSection(sectionId)) {
-              setTimeout(() => scrollToSection(sectionId), 1000);
-            }
-          }, 500);
+            retryScroll(sectionId, maxRetries, currentTry + 1);
+          }, delay);
         }
       };
 
@@ -494,15 +497,19 @@ export default function AuroraBackgroundDemo() {
       return true;
     };
 
-    const tryScroll = (id: string) => {
+    const tryScroll = (id: string, maxRetries: number = 8, currentTry: number = 0) => {
+      if (currentTry >= maxRetries) {
+        console.warn(`Failed to scroll to section ${id} after ${maxRetries} attempts`);
+        return;
+      }
+
       if (scrollWithOffset(id)) return;
+      
+      // Progressive delays for lazy-loaded content
+      const delay = currentTry < 3 ? 100 + (currentTry * 50) : 500 + (currentTry * 200);
       setTimeout(() => {
-        if (scrollWithOffset(id)) return;
-        setTimeout(() => {
-          if (scrollWithOffset(id)) return;
-          setTimeout(() => scrollWithOffset(id), 1000);
-        }, 300);
-      }, 50);
+        tryScroll(id, maxRetries, currentTry + 1);
+      }, delay);
     };
 
     const handleInitial = () => {
@@ -525,9 +532,6 @@ export default function AuroraBackgroundDemo() {
   if (!isContentReady) {
     return (
       <>
-        {/* Provide anchor targets even before content mounts to allow cross-page hash scroll */}
-        <div id="bfsi-section" className="h-0 scroll-mt-28 md:scroll-mt-32" aria-hidden="true" />
-        <div id="employment-verification" className="h-0 scroll-mt-28 md:scroll-mt-32" aria-hidden="true" />
         <PageLoader />
       </>
     );
@@ -554,9 +558,7 @@ export default function AuroraBackgroundDemo() {
             delay={0.2}
           />
           
-          {/* Anchor targets for cross-page hash navigation (ensure elements exist even before lazy content mounts) */}
-          <div id="bfsi-section" className="h-0 scroll-mt-28 md:scroll-mt-32" aria-hidden="true" />
-          <div id="employment-verification" className="h-0 scroll-mt-28 md:scroll-mt-32" aria-hidden="true" />
+          {/* Anchor targets for cross-page hash navigation are now handled within ModularSolutions component */}
           
           {/* Enhanced lazy loading with intersection observer */}
           <SectionWrapper 

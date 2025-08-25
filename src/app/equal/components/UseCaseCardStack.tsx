@@ -30,10 +30,7 @@ export const UseCaseCardStack = ({
   const handleTabChange = (index: number) => {
     const selectedItem = items[index];
     if (selectedItem) {
-      // Update URL with the selected tab
-      const params = new URLSearchParams(searchParams.toString());
-      params.set('tab', selectedItem.id);
-      router.push(`/equal/solutions?${params.toString()}`, { scroll: false });
+      // Simply change the tab without URL navigation
       onTabChange(index);
     }
   };

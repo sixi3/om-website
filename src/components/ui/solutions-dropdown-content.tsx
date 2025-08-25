@@ -180,7 +180,11 @@ const SolutionItem: React.FC<{ item: SolutionItem; index: number }> = ({ item, i
             <h3 className="font-semibold text-neutral-900 group-hover:text-[#00b140] transition-colors duration-200">
               {item.title}
             </h3>
-            <div className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 ease-out">
+            <div className={`${
+              item.id === "bfsi-services" || item.id === "technology-provider"
+                ? "opacity-0 rotate-0 group-hover:opacity-100 group-hover:-rotate-45" 
+                : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
+            } transition-all duration-200 ease-out`}>
               <ArrowRight className="w-4 h-4 text-[#00b140]" />
             </div>
           </div>

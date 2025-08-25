@@ -80,14 +80,21 @@ export default function FinancialServicesHero() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-scroll to section if hash is present (handles lazy-loaded content)
+  
   React.useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
       const id = hash.replace('#', '');
+      let hasScrolled = false;
+      
       const attemptScroll = () => {
+        // Prevent multiple scroll attempts
+        if (hasScrolled) return;
+        
         const element = document.getElementById(id);
         if (element) {
+          hasScrolled = true;
+          
           // Calculate offset to account for header height and ensure title is visible
           const headerHeight = 80; // Approximate header height
           const elementTop = element.offsetTop;
@@ -96,20 +103,27 @@ export default function FinancialServicesHero() {
           // Ensure we don't scroll past the top of the page
           const finalScrollPosition = Math.max(0, scrollPosition);
           
+          // Use a single smooth scroll
           window.scrollTo({
             top: finalScrollPosition,
             behavior: 'smooth'
           });
+        } else {
+          // If element doesn't exist yet, try once more after a longer delay
+          // This handles lazy-loaded content that might not be mounted yet
+          if (!hasScrolled) {
+            setTimeout(attemptScroll, 1000);
+          }
         }
       };
-      // Try a few times to account for suspense/lazy content layout shifts
-      const t1 = setTimeout(attemptScroll, 100);
-      const t2 = setTimeout(attemptScroll, 800);
-      const t3 = setTimeout(attemptScroll, 1600);
+      
+      // Initial attempt with a reasonable delay for lazy content to load
+      const scrollTimer = setTimeout(attemptScroll, 300);
+      
+      // Cleanup function to prevent memory leaks
       return () => {
-        clearTimeout(t1);
-        clearTimeout(t2);
-        clearTimeout(t3);
+        clearTimeout(scrollTimer);
+        hasScrolled = true; // Prevent any pending scroll attempts
       };
     }
   }, []);

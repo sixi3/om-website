@@ -111,7 +111,7 @@ const IndustrySection = React.memo(() => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: ANIMATION_CONFIG.duration, delay: 0.1 }}
         >
           <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-8 block">
@@ -121,7 +121,7 @@ const IndustrySection = React.memo(() => {
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: ANIMATION_CONFIG.duration, delay: 0.2 }}
           className={`text-2xl md:text-4xl lg:text-5xl leading-tight ${METALLIC_BLACK_TEXT_CLASSES} mb-4`}
         >
@@ -133,7 +133,7 @@ const IndustrySection = React.memo(() => {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: ANIMATION_CONFIG.duration, delay: 0.3 }}
           className="text-sm md:text-xl text-slate-600 leading-relaxed mb-8"
         >
@@ -145,7 +145,7 @@ const IndustrySection = React.memo(() => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: false, amount: 0.3 }}
         transition={{
           duration: ANIMATION_CONFIG.duration,
           delay: 0.5

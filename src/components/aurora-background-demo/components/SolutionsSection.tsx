@@ -86,7 +86,7 @@ export function SolutionsSection() {
       className="relative w-full py-20 md:py-24 dark:bg-slate-900/60"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: false, amount: 0.3 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
       <div className="container px-4 md:px-6 mx-auto">
@@ -114,7 +114,11 @@ export function SolutionsSection() {
                   <span className="group-hover:text-[#00b140] transition-colors duration-300 text-md md:text-lg">
                     {item.title}
                   </span>
-                  <div className="translate-x-0 group-hover:translate-x-1 group-hover:text-[#00b140] transition-all duration-300 ease-out">
+                  <div className={`${
+                    item.id === "financial-services" || item.id === "financial-analytics"
+                      ? "rotate-0 group-hover:-rotate-45 group-hover:text-[#00b140]" 
+                      : "translate-x-0 group-hover:translate-x-1 group-hover:text-[#00b140]"
+                  } transition-all duration-300 ease-out`}>
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>

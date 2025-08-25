@@ -188,7 +188,11 @@ const ProductItem = memo<{ item: ProductItem; index: number }>(({ item, index })
             <h3 className="font-semibold text-neutral-900 group-hover:text-[#00b140] transition-colors duration-150">
               {item.title}
             </h3>
-            <div className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 ease-out">
+            <div className={`${
+              item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "financial-analytics"
+                ? "opacity-0 rotate-0 group-hover:opacity-100 group-hover:-rotate-45" 
+                : "opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0"
+            } transition-all duration-150 ease-out`}>
               <ArrowRight className="w-4 h-4 text-[#00b140]" />
             </div>
           </div>

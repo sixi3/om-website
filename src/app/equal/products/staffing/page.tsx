@@ -66,11 +66,16 @@ export default function StaffingPage() {
             <div className="w-full flex flex-col items-center md:items-start mb-8">
               <span className="text-xs font-semibold tracking-widest text-slate-500 mb-2 uppercase">Trusted by top staffing agencies</span>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-xl items-center justify-items-center">
-                {CLIENT_LOGOS.slice(0, 4).map((logo, idx) => (
-                  <div key={logo} className="relative w-32 h-10 flex items-center justify-center">
+                {[
+                  { src: "/client-logos/achala.png", alt: "Achala - Making IT Possible" },
+                  { src: "/client-logos/hetero_logo.svg.png", alt: "Hetero" },
+                  { src: "/client-logos/teamlease.png", alt: "TeamLease - Putting India to Work" },
+                  { src: "/client-logos/L&T.png", alt: "Larsen & Toubro" }
+                ].map((logo, idx) => (
+                  <div key={logo.src} className="relative w-32 h-10 flex items-center justify-center">
                     <Image
-                      src={`/client-logos/${logo}`}
-                      alt={`Client logo ${idx + 1}`}
+                      src={logo.src}
+                      alt={logo.alt}
                       fill
                       className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                       sizes="(max-width: 768px) 25vw, (max-width: 1024px) 20vw, 15vw"
