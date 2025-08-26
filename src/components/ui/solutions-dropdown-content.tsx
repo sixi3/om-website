@@ -70,8 +70,8 @@ const originalSolutionSections: SolutionSection[] = [
       },
       {
         id: "technology-provider",
-        title: "Financial TSPs",
-        description: "Explore our financial technology service providers",
+        title: "BFSI TSPs",
+        description: "Explore our BFSI technology service providers",
         image: {
           src: "/Financial Analytics.png",
           alt: "Financial Analytics",

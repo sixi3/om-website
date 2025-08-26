@@ -58,7 +58,7 @@ MetricsCounter.displayName = 'MetricsCounter';
 const employmentMetrics = [
   { id: "uptime", value: 99, label: "Service Uptime", prefix: "", suffix: "%" },
   { id: "users", value: 10, label: "Indians Using Equal", prefix: "", suffix: "L+" },
-  { id: "companies", value: 50, label: "Case closure", prefix: "", suffix: "%" },
+  { id: "companies", value: 90, label: "Case closure", prefix: "", suffix: "%" },
 ];
 
 const financialMetrics = [
@@ -382,14 +382,14 @@ const IndustryInnovationSection = React.memo(() => {
               }}
               className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full"
             >
-              <Link href={cta.href} className="w-full sm:w-auto flex justify-center">
+              <Link href="https://www.myequal.ai/" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex justify-center">
                 <ShimmerButton className="text-md md:text-lg w-full sm:w-auto">
                   {cta.text}
                 </ShimmerButton>
               </Link>
               
               {/* Play Store Download Button */}
-              <Link href="https://play.google.com/store/apps/details?id=com.equal.ai" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex justify-center">
+              {/* <Link href="https://play.google.com/store/apps/details?id=com.equal.ai" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex justify-center">
                 <div className="group inline-flex items-center px-6 py-3 bg-black/30 border border-[#baff29]/70 text-white text-md md:text-lg font-semibold rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap hover:bg-white/10 hover:border-white/40 hover:shadow-lg hover:shadow-white/10 hover:bh-white/20 w-full sm:w-auto justify-center">
                   <Image
                     src="/playstore.png"
@@ -401,6 +401,7 @@ const IndustryInnovationSection = React.memo(() => {
                   <span>Download on Play Store</span>
                 </div>
               </Link>
+              */}
             </motion.div>
           </motion.div>
 

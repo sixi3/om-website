@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GlowingButton } from '@/app/onemoney/components/ui/glowing-button';
 import { GridBackground } from '@/app/onemoney/components/ui/grid-background';
-import { CheckCircle, Shield, Globe, Link, Database, Monitor, FileText, Users, UserCheck, ShieldCheck, Download, Building2, Heart, Car, Landmark } from 'lucide-react';
+import { CheckCircle, Shield, Globe, Link, Database, Monitor, FileText, Users, UserCheck, ShieldCheck, Download } from 'lucide-react';
 import { BentoGrid, BentoGridItem } from '@/app/onemoney/components/ui/bento-grid';
 import Image from 'next/image';
 import Marquee from "react-fast-marquee";
@@ -36,38 +36,12 @@ const auditTools = [
   { feature: "Exportable Audit Trails", description: "Easily shareable reports for auditors or regulators", icon: Download, image: "/Exportable Audit Trails.png" },
 ];
 
-const industryCompliance = [
-  {
-    feature: "Financial Services",
-    description: "RBI KYC Norms, PMLA, SEBI rules, digital audit trails, and check-level consent",
-    icon: Building2,
-    image: "/Financial Services.png",
-  },
-  {
-    feature: "Healthcare",
-    description: "HIPAA-aligned identity management with role-based access for medical recruiters",
-    icon: Heart,
-    image: "/Healthcare.png",
-  },
-  {
-    feature: "Gig & Platform Economy",
-    description: "Real-time background checks and identity validation for public-facing workers",
-    icon: Car,
-    image: "/Gig & Platform Economy.png",
-  },
-  {
-    feature: "Government Contracts",
-    description: "SCOSTA UID compliance with offline Aadhaar XML or eKYC flows supported",
-    icon: Landmark,
-    image: "/Government Contracts.png",
-  },
-];
+
 
 const tabs = [
   { id: "compliance", title: "Compliance" },
   { id: "architecture", title: "Architecture" },
   { id: "audit", title: "Audit" },
-  { id: "industries", title: "Industries" },
 ];
 
 const containerVariants = {
@@ -222,44 +196,7 @@ export default function TrustSecurityPage() {
           </div>
         );
 
-      case 3: // Industries
-        return (
-          <div className="w-full mx-auto border border-[#00b140]/30 bg-linear-to-br from-background/90 to-[#baff29]/20 backdrop-blur-lg rounded-xl overflow-hidden">
-            <div className="p-8">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl tracking-tight leading-tight sm:text-3xl md:text-4xl mb-4">
-                  <span className={metallicBlackTextClasses}>Industry-Specific Compliance</span>
-                </h3>
-                <p className="mx-auto text-base text-slate-700 dark:text-slate-300 max-w-5xl mb-8">
-                  Tailored compliance solutions for different industries with trust-centered design philosophy.
-                </p>
-              </div>
-              <BentoGrid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-2 w-full max-w-none">
-                {industryCompliance.map((item, idx) => {
-                  const IconComponent = item.icon;
-                  return (
-                    <BentoGridItem
-                      key={idx}
-                      className="shadow-sm"
-                      icon={
-                        <div className="p-3 rounded-xl bg-[#00b140] text-white inline-block mb-2">
-                          <IconComponent className="w-6 h-6" />
-                        </div>
-                      }
-                      title={<span className="text-xl font-bold text-slate-800 dark:text-slate-100">{item.feature}</span>}
-                      description={<span className="text-[16px] text-slate-600 dark:text-slate-100">{item.description}</span>}
-                      image={{
-                        src: item.image,
-                        alt: item.feature
-                      }}
-                      imageSize="w-40 h-40 -top-10 -right-10 md:w-40 md:h-40 md:-top-10 md:-right-10 lg:w-48 lg:h-48 lg:-top-15 lg:-right-10 xl:w-48 xl:h-48 xl:-top-15 xl:-right-10 2xl:w-48 2xl:h-48 2xl:-top-15 2xl:-right-10"
-                    />
-                  );
-                })}
-              </BentoGrid>
-            </div>
-          </div>
-        );
+
 
       default:
         return null;

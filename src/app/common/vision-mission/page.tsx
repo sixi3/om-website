@@ -26,20 +26,38 @@ We are Equal — building a better India, one connection at a time.
   ),
 };
 
-// Simple Bento Grid Placeholder Component
-const BentoGridPlaceholder = () => {
+// Gallery Component with Team Photos
+const TeamGallery = () => {
   return (
     <div className="w-full max-w-7xl mx-auto my-8 md:my-12 p-4">
       <h2 className={`text-3xl md:text-4xl font-bold text-center mb-8 ${metallicBlackTextClasses}`}>
-        Gallery
+        Our Team
       </h2>
       <div className="grid grid-cols-3 grid-rows-3 gap-4 h-[600px]">
-        {/* Replace these divs with your Image components */}
-        <div className="col-span-2 row-span-2 bg-neutral-300 dark:bg-neutral-700 rounded-lg flex items-center justify-center text-neutral-500">Image 1 (2x2)</div>
-        <div className="col-span-1 row-span-1 bg-neutral-300 dark:bg-neutral-700 rounded-lg flex items-center justify-center text-neutral-500">Image 2 (1x1)</div>
-        <div className="col-span-1 row-span-1 bg-neutral-300 dark:bg-neutral-700 rounded-lg flex items-center justify-center text-neutral-500">Image 3 (1x1)</div>
-        <div className="col-span-1 row-span-1 bg-neutral-300 dark:bg-neutral-700 rounded-lg flex items-center justify-center text-neutral-500">Image 4 (1x1)</div>
-        <div className="col-span-2 row-span-1 bg-neutral-300 dark:bg-neutral-700 rounded-lg flex items-center justify-center text-neutral-500">Image 5 (2x1)</div>
+        {/* Large featured image - spans 2x2 */}
+        <div className="col-span-2 row-span-2 bg-neutral-300 dark:bg-neutral-700 rounded-lg overflow-hidden">
+          <img 
+            src="/team-pictures/WhatsApp Image 2025-08-25 at 5.05.08 PM (1).jpeg" 
+            alt="Equal team group photo" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+        {/* Top right small image */}
+        <div className="col-span-1 row-span-1 bg-neutral-300 dark:bg-neutral-700 rounded-lg overflow-hidden">
+          <img 
+            src="/team-pictures/WhatsApp Image 2025-08-25 at 5.05.08 PM 1.png" 
+            alt="Equal team members" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+        {/* Bottom right small image */}
+        <div className="col-span-1 row-span-1 bg-neutral-300 dark:bg-neutral-700 rounded-lg overflow-hidden">
+          <img 
+            src="/team-pictures/WhatsApp Image 2025-08-25 at 5.05.13 PM.jpeg" 
+            alt="Equal team members" 
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
     </div>
   );
@@ -86,8 +104,8 @@ export default function VisionMissionPage() {
               </div>
             </TiltCard>
 
-            {/* Bento Grid Section Placeholder */}
-            <BentoGridPlaceholder />
+            {/* Team Gallery Section */}
+            <TeamGallery />
           </div>
         </div>
       </main>

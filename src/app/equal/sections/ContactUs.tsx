@@ -34,7 +34,7 @@ export function ContactUs() {
             <p className="text-slate-600 dark:text-slate-400">
               Whether you're interested in learning more about our comprehensive verification
               services, exploring integration opportunities, or have questions about our
-              identity solutions, our team is ready to assist you. Fill out the form or use
+              employee verification solutions, our team is ready to assist you. Fill out the form or use
               the contact details provided in our footer.
             </p>
             <p className="text-slate-600 dark:text-slate-400">

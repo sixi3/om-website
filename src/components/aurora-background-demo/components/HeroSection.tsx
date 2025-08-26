@@ -221,7 +221,7 @@ const LookingForSection = React.memo(() => {
   const router = useRouter();
 
   const buttons = [
-    { text: "Employee Verifications", href: "/equal#use-cases" },
+    { text: "Employee Verifications", href: "#employment-verification" },
     { text: "Account Aggregator", href: "/onemoney" }, 
     { text: "Financial Analytics", href: "/moneyone/financial-services#financial-analytics-section" },
   ];
@@ -233,6 +233,18 @@ const LookingForSection = React.memo(() => {
       window.open(href, "_blank", "noopener,noreferrer");
       return;
     }
+    
+    // Handle hash-based navigation for same-page sections
+    if (href.startsWith('#')) {
+      const element = document.getElementById(href.slice(1));
+      if (element) {
+        const headerHeight = 80; // consistent with main scroll handler
+        const y = element.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+        return;
+      }
+    }
+    
     router.push(href);
   };
 

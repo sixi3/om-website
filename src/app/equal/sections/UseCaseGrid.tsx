@@ -30,7 +30,7 @@ export function UseCaseGrid() {
                 </span>
             </h2>
             <p className="mx-auto text-md text-slate-700 dark:text-slate-300 md:text-lg">
-                From enterprise to startups, Equal is built to handle every identity verification challenge.
+                From enterprise to startups, Equal is built to handle every employee verification challenge.
             </p>
         </div>
 

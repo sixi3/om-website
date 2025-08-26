@@ -185,7 +185,7 @@ const teamMembers = [
     name: "Rajeev Ranjan",
     title: "CO-FOUNDER",
     description: "A technology pioneer with 10+ years of experience in building some of India's largest platforms",
-    imageUrl: "/team-pictures/rajeev-ranjan.png",
+    imageUrl: "/team-pictures/rajeev.png",
     socialLinks: [
       { 
         id: "linkedin", 

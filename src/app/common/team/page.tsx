@@ -322,7 +322,7 @@ export default function TeamPage() {
                   className="relative w-full h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl"
                 >
                   <Image
-                    src="/team.png"
+                    src="/team-pictures/WhatsApp Image 2025-08-25 at 5.05.13 PM.jpeg"
                     alt="Our amazing team"
                     fill
                     className="object-cover"

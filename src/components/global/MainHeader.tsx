@@ -39,6 +39,7 @@ interface TabConfig {
   mobileLinks: Array<{
     title: string;
     href: string;
+    openInNewTab?: boolean;
   }>;
 }
 
@@ -48,6 +49,7 @@ interface MobileSection {
   links: Array<{
     title: string;
     href: string;
+    openInNewTab?: boolean;
     isHeader?: boolean;
     subItems?: Array<{
       title: string;
@@ -97,17 +99,17 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => [
     trigger: "PRODUCTS", 
     content: ProductDropdownContent,
     mobileLinks: section === 'moneyone' ? [
-      // BFSI Section only for MoneyOne
+      // BFSI Section only for MoneyOne - no new tab for internal links
       { title: "OneMoney AA", href: "/onemoney" },
       { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
       { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
       { title: "Financial Services", href: "/moneyone/financial-services" }
     ] : [
-      // BFSI Section
+      // BFSI Section - open in new tab when viewing from Equal/OneMoney pages
       { title: "OneMoney AA", href: "/onemoney" },
-      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
-      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
-      { title: "Financial Services", href: "/moneyone/financial-services" },
+      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro", openInNewTab: true },
+      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare", openInNewTab: true },
+      { title: "Financial Services", href: "/moneyone/financial-services", openInNewTab: true },
       // Employment Section
       { title: "Enterprise Hiring", href: "/equal/products/enterprise-hiring" },
       { title: "Gig Hiring", href: "/equal/products/gig-hiring" },
@@ -162,17 +164,17 @@ const getMobileSections = (section: CompanySection): MobileSection[] => [
     id: "products",
     title: "PRODUCTS",
     links: section === 'moneyone' ? [
-      // BFSI Section only for MoneyOne
+      // BFSI Section only for MoneyOne - no new tab for internal links
       { title: "OneMoney AA", href: "/onemoney" },
       { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
       { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
       { title: "Financial Services", href: "/moneyone/financial-services" }
     ] : [
-      // BFSI Section
+      // BFSI Section - open in new tab when viewing from Equal/OneMoney pages
       { title: "OneMoney AA", href: "/onemoney" },
-      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
-      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
-      { title: "Financial Services", href: "/moneyone/financial-services" },
+      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro", openInNewTab: true },
+      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare", openInNewTab: true },
+      { title: "Financial Services", href: "/moneyone/financial-services", openInNewTab: true },
       // Employment Section
       { title: "Enterprise Hiring", href: "/equal/products/enterprise-hiring" },
       { title: "Gig Hiring", href: "/equal/products/gig-hiring" },
@@ -366,6 +368,8 @@ const MobileCollapsibleSection = memo(({
                       ? "bg-[#00b140] text-white"
                       : "text-foreground/80 hover:bg-slate-50 hover:text-foreground"
                   )}
+                  target={link.openInNewTab ? "_blank" : undefined}
+                  rel={link.openInNewTab ? "noopener noreferrer" : undefined}
                   onClick={onLinkClick}
                 >
                   {link.title}

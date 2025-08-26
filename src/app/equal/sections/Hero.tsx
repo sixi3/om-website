@@ -84,7 +84,7 @@ export function Hero() {
                 width={24} // Adjusted size to fit better with text-xs
                 height={24}
               />
-              <span>India&apos;s Most Advanced Identity Verification Platform</span>
+              <span>India&apos;s Most Advanced Employee Verification Platform</span>
             </span>
             <h1 className="text-4xl tracking-tight leading-tight sm:text-8xl md:text-3xl lg:text-2xl xl:text-8xl">
               <span className={metallicBlackTextClasses}>The</span>{" "}
@@ -93,10 +93,10 @@ export function Hero() {
               </span>{" "}
               <span className={metallicBlackTextClasses}>of</span> 
               <br />
-              <span className={metallicBlackTextClasses}>Identity</span>
+              <span className={metallicBlackTextClasses}>Employee Verifications</span>
             </h1>
             <p className="font-medium text-lg sm:text-md text-slate-600 dark:text-slate-300 mb-8">
-            India's largest businesses use Equal to solve their identity needs enabling Trust, Convenience & Consent.
+            India's largest businesses use Equal to solve their employee verification needs enabling Trust, Convenience & Consent.
             </p>
           </div>
           <Dialog>

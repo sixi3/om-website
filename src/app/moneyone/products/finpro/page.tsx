@@ -36,6 +36,7 @@ import { AnimatedCounter } from '@/app/onemoney/components/ui/animated-counter';
 import Marquee from "react-fast-marquee";
 import { BackgroundGrid } from '@/components/ui/background-grid';
 import { ShimmerButton } from '@/components/ui/shimmer-button';
+import { GlowingDivider } from '@/components/ui/glowing-divider';
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
@@ -305,6 +306,14 @@ export default function FinProPage() {
         </div>
       </section>
 
+      {/* Glowing Divider */}
+      <GlowingDivider 
+        width="3/4" 
+        intensity="high" 
+        delay={0.2}
+        className="my-8 md:my-16 mx-auto"
+      />
+
       {/* What is FinPro Section */}
       <motion.section 
         className="relative w-full py-12 md:py-20 overflow-hidden"
@@ -449,6 +458,14 @@ export default function FinProPage() {
           </div>
         </div>
       </motion.section>
+
+      {/* Glowing Divider */}
+      <GlowingDivider 
+        width="3/4" 
+        intensity="high" 
+        delay={0.3}
+        className="my-8 md:my-16 mx-auto"
+      />
 
       {/* Core Capabilities Section */}
       <section className="relative w-full py-12 md:py-20">
@@ -676,6 +693,14 @@ export default function FinProPage() {
           </div>
         </div>
       </motion.section>
+
+      {/* Glowing Divider */}
+      <GlowingDivider 
+        width="3/4" 
+        intensity="high" 
+        delay={0.6}
+        className="my-8 md:my-16 mx-auto"
+      />
 
       {/* Developer Toolkit Section */}
       <section className="relative w-full py-12 md:py-20">

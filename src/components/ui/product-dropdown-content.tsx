@@ -138,7 +138,7 @@ const productSections: ProductSection[] = [
 ]
 
 // Memoized ProductItem to prevent unnecessary re-renders
-const ProductItem = memo<{ item: ProductItem; index: number }>(({ item, index }) => {
+const ProductItem = memo<{ item: ProductItem; index: number; isMoneyOnePage: boolean }>(({ item, index, isMoneyOnePage }) => {
   // Simplified animation with GPU acceleration
   const itemVariants = useMemo(() => ({
     hidden: { 
@@ -167,8 +167,8 @@ const ProductItem = memo<{ item: ProductItem; index: number }>(({ item, index })
       <Link 
         href={item.href}
         role="menuitem"
-        target={item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "financial-analytics" ? "_blank" : undefined}
-        rel={item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "financial-analytics" ? "noopener noreferrer" : undefined}
+        target={!isMoneyOnePage && (item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "financial-analytics") ? "_blank" : undefined}
+        rel={!isMoneyOnePage && (item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "financial-analytics") ? "noopener noreferrer" : undefined}
         className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-150 group focus:border-b-1"
       >
         <div className="flex-shrink-0 relative">
@@ -208,9 +208,10 @@ const ProductItem = memo<{ item: ProductItem; index: number }>(({ item, index })
 ProductItem.displayName = 'ProductItem'
 
 // Memoized ProductSection to prevent unnecessary re-renders
-const ProductSection = memo<{ section: ProductSection; sectionIndex: number }>(({ 
+const ProductSection = memo<{ section: ProductSection; sectionIndex: number; isMoneyOnePage: boolean }>(({ 
   section, 
-  sectionIndex 
+  sectionIndex,
+  isMoneyOnePage
 }) => {
   // Simplified section animation
   const sectionVariants = useMemo(() => ({
@@ -257,7 +258,7 @@ const ProductSection = memo<{ section: ProductSection; sectionIndex: number }>((
         }}
       >
         {section.items.map((item, index) => (
-          <ProductItem key={item.id} item={item} index={index} />
+          <ProductItem key={item.id} item={item} index={index} isMoneyOnePage={isMoneyOnePage} />
         ))}
       </motion.div>
     </motion.div>
@@ -305,6 +306,7 @@ export const ProductDropdownContent = memo(() => {
           key={section.title} 
           section={section} 
           sectionIndex={index} 
+          isMoneyOnePage={isMoneyOnePage}
         />
       ))}
     </motion.div>

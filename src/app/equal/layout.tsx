@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/equal-icon.png",
     shortcut: "/equal-icon.png",
+    apple: "/equal-icon.png",
   },
 };
 
@@ -23,13 +24,7 @@ export default function EqualLayout({
 }) {
   return (
     <AuroraBackground className="pt-24 pb-12 md:pt-32 md:pb-16">
-      <head>
-        {/* Explicit favicon declarations to prevent Vercel override */}
-        <link rel="icon" type="image/png" sizes="32x32" href="/equal-icon.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/equal-icon.png" />
-        <link rel="shortcut icon" href="/equal-icon.png" />
-        <link rel="apple-touch-icon" href="/equal-icon.png" />
-      </head>
+
       <MainHeader />
       <main className="flex-grow relative z-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">

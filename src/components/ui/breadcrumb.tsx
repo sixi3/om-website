@@ -48,8 +48,8 @@ const routeTitleMap: Record<string, string> = {
   
   // MoneyOne section
   moneyone: "MoneyOne",
-  finpro: "FinPro",
-  finshare: "FinShare",
+  finpro: "FinPro FIU TSP",
+  finshare: "FinShare FIP TSP",
   "wealth-management": "Wealth Management",
   lending: "Lending",
   advisory: "Advisory",
@@ -98,16 +98,9 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     });
   }
   
-  // Special handling for Equal trust-security page - add Products and Employment breadcrumbs
+  // Special handling for Equal trust-security page - show simple "Equal > Trust & Security" breadcrumb
   if (pathname === "/equal/trust-security") {
-    items.push({
-      title: "Products",
-      href: "/#employment-verification",
-    });
-    items.push({
-      title: "Employment",
-      href: "/equal",
-    });
+    
     items.push({
       title: "Trust & Security",
       href: "/equal/trust-security",
@@ -143,14 +136,7 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
   const isEqualRelatedPage = isCommonPage && (!pathname.includes('company=') || pathname.includes('company=equal'));
   
   if (isEqualRelatedPage) {
-    items.push({
-      title: "Products",
-      href: "/#employment-verification",
-    });
-    items.push({
-      title: "Employment",
-      href: "/equal",
-    });
+    
     
     // Add the specific page name
     if (pathname.includes('/common/terms-conditions')) {
@@ -161,7 +147,7 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
       });
     } else if (pathname.includes('/common/policies')) {
       items.push({
-        title: "Policies",
+        title: "Privacy Policy",
         href: pathname,
         isCurrentPage: true,
       });

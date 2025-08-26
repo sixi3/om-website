@@ -39,25 +39,25 @@ const getFooterSections = (section: CompanySection): FooterSection[] => [
       { title: "Vision & Mission", href: "/common/vision-mission" },
       { title: "Team & Leadership", href: "/common/team" },
       { title: "Board", href: "/common/leadership" },
-      { title: "Values", href: "/equal/values" }
+      { title: "Values", href: "/common/values" }
     ]
   },
   {
     title: "PRODUCTS",
     links: section === 'moneyone' ? [
-      // BFSI Section only for MoneyOne
+      // BFSI Section only for MoneyOne - no new tab for internal links
       { title: "BFSI", href: "#", isSubheading: true },
       { title: "OneMoney AA", href: "/onemoney" },
       { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
       { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
       { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section" }
     ] : [
-      // BFSI Section
+      // BFSI Section - open in new tab when viewing from Equal/OneMoney pages
       { title: "BFSI", href: "#", isSubheading: true },
       { title: "OneMoney AA", href: "/onemoney" },
-      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro" },
-      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare" },
-      { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section" },
+      { title: "FinPro FIU TSP", href: "/moneyone/products/finpro", openInNewTab: true },
+      { title: "FinShare FIP TSP", href: "/moneyone/products/finshare", openInNewTab: true },
+      { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section", openInNewTab: true },
       // Employment Section
       { title: "Employment", href: "#", isSubheading: true },
       { title: "Enterprise Hiring", href: "/equal/products/enterprise-hiring" },
@@ -89,8 +89,6 @@ const getFooterSections = (section: CompanySection): FooterSection[] => [
     links: [
       { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
       { title: "Trust & Security", href: "/equal/trust-security" },
-      { title: "Blog", href: "/blog" },
-      { title: "In The News", href: "/blog/in-the-news" },
       { title: "Terms and Conditions", href: "/common/terms-conditions" },
       { title: "Privacy Policy", href: "/common/policies" }
     ]
@@ -120,7 +118,7 @@ export function MainFooter() {
                 />
             </Link>
             </div>
-            <h1 className="text-sm ml-1 font-light text-left mb-8 text-slate-500">Made with 💚 in India</h1>
+            <h1 className="text-sm ml-1 font-light text-left mb-8 text-slate-500">Made with 💚 in Hyderabad, India</h1>
 
         {/* Links Grid - Desktop: horizontal, Mobile: 2 columns */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -161,7 +159,7 @@ export function MainFooter() {
         <div className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
             <p className="text-sm text-gray-600">
-              © {new Date().getFullYear()} Equal Identity Private Limited. All rights reserved.
+              © {new Date().getFullYear()} {currentSection === 'moneyone' ? 'Fintech Products and Solutions (India) Private Limited' : 'Equal Identity Private Limited'}. All rights reserved.
             </p>
           </div>
         </div>

@@ -41,8 +41,8 @@ export function ShimmerButton({ children, className, ...props }: ShimmerButtonPr
           <ArrowRight className={cn(
             "h-4 w-4 ml-2 text-white transition-all duration-300 ease-out",
             isMounted 
-              ? "opacity-100 transform translate-x-0 lg:opacity-0 lg:translate-x-[-12px] lg:group-hover:opacity-100 lg:group-hover:translate-x-0"
-              : "opacity-100 transform translate-x-0"
+              ? "opacity-100 transform rotate-0 lg:opacity-0 lg:rotate-0 lg:group-hover:opacity-100 lg:group-hover:-rotate-45"
+              : "opacity-100 transform rotate-0"
           )} />
         </span>
       </span>

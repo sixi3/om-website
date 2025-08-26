@@ -84,7 +84,7 @@ export function WhatMakesEqualDifferent() {
             </span>
           </h2>
           <p className="w-4/5 mx-auto font-medium text-lg text-slate-700 dark:text-slate-300">
-            Equal combines cutting-edge AI, comprehensive data aggregation, and enterprise-grade security to deliver identity verification that goes beyond traditional solutions.
+            Equal combines cutting-edge AI, comprehensive data aggregation, and enterprise-grade security to deliver employee verification verification that goes beyond traditional solutions.
           </p>
         </div>
 
