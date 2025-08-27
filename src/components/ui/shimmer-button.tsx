@@ -20,8 +20,8 @@ export function ShimmerButton({ children, className, ...props }: ShimmerButtonPr
     <button
       className={cn(
         "group relative overflow-hidden rounded-full border-b-4 border-[#008000] bg-linear-to-tr from-[#00b140] to-[#baff29] shadow-lg px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#087C32] focus:border-b-1 min-h-[44px] min-w-[44px] transition-border duration-300 ease-out",
-        // Only apply dynamic width classes after hydration
-        isMounted && "lg:hover:pr-8",
+        // Only apply dynamic width classes after hydration - increased padding for arrow space
+        isMounted && "lg:hover:pr-10",
         className
       )}
       {...props}
@@ -36,13 +36,13 @@ export function ShimmerButton({ children, className, ...props }: ShimmerButtonPr
         {/* Arrow container with dynamic width - only show on client */}
         <span className={cn(
           "inline-flex items-center justify-center transition-all duration-300 ease-out overflow-hidden",
-          isMounted ? "w-6 lg:w-0 lg:group-hover:w-6" : "w-6"
+          isMounted ? "w-6 lg:w-0 lg:group-hover:w-8" : "w-6"
         )}>
           <ArrowRight className={cn(
             "h-4 w-4 ml-2 text-white transition-all duration-300 ease-out",
             isMounted 
-              ? "opacity-100 transform rotate-0 lg:opacity-0 lg:rotate-0 lg:group-hover:opacity-100 lg:group-hover:-rotate-45"
-              : "opacity-100 transform rotate-0"
+              ? "opacity-100 transform translate-x-0 lg:opacity-0 lg:translate-x-0 lg:group-hover:opacity-100 lg:group-hover:translate-x-1"
+              : "opacity-100 transform translate-x-0"
           )} />
         </span>
       </span>

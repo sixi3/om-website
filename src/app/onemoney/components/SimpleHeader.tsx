@@ -13,6 +13,7 @@ import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { DropdownMenu, TriggerWrapper, Trigger, TabsContainer, Tab } from "@/components/ui/dropdown-menu";
 import { AboutUsDropdownContent } from "./AboutUsDropdownContent";
 import { ResourcesDropdownContent } from "./ResourcesDropdownContent";
+import { ProductsDropdownContent } from "./ProductsDropdownContent";
 
 // Import dialog components
 import {
@@ -160,18 +161,39 @@ const MobileCollapsibleSection = memo(({
                 ease: "easeOut" 
               }}
             >
-              <Link
-                href={link.href}
-                className={cn(
-                  "flex items-center px-6 py-3 text-base font-medium transition-colors",
-                  pathname === link.href
-                    ? "bg-[#00b140] text-white"
-                    : "text-foreground/80 hover:bg-slate-50 hover:text-foreground"
-                )}
-                onClick={onLinkClick}
-              >
-                {link.title}
-              </Link>
+{link.href.startsWith('#') ? (
+                <button
+                  onClick={() => {
+                    const element = document.getElementById(link.href.slice(1));
+                    if (element) {
+                      element.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                      });
+                    }
+                    onLinkClick();
+                  }}
+                  className={cn(
+                    "flex items-center px-6 py-3 text-base font-medium transition-colors w-full text-left",
+                    "text-foreground/80 hover:bg-slate-50 hover:text-foreground"
+                  )}
+                >
+                  {link.title}
+                </button>
+              ) : (
+                <Link
+                  href={link.href}
+                  className={cn(
+                    "flex items-center px-6 py-3 text-base font-medium transition-colors",
+                    pathname === link.href
+                      ? "bg-[#00b140] text-white"
+                      : "text-foreground/80 hover:bg-slate-50 hover:text-foreground"
+                  )}
+                  onClick={onLinkClick}
+                >
+                  {link.title}
+                </Link>
+              )}
             </motion.div>
           ))}
         </div>
@@ -192,6 +214,14 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
 
   // Tab configurations
   const tabConfigs: TabConfig[] = [
+    {
+      trigger: "PRODUCTS",
+      content: ProductsDropdownContent,
+      mobileLinks: [
+        { title: "How OneMoney Works", href: "#what-is-onemoney-section" },
+        { title: "Use Cases", href: "#what-is-onemoney-section" }
+      ]
+    },
     {
       trigger: "ABOUT US",
       content: AboutUsDropdownContent,
@@ -216,6 +246,14 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
 
   // Mobile sections
   const mobileSections: MobileSection[] = [
+    {
+      id: "products",
+      title: "PRODUCTS",
+      links: [
+        { title: "How OneMoney Works", href: "#what-is-onemoney-section" },
+        { title: "Use Cases", href: "#what-is-onemoney-section" }
+      ]
+    },
     {
       id: "about",
       title: "ABOUT US",
@@ -365,21 +403,6 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <nav className="flex flex-col">
-                {/* Product Link */}
-                <div className="border-b border-slate-200/30 lg:border-white/20">
-                  <button
-                    onClick={() => {
-                      scrollToWhatIsOneMoney();
-                      closeMobileMenu();
-                    }}
-                    className="flex items-center w-full px-4 py-4 text-left hover:bg-slate-50/50 transition-colors duration-200"
-                  >
-                    <span className="text-sm font-semibold text-[#00b140] uppercase tracking-widest">
-                      PRODUCT
-                    </span>
-                  </button>
-                </div>
-
                 {/* Collapsible Sections */}
                 {mobileSections.map((section) => (
                   <MobileCollapsibleSection
@@ -448,14 +471,6 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
           {/* Center: Desktop Navigation with Dropdowns */}
           <nav className="flex items-center justify-center flex-1">
             <div className="flex items-center gap-2 md:gap-4">
-              {/* Product Button */}
-              <button
-                onClick={scrollToWhatIsOneMoney}
-                className="flex h-10 md:h-12 items-center gap-1 rounded-lg px-3 md:px-4 py-1 text-base font-bold tracking-widest transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2 min-h-[44px] min-w-[44px] text-slate-800 hover:bg-white/70 hover:backdrop-blur-xl hover:text-[#00b140] hover:border hover:border-slate-200 hover:shadow-lg"
-              >
-                PRODUCT
-              </button>
-
               {/* Dropdown Menu */}
               <DropdownMenu>
                 <TriggerWrapper>

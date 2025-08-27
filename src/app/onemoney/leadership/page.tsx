@@ -41,15 +41,10 @@ corporate development. The career summary and present activities are summarized 
           <p className="text-lg font-semibold">Transformative Expertise & Achievements:</p>
         </div>
         <p className="mb-2">
-          Jagdish Capoor (drawing on insights attributed to J. Satyanarayana in provided materials) brings transformative expertise from a distinguished career, including:
+        Jagdish Capoor is a distinguished Indian banker with over four decades of experience, best known for serving as the Former Deputy Governor of the Reserve Bank of India (RBI) and holding leadership roles in several major financial institutions. His biggest accomplishments include serving as the Deputy Governor of the Reserve Bank of India for nearly four decades, where he played a pivotal role in shaping India’s banking sector during the country’s economic liberalization. After retiring from the RBI, he became Chairman of HDFC Bank and led its transformation into one of India’s largest private banks, strengthening its position in the financial industry. He also chaired the Bombay Stock Exchange and Deposit Insurance and Credit Guarantee Corporation of India, and held board positions at leading banks and financial institutions such as SBI, Bank of Baroda, NABARD, EXIM Bank, and LIC Housing Finance, demonstrating his wide-ranging influence and expertise in the financial sector.
         </p>
         <ul className="list-disc pl-5 space-y-2 prose prose-slate dark:prose-invert max-w-none">
-          <li><strong>Chairman, UIDAI:</strong> Spearheaded the Aadhaar project, transforming identity verification in India.</li>
-          <li><strong>e-Governance Architect:</strong> Designed and implemented over 20 major projects, including eSeva, Passport Seva, and MCA21, reshaping citizen service delivery.</li>
-          <li><strong>Policy Leadership:</strong> Contributed to India's ICT, Cybersecurity, and Electronics Policies, fostering a robust digital economy.</li>
-          <li><strong>Innovator at NISG:</strong> Founded the National Institute of Smart Governance, driving Public-Private Partnerships for governance reforms.</li>
-          <li><strong>e-Pragati Creator:</strong> Designed India's first state-wide enterprise architecture for e-Governance in Andhra Pradesh.</li>
-        </ul>
+         </ul>
       </>
     ),
   },
@@ -65,16 +60,7 @@ corporate development. The career summary and present activities are summarized 
           <p className="text-lg font-semibold">Pivotal Contributions to Legal & Data Protection Frameworks:</p>
         </div>
         <p className="mb-2">
-          P.H. Ravikumar (drawing on insights attributed to Justice Srikrishna in provided materials) brings exceptional legal and institutional expertise from a remarkable career, noted for:
-        </p>
-        <ul className="list-disc pl-5 space-y-2 prose prose-slate dark:prose-invert max-w-none">
-          <li>Service as a Supreme Court Justice.</li>
-          <li>Chairman, Financial Sector Legislative Reforms Commission (FSLRC).</li>
-          <li>Head of the Srikrishna Commission investigating the Bombay riots of 1992-93.</li>
-          <li>Chairman of the Srikrishna Committee on Telangana statehood.</li>
-        </ul>
-        <p className="mt-3">
-          His visionary leadership, notably in shaping data protection principles similar to those in the Personal Data Protection Bill, will guide OneMoney as we redefine identity and security in a digital-first world.
+        P.H. Ravikumar is renowned for being the founding CEO of NCDEX, India’s first national-level commodity exchange, where he played a pivotal role in conceptualizing and establishing a robust platform for agricultural commodities trading that transformed market practices in the sector. With over four decades of leadership in banking and finance, including senior roles at Bank of India and ICICI Bank, Ravikumar's vision and stewardship at NCDEX laid the foundation for transparent price discovery and risk management in commodity markets across India. He continues to shape the financial landscape as an advisor, board member, and chairperson in top institutions and has been recognized internationally for his expertise, including being the first Indian honorary fellow of the Chartered Institute for Securities & Investment, UK.
         </p>
       </>
     ),

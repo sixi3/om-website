@@ -22,7 +22,7 @@ export function UIFeatures() {
         {/* Section Title and Subtitle */} 
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-            <span className={metallicBlackTextClasses}>World Class</span>{" "}
+            <span className={metallicBlackTextClasses}>Personalised</span>{" "}
             <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
               UI/UX
             </span>

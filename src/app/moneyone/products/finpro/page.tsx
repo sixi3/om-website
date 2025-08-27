@@ -37,6 +37,14 @@ import Marquee from "react-fast-marquee";
 import { BackgroundGrid } from '@/components/ui/background-grid';
 import { ShimmerButton } from '@/components/ui/shimmer-button';
 import { GlowingDivider } from '@/components/ui/glowing-divider';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/app/onemoney/components/ui/dialog";
+import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
@@ -69,8 +77,8 @@ const finProFeaturesPillTexts = [
 // Stats data for FinPro
 const finProStatsData = [
   { id: "banks", value: 50, label: "Banks & NBFCs use FinPro", prefix: "", suffix: "+" },
-  { id: "integrations", value: 15, label: "AA Integrations", prefix: "", suffix: "" },
-  { id: "requests", value: 2.5, label: "Data Requests Monthly", prefix: "", suffix: "M", fixedDecimals: 1 },
+  { id: "integrations", value: 8, label: "AA Integrations", prefix: "", suffix: "+" },
+  { id: "requests", value: 2.5, label: "Consent Requests Monthly", prefix: "", suffix: "M", fixedDecimals: 1 },
   { id: "uptime", value: 99.9, label: "Uptime Guarantee", prefix: "", suffix: "%", fixedDecimals: 1 },
 ];
 
@@ -260,6 +268,9 @@ const HorizontalPointList = ({ items, textColor }: { items: (string | undefined)
 
 export default function FinProPage() {
   const [activeTab, setActiveTab] = useState(0);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const openDialog = () => setIsDialogOpen(true);
 
   return (
     <div className="relative">
@@ -288,7 +299,7 @@ export default function FinProPage() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-            <ShimmerButton className='text-lg uppercase'>
+            <ShimmerButton onClick={openDialog} className='text-lg uppercase'>
                 Book FinPro Demo
               </ShimmerButton>
             </div>
@@ -737,6 +748,21 @@ export default function FinProPage() {
           </BentoGrid>
         </div>
       </section>
+
+      {/* FinPro Demo Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[480px]">
+          <DialogHeader>
+            <DialogTitle>Book Your FinPro Demo Today!</DialogTitle>
+            <DialogDescription>
+              Ready to see how FinPro can transform your financial data access? Let's schedule a personalized demo.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-1">
+            <TalkToUsForm />
+          </div>
+        </DialogContent>
+      </Dialog>
 
     </div>
   );

@@ -9,19 +9,19 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 const leadershipData = [
   {
     name: "A. Krishna Prasad",
-    title: "CEO & Founder - OneMoney & MoneyOne",
+    title: "CEO & Founder OneMoney & MoneyOne",
     // imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Placeholder image
     imageUrl: "/KP.png", // Use provided image
   },
   {
     name: "Jagdish Capoor",
-    title: "Former Deputy Governor, RBI - Board of Advisors",
+    title: "Former Deputy Governor, RBI Board of Advisors",
     // imageUrl: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Placeholder image
     imageUrl: "/JC.png", // Use provided image
   },
   {
     name: "P.H. Ravikumar",
-    title: "Founder, CEO of NCDEX - Board of Advisors",
+    title: "Founder, CEO of NCDEX, Board of Advisors",
     // imageUrl: "https://images.unsplash.com/photo-1521119989659-a83eee488004?q=80&w=1923&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Placeholder image
     imageUrl: "/PH.png", // Use provided image
   },

@@ -265,7 +265,7 @@ const solutionSections: SolutionSection[] = [
 // New Industry Innovation Section Component
 const IndustryInnovationSection = React.memo(() => {
   const metrics = industryMetrics;
-  const cta = { text: "Explore Equal AI", href: "/innovation" };
+  const cta = { text: "Explore Equal AI", href: "https://www.myequal.ai" };
 
   return (
     <section className="relative w-full px-8 pt-16 mt-12 pb-16 md:py-20 xl:px-12 2xl:px-24 transform -skew-y-2 overflow-hidden mb-24">

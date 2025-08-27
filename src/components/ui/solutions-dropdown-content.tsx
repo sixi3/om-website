@@ -88,7 +88,7 @@ const originalSolutionSections: SolutionSection[] = [
 // MoneyOne specific solution sections based on Solutions.tsx
 const moneyOneSolutionSections: SolutionSection[] = [
   {
-    title: "FINANCIAL SERVICES SOLUTIONS",
+    title: "USECASES",
     description: "Comprehensive solutions tailored for wealth management, lending, advisory, and brokerage operations",
     items: [
       {

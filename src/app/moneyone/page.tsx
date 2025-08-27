@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+"use client"
+import React, { useMemo, useEffect } from "react";
 import { Hero } from "./sections/Hero";
 import { WhatIsMoneyOne } from "./sections/WhatIsMoneyOne";
 import { Solutions } from "./sections/Solutions";
@@ -15,6 +16,31 @@ export default function MoneyOnePage() {
     intensity: "high" as const,
     className: "my-8 md:my-16"
   }), []);
+
+  // Handle hash-based navigation for smooth scrolling
+  useEffect(() => {
+    // Check if there's a hash in the URL
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hash = window.location.hash.substring(1); // Remove the # symbol
+      
+      const element = document.getElementById(hash);
+      
+      if (element) {
+        // Add a small delay to ensure the page is fully rendered
+        setTimeout(() => {
+          // Calculate offset for fixed header (assuming header height is around 96px)
+          const headerOffset = 120;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }, 100);
+      }
+    }
+  }, []);
 
   return (
     <div className="w-full overflow-x-hidden">
@@ -56,6 +82,19 @@ export default function MoneyOnePage() {
       />
       
       <ContactUs />
+      
+      {/* Add CSS for smooth scrolling */}
+      <style jsx global>{`
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+          html {
+            scroll-behavior: auto;
+          }
+        }
+      `}</style>
     </div>
   );
 } 

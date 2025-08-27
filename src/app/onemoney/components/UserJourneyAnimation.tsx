@@ -83,7 +83,7 @@ const OtpEntryScreen: React.FC<OtpEntryScreenProps> = React.memo(({ phoneNumber,
       <div className="text-center w-full max-w-xs mb-3">
         <div className="mb-2">
           <Image 
-            src="/3d-isometric-security-customizable-authentication-and-access-control-1 2.png" 
+            src="/login-image.png" 
             alt="Secure Login Illustration" 
             width={100}
             height={100}

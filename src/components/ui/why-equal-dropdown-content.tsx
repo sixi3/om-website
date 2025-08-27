@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 interface WhyEqualItem {
   id: string
@@ -19,58 +20,133 @@ interface WhyEqualItem {
   href: string
 }
 
-const whyEqualItems: WhyEqualItem[] = [
-  {
-    id: "vision-mission",
-    title: "Vision & Mission",
-    description: "Discover our purpose and what drives us forward",
-    image: {
-      src: "/vision.png",
-      alt: "Vision & Mission",
-      width: 40,
-      height: 40
-    },
-    href: "/common/vision-mission"
-  },
-  {
-    id: "board",
-    title: "Board",
-    description: "Learn about our board of directors and their experience",
-    image: {
-      src: "/Leadership.png",
-      alt: "Board",
-      width: 40,
-      height: 40
-    },
-    href: "/common/leadership"
-  },
-  {
-    id: "team",
-    title: "Team & Leadership",
-    description: "Meet the visionaries and experts behind our success",
-    image: {
-      src: "/team.png",
-      alt: "Team",
-      width: 40,
-      height: 40
-    },
-    href: "/common/team"
-  },
-  {
-    id: "values",
-    title: "Values",
-    description: "Get to know more about our journey and values",
-    image: {
-      src: "/Bulk Onboarding.png",
-      alt: "About Us",
-      width: 40,
-      height: 40
-    },
-    href: "/common/values"
+// Company section detection function (same as in other components)
+const getCompanySection = (pathname: string): 'equal' | 'moneyone' | 'onemoney' | 'default' => {
+  if (pathname.startsWith('/equal') || pathname.startsWith('/solutions')) {
+    return 'equal';
   }
-]
+  if (pathname.startsWith('/moneyone')) {
+    return 'moneyone'; 
+  }
+  if (pathname.startsWith('/onemoney')) {
+    return 'onemoney';
+  }
+  return 'default';
+};
+
+const getWhyEqualItems = (currentSection: string): WhyEqualItem[] => {
+  // For MoneyOne section, redirect to MoneyOne-specific pages
+  if (currentSection === 'moneyone') {
+    return [
+      {
+        id: "vision-mission",
+        title: "Vision & Mission",
+        description: "Discover our purpose and what drives us forward",
+        image: {
+          src: "/vision.png",
+          alt: "Vision & Mission",
+          width: 40,
+          height: 40
+        },
+        href: "/moneyone/vision-mission"
+      },
+      {
+        id: "board",
+        title: "Board",
+        description: "Learn about our board of directors and their experience",
+        image: {
+          src: "/Leadership.png",
+          alt: "Board",
+          width: 40,
+          height: 40
+        },
+        href: "/moneyone/leadership"
+      },
+      {
+        id: "team",
+        title: "Team & Leadership",
+        description: "Meet the visionaries and experts behind our success",
+        image: {
+          src: "/team.png",
+          alt: "Team",
+          width: 40,
+          height: 40
+        },
+        href: "/moneyone/team"
+      },
+      {
+        id: "values",
+        title: "Values",
+        description: "Get to know more about our journey and values",
+        image: {
+          src: "/Bulk Onboarding.png",
+          alt: "About Us",
+          width: 40,
+          height: 40
+        },
+        href: "/moneyone/values"
+      }
+    ];
+  }
+  
+  // For all other sections, use the common pages
+  return [
+    {
+      id: "vision-mission",
+      title: "Vision & Mission",
+      description: "Discover our purpose and what drives us forward",
+      image: {
+        src: "/vision.png",
+        alt: "Vision & Mission",
+        width: 40,
+        height: 40
+      },
+      href: "/common/vision-mission"
+    },
+    {
+      id: "board",
+      title: "Board",
+      description: "Learn about our board of directors and their experience",
+      image: {
+        src: "/Leadership.png",
+        alt: "Board",
+        width: 40,
+        height: 40
+      },
+      href: "/common/leadership"
+    },
+    {
+      id: "team",
+      title: "Team & Leadership",
+      description: "Meet the visionaries and experts behind our success",
+      image: {
+        src: "/team.png",
+        alt: "Team",
+        width: 40,
+        height: 40
+      },
+      href: "/common/team"
+    },
+    {
+      id: "values",
+      title: "Values",
+      description: "Get to know more about our journey and values",
+      image: {
+        src: "/Bulk Onboarding.png",
+        alt: "About Us",
+        width: 40,
+        height: 40
+      },
+      href: "/common/values"
+    }
+  ];
+};
 
 const WhyEqualDropdownContent: React.FC = () => {
+  const pathname = usePathname();
+  const currentSection = getCompanySection(pathname);
+  const whyEqualItems = getWhyEqualItems(currentSection);
+
   return (
     <div className="space-y-2 min-w-[300px] md:min-w-[600px]">
       <motion.div

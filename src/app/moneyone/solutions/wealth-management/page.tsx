@@ -38,8 +38,8 @@ const moneyOneMetallicTextClasses = "font-bold bg-gradient-to-b from-[#3cd070] t
 // Combined stats data from both Products.tsx and Stats.tsx
 const combinedStatsData = [
   { id: "fip", value: 1, label: "FIP Coverage in India", prefix: "#", suffix: "" },
-  { id: "fiu", value: 49, label: "FIUs use MoneyOne", prefix: "", suffix: "%+" },
-  { id: "data", value: 79.9, label: "Data Packets Delivered", prefix: "", suffix: "M", fixedDecimals: 1 },
+  { id: "fiu", value: 49, label: "FIUs use MoneyOne", prefix: "", suffix: "%" },
+  { id: "data", value: 79.9, label: "Monthly Data Packets Delivered", prefix: "", suffix: "M", fixedDecimals: 1 },
   { id: "consents", value: 28, label: "Consents Fulfilled Monthly", prefix: "", suffix: "M" },
 ];
 
@@ -75,9 +75,9 @@ export default function WealthManagementHero() {
               <h1 className="text-4xl tracking-tight leading-tight sm:text-8xl md:text-3xl lg:text-4xl xl:text-7xl">
                 <span className={metallicBlackTextClasses}>Easy</span>{" "}
                 <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
-                  Wealth Management
+                  Wealth 
                 </span>{" "}
-                <span className={metallicBlackTextClasses}>with MoneyOne</span>
+                <span className={metallicBlackTextClasses}>Management with MoneyOne</span>
               </h1>
               <p className="font-medium text-lg sm:text-md text-slate-600 dark:text-slate-300 mb-8">
                 Empower MFDs, brokerages, and AMCs with comprehensive portfolio management, real-time investment insights, and data-driven decision making for optimal client outcomes.

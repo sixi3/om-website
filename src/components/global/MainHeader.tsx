@@ -137,7 +137,14 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => [
   {
     trigger: "RESOURCES",
     content: ResourcesDropdownContent,
-    mobileLinks: [
+    mobileLinks: section === 'moneyone' ? [
+      // For MoneyOne: exclude privacy policy and terms & conditions
+      { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
+      { title: "Trust & Security", href: "/equal/trust-security" },
+      { title: "Blog", href: "/blog" },
+      { title: "In The News", href: "/blog/in-the-news" }
+    ] : [
+      // For other sections: include all items
       { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
       { title: "Trust & Security", href: "/equal/trust-security" },
       { title: "Blog", href: "/blog" },
@@ -202,7 +209,14 @@ const getMobileSections = (section: CompanySection): MobileSection[] => [
   {
     id: "resources",
     title: "RESOURCES",
-    links: [
+    links: section === 'moneyone' ? [
+      // For MoneyOne: exclude privacy policy and terms & conditions
+      { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
+      { title: "Trust & Security", href: "/equal/trust-security" },
+      { title: "Blog", href: "/blog" },
+      { title: "In The News", href: "/blog/in-the-news" }
+    ] : [
+      // For other sections: include all items
       { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
       { title: "Trust & Security", href: "/equal/trust-security" },
       { title: "Blog", href: "/blog" },

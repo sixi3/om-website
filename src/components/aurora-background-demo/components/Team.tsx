@@ -56,13 +56,24 @@ const ProfileCard = React.memo<ProfileCardProps>(({
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <div className="relative w-80 h-96 rounded-lg overflow-hidden shadow-lg">
-          {/* Full card with gradient background */}
-          <div className="relative w-full h-full bg-gradient-to-b from-[#00b140] to-[#baff29] flex flex-col items-center justify-center p-6">
+          {/* Background team photo with reduced opacity */}
+          <div 
+            className="absolute inset-0 bg-center"
+            style={{
+              backgroundImage: 'url("/team-pictures/WhatsApp Image 2025-08-25 at 5.05.13 PM.jpeg")',
+              backgroundSize: '200%',
+              opacity: 0.95
+            }}
+          />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#00b140]/70 to-[#baff29]/80" />
+          {/* Content */}
+          <div className="relative w-full h-full flex flex-col items-center justify-center p-6 z-10">
             <div className="text-center space-y-4">
-              <span className="text-sm font-semibold text-white tracking-widest uppercase">
+              <span className="text-sm font-semibold text-white/80 tracking-widest uppercase drop-shadow-2xl">
                 {title}
               </span>
-              <h3 className="text-3xl font-bold text-white">
+              <h3 className="text-3xl font-bold text-white/80 drop-shadow-2xl">
                 {name}
               </h3>
             </div>
@@ -184,7 +195,7 @@ const teamMembers = [
     id: "co-founder",
     name: "Rajeev Ranjan",
     title: "CO-FOUNDER",
-    description: "A technology pioneer with 10+ years of experience in building some of India's largest platforms",
+    description: "A technology pioneer with 10+ years of experience in building some of India's largest platforms.",
     imageUrl: "/team-pictures/rajeev.png",
     socialLinks: [
       { 

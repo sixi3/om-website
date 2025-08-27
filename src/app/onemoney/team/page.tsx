@@ -3,12 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Team } from "@/components/aurora-background-demo/components/Team";
-import { AuroraBackground } from "@/components/ui/aurora-background";
-import { BackgroundGrid } from "@/components/ui/background-grid";
-import { MainHeader } from "@/components/global/MainHeader";
+
 import { GlowingDivider } from "@/components/ui/glowing-divider";
-import { EqualBreadcrumb } from "@/components/ui/breadcrumb";
 import { LinkedinIcon, Instagram } from "lucide-react";
 
 // Define metallic black class
@@ -139,27 +135,7 @@ ProfileCard.displayName = 'ProfileCard';
 const FoundersTeam = () => {
   // Filter out the "Super Achievers" card - only show first 3 founders
   const foundersOnly = [
-    {
-      id: "keshav-reddy",
-      name: "Keshav Reddy",
-      title: "FOUNDER",
-      description: "Keshav Reddy is a seasoned entrepreneur having built, operated, and invested in over 30+ companies.",
-      imageUrl: "/team-pictures/keshav-reddy.png",
-      socialLinks: [
-        { 
-          id: "linkedin", 
-          platform: "LinkedIn", 
-          url: "https://www.linkedin.com/in/keshavreddy?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", 
-          icon: <LinkedinIcon className="w-full h-full" />
-        },
-        { 
-          id: "instagram", 
-          platform: "Instagram", 
-          url: "https://www.instagram.com/gvkjr?igsh=MTlraHNzYm1ubjNh", 
-          icon: <Instagram className="w-full h-full" />
-        }
-      ]
-    },
+    
     {
       id: "co-founder",
       name: "Rajeev Ranjan",
@@ -203,7 +179,7 @@ const FoundersTeam = () => {
             duration: 0.5,
             ease: "easeOut"
           }}
-          className="text-center space-y-6 mb-8"
+          className="text-center space-y-6 mb-8 mt-12"
         >
           <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase">
             BUILT BY STELLAR FOUNDERS
@@ -271,14 +247,7 @@ const FoundersTeam = () => {
 
 export default function TeamPage() {
   return (
-    <AuroraBackground>
-      <BackgroundGrid />
-      <MainHeader />
-      
-      <main className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-          <EqualBreadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
-        </div>
+    <main className="relative w-full pb-12 md:pb-16 overflow-hidden mt-24">
         {/* Hero Section */}
         <div className="w-full max-w-7xl mx-auto px-4 md:px-6 relative z-10 justify-center items-center">
           <div className="text-center mb-12 max-w-5xl mx-auto">
@@ -322,7 +291,7 @@ export default function TeamPage() {
                   className="relative w-full h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl"
                 >
                   <Image
-                    src="/team-pictures/WhatsApp Image 2025-08-25 at 5.05.13 PM.jpeg"
+                    src="/team-pictures/onemoney-team.jpg"
                     alt="Our amazing team"
                     fill
                     className="object-cover"
@@ -347,7 +316,6 @@ export default function TeamPage() {
           
           <FoundersTeam />
         </div>
-      </main>
-    </AuroraBackground>
+    </main>
   );
 } 

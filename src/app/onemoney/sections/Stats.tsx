@@ -8,8 +8,8 @@ import {
 // Updated data based on the image
 const statsData = [
   { id: "fip", value: 1, label: "FIP Coverage in India", prefix: "#", suffix: "" },
-  { id: "fiu", value: 49, label: "FIUs use OneMoney", prefix: "", suffix: "%+" },
-  { id: "data", value: 79.9, label: "Data Packets Delivered", prefix: "", suffix: "M", fixedDecimals: 1 },
+  { id: "fiu", value: 49, label: "FIUs use OneMoney", prefix: "", suffix: "%" },
+  { id: "data", value: 79.9, label: "Monthly Data Packets Delivered", prefix: "", suffix: "M", fixedDecimals: 1 },
   { id: "consents", value: 28, label: "Consents Fulfilled Monthly", prefix: "", suffix: "M" }, // Pass 30, suffix M
 ];
 

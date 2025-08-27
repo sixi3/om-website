@@ -18,9 +18,9 @@ import {
   DialogTrigger,
 } from "@/app/onemoney/components/ui/dialog";
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
+import { AnimatedCounter } from "@/app/onemoney/components/ui/animated-counter";
 
 // Lazy load heavy components
-const Stats = lazy(() => import('@/app/equal/sections/Stats').then(module => ({ default: module.Stats })));
 const Products = lazy(() => import("@/app/moneyone/sections/Products").then(module => ({ default: module.ProductsWithoutStats })));
 const Marquee = lazy(() => import("react-fast-marquee"));
 const FOIRSection = lazy(() => import("@/app/equal/products/financial-services/FOIRSection").then(module => ({ default: module.FOIRSection })));
@@ -34,6 +34,26 @@ const SectionLoader = () => (
 );
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+const moneyOneMetallicTextClasses = "font-bold bg-gradient-to-b from-[#3cd070] to-[#00b140] bg-clip-text text-transparent";
+
+// Combined stats data from both Products.tsx and Stats.tsx
+const combinedStatsData = [
+  { id: "fip", value: 1, label: "FIP Coverage in India", prefix: "#", suffix: "" },
+  { id: "fiu", value: 49, label: "FIUs use MoneyOne", prefix: "", suffix: "%" },
+  { id: "data", value: 79.9, label: "Monthly Data Packets Delivered", prefix: "", suffix: "M", fixedDecimals: 1 },
+  { id: "consents", value: 28, label: "Consents Fulfilled Monthly", prefix: "", suffix: "M" },
+];
+
+// Features pills from both files
+const featuresPills = [
+  { text: "Bank Statements", icon: FileText },
+  { text: "Term & Recurring Deposits", icon: CreditCard },
+  { text: "Mutual Fund", icon: TrendingUp },
+  { text: "Insurance", icon: ShieldCheck },
+  { text: "Equities", icon: BarChart3 },
+  { text: "GSTN Data", icon: FileCheck },
+  { text: "National Pension Scheme", icon: Briefcase },
+];
 
 export default function BrokerageHero() {
   return (
@@ -121,9 +141,96 @@ export default function BrokerageHero() {
         delay={0.2}
         className="my-12"
       />
-      <Suspense fallback={<SectionLoader />}>
-        <Stats showVerifyBanner={false} />
-      </Suspense>
+      {/* Combined Stats Section */}
+      <section className="relative w-full py-24">
+        <div className="container px-4 md:px-6 mx-auto">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl">
+              <span className={metallicBlackTextClasses}>India&apos;s</span>{" "}
+              <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
+                Largest
+              </span>{" "}
+              <span className={metallicBlackTextClasses}>Account Aggregator</span>
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 justify-items-center mx-auto">
+            {combinedStatsData.map((stat) => (
+              <div key={stat.id} className="flex flex-col items-center text-center p-4 mx-auto">
+                <div className="text-4xl md:text-5xl lg:text-[90px] mb-2">
+                  <span className={moneyOneMetallicTextClasses}>{stat.prefix}</span>
+                  {stat.id === 'fip' ? (
+                    <span className={moneyOneMetallicTextClasses}>1</span>
+                  ) : (
+                    <AnimatedCounter 
+                      value={stat.value} 
+                      fixedDecimals={stat.fixedDecimals}
+                      className={moneyOneMetallicTextClasses}
+                    />
+                  )}
+                  <span className={moneyOneMetallicTextClasses}>{stat.suffix}</span>
+                </div>
+                <p className="text-lg font-semibold text-slate-600 pt-2">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Container for the title and lines */}
+        <div className="w-full">
+          <div className="flex items-center gap-2 sm:gap-4 md:gap-8 mt-12 mb-8">
+            <div className="flex-grow h-px bg-foreground/20"></div>
+            <h2 className="text-sm md:text-base font-regular text-foreground/80 tracking-wider uppercase text-center flex-shrink">
+              Unlock access to diverse data sets
+            </h2>
+            <div className="flex-grow h-px bg-foreground/20"></div>
+          </div>
+        </div>
+        
+        {/* Pills Section */}
+        <div className="mt-8 flex flex-col items-center space-y-4">
+          {/* Row 1 (4 pills) */}
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4 font-medium">
+            {featuresPills.slice(0, 4).map((pill, index) => {
+              const Icon = pill.icon;
+              return (
+                <div
+                  key={index}
+                  className="flex items-center whitespace-nowrap rounded-full bg-linear-to-br from-white to-[#baff29]/20 backdrop-blur-md border border-[#00b140]/30 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
+                >
+                  <span className="relative flex h-2 w-2 mr-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <Icon className="h-4 w-4 mr-2 text-slate-600 dark:text-slate-400" />
+                  {pill.text}
+                </div>
+              );
+            })}
+          </div>
+          {/* Row 2 (3 pills) */}
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+            {featuresPills.slice(4, 7).map((pill, index) => {
+              const Icon = pill.icon;
+              return (
+                <div
+                  key={index + 4}
+                  className="flex items-center whitespace-nowrap rounded-full bg-linear-to-br from-white to-[#baff29]/20 backdrop-blur-md border border-[#00b140]/30 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300"
+                >
+                  <span className="relative flex h-2 w-2 mr-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <Icon className="h-4 w-4 mr-2 text-slate-600 dark:text-slate-400" />
+                  {pill.text}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
       {/* Trading Operations Section */}
       <section className="relative w-full pb-12 md:py-10 overflow-hidden">
         <Suspense fallback={<SectionLoader />}>

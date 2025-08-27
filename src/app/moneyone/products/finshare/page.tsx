@@ -41,6 +41,14 @@ import Marquee from "react-fast-marquee";
 import { ShimmerButton } from '@/components/ui/shimmer-button';
 import { BackgroundGrid } from '@/components/ui/background-grid';
 import { GlowingDivider } from '@/components/ui/glowing-divider';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/app/onemoney/components/ui/dialog";
+import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
@@ -66,7 +74,7 @@ const finShareFeaturesPillTexts = [
 // Stats data for FinShare
 const finShareStatsData = [
   { id: "fips", value: 25, label: "FIPs use FinShare", prefix: "", suffix: "+" },
-  { id: "aas", value: 15, label: "AA Integrations", prefix: "", suffix: "" },
+  { id: "aas", value: 10, label: "Exclusive FIP Integrations", prefix: "", suffix: "+" },
   { id: "requests", value: 1.8, label: "Data Requests Monthly", prefix: "", suffix: "M", fixedDecimals: 1 },
   { id: "uptime", value: 99.9, label: "Uptime Guarantee", prefix: "", suffix: "%", fixedDecimals: 1 },
 ];
@@ -256,6 +264,10 @@ const HorizontalPointList = ({ items, textColor }: { items: (string | undefined)
 };
 
 export default function FinSharePage() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const openDialog = () => setIsDialogOpen(true);
+
   return (
     <div className="relative">
       <BackgroundGrid zIndex={-10} />
@@ -275,15 +287,16 @@ export default function FinSharePage() {
                 <span>Data Governance and Sharing, Redefined for FIPs</span>
               </span>
               <h1 className="text-3xl tracking-tight leading-tight sm:text-xl md:text-2xl lg:text-3xl xl:text-6xl">
-                <span className={metallicBlackTextClasses}>Securely Share Financial Data —</span>{" "}
-                <span className={highlightBgClass}>With Consent and Control</span>
+                <span className={metallicBlackTextClasses}>Securely Share Financial Data With</span>{" "}
+                <span className={highlightBgClass}>Consent</span>{" "}
+                <span className={metallicBlackTextClasses}>and Control</span>
               </h1>
               <p className="font-medium text-lg sm:text-md text-slate-600 dark:text-slate-300 mb-4">
                 FinShare helps Financial Information Providers (FIPs) like banks, insurers, AMCs, and registrars to securely manage and share consented data under the AA ecosystem — with full audit trails and real-time control.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 ">
-              <ShimmerButton className='text-lg uppercase'>
+              <ShimmerButton onClick={openDialog} className='text-lg uppercase'>
                 Book FinShare Demo
               </ShimmerButton>
             </div>
@@ -701,6 +714,21 @@ export default function FinSharePage() {
           </BentoGrid>
         </div>
       </section>
+
+      {/* FinShare Demo Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[480px]">
+          <DialogHeader>
+            <DialogTitle>Book Your FinShare Demo Today!</DialogTitle>
+            <DialogDescription>
+              Ready to see how FinShare can streamline your data sharing processes? Let's schedule a personalized demo.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-1">
+            <TalkToUsForm />
+          </div>
+        </DialogContent>
+      </Dialog>
 
     </div>
   );

@@ -98,9 +98,13 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     });
   }
   
-  // Special handling for Equal trust-security page - show simple "Equal > Trust & Security" breadcrumb
+  // Special handling for Equal trust-security page - show "Equal > Resources > Trust & Security" breadcrumb
   if (pathname === "/equal/trust-security") {
-    
+    // Add Resources breadcrumb
+    items.push({
+      title: "Resources",
+      href: "/equal",
+    });
     items.push({
       title: "Trust & Security",
       href: "/equal/trust-security",
@@ -136,7 +140,11 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
   const isEqualRelatedPage = isCommonPage && (!pathname.includes('company=') || pathname.includes('company=equal'));
   
   if (isEqualRelatedPage) {
-    
+    // Add Resources breadcrumb
+    items.push({
+      title: "Resources",
+      href: "/equal",
+    });
     
     // Add the specific page name
     if (pathname.includes('/common/terms-conditions')) {
@@ -156,13 +164,45 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     return items;
   }
   
-  // Special handling for leadership page - show "Board" instead of "Leadership"
-  if (pathname === "/common/leadership") {
+  // Special handling for About Us pages (leadership, team, values, vision-mission)
+  const isAboutUsPage = pathname === "/common/leadership" || 
+                       pathname === "/common/team" || 
+                       pathname === "/common/values" || 
+                       pathname === "/common/vision-mission";
+  
+  if (isAboutUsPage) {
+    // Add About Us breadcrumb
     items.push({
-      title: "Board",
-      href: pathname,
-      isCurrentPage: true,
+      title: "About Us",
+      href: "/",
     });
+    
+    // Add the specific page name
+    if (pathname === "/common/leadership") {
+      items.push({
+        title: "Board",
+        href: pathname,
+        isCurrentPage: true,
+      });
+    } else if (pathname === "/common/team") {
+      items.push({
+        title: "Team",
+        href: pathname,
+        isCurrentPage: true,
+      });
+    } else if (pathname === "/common/values") {
+      items.push({
+        title: "Values",
+        href: pathname,
+        isCurrentPage: true,
+      });
+    } else if (pathname === "/common/vision-mission") {
+      items.push({
+        title: "Vision & Mission",
+        href: pathname,
+        isCurrentPage: true,
+      });
+    }
     
     return items;
   }
@@ -321,7 +361,6 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
             ) : (
               <Link
                 href={item.href}
-                scroll={item.href.includes('#') ? false : undefined}
                 className="hover:text-[#00b140] transition-colors duration-200"
               >
                 {index === 0 && homeIcon ? (
@@ -422,10 +461,10 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
     return items;
   }
   
-  // Special handling for MoneyOne solutions pages - add Solutions and page name breadcrumbs
+  // Special handling for MoneyOne solutions pages - add Usecases and page name breadcrumbs
   if (pathname.startsWith("/moneyone/solutions/")) {
     items.push({
-      title: "Solutions",
+      title: "Usecases",
       href: "/moneyone#solutions",
     });
     
@@ -433,6 +472,50 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
     const solutionSegment = segments[segments.length - 1]; // Last segment is the solution name
     items.push({
       title: routeTitleMap[solutionSegment] || solutionSegment.charAt(0).toUpperCase() + solutionSegment.slice(1).replace(/-/g, " "),
+      href: pathname,
+      isCurrentPage: true,
+    });
+    
+    return items;
+  }
+  
+  // Special handling for MoneyOne "About us" related pages
+  const aboutUsPages = ["leadership", "team", "values", "vision-mission"];
+  const isAboutUsPage = segments.length >= 2 && aboutUsPages.includes(segments[segments.length - 1]);
+  
+  if (isAboutUsPage) {
+    // Add "About us" breadcrumb for about-related pages
+    items.push({
+      title: "About us",
+      href: "/moneyone", // Link back to MoneyOne main page
+    });
+    
+    // Add the specific page name
+    const pageSegment = segments[segments.length - 1];
+    items.push({
+      title: routeTitleMap[pageSegment] || pageSegment.charAt(0).toUpperCase() + pageSegment.slice(1).replace(/-/g, " "),
+      href: pathname,
+      isCurrentPage: true,
+    });
+    
+    return items;
+  }
+  
+  // Special handling for MoneyOne "Resources" related pages
+  const resourcesPages = ["trust-security"];
+  const isResourcesPage = segments.length >= 2 && resourcesPages.includes(segments[segments.length - 1]);
+  
+  if (isResourcesPage) {
+    // Add "Resources" breadcrumb for resource-related pages
+    items.push({
+      title: "Resources",
+      href: "/moneyone", // Link back to MoneyOne main page
+    });
+    
+    // Add the specific page name
+    const pageSegment = segments[segments.length - 1];
+    items.push({
+      title: routeTitleMap[pageSegment] || pageSegment.charAt(0).toUpperCase() + pageSegment.slice(1).replace(/-/g, " "),
       href: pathname,
       isCurrentPage: true,
     });
@@ -489,7 +572,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
       )}
       aria-label="Breadcrumb"
     >
-      <ol className="flex items-center space-x-2 overflow-x-auto whitespace-nowrap scrollbar-hide w-full pr-2" style={{ WebkitOverflowScrolling: 'touch', scrollBehavior: 'smooth' }}>
+      <ol className="flex items-center space-x-auto whitespace-nowrap scrollbar-hide w-full pr-2" style={{ WebkitOverflowScrolling: 'touch', scrollBehavior: 'smooth' }}>
         {displayItems.map((item, index) => (
           <li key={`${item.href}-${index}`} className="flex items-center flex-shrink-0">
             {index > 0 && (
@@ -516,7 +599,6 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
             ) : (
               <Link
                 href={item.href}
-                scroll={item.href.includes('#') ? false : undefined}
                 className="hover:text-[#00b140] transition-colors duration-200"
               >
                 {index === 0 && homeIcon ? (
@@ -576,6 +658,50 @@ export const OneMoneyBreadcrumb: React.FC<BreadcrumbProps> = ({
       title: "Home",
       href: "/onemoney",
     });
+    
+    // Check if this is an "About us" related page
+    const aboutUsPages = ["leadership", "team", "values", "vision-mission"];
+    const isAboutUsPage = segments.length >= 2 && aboutUsPages.includes(segments[segments.length - 1]);
+    
+    // Check if this is a "Resources" related page
+    const resourcesPages = ["compliance", "termsconditions", "policies", "timeline"];
+    const isResourcesPage = segments.length >= 2 && resourcesPages.includes(segments[segments.length - 1]);
+    
+    if (isAboutUsPage) {
+      // Add "About us" breadcrumb for about-related pages
+      items.push({
+        title: "About us",
+        href: "/onemoney", // Link back to OneMoney main page
+      });
+      
+      // Add the specific page name
+      const pageSegment = segments[segments.length - 1];
+      items.push({
+        title: routeTitleMap[pageSegment] || pageSegment.charAt(0).toUpperCase() + pageSegment.slice(1).replace(/-/g, " "),
+        href: pathname,
+        isCurrentPage: true,
+      });
+      
+      return items;
+    }
+    
+    if (isResourcesPage) {
+      // Add "Resources" breadcrumb for resource-related pages
+      items.push({
+        title: "Resources",
+        href: "/onemoney", // Link back to OneMoney main page
+      });
+      
+      // Add the specific page name
+      const pageSegment = segments[segments.length - 1];
+      items.push({
+        title: routeTitleMap[pageSegment] || pageSegment.charAt(0).toUpperCase() + pageSegment.slice(1).replace(/-/g, " "),
+        href: pathname,
+        isCurrentPage: true,
+      });
+      
+      return items;
+    }
     
     // Filter out "onemoney" from segments to skip showing it in breadcrumbs
     const filteredSegments = segments.filter(segment => segment !== "onemoney");
@@ -645,7 +771,6 @@ export const OneMoneyBreadcrumb: React.FC<BreadcrumbProps> = ({
             ) : (
               <Link
                 href={item.href}
-                scroll={item.href.includes('#') ? false : undefined}
                 className="hover:text-[#00b140] transition-colors duration-200"
               >
                 {index === 0 && homeIcon ? (

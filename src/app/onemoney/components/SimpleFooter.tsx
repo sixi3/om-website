@@ -22,13 +22,13 @@ export function SimpleFooter() {
           {/* Navigation Links */}
           <nav className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
             <Link 
-              href="/common/policies?company=onemoney" 
+              href="/onemoney/policies" 
               className="text-sm text-foreground/80 hover:text-[#00b140] transition-colors duration-200"
             >
               Privacy Policy
             </Link>
             <Link 
-              href="/common/terms-conditions?company=onemoney" 
+              href="/onemoney/termsconditions" 
               className="text-sm text-foreground/80 hover:text-[#00b140] transition-colors duration-200"
             >
               Terms & Conditions
@@ -37,7 +37,7 @@ export function SimpleFooter() {
 
           {/* Copyright */}
           <p className="text-sm text-foreground/60 text-center">
-            © {new Date().getFullYear()} OneMoney. All Rights Reserved.
+            © {new Date().getFullYear()} Finsec AA Solutions Private Limited. All Rights Reserved.
           </p>
         </div>
       </div>

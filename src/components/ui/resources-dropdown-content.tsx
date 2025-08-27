@@ -49,11 +49,11 @@ const ResourcesDropdownContent: React.FC = () => {
 
   const defaultCompany = getDefaultCompany();
 
-  const resourceItems: ResourceItem[] = [
+  const allResourceItems: ResourceItem[] = [
     {
       id: "newsletter",
       title: "Our Newsletter",
-      description: "Read about our advances in the BFSI and employment worlds ",
+      description: "Stay informed about our newsletter and security features",
       image: {
         src: "/Access Logs.png",
         alt: "Press Releases",
@@ -66,14 +66,16 @@ const ResourcesDropdownContent: React.FC = () => {
     {
       id: "trust-security",
       title: "Trust & Security",
-      description: "Learn how Equal bakes trust and security into every layer ",
+      description: currentCompany === 'moneyone' 
+        ? "Learn how MoneyOne delivers enterprise-grade security and compliance"
+        : "Learn how Equal bakes trust and security into every layer",
       image: {
         src: "/Quarterly VAPT Tests.png",
         alt: "Trust and Security",
         width: 40,
         height: 40
       },
-      href: "/equal/trust-security"
+      href: currentCompany === 'moneyone' ? "/moneyone/trust-security" : "/equal/trust-security"
     },
     /* {
       id: "blog",
@@ -124,6 +126,11 @@ const ResourcesDropdownContent: React.FC = () => {
       href: `/common/policies?company=${defaultCompany}`
     }
   ]
+
+  // Filter out privacy policy and terms & conditions for MoneyOne pages
+  const resourceItems = currentCompany === 'moneyone' 
+    ? allResourceItems.filter(item => !['terms-and-conditions', 'privacy-policy'].includes(item.id))
+    : allResourceItems
 
   return (
     <div className="space-y-2 min-w-[300px] md:min-w-[600px]">

@@ -182,15 +182,18 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
         </div>
         {/* Always show Explore button below the text */}
         <div className="flex justify-center mb-2">
-          <motion.button
-            className="bg-[#00b140]/30 hover:border drop-shadow-lg hover:border-[#00b140]/30 rounded-full px-6 py-2 flex items-center gap-2 text-white font-semibold text-sm hover:bg-white/30 transition-colors duration-200"
+          <motion.a
+            href="https://www.myequal.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#00b140]/40  drop-shadow-lg rounded-full px-6 py-2 flex items-center gap-2 text-white font-semibold text-sm hover:bg-linear-to-r hover:from-[#00b140] hover:to-[#baff29] transition-colors duration-200"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             style={{ transform: 'translate3d(0,0,0)' }}
           >
             EXPLORE NOW
             <ArrowRight className="w-4 h-4" />
-          </motion.button>
+          </motion.a>
         </div>
         {/* Spacer to center logo vertically */}
         <div className="flex-1" />

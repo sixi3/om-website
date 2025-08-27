@@ -3,12 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Team } from "@/components/aurora-background-demo/components/Team";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import { BackgroundGrid } from "@/components/ui/background-grid";
-import { MainHeader } from "@/components/global/MainHeader";
 import { GlowingDivider } from "@/components/ui/glowing-divider";
-import { EqualBreadcrumb } from "@/components/ui/breadcrumb";
 import { LinkedinIcon, Instagram } from "lucide-react";
 
 // Define metallic black class
@@ -271,14 +267,10 @@ const FoundersTeam = () => {
 
 export default function TeamPage() {
   return (
-    <AuroraBackground>
+    <>
       <BackgroundGrid />
-      <MainHeader />
       
-      <main className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-          <EqualBreadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
-        </div>
+      <main className="relative w-full overflow-hidden">
         {/* Hero Section */}
         <div className="w-full max-w-7xl mx-auto px-4 md:px-6 relative z-10 justify-center items-center">
           <div className="text-center mb-12 max-w-5xl mx-auto">
@@ -348,6 +340,6 @@ export default function TeamPage() {
           <FoundersTeam />
         </div>
       </main>
-    </AuroraBackground>
+    </>
   );
 } 
