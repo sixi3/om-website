@@ -23,13 +23,6 @@ export default function MoneyOneLayout({
 }>) {
   return (
     <div className={cn("min-h-screen font-sans antialiased flex flex-col")}>
-      <head>
-        {/* Explicit favicon declarations to prevent Vercel override */}
-        <link rel="icon" type="image/png" sizes="32x32" href="/mo-logo.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/mo-logo.png" />
-        <link rel="shortcut icon" href="/mo-logo.png" />
-        <link rel="apple-touch-icon" href="/mo-logo.png" />
-      </head>
       <AuroraBackground className="flex-grow flex flex-col pt-24 pb-12 md:pt-32 md:pb-16">
         <MainHeader />
         <main className="flex-grow relative z-10">
