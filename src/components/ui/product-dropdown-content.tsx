@@ -46,7 +46,7 @@ const productSections: ProductSection[] = [
       {
         id: "finpro-fiu-tsp",
         title: "FinPro FIU TSP",
-        description: "Industry-leading FIU TSP",
+        description: "Industry-leading Financial Information User TSP",
         image: {
           src: "/HR OPS.png",
           alt: "FinPro FIU TSP",
@@ -58,7 +58,7 @@ const productSections: ProductSection[] = [
       {
         id: "finshare-fip-tsp",
         title: "FinShare FIP TSP",
-        description: "Industry-leading FIP TSP",
+        description: "Industry-leading Financial Information Provider TSP",
         image: {
           src: "/Exception Managment Engine.png",
           alt: "FinShare FIP TSP",
@@ -69,8 +69,8 @@ const productSections: ProductSection[] = [
       },
       {
         id: "financial-analytics",
-        title: "Financial Analytics",
-        description: "AI-powered analytics of bank statements",
+        title: "Analytics & KYC",
+        description: "AI-powered analytics of bank statements and KYC",
         image: {
           src: "/Mobile UX.png",
           alt: "Financial Analytics",

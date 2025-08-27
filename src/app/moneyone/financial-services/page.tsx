@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
 import { motion } from "framer-motion";
-import { Building, FileText, Zap, MessageCircle, ShieldCheck, Link, CreditCard, Vote, Car, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck, Settings, Code, Webhook, Terminal } from "lucide-react";
+import { Building, FileText, Zap, MessageCircle, ShieldCheck, Link, CreditCard, Vote, Car, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck, Settings, Code, Webhook, Terminal, BarChart3, Building2, Smartphone, SearchCheck, Database, Server, CheckCircle2 } from "lucide-react";
 import { GlowingDivider } from "@/components/ui/glowing-divider";
 import {
   Dialog,
@@ -32,6 +32,207 @@ const SectionLoader = () => (
   </div>
 );
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
+
+// KYC Solutions data
+const kycSolutions = [
+  {
+    id: "identity-verification",
+    title: "Identity Verification",
+    description: "Real-time identity verification using PAN, Aadhaar, and other government IDs",
+    icon: <SearchCheck size={24} className="text-white" />,
+    image: {
+      src: "/Real-Time Verification.png",
+      alt: "Identity Verification"
+    }
+  },
+  {
+    id: "financial-data-aggregation",
+    title: "Financial Data Aggregation",
+    description: "Secure access to bank statements and financial records via Account Aggregator framework",
+    icon: <Database size={24} className="text-white" />,
+    image: {
+      src: "/Candidate Consent Records.png",
+      alt: "Financial Data Aggregation"
+    }
+  },
+  {
+    id: "fiu-tsp-services",
+    title: "FIU TSP Services",
+    description: "Complete Financial Information User TSP capabilities for data consumption",
+    icon: <Building2 size={24} className="text-white" />,
+    image: {
+      src: "/HR OPS.png",
+      alt: "FIU TSP Services"
+    }
+  },
+  {
+    id: "fip-tsp-services",
+    title: "FIP TSP Services",
+    description: "Financial Information Provider TSP for secure data sharing and consent management",
+    icon: <Server size={24} className="text-white" />,
+    image: {
+      src: "/Exception Managment Engine.png",
+      alt: "FIP TSP Services"
+    }
+  }
+];
+
+// KYC metrics
+const kycMetrics = [
+  { id: "checks", value: 10, label: "KYC Checks Complete", prefix: "", suffix: "M+" },
+  { id: "accuracy", value: 99.5, label: "Verification Accuracy", prefix: "", suffix: "%", fixedDecimals: 1 },
+  { id: "time", value: 30, label: "Average Processing Time", prefix: "", suffix: " sec" },
+];
+
+// KYC Solutions Section Component
+const KYCSolutionsSection = React.memo(() => {
+  return (
+    <section className="relative w-full px-8 pt-4 pb-12 md:py-12 xl:px-12 2xl:px-24 scroll-mt-28 md:scroll-mt-32">
+      <div className="mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+          
+          {/* Title and Description Column - Always on the left */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{
+              duration: 0.6,
+              ease: "easeOut",
+              delay: 0.2
+            }}
+            className="space-y-4 lg:col-span-2 text-center lg:text-left"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.1
+              }}
+            >
+              <span className="text-sm font-semibold text-[#00b140] tracking-widest uppercase mb-4 block">
+                KYC SOLUTIONS
+              </span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.2
+              }}
+              className={`text-2xl md:text-4xl lg:text-5xl leading-tight ${metallicBlackTextClasses}`}
+            >
+              Complete KYC Infrastructure
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.3
+              }}
+              className="text-sm text-slate-600 leading-relaxed"
+            >
+              Streamline your customer onboarding with MoneyOne's comprehensive KYC solutions. From identity verification to financial data aggregation, we provide both FIU and FIP TSP services to ensure compliance and security.
+            </motion.p>
+
+            {/* Metrics Grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.4
+              }}
+              className="grid grid-cols-3 gap-8 md:gap-4 mt-8"
+            >
+              {kycMetrics.map((stat) => (
+                <div key={stat.id} className="flex flex-col items-center md:items-start text-center">
+                  <div className="text-2xl md:text-3xl lg:text-4xl mb-1">
+                    <span className="font-bold bg-gradient-to-b from-[#3cd070] to-[#00b140] bg-clip-text text-transparent">{stat.prefix}</span>
+                    <span className="font-bold bg-gradient-to-b from-[#3cd070] to-[#00b140] bg-clip-text text-transparent">{stat.value}</span>
+                    <span className="font-bold bg-gradient-to-b from-[#3cd070] to-[#00b140] bg-clip-text text-transparent">{stat.suffix}</span>
+                  </div>
+                  <p className="text-xs md:text-sm text-center md:text-left font-medium text-slate-600">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
+
+
+          </motion.div>
+
+          {/* Bento Grid Column - Always on the right */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{
+              duration: 0.6,
+              ease: "easeOut",
+              delay: 0.4
+            }}
+            className="lg:col-span-3"
+          >
+            <BentoGrid className="gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+              {kycSolutions.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: false, margin: "-50px", amount: 0.3 }}
+                  transition={{
+                    duration: 0.5,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                    delay: index * 0.1
+                  }}
+                  className="group block h-full"
+                >
+                  <BentoGridItem
+                    title={
+                      <div className="flex items-center gap-2">
+                        <span className="group-hover:text-[#00b140] transition-colors duration-300 text-md md:text-lg">
+                          {item.title}
+                        </span>
+                        <div className="translate-x-0 group-hover:translate-x-1 group-hover:text-[#00b140] transition-all duration-300 ease-out">
+                          <CheckCircle2 className="w-4 h-4" />
+                        </div>
+                      </div>
+                    }
+                    description={item.description}
+                    icon={
+                      <div className="w-12 h-12 rounded-lg bg-[#00b140] flex items-center justify-center mb-4 text-white">
+                        {item.icon}
+                      </div>
+                    }
+                    image={{
+                      src: item.image.src,
+                      alt: item.image.alt
+                    }}
+                    imagePosition="top-right"
+                    imageSize="w-40 h-40 top-[-50px] right-[-50px] md:w-20 md:h-20 xl:w-36 xl:h-36 xl:top-[-40px] xl:right-[-30px] 2xl:w-48 2xl:h-48 2xl:top-[-65px] 2xl:right-[-50px]"
+                    className="h-full bg-white/50 backdrop-blur-md border-slate-200/80 hover:border-[#00b140]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00b140]/10"
+                  />
+                </motion.div>
+              ))}
+            </BentoGrid>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+});
+
+KYCSolutionsSection.displayName = 'KYCSolutionsSection';
 
 const financialReasons = [
   {
@@ -297,6 +498,15 @@ export default function FinancialServicesHero() {
           <FinancialAnalyticsSection />
         </div>
       </Suspense>
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
+        delay={0.2}
+        className="my-12"
+      />
+      
+      {/* KYC SOLUTIONS SECTION */}
+      <KYCSolutionsSection />
       <GlowingDivider
         width="3/4"
         intensity="high"

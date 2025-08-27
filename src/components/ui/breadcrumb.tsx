@@ -39,7 +39,7 @@ const routeTitleMap: Record<string, string> = {
   products: "Products",
   industries: "Industries",
   "trust-security": "Trust & Security",
-  "financial-services": "Financial Services",
+  "financial-services": "Analytics & KYC",
   "enterprise-hiring": "Enterprise Hiring",
   "gig-hiring": "Gig Hiring",
   staffing: "Staffing",
