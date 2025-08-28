@@ -12,13 +12,29 @@ import { ShimmerButton } from "@/components/ui/shimmer-button";
 // Define metallic black class
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
-// Placeholder client logos - can be updated with MoneyOne specific logos later
+// MoneyOne client logos from mo-clients folder
 const clientLogos = [
-  { src: "/client-logos/Frame 5.png", alt: "Client Logo 5" },
-  { src: "/client-logos/Frame 6.png", alt: "Client Logo 6" },
-  { src: "/client-logos/Frame 7.png", alt: "Client Logo 7" },
-  { src: "/client-logos/Frame 8.png", alt: "Client Logo 8" },
-  { src: "/client-logos/Frame 9.png", alt: "Client Logo 9" },
+  { src: "/mo-clients/Akara.png", alt: "Akara" },
+  { src: "/mo-clients/Bajaj Finserv 2.png", alt: "Bajaj Finserv" },
+  { src: "/mo-clients/Early Salary (Fibe).png", alt: "Early Salary (Fibe)" },
+  { src: "/mo-clients/Epifi Wealth (FI).png", alt: "Epifi Wealth" },
+  { src: "/mo-clients/HDFC Bank.png", alt: "HDFC Bank" },
+  { src: "/mo-clients/Home Credit.png", alt: "Home Credit" },
+  { src: "/mo-clients/IDBI Bank.png", alt: "IDBI Bank" },
+  { src: "/mo-clients/Jio Insurance.png", alt: "Jio Insurance" },
+  { src: "/mo-clients/Kotak Securities.png", alt: "Kotak Securities" },
+  { src: "/mo-clients/Lenden by Innofin.png", alt: "Lenden by Innofin" },
+  { src: "/mo-clients/Motilal Oswal.png", alt: "Motilal Oswal" },
+  { src: "/mo-clients/Motilal Oswal MF.png", alt: "Motilal Oswal MF" },
+  { src: "/mo-clients/MPokket.png", alt: "MPokket" },
+  { src: "/mo-clients/Paisabazaar.png", alt: "Paisabazaar" },
+  { src: "/mo-clients/Poonawalla Fincorp.png", alt: "Poonawalla Fincorp" },
+  { src: "/mo-clients/RBL Bank.png", alt: "RBL Bank" },
+  { src: "/mo-clients/SBI.png", alt: "SBI" },
+  { src: "/mo-clients/Snapmint.png", alt: "Snapmint" },
+  { src: "/mo-clients/Truecredits (True Balance).png", alt: "Truecredits" },
+  { src: "/mo-clients/Upmove.png", alt: "Upmove" },
+  { src: "/mo-clients/Vivify.png", alt: "Vivify" },
 ];
 
 // Dynamically import Lottie component

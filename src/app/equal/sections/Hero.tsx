@@ -52,14 +52,23 @@ const TestimonialCard = () => (
 );
 
 const clientLogos = [
-  { src: "/client-logos/Frame 5.png", alt: "Client Logo 5" },
-  { src: "/client-logos/Frame 6.png", alt: "Client Logo 6" },
-  { src: "/client-logos/Frame 7.png", alt: "Client Logo 7" },
-  { src: "/client-logos/Frame 8.png", alt: "Client Logo 8" },
-  { src: "/client-logos/Frame 9.png", alt: "Client Logo 9" },
-  { src: "/client-logos/Frame 10.png", alt: "Client Logo 10" },
-  { src: "/client-logos/Frame 11.png", alt: "Client Logo 11" },
-  { src: "/client-logos/Frame 12.png", alt: "Client Logo 12" },
+  { src: "/kye-clients/Airtel.png", alt: "Airtel" },
+  { src: "/kye-clients/Arvind.png", alt: "Arvind" },
+  { src: "/kye-clients/Bluestone.png", alt: "Bluestone" },
+  { src: "/kye-clients/EY.png", alt: "EY" },
+  { src: "/kye-clients/Glenmark.png", alt: "Glenmark" },
+  { src: "/kye-clients/Godigit.png", alt: "Godigit" },
+  { src: "/kye-clients/Hetero Labs.png", alt: "Hetero Labs" },
+  { src: "/kye-clients/Honour Labs.png", alt: "Honour Labs" },
+  { src: "/kye-clients/JSW.png", alt: "JSW" },
+  { src: "/kye-clients/L&T.png", alt: "L&T" },
+  { src: "/kye-clients/McDonalds.png", alt: "McDonalds" },
+  { src: "/kye-clients/QX Global.png", alt: "QX Global" },
+  { src: "/kye-clients/Spandana Spoorthy.png", alt: "Spandana Spoorthy" },
+  { src: "/kye-clients/TVS Digital.png", alt: "TVS Digital" },
+  { src: "/kye-clients/TVS Motors.png", alt: "TVS Motors" },
+  { src: "/kye-clients/Ujjivan.png", alt: "Ujjivan" },
+  { src: "/kye-clients/Wellness Forever.png", alt: "Wellness Forever" },
 ];
 
 export function Hero() {

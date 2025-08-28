@@ -16,18 +16,53 @@ const metallicTextClasses = "font-bold bg-gradient-to-b from-[#3cd070] to-[#00b1
 // Updated neutral shades for darker metallic black effect
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
-const supportedChecks = [
-  "Aadhaar", "PAN Basic", "PAN Advanced (Aadhaar <> PAN Linkage)", "Bank Account Validation",
-  "Voter ID", "Driving License", "Vehicle RC", "ESIC", "Social Media", "Criminal Checks",
-  "Criminal Court (CCRV)", "Police verification through Law firm", "Global database check",
-  "Salary Validation", "Payslip (Tampering + POO + MCA)", "Bank Statement (Match against Payslip)",
-  "Credit Checks", "Credit check (CIBIL / CRIF / Experian / Equifax)", "India Credit Default Database Check",
-  "Permanent Address check (Physical - PAN India Coverage)", "Current Address check (Physical - PAN India Coverage)",
-  "Digital Address check", "Highest Education", "10th Standard", "12th Standard", "Undergrad",
-  "Postgrad", "Diploma", "Current Employment", "Previous Employments", 
-  "Self-Employment Check (Via Business PAN)", "PF UAN Advanced", "CV Validation", 
-  "Directorship Check", "Right to Work (Govt ID)", "Professional Reference Check"
+import { FileText, Link, CreditCard, Vote, Car, ShieldCheck, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck } from "lucide-react";
+
+const verificationTypesRow1 = [
+  { name: "Aadhaar", icon: <FileText className="w-6 h-6" /> },
+  { name: "PAN Basic", icon: <FileText className="w-6 h-6" /> },
+  { name: "PAN Advanced", icon: <Link className="w-6 h-6" /> },
+  { name: "Bank Account Validation", icon: <CreditCard className="w-6 h-6" /> },
+  { name: "Voter ID", icon: <Vote className="w-6 h-6" /> },
+  { name: "Driving License", icon: <Car className="w-6 h-6" /> },
+  { name: "Vehicle RC", icon: <Car className="w-6 h-6" /> },
+  { name: "ESIC", icon: <ShieldCheck className="w-6 h-6" /> },
+  { name: "Social Media", icon: <Share2 className="w-6 h-6" /> },
+  { name: "Criminal Court", icon: <Scale className="w-6 h-6" /> },
+  { name: "Police Verification", icon: <ShieldCheck className="w-6 h-6" /> },
+  { name: "Global Database", icon: <Globe className="w-6 h-6" /> },
+  { name: "Payslip", icon: <FileText className="w-6 h-6" /> },
+  { name: "Bank Statement", icon: <CreditCard className="w-6 h-6" /> },
 ];
+
+const verificationTypesRow2 = [
+  { name: "Credit Check", icon: <CreditCard className="w-6 h-6" /> },
+  { name: "Credit Default Database", icon: <AlertTriangle className="w-6 h-6" /> },
+  { name: "Permanent Address", icon: <MapPin className="w-6 h-6" /> },
+  { name: "Current Address", icon: <MapPin className="w-6 h-6" /> },
+  { name: "Digital Address", icon: <Map className="w-6 h-6" /> },
+  { name: "Education", icon: <GraduationCap className="w-6 h-6" /> },
+  { name: "Employment & Conduct", icon: <Briefcase className="w-6 h-6" /> },
+  { name: "Self-Employment", icon: <Briefcase className="w-6 h-6" /> },
+  { name: "PF UAN Advanced", icon: <FileText className="w-6 h-6" /> },
+  { name: "CV Validation", icon: <FileCheck className="w-6 h-6" /> },
+  { name: "Directorship Check", icon: <Users className="w-6 h-6" /> },
+  { name: "Right to Work", icon: <UserCheck className="w-6 h-6" /> },
+  { name: "Professional Reference", icon: <Users className="w-6 h-6" /> },
+];
+
+const VerificationCard = ({ name, icon }: { name: string; icon: React.ReactNode }) => (
+  <div className="relative w-48 h-48 bg-background/10 backdrop-blur-md border border-[#00b140]/20 rounded-2xl p-4 mx-2 flex-shrink-0 shadow-md">
+    <div className="absolute top-4 left-4">
+      <div className="p-3 rounded-full bg-[#00b140] text-white">
+        {icon}
+      </div>
+    </div>
+    <div className="absolute bottom-4 left-2 px-2 text-left">
+      <span className="text-md font-medium text-slate-800 leading-tight">{name}</span>
+    </div>
+  </div>
+);
 
 export function Stats({ showVerifyBanner = true }: { showVerifyBanner?: boolean } = {}) {
   return (
@@ -75,32 +110,14 @@ export function Stats({ showVerifyBanner = true }: { showVerifyBanner?: boolean 
           </div>
           {/* Marquee Banners */}
           <div className="mt-8 space-y-4">
-            <Marquee gradient={false} speed={40} pauseOnHover={true}>
-              {supportedChecks.map((check, index) => (
-                <div
-                  key={index}
-                  className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300 mx-2"
-                >
-                  <span className="relative flex h-2 w-2 mr-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                  </span>
-                  {check}
-                </div>
+            <Marquee gradient={false} speed={80} pauseOnHover={true} className="py-2 scale-75 md:scale-100">
+              {[...verificationTypesRow1, ...verificationTypesRow1].map((type, index) => (
+                <VerificationCard key={`row1-${index}`} name={type.name} icon={type.icon} />
               ))}
             </Marquee>
-            <Marquee gradient={false} speed={40} pauseOnHover={true} direction="right">
-              {supportedChecks.slice().reverse().map((check, index) => (
-                <div
-                  key={index}
-                  className="flex items-center whitespace-nowrap rounded-full bg-background/10 backdrop-blur-md border border-slate-200 px-4 py-2 text-base font-medium text-slate-800 dark:bg-neutral-800 dark:text-neutral-300 mx-2"
-                >
-                  <span className="relative flex h-2 w-2 mr-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                  </span>
-                  {check}
-                </div>
+            <Marquee gradient={false} speed={80} pauseOnHover={true} direction="right" className="py-2 scale-75 md:scale-100">
+              {[...verificationTypesRow2, ...verificationTypesRow2].map((type, index) => (
+                <VerificationCard key={`row2-${index}`} name={type.name} icon={type.icon} />
               ))}
             </Marquee>
           </div>

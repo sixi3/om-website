@@ -552,14 +552,6 @@ export default function FinSharePage() {
         </div>
       </section>
 
-      {/* Glowing Divider */}
-      <GlowingDivider 
-        width="3/4" 
-        intensity="high" 
-        delay={0.4}
-        className="my-8 md:my-16 mx-auto"
-      />
-
       {/* Before and After Banners */}
       <section className="relative w-full">
         <div className="grid grid-cols-1">
@@ -587,14 +579,6 @@ export default function FinSharePage() {
           </div>
         </div>
       </section>
-
-      {/* Glowing Divider */}
-      <GlowingDivider 
-        width="3/4" 
-        intensity="high" 
-        delay={0.5}
-        className="my-8 md:my-16 mx-auto"
-      />
 
       {/* Use Cases Section */}
       <motion.section 
