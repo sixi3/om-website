@@ -312,7 +312,7 @@ export default function FinProPage() {
             alt="FinPro Hero"
             width={1000}
             height={700}
-            className="object-contain mt-20 mr-24"
+            className="object-contain mt-20 mr-24 lg:w-[700px] lg:h-[560px] xl:w-[800px] xl:h-[700px]"
           />
         </div>
       </section>

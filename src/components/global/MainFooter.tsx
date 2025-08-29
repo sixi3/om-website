@@ -69,7 +69,7 @@ const getFooterSections = (section: CompanySection): FooterSection[] => [
     ]
   },
   {
-    title: "USECASES",
+    title: "USE CASES",
     links: section === 'moneyone' ? [
       // MoneyOne specific solutions
       { title: "Wealth Management", href: "/moneyone/financial-services#wealth-management" },

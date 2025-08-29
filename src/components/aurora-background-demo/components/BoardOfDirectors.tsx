@@ -106,11 +106,11 @@ const BoardOfDirectors = React.memo(() => {
           Advisory Board and Board of Directors
           </span>
           <h2 className={`text-2xl md:text-5xl lg:text-5xl leading-tight ${METALLIC_BLACK_TEXT_CLASSES} max-w-6xl mt-8 mx-auto`}>
-            Highest{" "}
+            Governance at the{" "} 
             <span className="inline-block bg-[#baff29] px-2 text-black font-bold">
-              governance
+              highest
             </span>{" "}
-            from industry leaders
+            level, from industry leaders
           </h2>
         </motion.div>
 

@@ -13,7 +13,7 @@ const solutionsData = [
   {
     id: "financial-services",
     title: "Financial Services",
-    description: "Digital transformation for RBI, SEBI, IRDAI, and PFRDA regulated entities for comprehensive data sharing for seamless products.",
+    description: "Digital transformation for RBI, SEBI, IRDAI, and PFRDA regulated entities for enabling comprehensive data sharing for seamless products.",
     image: {
       src: "/Hosted Page.png",
       alt: "Financial Services",
@@ -95,7 +95,7 @@ export function SolutionsSection() {
           DATA SHARING SOLUTIONS     
           </span>
           <h2 className="text-2xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4 mt-8">
-            <span className={metallicBlackTextClasses}>Empowering business with </span>{" "}
+            <span className={metallicBlackTextClasses}>Empowering businesses with </span>{" "}
             <span className={highlightBgClass}>
               purpose-built solutions
             </span>

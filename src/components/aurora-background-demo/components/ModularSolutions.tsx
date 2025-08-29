@@ -57,14 +57,14 @@ MetricsCounter.displayName = 'MetricsCounter';
 // Metrics data for each section
 const employmentMetrics = [
   { id: "uptime", value: 99, label: "Service Uptime", prefix: "", suffix: "%" },
-  { id: "users", value: 10, label: "Indians Using Equal", prefix: "", suffix: "L+" },
-  { id: "companies", value: 90, label: "Case closure", prefix: "", suffix: "%" },
+  { id: "users", value: 1, label: "Indians Using Equal", prefix: "", suffix: "M+" },
+  { id: "companies", value: 90, label: "Case Closure Rate", prefix: "", suffix: "%" },
 ];
 
 const financialMetrics = [
   { id: "fips", value: 120, label: "FIPs use MoneyOne", prefix: "", suffix: "+" },
   { id: "traffic", value: 50, label: "of all AA traffic", prefix: "", suffix: "%" },
-  { id: "transfers", value: 1, label: "Data transfers complete", prefix: "", suffix: "B+" },
+  { id: "transfers", value: 1, label: "Data transfers completed", prefix: "", suffix: "B+" },
 ];
 
 const industryMetrics = [
@@ -144,7 +144,7 @@ const solutionSections: SolutionSection[] = [
     id: "financial",
     title: "Financial Services",
     subtitle: "BFSI Products",
-    description: "Banking, Financial Services & Insurance technology solutions powered by account aggregation and AI analytics.",
+    description: "Banking, Financial Services & Insurance technology solutions powered by account aggregation and AI-driven analytics.",
     items: [
       {
         id: "financial-analytics",
@@ -389,7 +389,7 @@ const IndustryInnovationSection = React.memo(() => {
               </Link>
               
               {/* Play Store Download Button */}
-              {/* <Link href="https://play.google.com/store/apps/details?id=com.equal.ai" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex justify-center">
+              {<Link href="https://play.google.com/store/apps/details?id=com.equal.ai" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex justify-center">
                 <div className="group inline-flex items-center px-6 py-3 bg-black/30 border border-[#baff29]/70 text-white text-md md:text-lg font-semibold rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap hover:bg-white/10 hover:border-white/40 hover:shadow-lg hover:shadow-white/10 hover:bh-white/20 w-full sm:w-auto justify-center">
                   <Image
                     src="/playstore.png"
@@ -401,7 +401,7 @@ const IndustryInnovationSection = React.memo(() => {
                   <span>Download on Play Store</span>
                 </div>
               </Link>
-              */}
+              }
             </motion.div>
           </motion.div>
 

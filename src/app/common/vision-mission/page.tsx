@@ -12,7 +12,7 @@ const visionContent = {
   title: "Our Vision",
   body: (
     <p>
-      At Equal, we’re building a better place for all Indians.
+      At Equal, we’re building a better future for all Indians.
 We see a future where every Indian — whether in a metro city or a remote village — has the same access to opportunities, services, and tools to improve their lives.
 
 India is moving faster than ever in the digital era, powered by innovations like Aadhaar, UPI, and the Account Aggregator framework. Equal is here to be the trusted backbone of this transformation — connecting people, businesses, and institutions through secure, consent-driven platforms for identity, data, and access.
@@ -81,7 +81,7 @@ export default function VisionMissionPage() {
               <span className={metallicBlackTextClasses}>The Equal Vision</span>
             </h1>
             <p className="text-center mt-4 text-md text-neutral-500 dark:text-neutral-400">
-              Equal is a platform that allows you to share your data with the world, safely and securely with your consent
+              Equal is a platform that empowers you to share your data with the world, safely and securely with your consent
             </p>
           </div>
 
