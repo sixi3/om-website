@@ -11,53 +11,11 @@ const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bo
 // Board member data from BoardOfDirectors.tsx
 const boardMembers = [
   {
-    id: 1,
-    name: "Justice B.N. Srikrishna",
-    role: "Chairman",
-    description: "Former judge of the Supreme Court of India and distinguished legal expert. Chaired the committee that drafted India's Digital Personal Data Protection Bill, establishing frameworks for data rights and privacy. Brings deep legal and ethical oversight to the board.",
-    imageUrl: "/board/BN Srikrishna.png"
-  },
-  {
     id: 2,
     name: "Jagdish Capoor", 
     role: "Independent Director",
     description: "Former Deputy Governor of the Reserve Bank of India with a career spanning key financial institutions. Held leadership roles at HDFC Bank and LIC, contributing significantly to India's banking evolution. His regulatory expertise strengthens governance and risk management.",
     imageUrl: "/board/Jagdish Capoor.png"
-  },
-  {
-    id: 3,
-    name: "Dr. Rakesh Mohan",
-    role: "Independent Director", 
-    description: "Eminent economist and former Deputy Governor of the RBI. Also served as Chief Economic Advisor and Executive Director at the IMF. Known for work on economic reforms and infrastructure policy, bringing strong macroeconomic perspective to the board.",
-    imageUrl: "/board/Rakesh Mohan.png"
-  },
-  {
-    id: 4,
-    name: "Anand Sinha",
-    role: "Independent Director",
-    description: "Served as Deputy Governor of the RBI, overseeing banking operations, regulation, and financial supervision. Played pivotal role in implementing Basel norms in India and contributed to international regulatory forums. Reinforces board's commitment to sound financial oversight.",
-    imageUrl: "/board/Anand Sinha.png"
-  },
-  {
-    id: 5,
-    name: "J. Satyanarayana",
-    role: "Independent Director",
-    description: "Former Chairman of the Unique Identification Authority of India (UIDAI). Retired IAS officer instrumental in shaping Aadhaar and India's digital governance ecosystem. His insights into public digital infrastructure are key to scaling secure technology platforms.",
-    imageUrl: "/board/J Satyanarayana.png"
-  },
-  {
-    id: 6,
-    name: "Ajay Sawhney",
-    role: "Independent Director",
-    description: "Former Secretary at the Ministry of Electronics and Information Technology (MeitY), Government of India. Played central role in driving digital India initiatives, data governance frameworks, and emerging tech adoption. Expertise bridges policy and innovation.",
-    imageUrl: "/board/Ajay Sawhney.png"
-  },
-  {
-    id: 7,
-    name: "Anita Ramachandran",
-    role: "Independent Director",
-    description: "Founder of Cerebrus Consultants and respected HR and organizational strategy expert. Over three decades advising top Indian and global firms on leadership, people management, and culture. Brings strong human capital and governance focus to the board.",
-    imageUrl: "/board/Anita Ramachandran.png"
   },
   {
     id: 8,
@@ -66,13 +24,6 @@ const boardMembers = [
     description: "Founding CEO of NCDEX and veteran in banking and financial services. Held senior positions at ICICI Bank, SMERA, and Bharat Financial Inclusion. Deep expertise in financial infrastructure brings strategic view of market-building and risk.",
     imageUrl: "/board/PH Ravikumar.png"
   },
-  {
-    id: 9,
-    name: "Sunil Kulkarni",
-    role: "Independent Director",
-    description: "Chairman of the BCFI (Business Correspondent Federation of India), advocating for last-mile banking and digital payments. Pioneer in financial inclusion, working extensively with fintechs and banks to expand rural access. Enhances board's focus on scale and inclusion.",
-    imageUrl: "/board/Sunil Kulkarni.png"
-  }
 ];
 
 // ProfileCard Component

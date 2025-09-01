@@ -312,7 +312,7 @@ export default function FinProPage() {
             alt="FinPro Hero"
             width={1000}
             height={700}
-            className="object-contain mt-20 mr-24 lg:w-[700px] lg:h-[560px] xl:w-[800px] xl:h-[700px]"
+            className="object-contain ml-12 2xl:mr-32 xl:w-[700px] xl:h-[450px] 2xl:w-[1000px] 2xl:h-[600px]"
           />
         </div>
       </section>
@@ -340,34 +340,36 @@ export default function FinProPage() {
               <span className={highlightBgClass}>FinPro</span>{" "}
               <span className={metallicBlackTextClasses}>?</span>
             </h2>
-            <p className="mx-auto text-md text-slate-700 dark:text-slate-300 max-w-8xl md:text-lg">
-              FinPro is a robust FIU (Financial Information User) TSP solution that allows banks, NBFCs, insurers, and fintechs to pull user-permissioned financial data through the Account Aggregator framework. Built on industry-first standards and compliant with RBI and DPDP norms, FinPro simplifies onboarding, improves decisioning, and reduces friction in lending and underwriting.
+            <p className="mx-auto text-sm text-slate-700 dark:text-slate-300 max-w-8xl md:text-lg">
+              FinPro is a robust FIU (Financial Information User) TSP solution that allows banks, NBFCs, insurers, and fintechs to pull user-permissioned financial data through the Account Aggregator framework.
             </p>
           </div>
 
           {/* Tab Buttons Container */}
-          <div className="flex items-center justify-center pt-2 px-4 mb-8">
-            <div className="flex items-center gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm">
-              {tabsData.map((tab, index) => (
-                <div
-                  key={tab.id}
-                  onClick={() => setActiveTab(index)}
-                  className={`relative px-8 py-4 text-md font-medium rounded-full cursor-pointer transition-colors duration-300 ${
-                    activeTab === index
-                      ? "text-white font-semibold"
-                      : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
-                  }`}
-                >
-                  {activeTab === index && (
-                    <motion.div
-                      layoutId="active-finpro-tab"
-                      className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{tab.title}</span>
-                </div>
-              ))}
+          <div className="w-full pt-2 px-2 sm:px-4 mb-8">
+            <div className="flex items-center justify-center">
+              <div className="flex items-center gap-2 sm:gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm overflow-x-auto scrollbar-hide max-w-full">
+                {tabsData.map((tab, index) => (
+                  <div
+                    key={tab.id}
+                    onClick={() => setActiveTab(index)}
+                    className={`relative px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 md:py-4 text-xs sm:text-sm md:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 whitespace-nowrap flex-shrink-0 ${
+                      activeTab === index
+                        ? "text-white font-semibold"
+                        : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
+                    }`}
+                  >
+                    {activeTab === index && (
+                      <motion.div
+                        layoutId="active-finpro-tab"
+                        className="absolute inset-0 bg-[#00b140] border-b-4 border-[#008000] rounded-full shadow-md z-0"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{tab.title}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 

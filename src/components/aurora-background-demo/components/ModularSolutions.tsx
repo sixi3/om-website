@@ -553,12 +553,12 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 // Dual CTA layout for financial section
                 <>
                   <Link href={cta.primary.href} target="_blank" rel="noopener noreferrer">
-                    <ShimmerButton className="text-md md:text-lg">
+                    <ShimmerButton className="text-md 2xl:text-lg">
                       {cta.primary.text}
                     </ShimmerButton>
                   </Link>
                   <Link href={cta.secondary.href} target="_blank" rel="noopener noreferrer">
-                    <ShimmerButton className="text-md md:text-lg">
+                    <ShimmerButton className="text-md 2xl:text-lg">
                       {cta.secondary.text}
                     </ShimmerButton>
                   </Link>
