@@ -219,6 +219,7 @@ const LookingForSection = React.memo(() => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-20px" });
   const router = useRouter();
+  const mobileScrollContainerRef = useRef<HTMLDivElement>(null);
 
   const buttons = [
     { text: "Employee Verifications", href: "#employment-verification" },
@@ -227,6 +228,36 @@ const LookingForSection = React.memo(() => {
   ];
 
   const newTabLinks = new Set<string>(["/onemoney", "/moneyone/financial-services#financial-analytics-section"]);
+
+  // Ensure scroll position starts at the beginning on mobile and add scroll hint animation
+  useEffect(() => {
+    if (mobileScrollContainerRef.current) {
+      mobileScrollContainerRef.current.scrollLeft = 0;
+      
+      // Add scroll hint animation after a delay
+      const timer = setTimeout(() => {
+        if (mobileScrollContainerRef.current) {
+          // Smooth scroll to show there's more content
+          mobileScrollContainerRef.current.scrollTo({
+            left: 100,
+            behavior: 'smooth'
+          });
+          
+          // Then scroll back to start
+          setTimeout(() => {
+            if (mobileScrollContainerRef.current) {
+              mobileScrollContainerRef.current.scrollTo({
+                left: 0,
+                behavior: 'smooth'
+              });
+            }
+          }, 800);
+        }
+      }, 1500); // Wait for initial animations to complete
+      
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const handleButtonClick = (href: string) => {
     if (newTabLinks.has(href)) {
@@ -273,42 +304,26 @@ const LookingForSection = React.memo(() => {
         >
           I'M LOOKING FOR:
         </motion.h3>
-        <div className="bg-linear-to-br from-background/20 to-background/50 backdrop-blur-md rounded-full border-b-2 border-slate-200 border border-slate-200 overflow-hidden w-full max-w-[calc(100vw-2rem)] mx-auto">
-                      <motion.div
-              initial={{ x: 0 }}
-              animate={isInView ? { x: [0, -10, 0] } : { x: 0 }}
-              transition={{
-                duration: 2,
-                delay: 1.0,
-                ease: "easeInOut",
-                repeat: 2,
-                repeatDelay: 3
-              }}
-              className="flex items-center justify-center gap-2 px-3 py-2 overflow-x-auto scrollbar-hide" 
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
+        <div className="bg-linear-to-br from-background/20 to-background/50 backdrop-blur-md rounded-full border-b-2 border-slate-200 border border-slate-200 overflow-hidden w-full max-w-[calc(100vw-1rem)] mx-auto">
+          <div ref={mobileScrollContainerRef} className="flex items-center gap-2 px-3 py-2 overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             {buttons.map((button, index) => (
-                              <motion.button
-                  key={button.text}
-                  initial={{ opacity: 0, y: 2 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 2 }}
-                  transition={{
-                    duration: 0.4,
-                    delay: 0.3 + index * 0.1,
-                    ease: "easeOut"
-                  }}
-                  onClick={() => handleButtonClick(button.href)}
-                  className="group inline-flex items-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-4 border border-[00b140]/20 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap"
-                >
+              <motion.button
+                key={button.text}
+                initial={{ opacity: 0, y: 2 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 2 }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.3 + index * 0.1,
+                  ease: "easeOut"
+                }}
+                onClick={() => handleButtonClick(button.href)}
+                className="group inline-flex items-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-4 border border-[00b140]/20 text-[#00b140] text-sm font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap"
+              >
                 <span>{button.text}</span>
-                                  <ArrowRight className={`h-4 w-4 text-[#00b140] transition-all duration-300 opacity-0 group-hover:opacity-100 -ml-3 group-hover:ml-2 ${
-                    button.text === "Account Aggregator" || button.text === "Financial Analytics"
-                      ? "group-hover:rotate-[-45deg]" 
-                      : "group-hover:translate-x-0"
-                  }`} />
+                <ArrowRight className="h-4 w-4 text-[#00b140] ml-2" />
               </motion.button>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -334,7 +349,7 @@ const LookingForSection = React.memo(() => {
                   className="group inline-flex items-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-4 border border-[00b140]/20 hover:border-[00b140] text-[#00b140] text-sm xl:text-base font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap"
                 >
                   <span>{button.text}</span>
-                  <ArrowRight className={`h-4 w-4 text-[#00b140] transition-all duration-300 opacity-0 group-hover:opacity-100 -ml-3 group-hover:ml-2 ${
+                  <ArrowRight className={`h-4 w-4 text-[#00b140] transition-all duration-300 ml-2 group-hover:ml-3 ${
                     button.text === "Account Aggregator" || button.text === "Financial Analytics"
                       ? "group-hover:rotate-[-45deg]" 
                       : "group-hover:translate-x-0"

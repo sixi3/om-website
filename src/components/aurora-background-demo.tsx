@@ -381,12 +381,12 @@ const SolutionsSectionLoader = React.memo(() => (
 
 SolutionsSectionLoader.displayName = 'SolutionsSectionLoader';
 
-// Enhanced Section Wrapper with Intersection Observer
+// Enhanced Section Wrapper with simple mount-only animation (no scroll replays)
 interface SectionWrapperProps {
   children: React.ReactNode;
-  fallback: React.ReactNode;
+  fallback: React.ReactNode; // kept for API compatibility but not used anymore
   className?: string;
-  rootMargin?: string;
+  rootMargin?: string; // kept for API compatibility
 }
 
 const SectionWrapper = React.memo<SectionWrapperProps>(({ 
@@ -395,33 +395,16 @@ const SectionWrapper = React.memo<SectionWrapperProps>(({
   className = "",
   rootMargin = "100px"
 }) => {
-  const [isVisible, setIsVisible] = React.useState(false);
-  const sectionRef = React.useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect(); // Once visible, stop observing
-        }
-      },
-      {
-        rootMargin,
-        threshold: 0.1
-      }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [rootMargin]);
+    const timer = setTimeout(() => setMounted(true), 50);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div ref={sectionRef} className={className}>
-      {isVisible ? children : fallback}
+    <div className={`${className} transition-opacity duration-500 transform ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}`}>
+      {children}
     </div>
   );
 });

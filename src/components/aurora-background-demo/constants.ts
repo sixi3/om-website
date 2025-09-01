@@ -11,22 +11,29 @@ export const ANIMATION_CONFIG: AnimationConfig = {
   ease: easeInOut
 };
 
-// Client Logos
+// Client Logos - Most popular clients from employment and BFSI sectors
 export const CLIENT_LOGOS = [
-  "Frame 5.png",
-  "Frame 6.png", 
-  "Fi-money.png",
-  "Frame 12.png",
-  "Frame 7.png",
-  "Frame 10.png",
-  "Frame 13.png",
-  "Frame 9.png",
-  "Frame 13.png",
-  "Frame 14.png",
-  "Frame 15.png",
-  "Frame 16.png",
-  "Frame 17.png",
-  "Frame 18.png",
-  "Frame 19.png",
-  "Frame 20.png"
+  // Major Banks (BFSI)
+  "/om-list/HDFC Bank.png",
+  "/om-list/ICICI Bank.png", 
+  "/om-list/SBI.png",
+  "/om-list/Kotak Mahindra Bank.png",
+  
+  // Financial Services & Brokerages
+  "/om-list/Zerodha.png",
+  "/om-list/Motilal Oswal.png",
+  "/mo-clients/Paisabazaar.png",
+  "/om-list/AngelOne.png",
+  
+  // Major Corporations (Employment)
+  "/kye-clients/L&T.png",
+  "/kye-clients/JSW.png",
+  "/kye-clients/Airtel.png",
+  "/kye-clients/EY.png",
+  
+  // Healthcare & Pharma (Employment)
+  "/kye-clients/Glenmark.png",
+  "/kye-clients/Hetero Labs.png",
+  "/kye-clients/Wellness Forever.png",
+  "/kye-clients/Honour Labs.png"
 ]; 

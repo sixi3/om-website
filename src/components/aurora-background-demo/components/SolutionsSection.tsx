@@ -86,7 +86,7 @@ export function SolutionsSection() {
       className="relative w-full py-20 md:py-24 dark:bg-slate-900/60"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
       <div className="container px-4 md:px-6 mx-auto">

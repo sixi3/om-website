@@ -81,7 +81,7 @@ const MetricsGrid = React.memo<{ metrics: Array<{ id: string; value: number; lab
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.3 }}
       transition={{
         duration: ANIMATION_CONFIG.duration,
         delay: 0.4
@@ -320,7 +320,7 @@ const IndustryInnovationSection = React.memo(() => {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, margin: "-100px", amount: 0.3 }}
+            viewport={{ once: true, margin: "-100px", amount: 0.3 }}
             transition={{
               duration: ANIMATION_CONFIG.duration,
               ease: "easeOut",
@@ -331,7 +331,7 @@ const IndustryInnovationSection = React.memo(() => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.1
@@ -345,7 +345,7 @@ const IndustryInnovationSection = React.memo(() => {
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.2
@@ -361,7 +361,7 @@ const IndustryInnovationSection = React.memo(() => {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.3
@@ -498,7 +498,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.1
@@ -512,7 +512,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.2
@@ -525,7 +525,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.3
@@ -653,7 +653,7 @@ const ModularSolutions = React.memo(() => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{
               duration: ANIMATION_CONFIG.duration,
               ease: "easeOut"

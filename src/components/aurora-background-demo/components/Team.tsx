@@ -251,7 +251,7 @@ const Team = React.memo(() => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{
             duration: ANIMATION_CONFIG.duration,
             ease: "easeOut"
@@ -274,7 +274,7 @@ const Team = React.memo(() => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.3 }}
         transition={{
           duration: ANIMATION_CONFIG.duration,
           delay: 0.2

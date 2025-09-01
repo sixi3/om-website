@@ -17,30 +17,27 @@ import { TalkToUsForm } from "../components/forms/TalkToUsForm"; // Added Form i
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 // import { Button } from "@/components/ui/button"; // We'll add this later if needed
 
-// Updated client logos array with paths from the public/client-logos directory
+// OneMoney client logos from om-list folder
 const clientLogos = [
-  { src: "/client-logos/Frame 5.png", alt: "Client Logo 5" },
-  { src: "/client-logos/Frame 6.png", alt: "Client Logo 6" },
-  { src: "/client-logos/Frame 7.png", alt: "Client Logo 7" },
-  { src: "/client-logos/Frame 8.png", alt: "Client Logo 8" },
-  { src: "/client-logos/Frame 9.png", alt: "Client Logo 9" },
-  { src: "/client-logos/Frame 10.png", alt: "Client Logo 10" },
-  { src: "/client-logos/Frame 11.png", alt: "Client Logo 11" },
-  { src: "/client-logos/Frame 12.png", alt: "Client Logo 12" },
-  { src: "/client-logos/Frame 13.png", alt: "Client Logo 13" },
-  { src: "/client-logos/Frame 14.png", alt: "Client Logo 14" },
-  { src: "/client-logos/Frame 15.png", alt: "Client Logo 15" },
-  { src: "/client-logos/Frame 16.png", alt: "Client Logo 16" },
-  { src: "/client-logos/Frame 17.png", alt: "Client Logo 17" },
-  { src: "/client-logos/Frame 18.png", alt: "Client Logo 18" },
-  { src: "/client-logos/Frame 19.png", alt: "Client Logo 19" },
-  { src: "/client-logos/Frame 20.png", alt: "Client Logo 20" },
-  { src: "/client-logos/Frame 21.png", alt: "Client Logo 21" },
-  { src: "/client-logos/Frame 22.png", alt: "Client Logo 22" },
-  { src: "/client-logos/Frame 23.png", alt: "Client Logo 23" },
-  { src: "/client-logos/Frame 24.png", alt: "Client Logo 24" },
-  { src: "/client-logos/Frame 25.png", alt: "Client Logo 25" },
-  { src: "/client-logos/Frame 26.png", alt: "Client Logo 26" },
+  { src: "/om-list/AngelOne.png", alt: "AngelOne" },
+  { src: "/om-list/Bajaj Finserv.png", alt: "Bajaj Finserv" },
+  { src: "/om-list/Bank of Baroda.png", alt: "Bank of Baroda" },
+  { src: "/om-list/Groww.png", alt: "Groww" },
+  { src: "/om-list/HDFC Bank.png", alt: "HDFC Bank" },
+  { src: "/om-list/Hero Fincorp.png", alt: "Hero Fincorp" },
+  { src: "/om-list/ICICI Bank.png", alt: "ICICI Bank" },
+  { src: "/om-list/IDBI Bank.png", alt: "IDBI Bank" },
+  { src: "/om-list/Kotak Mahindra Bank.png", alt: "Kotak Mahindra Bank" },
+  { src: "/om-list/L&T Finance.png", alt: "L&T Finance" },
+  { src: "/om-list/Mahindra Finance.png", alt: "Mahindra Finance" },
+  { src: "/om-list/Motilal Oswal.png", alt: "Motilal Oswal" },
+  { src: "/om-list/Muthoot Fincorp.png", alt: "Muthoot Fincorp" },
+  { src: "/om-list/Poonawalla Fincorp.png", alt: "Poonawalla Fincorp" },
+  { src: "/om-list/RBL Bank.png", alt: "RBL Bank" },
+  { src: "/om-list/SBI.png", alt: "SBI" },
+  { src: "/om-list/Upstox.png", alt: "Upstox" },
+  { src: "/om-list/Yes Bank.png", alt: "Yes Bank" },
+  { src: "/om-list/Zerodha.png", alt: "Zerodha" },
 ];
 
 // Define metallic black class here too - Updated neutral shades
