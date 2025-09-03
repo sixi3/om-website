@@ -4,6 +4,7 @@ import { AuroraBackground } from "@/components/ui/aurora-background";
 import { BackgroundGrid } from "@/components/ui/background-grid";
 import { MainHeader } from "@/components/global/MainHeader";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { METALLIC_GREEN_TEXT_CLASSES } from "@/components/aurora-background-demo/constants";
 
 // Define metallic black class (consider moving to shared lib later)
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -11,18 +12,25 @@ const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to
 const visionContent = {
   title: "Our Vision",
   body: (
-    <p>
-      At Equal, we’re building a better future for all Indians.
+    <div>
+      <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold mb-6 ${METALLIC_GREEN_TEXT_CLASSES}`}>
+        Building a{' '}
+        <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Better</span>
+        {' '}India, One Connection at a Time
+      </h2>
+      <p>
+        At Equal, we're building a better future for all Indians.
 We see a future where every Indian — whether in a metro city or a remote village — has the same access to opportunities, services, and tools to improve their lives.
 
 India is moving faster than ever in the digital era, powered by innovations like Aadhaar, UPI, and the Account Aggregator framework. Equal is here to be the trusted backbone of this transformation — connecting people, businesses, and institutions through secure, consent-driven platforms for identity, data, and access.
 
-Our mission is bigger than technology. It’s about breaking down barriers — of distance, language, and legacy systems — so that access and fairness are built into the system from day one. Whether it’s helping a young entrepreneur start a business, enabling farmers to get better credit, or making public services easier to reach, we’re here to make it possible.
+Our mission is bigger than technology. It's about breaking down barriers — of distance, language, and legacy systems — so that access and fairness are built into the system from day one. Whether it's helping a young entrepreneur start a business, enabling farmers to get better credit, or making public services easier to reach, we're here to make it possible.
 
-We stand for trust, transparency, and interoperability. Your data should work for you, opening doors and unlocking opportunities, not creating roadblocks. By building trust-first infrastructure for India, we’re creating a level playing field where everyone can participate and thrive.
+We stand for trust, transparency, and interoperability. Your data should work for you, opening doors and unlocking opportunities, not creating roadblocks. By building trust-first infrastructure for India, we're creating a level playing field where everyone can participate and thrive.
 
 We are Equal — building a better India, one connection at a time.
-    </p>
+      </p>
+    </div>
   ),
 };
 

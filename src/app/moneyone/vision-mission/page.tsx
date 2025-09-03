@@ -1,6 +1,7 @@
 import React from "react";
 import { TiltCard } from "../../onemoney/components/ui/tilt-card";
 import { BackgroundGrid } from "@/components/ui/background-grid";
+import { METALLIC_GREEN_TEXT_CLASSES } from "@/components/aurora-background-demo/constants";
 
 // Define metallic black class (consider moving to shared lib later)
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
@@ -9,6 +10,11 @@ const visionContent = {
   title: "Our Vision",
   body: (
     <div className="space-y-6">
+      <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold mb-6 ${METALLIC_GREEN_TEXT_CLASSES}`}>
+        Transforming{' '}
+        <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Financial</span>
+        {' '}Data Into Actionable Insights
+      </h2>
       <div>
         <h3 className="text-xl font-semibold text-[#00b140] mb-3">Our Vision</h3>
         <p className="text-foreground/80">

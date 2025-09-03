@@ -162,8 +162,8 @@ const StatsSection = React.memo(() => {
   const isInView = useInView(ref, { once: true, margin: "100px" });
 
   const stats = [
-    { id: "data", value: 1.2, label: "Data Transactions Yearly", suffix: "B+", fixedDecimals: 1 },
-    { id: "consents", value: 95, label: "Unique Indian Users", suffix: "M+" },
+    { id: "data", value: 1.2, label: "Data Transactions Yearly", suffix: "Bn+", fixedDecimals: 1 },
+    { id: "consents", value: 95, label: "Unique Indian Users", suffix: "Mn+" },
     { id: "checks", value: 350, label: "Enterprise Customers", suffix: "+" },
   ];
 
