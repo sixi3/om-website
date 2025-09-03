@@ -174,7 +174,7 @@ const FoundersTeam = () => {
     {
       id: "co-founder-2",
       name: "KP Atluri",
-      title: "CO-FOUNDER",
+      title: "FOUNDER",
       description: "A well-respected and innovative leader who has built one of India's largest financial service platforms.",
       imageUrl: "/team-pictures/KP.png",
       socialLinks: [
