@@ -57,14 +57,14 @@ MetricsCounter.displayName = 'MetricsCounter';
 // Metrics data for each section
 const employmentMetrics = [
   { id: "uptime", value: 99, label: "Service Uptime", prefix: "", suffix: "%" },
-  { id: "users", value: 1, label: "Indians Using Equal", prefix: "", suffix: "M+" },
+  { id: "users", value: 1, label: "Indians Using Equal BGV", prefix: "", suffix: "Mn+" },
   { id: "companies", value: 90, label: "Case Closure Rate", prefix: "", suffix: "%" },
 ];
 
 const financialMetrics = [
   { id: "fips", value: 120, label: "FIPs use MoneyOne", prefix: "", suffix: "+" },
   { id: "traffic", value: 50, label: "of all AA traffic", prefix: "", suffix: "%" },
-  { id: "transfers", value: 1, label: "Data transfers completed", prefix: "", suffix: "B+" },
+  { id: "transfers", value: 1, label: "Data transfers completed", prefix: "", suffix: "Bn+" },
 ];
 
 const industryMetrics = [
@@ -144,7 +144,7 @@ const solutionSections: SolutionSection[] = [
     id: "financial",
     title: "Financial Services",
     subtitle: "BFSI Products",
-    description: "Banking, Financial Services & Insurance technology solutions powered by account aggregation and AI-driven analytics.",
+    description: "Banking, Financial Services and Insurance technology solutions powered by account aggregation and AI-driven analytics.",
     items: [
       {
         id: "financial-analytics",
