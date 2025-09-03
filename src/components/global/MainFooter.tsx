@@ -36,7 +36,7 @@ const getFooterSections = (section: CompanySection): FooterSection[] => [
   {
     title: "ABOUT US",
     links: [
-      { title: "Vision & Mission", href: "/common/vision-mission" },
+      { title: "Vision", href: "/common/vision-mission" },
       { title: "Team & Leadership", href: "/common/team" },
       { title: "Board", href: "/common/leadership" },
       { title: "Values", href: "/common/values" }
@@ -60,8 +60,8 @@ const getFooterSections = (section: CompanySection): FooterSection[] => [
       { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section", openInNewTab: true },
       // Employment Section
       { title: "Employment", href: "#", isSubheading: true },
-      { title: "Enterprise Hiring", href: "/equal/products/enterprise-hiring" },
-      { title: "Gig Hiring", href: "/equal/products/gig-hiring" },
+      { title: "Enterprise Verification", href: "/equal/products/enterprise-hiring" },
+      { title: "Gig Verification", href: "/equal/products/gig-hiring" },
       { title: "Custom Workflows", href: "/equal/Industries" },
       // Consumer Section
       { title: "Consumer", href: "#", isSubheading: true },

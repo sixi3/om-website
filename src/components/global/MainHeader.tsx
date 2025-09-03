@@ -90,7 +90,7 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => [
     content: WhyEqualDropdownContent,
     mobileLinks: [
       { title: "Team", href: "/common/team" },
-      { title: "Vision & Mission", href: "/common/vision-mission" },
+      { title: "Vision", href: "/common/vision-mission" },
       { title: "Leadership", href: "/common/leadership" },
       { title: "Values", href: "/equal/values" }
     ]
@@ -162,7 +162,7 @@ const getMobileSections = (section: CompanySection): MobileSection[] => [
     title: "ABOUT US",
     links: [
       { title: "Team", href: "/common/team" },
-      { title: "Vision & Mission", href: "/common/vision-mission" },
+      { title: "Vision", href: "/common/vision-mission" },
       { title: "Leadership", href: "/common/leadership" },
       { title: "Values", href: "/equal/values" }
     ]

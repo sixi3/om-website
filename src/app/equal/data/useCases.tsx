@@ -43,7 +43,7 @@ export interface UseCase {
 export const useCasesData: UseCase[] = [
   {
     id: "hrms",
-    title: "Enterprise Hiring",
+    title: "Enterprise Verification",
     icon: <Building size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "Seamless Background Verification Directly Inside Your HRMS",
     heroSubheadline: "Enable real-time background checks directly within platforms like Darwinbox, Workday, and SAP — no switching, no delays.",
@@ -79,7 +79,7 @@ export const useCasesData: UseCase[] = [
   },
   {
     id: "gig-economy",
-    title: "Gig Economy Hiring",
+    title: "Gig Economy Verification",
     icon: <Factory size={24} strokeWidth={2} className="text-green-600" />,
     heroHeadline: "Verify and Activate Your Gig Workforce in Real-Time",
     heroSubheadline: "Purpose-built for delivery, ride-share, logistics, and marketplace onboarding.",

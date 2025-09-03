@@ -37,10 +37,10 @@ const productsData = [
     description: 'Your single pane of glass for all background verifications.',
     icon: <LayoutDashboard size={28} className="text-green-500" />,
     heroHeadline: 'Your Single Pane of Glass for All Background Verifications',
-    heroSubheadline: 'The Equal Console is your real-time dashboard to monitor candidate progress, resolve issues, generate reports, and manage bulk hiring — all in one place.',
+    heroSubheadline: 'The Equal Console is your real-time dashboard to monitor candidate progress, resolve issues, generate reports, and manage bulk verifications — all in one place.',
     features: [
         { icon: <LayoutDashboard />, text: 'Real-time dashboard to monitor candidate progress' },
-        { icon: <Fingerprint />, text: 'Resolve issues and manage bulk hiring' },
+        { icon: <Fingerprint />, text: 'Resolve issues and manage bulk verifications' },
         { icon: <LinkIcon />, text: 'Export to HRMS/ATS' },
         { icon: <Settings />, text: 'Connect BI dashboards (PowerBI, Tableau)' },
     ],
@@ -130,14 +130,14 @@ export function ProductShowcase() {
         <div className="container px-4 md:px-6 mx-auto">
             <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4">
-                <span className={metallicBlackTextClasses}>One Platform, Two</span>{" "}
+                <span className={metallicBlackTextClasses}>One Platform, Many</span>{" "}
                 <span className={highlightBgClass}>
-                Powerful 
+                Powerful Use Cases
                 </span>
-                {" "}<span className={metallicBlackTextClasses}>Tools</span>
+                {" "}<span className={metallicBlackTextClasses}>for HR automation </span>
             </h2>
             <p className="mx-auto text-lg text-slate-700 dark:text-slate-300">
-                Seamless verification and smart oversight, together.
+                Automate document collection and UAN workflows with AI-powered orchestration and custom business rules. Transform your verification process with actionable insights, seamless ATS integration, and enterprise-grade support tracking.
             </p>
             </div>
 

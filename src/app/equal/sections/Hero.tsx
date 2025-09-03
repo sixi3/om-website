@@ -103,6 +103,9 @@ export function Hero() {
               <span className={metallicBlackTextClasses}>of</span> 
               <br />
               <span className={metallicBlackTextClasses}>Employee Verifications</span>
+              <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
+                Powered by AI
+              </span>{" "}
             </h1>
             <p className="font-medium text-lg sm:text-md text-slate-600 dark:text-slate-300 mb-8">
             India's largest businesses use Equal to solve their employee verification needs enabling Trust, Convenience & Consent.

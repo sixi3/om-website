@@ -34,12 +34,12 @@ const AboutUsDropdownContent: React.FC = () => {
       href: "/onemoney/team"
     },
     {
-      id: "vision-mission",
-      title: "Vision & Mission",
+      id: "vision",
+      title: "Vision",
       description: "Our vision for transforming financial data sharing in India",
       image: {
         src: "/vision.png",
-        alt: "Vision & Mission",
+        alt: "Vision",
         width: 40,
         height: 40
       },

@@ -6,7 +6,7 @@ import { BackgroundGrid } from "@/components/ui/background-grid";
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 const visionContent = {
-  title: "Our Vision & Mission",
+  title: "Our Vision",
   body: (
     <div className="space-y-6">
       <div>

@@ -40,11 +40,11 @@ const getWhyEqualItems = (currentSection: string): WhyEqualItem[] => {
     return [
       {
         id: "vision-mission",
-        title: "Vision & Mission",
+        title: "Vision",
         description: "Discover our purpose and what drives us forward",
         image: {
           src: "/vision.png",
-          alt: "Vision & Mission",
+          alt: "Vision",
           width: 40,
           height: 40
         },
@@ -93,11 +93,11 @@ const getWhyEqualItems = (currentSection: string): WhyEqualItem[] => {
   return [
     {
       id: "vision-mission",
-      title: "Vision & Mission",
+      title: "Vision",
       description: "Discover our purpose and what drives us forward",
       image: {
         src: "/vision.png",
-        alt: "Vision & Mission",
+        alt: "Vision",
         width: 40,
         height: 40
       },

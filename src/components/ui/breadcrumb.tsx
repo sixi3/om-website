@@ -60,7 +60,7 @@ const routeTitleMap: Record<string, string> = {
   compliance: "Compliance",
   leadership: "Leadership",
   timeline: "Timeline",
-  "vision-mission": "Vision & Mission",
+  "vision-mission": "Vision",
   termsconditions: "Terms & Conditions",
   
   // Common pages
@@ -198,7 +198,7 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
       });
     } else if (pathname === "/common/vision-mission") {
       items.push({
-        title: "Vision & Mission",
+        title: "Vision",
         href: pathname,
         isCurrentPage: true,
       });

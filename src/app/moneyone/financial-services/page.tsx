@@ -79,7 +79,7 @@ const kycSolutions = [
 
 // KYC metrics
 const kycMetrics = [
-  { id: "checks", value: 10, label: "KYC Checks Complete", prefix: "", suffix: "M+" },
+  { id: "checks", value: 10, label: "KYC Checks Complete", prefix: "", suffix: "Mn+" },
   { id: "accuracy", value: 99.5, label: "Verification Accuracy", prefix: "", suffix: "%", fixedDecimals: 1 },
   { id: "time", value: 30, label: "Average Processing Time", prefix: "", suffix: " sec" },
 ];

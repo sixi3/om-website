@@ -69,8 +69,8 @@ const financialMetrics = [
 
 const industryMetrics = [
   { id: "fip", value: 1, label: "FIP Coverage in India", prefix: "#", suffix: "" },
-  { id: "data", value: 79.9, label: "Data Packets Delivered", prefix: "", suffix: "M", fixedDecimals: 1 },
-  { id: "consents", value: 28, label: "Consents Fulfilled Monthly", prefix: "", suffix: "M" },
+  { id: "data", value: 79.9, label: "Data Packets Delivered", prefix: "", suffix: "Mn", fixedDecimals: 1 },
+  { id: "consents", value: 28, label: "Consents Fulfilled Monthly", prefix: "", suffix: "Mn" },
 ] as Array<{ id: string; value: number; label: string; prefix: string; suffix: string; fixedDecimals?: number }>;
 
 const metallicTextClasses = "font-bold bg-gradient-to-b from-[#3cd070] to-[#00b140] bg-clip-text text-transparent";
@@ -188,7 +188,7 @@ const solutionSections: SolutionSection[] = [
       {
         id: "onemoney-aa",
         title: "OneMoney AA",
-        description: "India's largest Account Aggregator platform for consent-driven data sharing.",
+        description: "India's largest RBI-regulated Account Aggregator platform for consent-driven data sharing.",
         image: {
           src: "/Candidate Consent Records.png",
           alt: "OneMoney AA",

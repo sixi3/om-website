@@ -86,9 +86,9 @@ const productSections: ProductSection[] = [
     description: "Identity verification and background check solutions for workforce management",
     items: [
       {
-        id: "Enterprise Hiring",
-        title: "Enterprise Hiring",
-        description: "Automate enterprise background checks inside your HRMS",
+        id: "Enterprise Verification",
+        title: "Enterprise Verification",
+        description: "Automate background checks inside your HRMS/ATS",
         image: {
           src: "/Recruitment.png",
           alt: "Enterprise Hiring",
@@ -98,8 +98,8 @@ const productSections: ProductSection[] = [
         href: "/equal/products/enterprise-hiring"
       },
       {
-        id: "Gig Hiring",
-        title: "Gig Hiring",
+        id: "Gig Verification",
+        title: "Gig Verification",
         description: "Onboard gig workers at scale with ease",
         image: {
           src: "/Gig Economy Hiring.png",
@@ -248,7 +248,7 @@ const ProductSection = memo<{ section: ProductSection; sectionIndex: number; isM
         </p>
       </div>
       <motion.div 
-        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        className="grid grid-cols-1 md:grid-cols-2 gap-2"
         variants={{
           visible: {
             transition: {

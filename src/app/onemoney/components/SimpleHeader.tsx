@@ -227,7 +227,7 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
       content: AboutUsDropdownContent,
       mobileLinks: [
         { title: "Team", href: "/onemoney/team" },
-        { title: "Vision & Mission", href: "/onemoney/vision-mission" },
+        { title: "Vision", href: "/onemoney/vision-mission" },
         { title: "Leadership", href: "/onemoney/leadership" },
         { title: "Values", href: "/onemoney/values" }
       ]
@@ -259,7 +259,7 @@ export function SimpleHeader({ className }: SimpleHeaderProps) {
       title: "ABOUT US",
       links: [
         { title: "Team", href: "/onemoney/team" },
-        { title: "Vision & Mission", href: "/onemoney/vision-mission" },
+        { title: "Vision", href: "/onemoney/vision-mission" },
         { title: "Leadership", href: "/onemoney/leadership" },
         { title: "Values", href: "/onemoney/values" }
       ]
