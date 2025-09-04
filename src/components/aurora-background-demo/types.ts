@@ -1,6 +1,6 @@
-import { Easing } from "framer-motion";
+export type EasingLike = [number, number, number, number] | ((t: number) => number) | string;
 
 export interface AnimationConfig {
   duration: number;
-  ease: Easing;
+  ease: EasingLike;
 } 
