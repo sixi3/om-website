@@ -41,6 +41,13 @@ export const metadata: Metadata = {
     description: "Equal is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.",
     images: ['/Open-Graph-Image.png'],
   },
+  other: {
+    'og:image:type': 'image/png',
+    'og:image:secure_url': 'https://om-website-ten.vercel.app/Open-Graph-Image.png',
+    'og:image:url': 'https://om-website-ten.vercel.app/Open-Graph-Image.png',
+    'og:image:width': '1200',
+    'og:image:height': '630',
+  },
 };
 
 export default function RootLayout({
