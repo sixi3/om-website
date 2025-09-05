@@ -26,7 +26,7 @@ const ProductsDropdownContent: React.FC = () => {
       title: "How OneMoney Works",
       description: "Understand the technology and processes behind OneMoney's Account Aggregator platform",
       image: {
-        src: "/console-graphic.png",
+        src: "/Bulk Onboarding.png",
         alt: "How OneMoney Works",
         width: 40,
         height: 40
@@ -36,7 +36,7 @@ const ProductsDropdownContent: React.FC = () => {
     {
       id: "use-cases",
       title: "Use Cases",
-      description: "Explore real-world applications and success stories of OneMoney's financial data sharing",
+      description: "Explore real-world applications of OneMoney's data sharing",
       image: {
         src: "/Financial Services.png",
         alt: "Use Cases",

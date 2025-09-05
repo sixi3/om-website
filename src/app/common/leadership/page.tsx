@@ -167,7 +167,7 @@ export default function LeadershipPage() {
         <div className="text-center my-12 md:my-16">
           <h2 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl mb-6">
             <span className={metallicBlackTextClasses}>Meet Our</span>{" "}
-            <span className={highlightBgClass}>Board</span>
+            <span className={highlightBgClass}>Advisory Board</span>
           </h2>
           <p className="mx-auto text-xl text-slate-700 dark:text-slate-300 w-full mb-6 max-w-5xl">
             Our board and advisors are a powerhouse of India's most respected leaders in finance, technology, governance, and policy, shaping our vision to build the most advanced data sharing platform in India.

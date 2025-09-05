@@ -27,10 +27,10 @@ export const metadata: Metadata = {
     siteName: 'Equal',
     images: [
       {
-        url: '/equal-icon.png',
+        url: '/Open-Graph-Image.png',
         width: 1200,
         height: 630,
-        alt: 'OneEqual Logo',
+        alt: 'Equal - India\'s Largest Data Sharing Platform',
       },
     ],
   },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Equal - India's Most Advanced Data Sharing Platform",
     description: "Equal is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.",
-    images: ['/equal-icon.png'],
+    images: ['/Open-Graph-Image.png'],
   },
 };
 
