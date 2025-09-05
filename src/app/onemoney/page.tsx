@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import React, { useMemo } from 'react';
-import { Hero } from "./sections/Hero";ed a 
+import { Hero } from "./sections/Hero"; 
 import { GlowingDivider } from "@/components/ui/glowing-divider";
 
 // Dynamically import the Stats component
