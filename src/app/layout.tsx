@@ -12,6 +12,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://om-website-ten.vercel.app'),
   title: "Equal - India's Most Advanced Data Sharing Platform", // Generic Title
   description: "Equal is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.", // Generic Description
   icons: {
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://oneequal.com',
+    url: 'https://om-website-ten.vercel.app',
     title: "Equal - India's Most Advanced Data Sharing Platform",
     description: "Equal is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.",
     siteName: 'Equal',
