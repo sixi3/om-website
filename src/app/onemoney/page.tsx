@@ -75,7 +75,7 @@ export default function Home() {
 
   return (
     <div className="w-full overflow-x-hidden">
-      <BackgroundGrid zIndex={-1} />
+      
       <Hero />
       
       <GlowingDivider 
