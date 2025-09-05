@@ -106,13 +106,9 @@ export default function EnterpriseHiringHero() {
         </div>
         {/* Right: Video */}
         <div className="hidden lg:flex relative w-full h-full items-center justify-center z-0">
-          <video
-            src="/main-video-2.webm"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
+          <img
+            src="/kye-uc/Enterprise Hiring.png"
+            alt="Enterprise Hiring"
             className="object-contain w-[90%] h-[90%] max-h-[600px] max-w-[700px]"
           />
         </div>

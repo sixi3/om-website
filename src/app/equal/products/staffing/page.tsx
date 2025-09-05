@@ -109,7 +109,7 @@ export default function StaffingPage() {
         {/* Right: Video or Image */}
         <div className="hidden lg:flex relative w-full h-full items-center justify-center z-0">
           <Image
-            src="/Staffing & Contract Roles.png"
+            src="/kye-uc/Staffing & Contract.png"
             alt="Staffing Visual"
             width={600}
             height={600}

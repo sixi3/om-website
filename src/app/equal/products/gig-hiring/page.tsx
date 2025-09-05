@@ -109,7 +109,7 @@ export default function GigHiringPage() {
         {/* Right: Video or Image */}
         <div className="hidden lg:flex relative w-full h-full items-center justify-center z-0">
           <Image
-            src="/Gig Economy Hiring.png"
+            src="/kye-uc/Gig Hiring.png"
             alt="Gig Hiring Visual"
             width={600}
             height={600}
