@@ -2,6 +2,9 @@
 
 # OneMoney Website Deployment Script
 # This script builds the Next.js app, uploads to S3, and invalidates CloudFront cache
+# Usage: ./deploy.sh [--function] [--help]
+#   --function: Deploy CloudFront function before main deployment
+#   --help: Show this help message
 
 set -e  # Exit on any error
 
@@ -10,6 +13,7 @@ BUCKET_NAME="onemoney-site"
 DISTRIBUTION_ID="E1STWZPM97FGQV"
 AWS_PROFILE="client"
 BUILD_DIR="out"
+FUNCTION_NAME="next-js-rewrite"
 
 # Colors for output
 RED='\033[0;31m'
@@ -18,7 +22,58 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
+# Parse command line arguments
+DEPLOY_FUNCTION=false
+SHOW_HELP=false
+
+for arg in "$@"; do
+    case $arg in
+        --function)
+        DEPLOY_FUNCTION=true
+        shift
+        ;;
+        --help)
+        SHOW_HELP=true
+        shift
+        ;;
+        *)
+        echo -e "${RED}❌ Unknown option: $arg${NC}"
+        echo "Use --help for usage information"
+        exit 1
+        ;;
+    esac
+done
+
+if [ "$SHOW_HELP" = true ]; then
+    echo "OneMoney Website Deployment Script"
+    echo ""
+    echo "Usage: $0 [OPTIONS]"
+    echo ""
+    echo "Options:"
+    echo "  --function    Deploy CloudFront function before main deployment"
+    echo "  --help        Show this help message"
+    echo ""
+    echo "Examples:"
+    echo "  $0                    # Standard deployment"
+    echo "  $0 --function         # Deploy function and then standard deployment"
+    exit 0
+fi
+
 echo -e "${BLUE}🚀 Starting OneMoney Website Deployment...${NC}"
+
+# Step 0: Deploy CloudFront function if requested
+if [ "$DEPLOY_FUNCTION" = true ]; then
+    echo -e "${YELLOW}⚡ Deploying CloudFront function...${NC}"
+    ./deploy-cloudfront-function.sh
+    
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✅ CloudFront function deployment completed!${NC}"
+    else
+        echo -e "${RED}❌ CloudFront function deployment failed!${NC}"
+        exit 1
+    fi
+    echo ""
+fi
 
 # Step 1: Clean previous build
 echo -e "${YELLOW}📦 Cleaning previous build...${NC}"
