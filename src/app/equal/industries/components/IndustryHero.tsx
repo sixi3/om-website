@@ -18,14 +18,14 @@ const MainTitle = React.memo(() => {
       transition={{
         delay: 0.3,
         duration: ANIMATION_CONFIG.duration,
-        ease: ANIMATION_CONFIG.ease,
+        ease: "easeInOut",
       }}
       className="space-y-6"
     >
       <motion.h1
         initial={{ y: 30, opacity: 0 }}
         animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
-        transition={{ 
+        transition={{
           duration: ANIMATION_CONFIG.duration,
           ease: [0.4, 0.0, 0.2, 1]
         }}
@@ -40,7 +40,7 @@ const MainTitle = React.memo(() => {
       <motion.p
         initial={{ y: 20, opacity: 0 }}
         animate={isInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-        transition={{ 
+        transition={{
           duration: ANIMATION_CONFIG.duration,
           delay: 0.2,
           ease: [0.4, 0.0, 0.2, 1]

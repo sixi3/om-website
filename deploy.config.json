@@ -1,0 +1,7 @@
+{
+    "bucketName": "onemoney-site",
+    "distributionId": "E1STWZPM97FGQV",
+    "awsProfile": "client",
+    "buildDir": "out",
+    "cloudfrontDomain": "d2i4ewltwbr45m.cloudfront.net"
+}

@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { 
-  motion, 
-  useMotionValue, 
-  useSpring, 
-  useTransform, 
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
   useInView
 } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -18,10 +18,10 @@ interface TiltCardProps extends React.HTMLAttributes<HTMLDivElement> {
   initialRotationY?: number;
 }
 
-export function TiltCard({ 
-  children, 
-  className, 
-  rotationFactor = 15, 
+export function TiltCard({
+  children,
+  className,
+  rotationFactor = 15,
   initialRotationX = 20,
   initialRotationY = 10
 }: TiltCardProps) {
@@ -43,7 +43,7 @@ export function TiltCard({
     [-dimensions.width / 2, dimensions.width / 2],
     [-rotationFactor, rotationFactor]
   );
-  
+
   const springConfig = { stiffness: 150, damping: 20, mass: 1 };
   const springRotateX = useSpring(hoverRotateX, springConfig);
   const springRotateY = useSpring(hoverRotateY, springConfig);
@@ -55,10 +55,10 @@ export function TiltCard({
     if (dimensions.width !== rect.width || dimensions.height !== rect.height) {
       setDimensions({ width: rect.width, height: rect.height });
     }
-    
+
     const mouseXRelative = event.clientX - rect.left;
     const mouseYRelative = event.clientY - rect.top;
-    
+
     const mouseXCentered = mouseXRelative - rect.width / 2;
     const mouseYCentered = mouseYRelative - rect.height / 2;
 
@@ -83,10 +83,6 @@ export function TiltCard({
       rotateY: 0,
       opacity: 1,
       scale: 1,
-      transition: { 
-        duration: 0.6, 
-        ease: "easeOut"
-      },
     },
   };
 
@@ -96,10 +92,11 @@ export function TiltCard({
       variants={cardVariants}
       initial="initial"
       animate={isInView ? "animate" : "initial"}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
-        rotateX: springRotateX, 
+        rotateX: springRotateX,
         rotateY: springRotateY,
         transformStyle: "preserve-3d",
         width: '100%',
@@ -109,8 +106,8 @@ export function TiltCard({
         className
       )}
     >
-      <div 
-        style={{ 
+      <div
+        style={{
           transformStyle: "preserve-3d",
         }}
         className="w-full h-full"

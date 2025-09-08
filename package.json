@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "analyze": "cross-env ANALYZE=true next build"
+    "analyze": "cross-env ANALYZE=true next build",
+    "export": "next build",
+    "deploy": "./deploy.sh",
+    "deploy:quick": "npm run build && aws s3 sync out/ s3://onemoney-site --profile client --delete && aws cloudfront create-invalidation --distribution-id E1STWZPM97FGQV --paths '/*' --profile client"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

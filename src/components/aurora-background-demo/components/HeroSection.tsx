@@ -6,19 +6,19 @@ import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ClientLogosGrid } from "./ClientLogosGrid";
 import { AnimatedCounter } from "@/app/onemoney/components/ui/animated-counter";
-import { 
-  METALLIC_GREEN_TEXT_CLASSES, 
-  METALLIC_BLACK_TEXT_CLASSES, 
+import {
+  METALLIC_GREEN_TEXT_CLASSES,
+  METALLIC_BLACK_TEXT_CLASSES,
   ANIMATION_CONFIG
 } from "../constants";
 
 const STATNUMBER = "font-extrabold bg-gradient-to-b from-[#00b140] to-[#008000] bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
 // Custom MetricsCounter component that uses parent's viewport detection
-const MetricsCounter = React.memo<{ 
-  value: number; 
-  className?: string; 
-  fixedDecimals?: number; 
+const MetricsCounter = React.memo<{
+  value: number;
+  className?: string;
+  fixedDecimals?: number;
   duration?: number;
   id: string;
   isInView: boolean;
@@ -38,7 +38,7 @@ const MetricsCounter = React.memo<{
         });
         return () => controls.stop();
       }, delay);
-      
+
       return () => clearTimeout(timeoutId);
     }
   }, [isInView, value, fixedDecimals, duration, delay]);
@@ -63,7 +63,7 @@ const MainTitle = React.memo(() => {
       transition={{
         delay: 0.3,
         duration: ANIMATION_CONFIG.duration,
-        ease: ANIMATION_CONFIG.ease,
+        ease: "easeInOut",
       }}
       className="text-center lg:text-left w-full"
     >
@@ -71,7 +71,7 @@ const MainTitle = React.memo(() => {
         <motion.h1
           initial={{ y: 30, opacity: 0 }}
           animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
-          transition={{ 
+          transition={{
             duration: ANIMATION_CONFIG.duration,
             ease: [0.4, 0.0, 0.2, 1]
           }}
@@ -192,8 +192,8 @@ const StatsSection = React.memo(() => {
             className={`flex flex-col items-center text-center md:items-start md:text-left ${index === 2 ? 'col-span-2 md:col-span-1 mt-4 md:mt-0' : ''}`}
           >
             <div className="text-2xl md:text-3xl lg:text-4xl mb-1">
-              <MetricsCounter 
-                value={stat.value} 
+              <MetricsCounter
+                value={stat.value}
                 className={STATNUMBER}
                 id={stat.id}
                 duration={2}
@@ -223,7 +223,7 @@ const LookingForSection = React.memo(() => {
 
   const buttons = [
     { text: "Employee Verifications", href: "#employment-verification" },
-    { text: "Account Aggregator", href: "/onemoney" }, 
+    { text: "Account Aggregator", href: "/onemoney" },
     { text: "Financial Analytics", href: "/moneyone/financial-services#financial-analytics-section" },
   ];
 
@@ -233,7 +233,7 @@ const LookingForSection = React.memo(() => {
   useEffect(() => {
     if (mobileScrollContainerRef.current) {
       mobileScrollContainerRef.current.scrollLeft = 0;
-      
+
       // Add scroll hint animation after a delay
       const timer = setTimeout(() => {
         if (mobileScrollContainerRef.current) {
@@ -242,7 +242,7 @@ const LookingForSection = React.memo(() => {
             left: 100,
             behavior: 'smooth'
           });
-          
+
           // Then scroll back to start
           setTimeout(() => {
             if (mobileScrollContainerRef.current) {
@@ -254,7 +254,7 @@ const LookingForSection = React.memo(() => {
           }, 800);
         }
       }, 1500); // Wait for initial animations to complete
-      
+
       return () => clearTimeout(timer);
     }
   }, []);
@@ -264,7 +264,7 @@ const LookingForSection = React.memo(() => {
       window.open(href, "_blank", "noopener,noreferrer");
       return;
     }
-    
+
     // Handle hash-based navigation for same-page sections
     if (href.startsWith('#')) {
       const element = document.getElementById(href.slice(1));
@@ -275,7 +275,7 @@ const LookingForSection = React.memo(() => {
         return;
       }
     }
-    
+
     router.push(href);
   };
 
@@ -332,7 +332,7 @@ const LookingForSection = React.memo(() => {
         <div className="inline-flex bg-linear-to-br from-background/20 to-background/50 backdrop-blur-md rounded-full border-b-2 border-slate-200 border border-slate-200 mx-auto lg:mx-0 overflow-hidden w-auto min-w-0 max-w-[90vw] lg:max-w-none">
           <div className="flex items-center gap-4 px-4 py-2 overflow-x-auto scrollbar-hide min-w-0" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             <h3 className={`text-sm font-extrabold text-slate-600 tracking-widest flex-shrink-0 whitespace-nowrap ${METALLIC_BLACK_TEXT_CLASSES}`}>
-              I'M LOOKING FOR: 
+              I'M LOOKING FOR:
             </h3>
             <div className="flex gap-2">
               {buttons.map((button, index) => (
@@ -349,11 +349,10 @@ const LookingForSection = React.memo(() => {
                   className="group inline-flex items-center px-4 py-2 shadow-sm bg-linear-to-tr from-slate-100 to-white backdrop-blur-md border-b-4 border border-[00b140]/20 hover:border-[00b140] text-[#00b140] text-sm xl:text-base font-medium rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap"
                 >
                   <span>{button.text}</span>
-                  <ArrowRight className={`h-4 w-4 text-[#00b140] transition-all duration-300 ml-2 group-hover:ml-3 ${
-                    button.text === "Account Aggregator" || button.text === "Financial Analytics"
-                      ? "group-hover:rotate-[-45deg]" 
+                  <ArrowRight className={`h-4 w-4 text-[#00b140] transition-all duration-300 ml-2 group-hover:ml-3 ${button.text === "Account Aggregator" || button.text === "Financial Analytics"
+                      ? "group-hover:rotate-[-45deg]"
                       : "group-hover:translate-x-0"
-                  }`} />
+                    }`} />
                 </motion.button>
               ))}
             </div>
@@ -376,10 +375,10 @@ export const HeroSection = React.memo(() => {
         {/* Left Column - Title, Glow Bar, and Client Logos */}
         <div className="lg:col-span-4 flex flex-col items-center lg:items-start space-y-8 text-center lg:text-left w-full max-w-6xl mx-auto lg:mx-0">
           <MainTitle />
-          
+
           {/* Stats Section */}
           <StatsSection />
-          
+
           {/* Client Logos Grid */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

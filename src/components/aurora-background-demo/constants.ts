@@ -7,29 +7,29 @@ export const METALLIC_BLACK_TEXT_CLASSES = "font-extrabold bg-gradient-to-b from
 // Animation Configuration
 export const ANIMATION_CONFIG: AnimationConfig = {
   duration: 0.6,
-  ease: [0.42, 0, 0.58, 1] // approximate easeInOut cubic-bezier
+  ease: "easeInOut" // approximate easeInOut cubic-bezier
 };
 
 // Client Logos - Most popular clients from employment and BFSI sectors
 export const CLIENT_LOGOS = [
   // Major Banks (BFSI)
   "/om-list/HDFC Bank.png",
-  "/om-list/ICICI Bank.png", 
+  "/om-list/ICICI Bank.png",
   "/om-list/SBI.png",
   "/om-list/Kotak Mahindra Bank.png",
-  
+
   // Financial Services & Brokerages
   "/om-list/Zerodha.png",
   "/om-list/Motilal Oswal.png",
   "/mo-clients/Paisabazaar.png",
   "/om-list/AngelOne.png",
-  
+
   // Major Corporations (Employment)
   "/kye-clients/L&T.png",
   "/kye-clients/JSW.png",
   "/kye-clients/Airtel.png",
   "/kye-clients/EY.png",
-  
+
   // Healthcare & Pharma (Employment)
   "/kye-clients/Glenmark.png",
   "/kye-clients/Hetero Labs.png",
