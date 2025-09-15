@@ -5,20 +5,20 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // Initial placeholder data for server render and initial client render
 const initialGraphDataset = {
-  week: Array.from({ length: 7 }, () => ({ 
-    value: 0, 
+  week: Array.from({ length: 7 }, () => ({
+    value: 0,
     label: '',
-    secondaryValue: 0 
+    secondaryValue: 0
   })),
-  month: Array.from({ length: 7 }, () => ({ 
-    value: 0, 
+  month: Array.from({ length: 7 }, () => ({
+    value: 0,
     label: '',
-    secondaryValue: 0 
+    secondaryValue: 0
   })),
-  sixMonths: Array.from({ length: 6 }, () => ({ 
-    value: 0, 
+  sixMonths: Array.from({ length: 6 }, () => ({
+    value: 0,
     label: '',
-    secondaryValue: 0 
+    secondaryValue: 0
   })),
 };
 
@@ -35,9 +35,9 @@ interface LineGraphCardProps {
   disableAutoRotate?: boolean;
 }
 
-export const LineGraphCard = ({ 
-  onAnimationComplete: onExternalAnimationComplete, 
-  disableAutoRotate = false 
+export const LineGraphCard = ({
+  onAnimationComplete: onExternalAnimationComplete,
+  disableAutoRotate = false
 }: LineGraphCardProps) => {
   const [activeTab, setActiveTab] = useState('week');
   const [animationCompleted, setAnimationCompleted] = useState(false);
@@ -46,7 +46,7 @@ export const LineGraphCard = ({
   const [clientGraphDatasets, setClientGraphDatasets] = useState(initialGraphDataset);
   const [clientLastUpdated, setClientLastUpdated] = useState('');
   const [isClient, setIsClient] = useState(false);
-  
+
   // Add states for animated counter values
   const [displayedRaised, setDisplayedRaised] = useState(0);
   const [displayedApproved, setDisplayedApproved] = useState(0);
@@ -55,7 +55,7 @@ export const LineGraphCard = ({
   useEffect(() => {
     // This effect runs once on the client after hydration
     setIsClient(true);
-    
+
     // Generate datasets for each tab
     const weekData = Array.from({ length: 7 }, (_, i) => {
       const primaryValue = Math.floor(Math.random() * 40) + 40; // 40-80
@@ -66,7 +66,7 @@ export const LineGraphCard = ({
         label: new Date(Date.now() - (6 - i) * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { weekday: 'short' })
       };
     });
-    
+
     const monthData = Array.from({ length: 7 }, (_, i) => {
       const primaryValue = Math.floor(Math.random() * 40) + 40;
       const secondaryValue = Math.floor(primaryValue * (0.5 + Math.random() * 0.3));
@@ -76,7 +76,7 @@ export const LineGraphCard = ({
         label: new Date(Date.now() - (6 - i) * 7 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
       };
     });
-    
+
     const sixMonthsData = Array.from({ length: 6 }, (_, i) => {
       const primaryValue = Math.floor(Math.random() * 40) + 40;
       const secondaryValue = Math.floor(primaryValue * (0.5 + Math.random() * 0.3));
@@ -86,15 +86,15 @@ export const LineGraphCard = ({
         label: new Date(Date.now() - (5 - i) * 30 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short' })
       };
     });
-    
+
     setClientGraphDatasets({
       week: weekData,
       month: monthData,
       sixMonths: sixMonthsData
     });
-    
+
     setClientLastUpdated(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' }));
-  }, []); 
+  }, []);
 
   // Handle tab change
   const changeTab = (tabId: string) => {
@@ -108,12 +108,12 @@ export const LineGraphCard = ({
   // Auto rotate tabs after animation completes
   useEffect(() => {
     // Only auto-rotate if not disabled and animation has completed
-    if (animationCompleted && isClient && !disableAutoRotate) { 
+    if (animationCompleted && isClient && !disableAutoRotate) {
       animationTimeoutRef.current = setTimeout(() => {
         const currentIndex = tabs.findIndex(tab => tab.id === activeTab);
         const nextIndex = (currentIndex + 1) % tabs.length;
         changeTab(tabs[nextIndex].id);
-      }, 2000); 
+      }, 2000);
     }
 
     return () => {
@@ -133,32 +133,30 @@ export const LineGraphCard = ({
   // Animation controls
   const pathVariants = {
     hidden: { pathLength: 0 },
-    visible: { 
+    visible: {
       pathLength: 1,
-      transition: { 
-        duration: 2,
-        ease: "easeInOut"
+      transition: {
+        duration: 2
       }
     }
   };
 
   const secondaryPathVariants = {
     hidden: { pathLength: 0 },
-    visible: { 
+    visible: {
       pathLength: 1,
-      transition: { 
+      transition: {
         duration: 2,
-        delay: 0.3, // Slight delay for the blue line
-        ease: "easeInOut"
+        delay: 0.3 // Slight delay for the blue line
       }
     }
   };
 
   const fillVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
-      transition: { 
+      transition: {
         delay: 1.5,
         duration: 1.5
       }
@@ -167,9 +165,9 @@ export const LineGraphCard = ({
 
   const secondaryFillVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
-      transition: { 
+      transition: {
         delay: 1.8, // Slight delay for blue gradient
         duration: 1.5
       }
@@ -182,17 +180,17 @@ export const LineGraphCard = ({
   const padding = 30;
   const chartWidth = width - padding * 2;
   const chartHeight = height - padding * 2;
-  
+
   // Use client-side generated data if available, otherwise initial placeholders
   const currentData = (isClient ? clientGraphDatasets : initialGraphDataset)[activeTab as keyof typeof initialGraphDataset];
-  
+
   // Create the primary line path (green)
   const points = currentData.map((point, i) => {
     const x = padding + (i * (chartWidth / (currentData.length - 1)));
     const y = height - padding - (point.value / 100 * chartHeight);
     return `${x},${y}`;
   }).join(' ');
-  
+
   // Create path for primary line
   const linePath = `M ${points}`;
 
@@ -205,7 +203,7 @@ export const LineGraphCard = ({
     const y = height - padding - (point.secondaryValue / 100 * chartHeight);
     return `${x},${y}`;
   }).join(' ');
-  
+
   // Create path for secondary line
   const secondaryLinePath = `M ${secondaryPoints}`;
 
@@ -214,16 +212,16 @@ export const LineGraphCard = ({
 
   // Animation completion handler for Framer Motion (internal)
   const handleInternalAnimationComplete = () => {
-    if(isClient) setAnimationCompleted(true);
+    if (isClient) setAnimationCompleted(true);
   };
 
   // Calculate totals based on the current dataset
   const calculateTotals = (data: typeof currentData) => {
     if (!data || data.length === 0) return { raised: 0, approved: 0 };
-    
+
     return {
-      raised: data.reduce((sum, point) => (sum + point.value)*10, 0),
-      approved: data.reduce((sum, point) => (sum + point.secondaryValue)*10, 0)
+      raised: data.reduce((sum, point) => (sum + point.value) * 10, 0),
+      approved: data.reduce((sum, point) => (sum + point.secondaryValue) * 10, 0)
     };
   };
 
@@ -232,33 +230,33 @@ export const LineGraphCard = ({
   // Animate count when totals change
   useEffect(() => {
     if (!isClient || (totals.raised === 0 && totals.approved === 0)) return;
-    
+
     // Set initial values if first time
     if (displayedRaised === 0 && displayedApproved === 0) {
       setDisplayedRaised(totals.raised);
       setDisplayedApproved(totals.approved);
       return;
     }
-    
+
     setAnimatingCount(true);
-    
+
     // Animation settings
     const duration = 1000; // 1 second duration
     const frameRate = 60;
     const framesCount = duration / (1000 / frameRate);
-    
+
     const startRaised = displayedRaised;
     const startApproved = displayedApproved;
     const diffRaised = totals.raised - startRaised;
     const diffApproved = totals.approved - startApproved;
-    
+
     let frame = 0;
-    
+
     // Clear any existing animation
     if (animationTimeoutRef.current) {
       clearTimeout(animationTimeoutRef.current);
     }
-    
+
     const animateFrame = () => {
       if (frame >= framesCount) {
         setDisplayedRaised(totals.raised);
@@ -266,21 +264,21 @@ export const LineGraphCard = ({
         setAnimatingCount(false);
         return;
       }
-      
+
       // Easing function - ease out cubic: t * t * (3.0 - 2.0 * t)
       const progress = frame / framesCount;
       const easeProgress = progress * progress * (3.0 - 2.0 * progress);
-      
+
       setDisplayedRaised(Math.round(startRaised + diffRaised * easeProgress));
       setDisplayedApproved(Math.round(startApproved + diffApproved * easeProgress));
-      
+
       frame++;
-      
+
       animationTimeoutRef.current = setTimeout(animateFrame, 1000 / frameRate);
     };
-    
+
     animateFrame();
-    
+
     return () => {
       if (animationTimeoutRef.current) {
         clearTimeout(animationTimeoutRef.current);
@@ -289,7 +287,7 @@ export const LineGraphCard = ({
   }, [isClient, totals.raised, totals.approved]);
 
   return (
-    <motion.div 
+    <motion.div
       className="bg-background/70 backdrop-blur-md dark:bg-neutral-900 rounded-xl shadow-lg overflow-hidden max-w-xl mx-auto"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -298,18 +296,17 @@ export const LineGraphCard = ({
       <div className="p-4 border-b border-slate-200 dark:border-neutral-800">
         <div className="flex justify-between items-center">
           <h3 className="text-md lg:text-lg font-medium text-slate-800 dark:text-neutral-200">Consent Trend</h3>
-          
+
           <div className="flex">
             <div className="flex space-x-1 bg-slate-400/10 backdrop-blur-md dark:bg-neutral-800 rounded-full p-0.5">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => changeTab(tab.id)}
-                  className={`px-3 py-1 text-xs font-medium rounded-full transition-all ${
-                    activeTab === tab.id
+                  className={`px-3 py-1 text-xs font-medium rounded-full transition-all ${activeTab === tab.id
                       ? "bg-white dark:bg-neutral-700 text-green-600 dark:text-green-400 shadow-sm"
                       : "text-slate-600 dark:text-neutral-400 hover:bg-white/50 dark:hover:bg-neutral-700/50"
-                  }`}
+                    }`}
                 >
                   {tab.label}
                 </button>
@@ -342,7 +339,7 @@ export const LineGraphCard = ({
               </div>
             </div>
           </div>
-          
+
           <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/10 rounded-lg p-3">
             <div className="flex items-center">
               <div className="w-3 h-3 rounded-full border-4 border-green-500 mr-2"></div>
@@ -358,7 +355,7 @@ export const LineGraphCard = ({
           </div>
         </div>
       )}
-      
+
       <div className="p-0">
         <AnimatePresence mode="wait">
           <motion.div
@@ -374,19 +371,19 @@ export const LineGraphCard = ({
                 {[0, 1, 2, 3, 4].map((line) => {
                   const y = padding + (line * (chartHeight / 4));
                   return (
-                    <line 
+                    <line
                       key={`grid-${line}`}
-                      x1={padding} 
-                      y1={y} 
-                      x2={width - padding} 
-                      y2={y} 
-                      stroke="#f4f4f4" 
-                      strokeWidth="1" 
+                      x1={padding}
+                      y1={y}
+                      x2={width - padding}
+                      y2={y}
+                      stroke="#f4f4f4"
+                      strokeWidth="1"
                       strokeDasharray="5,5"
                     />
                   );
                 })}
-                
+
                 {/* X-axis labels */}
                 {currentData.map((point, i) => {
                   if (point.label) {
@@ -395,8 +392,8 @@ export const LineGraphCard = ({
                       <text
                         key={`label-${i}`}
                         x={x}
-                        y={height - 10} 
-                        fill="#94a3b8" 
+                        y={height - 10}
+                        fill="#94a3b8"
                         fontSize="10"
                         textAnchor="middle"
                       >
@@ -406,21 +403,21 @@ export const LineGraphCard = ({
                   }
                   return null;
                 })}
-                
+
                 <defs>
                   {/* Primary (green) gradient */}
                   <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                     <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.5" />
                     <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.1" />
                   </linearGradient>
-                  
+
                   {/* Secondary (blue) gradient */}
                   <linearGradient id="secondaryAreaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                     <stop offset="0%" stopColor="#3cd070" stopOpacity="0.5" />
                     <stop offset="100%" stopColor="#3cd070" stopOpacity="0.1" />
                   </linearGradient>
                 </defs>
-                
+
                 {/* Secondary (blue) area */}
                 <motion.path
                   d={secondaryAreaPath}
@@ -429,7 +426,7 @@ export const LineGraphCard = ({
                   initial="hidden"
                   animate="visible"
                 />
-                
+
                 {/* Secondary (blue) line */}
                 <motion.path
                   d={secondaryLinePath}
@@ -442,7 +439,7 @@ export const LineGraphCard = ({
                   initial="hidden"
                   animate="visible"
                 />
-                
+
                 {/* Primary (green) area */}
                 <motion.path
                   d={areaPath}
@@ -451,7 +448,7 @@ export const LineGraphCard = ({
                   initial="hidden"
                   animate="visible"
                 />
-                
+
                 {/* Primary (green) line */}
                 <motion.path
                   d={linePath}
@@ -465,7 +462,7 @@ export const LineGraphCard = ({
                   animate="visible"
                   onAnimationComplete={handleInternalAnimationComplete}
                 />
-                
+
                 {/* Data points for primary (green) line */}
                 {currentData.map((point, i) => {
                   const x = padding + (i * (chartWidth / (currentData.length - 1)));
@@ -479,14 +476,14 @@ export const LineGraphCard = ({
                       fill="#3b82f6"
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ 
-                        delay: 1.8 + (i * (0.8 / currentData.length)), 
-                        duration: 0.3 
+                      transition={{
+                        delay: 1.8 + (i * (0.8 / currentData.length)),
+                        duration: 0.3
                       }}
                     />
                   );
                 })}
-                
+
                 {/* Data points for secondary (blue) line */}
                 {currentData.map((point, i) => {
                   const x = padding + (i * (chartWidth / (currentData.length - 1)));
@@ -500,9 +497,9 @@ export const LineGraphCard = ({
                       fill="#00b140"
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ 
-                        delay: 2.0 + (i * (0.8 / currentData.length)), 
-                        duration: 0.3 
+                      transition={{
+                        delay: 2.0 + (i * (0.8 / currentData.length)),
+                        duration: 0.3
                       }}
                     />
                   );
@@ -517,40 +514,40 @@ export const LineGraphCard = ({
           </motion.div>
         </AnimatePresence>
       </div>
-      
+
       <div className="p-4 dark:bg-neutral-800/50">
 
 
-            {/* Legend with hollow circles - moved outside the SVG */}
-            {isClient && currentData && currentData.length > 0 && currentData[0].label !== '' && (
-              <div className="flex justify-center items-center space-x-6 pb-4">
-                <div className="flex items-center space-x-2">
-                  <svg width="12" height="12" viewBox="0 0 16 16">
-                    <circle cx="8" cy="8" r="6" fill="none" stroke="#3b82f6" strokeWidth="4" />
-                  </svg>
-                  <span className="text-xs text-slate-600 dark:text-neutral-400">Consents Raised</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <svg width="12" height="12" viewBox="0 0 16 16">
-                    <circle cx="8" cy="8" r="6" fill="none" stroke="#00b140" strokeWidth="4" />
-                  </svg>
-                  <span className="text-xs text-slate-600 dark:text-neutral-400">Consents Approved</span>
-                </div>
-              </div>
-            )}
-    
+        {/* Legend with hollow circles - moved outside the SVG */}
+        {isClient && currentData && currentData.length > 0 && currentData[0].label !== '' && (
+          <div className="flex justify-center items-center space-x-6 pb-4">
+            <div className="flex items-center space-x-2">
+              <svg width="12" height="12" viewBox="0 0 16 16">
+                <circle cx="8" cy="8" r="6" fill="none" stroke="#3b82f6" strokeWidth="4" />
+              </svg>
+              <span className="text-xs text-slate-600 dark:text-neutral-400">Consents Raised</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <svg width="12" height="12" viewBox="0 0 16 16">
+                <circle cx="8" cy="8" r="6" fill="none" stroke="#00b140" strokeWidth="4" />
+              </svg>
+              <span className="text-xs text-slate-600 dark:text-neutral-400">Consents Approved</span>
+            </div>
+          </div>
+        )}
+
         <div className="flex justify-between items-center">
           <div className="text-sm text-slate-500 dark:text-neutral-400">
             Last updated: {isClient ? clientLastUpdated : ''}
           </div>
-          <motion.div 
+          <motion.div
             className="text-sm font-medium text-green-600 dark:text-green-400"
             initial={{ opacity: 0 }}
             animate={{ opacity: isClient ? 1 : 0 }}
             transition={{ delay: 2.5, duration: 0.5 }}
           >
-            {isClient && (activeTab === 'week' ? '+24% growth' : 
-             activeTab === 'month' ? '+32% growth' : '+47% growth')}
+            {isClient && (activeTab === 'week' ? '+24% growth' :
+              activeTab === 'month' ? '+32% growth' : '+47% growth')}
           </motion.div>
         </div>
       </div>

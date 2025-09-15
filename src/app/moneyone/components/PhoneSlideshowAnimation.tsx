@@ -13,8 +13,8 @@ const images = [
 
 const variants = {
   initial: { opacity: 0 },
-  animate: { opacity: 1, transition: { duration: 0.8, ease: 'easeInOut' } },
-  exit: { opacity: 0, transition: { duration: 0.8, ease: 'easeInOut' } },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 
 export const PhoneSlideshowAnimation = () => {
@@ -30,29 +30,30 @@ export const PhoneSlideshowAnimation = () => {
 
   return (
     <div className="flex justify-center items-center w-full h-full">
-        <ClayPhoneMockup className="h-[650px] w-[310px]">
-            <div className="relative w-full h-full bg-white dark:bg-neutral-900">
-                <AnimatePresence initial={false} mode="wait">
-                <motion.div
-                    key={index}
-                    variants={variants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    className="absolute inset-0"
-                >
-                    <Image
-                    src={images[index]}
-                    alt={`UI Theme ${index + 1}`}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-[2rem]"
-                    priority={index === 0}
-                    />
-                </motion.div>
-                </AnimatePresence>
-            </div>
-        </ClayPhoneMockup>
+      <ClayPhoneMockup className="h-[650px] w-[310px]">
+        <div className="relative w-full h-full bg-white dark:bg-neutral-900">
+          <AnimatePresence initial={false} mode="wait">
+            <motion.div
+              key={index}
+              variants={variants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={images[index]}
+                alt={`UI Theme ${index + 1}`}
+                layout="fill"
+                objectFit="cover"
+                className="rounded-[2rem]"
+                priority={index === 0}
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </ClayPhoneMockup>
     </div>
   );
 }; 

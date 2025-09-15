@@ -14,15 +14,15 @@ interface PhoneScreenHeaderProps {
   activeKey?: string | number; // Key for AnimatePresence, optional if not animating
   showBackButton?: boolean;
   showMoreButton?: boolean;
-  className?: string; 
+  className?: string;
   animateTransition?: boolean; // New prop for conditional animation
 }
 
 // Animation variants for header items
 const headerItemVariants = {
   initial: { opacity: 0, y: 10 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeInOut" } },
-  exit: { opacity: 0, y: -10, transition: { duration: 0.3, ease: "easeInOut" } },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -10 },
 };
 
 const OriginalPhoneScreenHeader: React.FC<PhoneScreenHeaderProps> = ({
@@ -57,12 +57,13 @@ const OriginalPhoneScreenHeader: React.FC<PhoneScreenHeaderProps> = ({
               initial="initial"
               animate="animate"
               exit="exit"
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <Image 
+              <Image
                 src={logoSrc}
                 alt={altText}
-                width={16} 
-                height={16} 
+                width={16}
+                height={16}
                 className="flex-shrink-0"
               />
               <span className="font-bold text-md whitespace-nowrap">{title}</span>
@@ -71,18 +72,18 @@ const OriginalPhoneScreenHeader: React.FC<PhoneScreenHeaderProps> = ({
         ) : (
           // Render directly without animation
           <div className="flex items-center gap-x-2">
-            <Image 
+            <Image
               src={logoSrc}
               alt={altText}
-              width={16} 
-              height={16} 
+              width={16}
+              height={16}
               className="flex-shrink-0"
             />
             <span className="font-bold text-md whitespace-nowrap">{title}</span>
           </div>
         )}
       </div>
-      
+
       {showMoreButton && <MoreVertical className="h-5 w-5 flex-shrink-0 z-10" />}
     </div>
   );
