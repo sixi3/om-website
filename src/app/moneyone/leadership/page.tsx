@@ -11,8 +11,15 @@ const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bo
 // Board member data from BoardOfDirectors.tsx
 const boardMembers = [
   {
+    id: 1,
+    name: "Krishna Prasad Atluri",
+    role: "CEO & Founder",
+    description: "Entrepreneur and founder of OneMoney & MoneyOne. Engineer-MBA with Gold Medals in Economics and Finance. Deep expertise in Finance, Operations and Technology with strong commitment to corporate governance. ",
+    imageUrl: "/team-pictures/KP.png"
+  },
+  {
     id: 2,
-    name: "Jagdish Capoor", 
+    name: "Jagdish Capoor",
     role: "Independent Director",
     description: "Former Deputy Governor of the Reserve Bank of India with a career spanning key financial institutions. Held leadership roles at HDFC Bank and LIC, contributing significantly to India's banking evolution. His regulatory expertise strengthens governance and risk management.",
     imageUrl: "/board/Jagdish Capoor.png"
@@ -67,12 +74,12 @@ const ProfileCard = React.memo<ProfileCardProps>(({
       <div className="relative w-80 h-96 rounded-lg overflow-hidden shadow-lg bg-white">
         {/* Profile Image Section with Gradient Background */}
         <div className="relative h-48 w-full bg-gradient-to-br from-white to-slate-100 overflow-hidden rounded-t-lg">
-          <div className="w-full h-full scale-110">
+          <div className="w-full h-full ">
             <Image
               src={imageUrl}
               alt={name}
               fill
-              className="object-contain w-full h-full"
+              className="object-contain w-full h-full object-bottom"
               sizes="(max-width: 768px) 100vw, 320px"
             />
           </div>

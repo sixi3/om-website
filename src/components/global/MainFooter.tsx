@@ -19,13 +19,14 @@ interface FooterSection {
 type CompanySection = 'equal' | 'moneyone' | 'onemoney' | 'default';
 
 const getCompanySection = (pathname: string): CompanySection => {
+  const host = typeof window !== 'undefined' ? window.location.host : '';
   if (pathname.startsWith('/equal') || pathname.startsWith('/solutions')) {
     return 'equal';
   }
-  if (pathname.startsWith('/moneyone')) {
-    return 'moneyone'; 
+  if (pathname.startsWith('/moneyone') || host.includes("moneyone.in")) {
+    return 'moneyone';
   }
-  if (pathname.startsWith('/onemoney')) {
+  if (pathname.startsWith('/onemoney') || host.includes("onemoney.in")) {
     return 'onemoney';
   }
   return 'default';

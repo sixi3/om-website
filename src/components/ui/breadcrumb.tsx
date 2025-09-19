@@ -74,6 +74,7 @@ const routeTitleMap: Record<string, string> = {
 
 // Function to generate breadcrumb items from pathname
 const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
+  const host = typeof window !== 'undefined' ? window.location.host : '';
   const segments = pathname.split("/").filter(Boolean);
   const items: BreadcrumbItem[] = [];
   
@@ -247,7 +248,7 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
   }
   
   // Special handling for MoneyOne main page - add Products breadcrumb
-  if (pathname === "/moneyone") {
+  if (pathname === "/moneyone" || host.includes("moneyone.in")) {
     items.push({
       title: "Products",
       href: "/#bfsi-section",
@@ -405,6 +406,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
   sectionName = "MoneyOne",
 }) => {
   const pathname = usePathname();
+  const host = typeof window !== 'undefined' ? window.location.host : '';
   const [isMounted, setIsMounted] = React.useState(false);
   
   React.useEffect(() => {
@@ -412,7 +414,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
   }, []);
   
   // Don't show breadcrumbs on MoneyOne landing page
-  if (pathname === "/moneyone") {
+  if (pathname === "/moneyone" || host.includes("moneyone.in")) {
     return null;
   }
   
@@ -425,6 +427,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
   const generateMoneyOneBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     const segments = pathname.split("/").filter(Boolean);
     const items: BreadcrumbItem[] = [];
+    const host = typeof window !== 'undefined' ? window.location.host : '';
     
     // Add home pointing to MoneyOne
     items.push({
@@ -433,7 +436,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
     });
     
     // Special handling for MoneyOne product pages - add Products and Product breadcrumbs
-    if (pathname.startsWith("/moneyone/products/")) {
+    if (pathname.startsWith("/moneyone/products/") || (host.includes("moneyone.in") && pathname.startsWith("/products/"))) {
       items.push({
         title: "Products",
         href: "/moneyone#products",
@@ -451,7 +454,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
     }
     
       // Special handling for MoneyOne financial-services page - add Financial Services breadcrumb directly
-  if (pathname === "/moneyone/financial-services") {
+  if (pathname === "/moneyone/financial-services" || (host.includes("moneyone.in") && pathname === "/financial-services")) {
     items.push({
       title: "Financial Services",
       href: "/moneyone/financial-services",
@@ -462,7 +465,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
   }
   
   // Special handling for MoneyOne solutions pages - add Usecases and page name breadcrumbs
-  if (pathname.startsWith("/moneyone/solutions/")) {
+  if (pathname.startsWith("/moneyone/solutions/") || (host.includes("moneyone.in") && pathname.startsWith("/solutions/"))) {
     items.push({
       title: "Usecases",
       href: "/moneyone#solutions",

@@ -135,22 +135,6 @@ ProfileCard.displayName = 'ProfileCard';
 const FoundersTeam = () => {
   // Filter out the "Super Achievers" card - only show first 3 founders
   const foundersOnly = [
-    
-    {
-      id: "co-founder",
-      name: "Rajeev Ranjan",
-      title: "CO-FOUNDER",
-      description: "A technology pioneer with 10+ years of experience in building some of India's largest platforms.",
-      imageUrl: "/team-pictures/rajeev-ranjan.png",
-      socialLinks: [
-        { 
-          id: "linkedin", 
-          platform: "LinkedIn", 
-          url: "https://www.linkedin.com/in/rajeevjranjan?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", 
-          icon: <LinkedinIcon className="w-full h-full" />
-        }
-      ]
-    },
     {
       id: "co-founder-2",
       name: "KP Atluri",

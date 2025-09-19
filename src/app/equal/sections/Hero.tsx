@@ -95,7 +95,7 @@ export function Hero() {
               />
               <span>India&apos;s Most Advanced Employee Verification Platform</span>
             </span>
-            <h1 className="text-4xl tracking-tight leading-tight sm:text-8xl md:text-3xl lg:text-2xl xl:text-8xl">
+            <h1 className="text-4xl tracking-tight leading-tight sm:text-8xl md:text-3xl lg:text-2xl xl:text-7xl">
               <span className={metallicBlackTextClasses}>The</span>{" "}
               <span className="inline-block bg-[#baff29] px-2 text-primary font-bold">
                 Future

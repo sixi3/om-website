@@ -200,45 +200,108 @@ export default function LeadershipPage() {
           </motion.div>
         </div>
 
-        {/* Desktop: Grid layout (5+4) */}
+        {/* Desktop: Grid layout (5+4 for lg and 2xl+, 3+3+1 for xl) */}
         <div className="hidden lg:block max-w-7xl mx-auto">
-          {/* First row - 5 items */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0.6,
-              delay: 0.2
-            }}
-            className="flex justify-center items-center space-x-6"
-          >
-            {boardMembers.slice(0, 5).map((member, index) => (
-              <ProfileCard
-                key={member.id}
-                {...member}
-              />
-            ))}
-          </motion.div>
+          {/* Layout for lg and 2xl+ screens (5+4) */}
+          <div className="xl:hidden 2xl:block">
+            {/* First row - 5 items */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.6,
+                delay: 0.2
+              }}
+              className="flex justify-center items-center space-x-6"
+            >
+              {boardMembers.slice(0, 5).map((member, index) => (
+                <ProfileCard
+                  key={member.id}
+                  {...member}
+                />
+              ))}
+            </motion.div>
 
-          {/* Second row - 4 items */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0.6,
-              delay: 0.4
-            }}
-            className="flex justify-center items-center space-x-6 mt-12"
-          >
-            {boardMembers.slice(5).map((member, index) => (
-              <ProfileCard
-                key={member.id}
-                {...member}
-              />
-            ))}
-          </motion.div>
+            {/* Second row - 4 items */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.6,
+                delay: 0.4
+              }}
+              className="flex justify-center items-center space-x-6 mt-12"
+            >
+              {boardMembers.slice(5).map((member, index) => (
+                <ProfileCard
+                  key={member.id}
+                  {...member}
+                />
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Layout for xl screens only (3+3+1) */}
+          <div className="hidden xl:block 2xl:hidden">
+            {/* First row - 3 items */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.6,
+                delay: 0.2
+              }}
+              className="flex justify-center items-center space-x-6"
+            >
+              {boardMembers.slice(0, 3).map((member, index) => (
+                <ProfileCard
+                  key={member.id}
+                  {...member}
+                />
+              ))}
+            </motion.div>
+
+            {/* Second row - 3 items */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.6,
+                delay: 0.4
+              }}
+              className="flex justify-center items-center space-x-6 mt-12"
+            >
+              {boardMembers.slice(3, 6).map((member, index) => (
+                <ProfileCard
+                  key={member.id}
+                  {...member}
+                />
+              ))}
+            </motion.div>
+
+            {/* Third row - 1 item */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.6,
+                delay: 0.6
+              }}
+              className="flex justify-center mt-12"
+            >
+              {boardMembers.slice(6, 7).map((member, index) => (
+                <ProfileCard
+                  key={member.id}
+                  {...member}
+                />
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
       </main>

@@ -56,9 +56,10 @@ export const LineGraphCard = ({
     // This effect runs once on the client after hydration
     setIsClient(true);
 
-    // Generate datasets for each tab
+    // Generate datasets for each tab with increasing values for lakhs scale
+    // Week: ~1 lakh total (14,000-20,000 range per point)
     const weekData = Array.from({ length: 7 }, (_, i) => {
-      const primaryValue = Math.floor(Math.random() * 40) + 40; // 40-80
+      const primaryValue = Math.floor(Math.random() * 6000) + 14000; // 14,000-20,000
       const secondaryValue = Math.floor(primaryValue * (0.5 + Math.random() * 0.3)); // 50-80% of primary value
       return {
         value: primaryValue,
@@ -67,8 +68,9 @@ export const LineGraphCard = ({
       };
     });
 
+    // Month: ~4 lakhs total (4x week, 57,000-80,000 range per point)
     const monthData = Array.from({ length: 7 }, (_, i) => {
-      const primaryValue = Math.floor(Math.random() * 40) + 40;
+      const primaryValue = Math.floor(Math.random() * 23000) + 57000; // 57,000-80,000
       const secondaryValue = Math.floor(primaryValue * (0.5 + Math.random() * 0.3));
       return {
         value: primaryValue,
@@ -77,8 +79,9 @@ export const LineGraphCard = ({
       };
     });
 
+    // Six months: ~24 lakhs total (6x month, 400,000-550,000 range per point)
     const sixMonthsData = Array.from({ length: 6 }, (_, i) => {
-      const primaryValue = Math.floor(Math.random() * 40) + 40;
+      const primaryValue = Math.floor(Math.random() * 150000) + 400000; // 400,000-550,000
       const secondaryValue = Math.floor(primaryValue * (0.5 + Math.random() * 0.3));
       return {
         value: primaryValue,
@@ -184,10 +187,15 @@ export const LineGraphCard = ({
   // Use client-side generated data if available, otherwise initial placeholders
   const currentData = (isClient ? clientGraphDatasets : initialGraphDataset)[activeTab as keyof typeof initialGraphDataset];
 
+  // Find max value for dynamic scaling
+  const maxValue = Math.max(...currentData.map(point => point.value));
+  const maxSecondaryValue = Math.max(...currentData.map(point => point.secondaryValue));
+  const overallMax = Math.max(maxValue, maxSecondaryValue);
+
   // Create the primary line path (green)
   const points = currentData.map((point, i) => {
     const x = padding + (i * (chartWidth / (currentData.length - 1)));
-    const y = height - padding - (point.value / 100 * chartHeight);
+    const y = height - padding - (point.value / overallMax * chartHeight);
     return `${x},${y}`;
   }).join(' ');
 
@@ -200,7 +208,7 @@ export const LineGraphCard = ({
   // Create the secondary line path (blue)
   const secondaryPoints = currentData.map((point, i) => {
     const x = padding + (i * (chartWidth / (currentData.length - 1)));
-    const y = height - padding - (point.secondaryValue / 100 * chartHeight);
+    const y = height - padding - (point.secondaryValue / overallMax * chartHeight);
     return `${x},${y}`;
   }).join(' ');
 
@@ -220,8 +228,8 @@ export const LineGraphCard = ({
     if (!data || data.length === 0) return { raised: 0, approved: 0 };
 
     return {
-      raised: data.reduce((sum, point) => (sum + point.value) * 10, 0),
-      approved: data.reduce((sum, point) => (sum + point.secondaryValue) * 10, 0)
+      raised: data.reduce((sum, point) => sum + point.value, 0),
+      approved: data.reduce((sum, point) => sum + point.secondaryValue, 0)
     };
   };
 
@@ -466,7 +474,7 @@ export const LineGraphCard = ({
                 {/* Data points for primary (green) line */}
                 {currentData.map((point, i) => {
                   const x = padding + (i * (chartWidth / (currentData.length - 1)));
-                  const y = height - padding - (point.value / 100 * chartHeight);
+                  const y = height - padding - (point.value / overallMax * chartHeight);
                   return (
                     <motion.circle
                       key={`point-${i}`}
@@ -487,7 +495,7 @@ export const LineGraphCard = ({
                 {/* Data points for secondary (blue) line */}
                 {currentData.map((point, i) => {
                   const x = padding + (i * (chartWidth / (currentData.length - 1)));
-                  const y = height - padding - (point.secondaryValue / 100 * chartHeight);
+                  const y = height - padding - (point.secondaryValue / overallMax * chartHeight);
                   return (
                     <motion.circle
                       key={`secondary-point-${i}`}

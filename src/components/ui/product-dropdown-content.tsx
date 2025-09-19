@@ -270,7 +270,8 @@ ProductSection.displayName = 'ProductSection'
 // Memoized main component
 export const ProductDropdownContent = memo(() => {
   const pathname = usePathname()
-  const isMoneyOnePage = pathname.startsWith('/moneyone')
+  const host = typeof window !== 'undefined' ? window.location.host : ''
+  const isMoneyOnePage = pathname.startsWith('/moneyone') || host.includes("moneyone.in")
   
   // Filter out employment section when on MoneyOne pages
   const filteredSections = useMemo(() => {

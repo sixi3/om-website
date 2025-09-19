@@ -16,39 +16,39 @@ const metallicTextClasses = "font-bold bg-gradient-to-b from-[#3cd070] to-[#00b1
 // Updated neutral shades for darker metallic black effect
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 
-import { FileText, Link, CreditCard, Vote, Car, ShieldCheck, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck } from "lucide-react";
+import { FileText, Link, CreditCard, Vote, Car, ShieldCheck, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck, Fingerprint, Receipt, Building2, Heart, Database, User, CheckCircle, Home, Navigation, Stethoscope, IndianRupee } from "lucide-react";
 
 const verificationTypesRow1 = [
-  { name: "Aadhaar", icon: <FileText className="w-6 h-6" /> },
+  { name: "Aadhaar", icon: <Fingerprint className="w-6 h-6" /> },
   { name: "PAN Basic", icon: <FileText className="w-6 h-6" /> },
-  { name: "PAN Advanced", icon: <Link className="w-6 h-6" /> },
+  { name: "PAN Advanced", icon: <CheckCircle className="w-6 h-6" /> },
   { name: "Bank Account Validation", icon: <CreditCard className="w-6 h-6" /> },
   { name: "Voter ID", icon: <Vote className="w-6 h-6" /> },
   { name: "Driving License", icon: <Car className="w-6 h-6" /> },
-  { name: "Vehicle RC", icon: <Car className="w-6 h-6" /> },
-  { name: "ESIC", icon: <ShieldCheck className="w-6 h-6" /> },
+  { name: "Vehicle RC", icon: <Receipt className="w-6 h-6" /> },
+  { name: "ESIC", icon: <Heart className="w-6 h-6" /> },
   { name: "Social Media", icon: <Share2 className="w-6 h-6" /> },
   { name: "Criminal Court", icon: <Scale className="w-6 h-6" /> },
   { name: "Police Verification", icon: <ShieldCheck className="w-6 h-6" /> },
-  { name: "Global Database", icon: <Globe className="w-6 h-6" /> },
-  { name: "Payslip", icon: <FileText className="w-6 h-6" /> },
+  { name: "Global Database", icon: <Database className="w-6 h-6" /> },
+  { name: "Payslip", icon: <IndianRupee className="w-6 h-6" /> },
   { name: "Bank Statement", icon: <CreditCard className="w-6 h-6" /> },
 ];
 
 const verificationTypesRow2 = [
-  { name: "Credit Check", icon: <CreditCard className="w-6 h-6" /> },
+  { name: "Credit Check", icon: <CheckCircle className="w-6 h-6" /> },
   { name: "Credit Default Database", icon: <AlertTriangle className="w-6 h-6" /> },
-  { name: "Permanent Address", icon: <MapPin className="w-6 h-6" /> },
+  { name: "Permanent Address", icon: <Home className="w-6 h-6" /> },
   { name: "Current Address", icon: <MapPin className="w-6 h-6" /> },
-  { name: "Digital Address", icon: <Map className="w-6 h-6" /> },
+  { name: "Digital Address", icon: <Navigation className="w-6 h-6" /> },
   { name: "Education", icon: <GraduationCap className="w-6 h-6" /> },
   { name: "Employment & Conduct", icon: <Briefcase className="w-6 h-6" /> },
-  { name: "Self-Employment", icon: <Briefcase className="w-6 h-6" /> },
-  { name: "PF UAN Advanced", icon: <FileText className="w-6 h-6" /> },
+  { name: "Self-Employment", icon: <Building2 className="w-6 h-6" /> },
+  { name: "PF UAN Advanced", icon: <ShieldCheck className="w-6 h-6" /> },
   { name: "CV Validation", icon: <FileCheck className="w-6 h-6" /> },
-  { name: "Directorship Check", icon: <Users className="w-6 h-6" /> },
+  { name: "Directorship Check", icon: <Building2 className="w-6 h-6" /> },
   { name: "Right to Work", icon: <UserCheck className="w-6 h-6" /> },
-  { name: "Professional Reference", icon: <Users className="w-6 h-6" /> },
+  { name: "Professional Reference", icon: <User className="w-6 h-6" /> },
 ];
 
 const VerificationCard = ({ name, icon }: { name: string; icon: React.ReactNode }) => (

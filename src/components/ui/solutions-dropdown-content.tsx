@@ -231,7 +231,8 @@ const SolutionSection: React.FC<{ section: SolutionSection; sectionIndex: number
 
 export const SolutionsDropdownContent: React.FC = () => {
   const pathname = usePathname()
-  const isMoneyOnePage = pathname.startsWith('/moneyone')
+  const host = window.location.host
+  const isMoneyOnePage = pathname.startsWith('/moneyone') || host.includes("moneyone.in")
   
   // Use MoneyOne specific sections when on MoneyOne pages, otherwise use original
   const solutionSections = isMoneyOnePage ? moneyOneSolutionSections : originalSolutionSections

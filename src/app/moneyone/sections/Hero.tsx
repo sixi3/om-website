@@ -24,7 +24,6 @@ const clientLogos = [
   { src: "/mo-clients/Jio Insurance.png", alt: "Jio Insurance" },
   { src: "/mo-clients/Kotak Securities.png", alt: "Kotak Securities" },
   { src: "/mo-clients/Lenden by Innofin.png", alt: "Lenden by Innofin" },
-  { src: "/mo-clients/Motilal Oswal.png", alt: "Motilal Oswal" },
   { src: "/mo-clients/Motilal Oswal MF.png", alt: "Motilal Oswal MF" },
   { src: "/mo-clients/MPokket.png", alt: "MPokket" },
   { src: "/mo-clients/Paisabazaar.png", alt: "Paisabazaar" },
@@ -82,7 +81,7 @@ export function Hero() {
                 height={24}
                 className="rounded-full"
               />
-              <span>India&apos;s Largest Account Aggregator TSP</span>
+              <span>The trusted choice for financial institutions</span>
             </span>
             <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-5xl xl:text-8xl">
               <span className={metallicBlackTextClasses}>India&apos;s</span>{" "}

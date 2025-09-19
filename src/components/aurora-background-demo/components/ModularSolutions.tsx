@@ -216,7 +216,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/equal/solutions/enterprise-hiring",
+        href: "/equal/products/enterprise-hiring",
         icon: <Building size={24} />
       },
       {
@@ -229,7 +229,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/equal/solutions/gig-hiring",
+        href: "/equal/products/gig-hiring",
         icon: <Users size={24} />
       },
       {
@@ -242,7 +242,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/equal/solutions/staffing",
+        href: "/equal/products/staffing",
         icon: <Briefcase size={24} />
       },
       {
