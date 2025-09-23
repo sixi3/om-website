@@ -24,6 +24,15 @@ export const CLIENT_LOGOS = [
   "/mo-clients/Paisabazaar.png",
   "/om-list/AngelOne.png",
 
+  // Additional mo-clients logos
+  "/mo-clients/RBL Bank.png",
+  "/mo-clients/IDBI Bank.png",
+  "/mo-clients/Home Credit.png",
+  "/mo-clients/Kotak Securities.png",
+  "/mo-clients/Motilal Oswal MF.png",
+  "/mo-clients/Jio Insurance.png",
+  "/mo-clients/Epifi Wealth (FI).png",
+
   // Major Corporations (Employment)
   "/kye-clients/L&T.png",
   "/kye-clients/JSW.png",
@@ -35,4 +44,44 @@ export const CLIENT_LOGOS = [
   "/kye-clients/Hetero Labs.png",
   "/kye-clients/Wellness Forever.png",
   "/kye-clients/Honour Labs.png"
+];
+
+// Specialized logo arrays for different solutions
+export const LENDING_LOGOS = [
+  "/mo-clients/HDFC Bank.png",
+  "/mo-clients/SBI.png",
+  "/mo-clients/RBL Bank.png",
+  "/mo-clients/IDBI Bank.png",
+  "/mo-clients/Home Credit.png",
+  "/mo-clients/Bajaj Finserv 2.png",
+  "/mo-clients/Poonawalla Fincorp.png",
+  "/mo-clients/Snapmint.png",
+  "/mo-clients/MPokket.png",
+  "/mo-clients/Early Salary (Fibe).png"
+];
+
+export const WEALTH_MANAGEMENT_LOGOS = [
+  "/mo-clients/Motilal Oswal MF.png",
+  "/mo-clients/Kotak Securities.png",
+  "/mo-clients/Epifi Wealth (FI).png",
+  "/mo-clients/HDFC Bank.png",
+  "/mo-clients/SBI.png",
+  "/mo-clients/Jio Insurance.png"
+];
+
+export const BROKERAGE_LOGOS = [
+  "/mo-clients/Kotak Securities.png",
+  "/mo-clients/Motilal Oswal MF.png",
+  "/mo-clients/HDFC Bank.png",
+  "/mo-clients/SBI.png",
+  "/mo-clients/Paisabazaar.png"
+];
+
+export const ADVISORY_LOGOS = [
+  "/mo-clients/Paisabazaar.png",
+  "/mo-clients/Motilal Oswal MF.png",
+  "/mo-clients/Kotak Securities.png",
+  "/mo-clients/Jio Insurance.png",
+  "/mo-clients/HDFC Bank.png",
+  "/mo-clients/Epifi Wealth (FI).png"
 ]; 

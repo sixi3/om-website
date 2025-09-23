@@ -6,7 +6,7 @@ import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
 import { motion, AnimatePresence } from "framer-motion";
 import { Building, FileText, Zap, MessageCircle, ShieldCheck, Link, CreditCard, Vote, Car, Share2, Scale, Globe, AlertTriangle, MapPin, Map, GraduationCap, Briefcase, Users, UserCheck, FileCheck, Settings, Code, Webhook, Terminal, TrendingUp, PieChart, BarChart3, Target, Calculator, DollarSign, Clock, CheckCircle, AlertCircle } from "lucide-react";
-import { CLIENT_LOGOS } from "@/components/aurora-background-demo/constants";
+import { LENDING_LOGOS } from "@/components/aurora-background-demo/constants";
 import { GlowingDivider } from "@/components/ui/glowing-divider";
 import { BackgroundGrid } from "@/components/ui/background-grid";
 import {
@@ -86,11 +86,11 @@ export default function LendingHero() {
             </div>
             <div className="w-full flex flex-col items-center md:items-start mb-8">
               <span className="text-xs font-semibold tracking-widest text-slate-500 mb-2 uppercase">Trusted by leading financial institutions</span>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-xl items-center justify-items-center">
-                {CLIENT_LOGOS.slice(0, 4).map((logo, idx) => (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-xl items-center justify-items-center mt-2">
+                {LENDING_LOGOS.slice(0, 4).map((logo, idx) => (
                   <div key={logo} className="relative w-32 h-10 flex items-center justify-center">
                     <Image
-                      src={`/client-logos/${logo}`}
+                      src={logo}
                       alt={`Client logo ${idx + 1}`}
                       fill
                       className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"

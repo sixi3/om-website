@@ -209,16 +209,16 @@ export default function GigHiringPage() {
       <section className="relative w-full pb-12 md:py-10 overflow-hidden">
         <Suspense fallback={<SectionLoader />}>
           {/* First Marquee - Full Width */}
-          <div className="mb-0 md:mb-2">
-            <Marquee gradient={false} speed={80} pauseOnHover={true} className="py-2 scale-75 md:scale-100">
+          <div className="mb-0 md:mb-2 w-full overflow-hidden">
+            <Marquee gradient={false} speed={150} pauseOnHover={true} className="py-2">
               {[...verificationTypesRow1, ...verificationTypesRow1].map((type, index) => (
                 <VerificationCard key={`row1-${index}`} name={type.name} icon={type.icon} />
               ))}
             </Marquee>
           </div>
           {/* Second Marquee - Full Width - Reverse Direction */}
-          <div className="md:py-4">
-            <Marquee gradient={false} speed={80} pauseOnHover={true} direction="right" className="py-2 scale-75 md:scale-100">
+          <div className="md:py-4 w-full overflow-hidden">
+            <Marquee gradient={false} speed={150} pauseOnHover={true} direction="right" className="py-2">
               {[...verificationTypesRow2, ...verificationTypesRow2].map((type, index) => (
                 <VerificationCard key={`row2-${index}`} name={type.name} icon={type.icon} />
               ))}

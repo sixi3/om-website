@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useEffect, Suspense } from "react";
 import { BackgroundGrid } from "@/components/ui/background-grid";
-import { motion, AnimatePresence } from "framer-motion";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { MainHeader } from "@/components/global/MainHeader";
 import { useSearchParams } from "next/navigation";
@@ -176,16 +175,13 @@ function TermsContent() {
       </div>
 
       {/* Terms Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+      <div
         className="bg-background/20 dark:bg-slate-800/50 p-6 sm:p-8 md:p-10 rounded-xl shadow-lg border border-slate-200 dark:border-neutral-700 max-w-7xl mx-auto"
       >
         <div className="prose prose-slate dark:prose-invert max-w-none">
           {currentTerms.content}
         </div>
-      </motion.div>
+      </div>
     </>
   );
 }

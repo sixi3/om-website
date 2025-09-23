@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { TiltCard } from "../components/ui/tilt-card";
 import { BackgroundGrid } from '@/components/ui/background-grid';
 
 
@@ -26,7 +25,7 @@ export default function PoliciesPage() {
         </div>
 
         {/* Policy Content */}
-        <TiltCard className="relative w-full rounded-lg border border-slate-200 bg-background/10 p-6 md:p-8 backdrop-blur-md shadow-xl dark:bg-black/50">
+        <div className="relative w-full rounded-lg border border-slate-200 bg-background/10 p-6 md:p-8 backdrop-blur-md shadow-xl dark:bg-black/50">
           <div className="relative z-20 text-foreground/90">
             <div className="prose prose-slate dark:prose-invert max-w-none">
             <p className="mb-4">
@@ -507,7 +506,7 @@ export default function PoliciesPage() {
               </p>
             </div>
           </div>
-        </TiltCard>
+        </div>
       </div>
     </main>
   );

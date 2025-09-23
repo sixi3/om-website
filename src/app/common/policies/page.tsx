@@ -2,7 +2,6 @@
 
 import React, { Suspense } from "react";
 import { BackgroundGrid } from "@/components/ui/background-grid";
-import { motion } from "framer-motion";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { MainHeader } from "@/components/global/MainHeader";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -41,10 +40,7 @@ export default function PoliciesPage() {
             </div>
 
             {/* Policy Content */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+            <div
               className="bg-background/20 dark:bg-slate-800/50 p-6 sm:p-8 md:p-10 rounded-xl shadow-lg border border-slate-200 dark:border-neutral-700 max-w-7xl mx-auto"
             >
               <div className="prose prose-slate dark:prose-invert max-w-none">
@@ -200,7 +196,7 @@ export default function PoliciesPage() {
                   We would also like to inform you that as per the Digital Personal Data Protection Act, 2023, if you have any concerns with respect to the manner in which we process your data, you may also make a complaint to the Data Protection Board as and when established through a notification by the Central Government and in a manner as prescribed.
                 </p>
               </div>
-            </motion.div>
+            </div>
           </Suspense>
         </div>
       </AuroraBackground>

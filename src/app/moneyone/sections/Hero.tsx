@@ -139,7 +139,7 @@ export function Hero() {
               <div className="flex-grow h-px bg-foreground/20"></div>
             </div>
 
-            <Marquee gradient={false} speed={50} pauseOnHover={true}>
+            <Marquee gradient={false} speed={150} pauseOnHover={true}>
               {clientLogos.map((logo, index) => (
                 <div
                   key={index}

@@ -162,7 +162,7 @@ export function Hero() {
               </h2>
               <div className="flex-grow h-px bg-foreground/20"></div>
             </div>
-            <Marquee gradient={false} speed={50} pauseOnHover={true}>
+            <Marquee gradient={false} speed={150} pauseOnHover={true}>
               {clientLogos.map((logo, index) => (
                 <div key={index} className="mx-4 flex h-20 items-center justify-center">
                   <Image

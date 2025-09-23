@@ -125,7 +125,7 @@ const productsData = [
     header: (
       <div className="relative w-full aspect-video min-h-[6rem] rounded-xl overflow-hidden border border-slate-200 dark:border-neutral-700">
         <Image 
-          src="/finpro-image.png" // Placeholder image
+          src="/finshare-image.png" // Placeholder image
           alt="FinShare illustration"
           fill={true}
           className="object-cover"

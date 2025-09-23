@@ -109,13 +109,13 @@ export function Stats({ showVerifyBanner = true }: { showVerifyBanner?: boolean 
             </div>
           </div>
           {/* Marquee Banners */}
-          <div className="mt-8 space-y-4">
-            <Marquee gradient={false} speed={80} pauseOnHover={true} className="py-2 scale-75 md:scale-100">
+          <div className="mt-8 space-y-4 w-full overflow-hidden">
+            <Marquee gradient={false} speed={150} pauseOnHover={true} className="py-2">
               {[...verificationTypesRow1, ...verificationTypesRow1].map((type, index) => (
                 <VerificationCard key={`row1-${index}`} name={type.name} icon={type.icon} />
               ))}
             </Marquee>
-            <Marquee gradient={false} speed={80} pauseOnHover={true} direction="right" className="py-2 scale-75 md:scale-100">
+            <Marquee gradient={false} speed={150} pauseOnHover={true} direction="right" className="py-2">
               {[...verificationTypesRow2, ...verificationTypesRow2].map((type, index) => (
                 <VerificationCard key={`row2-${index}`} name={type.name} icon={type.icon} />
               ))}

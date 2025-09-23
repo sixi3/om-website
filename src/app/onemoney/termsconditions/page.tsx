@@ -1,5 +1,4 @@
 import React from "react";
-import { TiltCard } from "../components/ui/tilt-card";
 import { BackgroundGrid } from "@/components/ui/background-grid";
 
 // Define metallic black class (consider moving to shared lib later)
@@ -23,7 +22,7 @@ export default function TermsConditionsPage() {
         </div>
 
         {/* Terms Content */}
-        <TiltCard className="relative w-full rounded-lg border border-slate-200 bg-background/10 p-6 md:p-8 backdrop-blur-md shadow-xl dark:bg-black/50">
+        <div className="relative w-full rounded-lg border border-slate-200 bg-background/10 p-6 md:p-8 backdrop-blur-md shadow-xl dark:bg-black/50">
           <div className="relative z-20 text-foreground/90">
             <div className="prose prose-slate dark:prose-invert max-w-none">
               <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 mb-6">
@@ -327,7 +326,7 @@ export default function TermsConditionsPage() {
               </p>
             </div>
           </div>
-        </TiltCard>
+        </div>
       </div>
     </main>
   );

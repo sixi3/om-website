@@ -389,7 +389,7 @@ const IndustryInnovationSection = React.memo(() => {
               </Link>
               
               {/* Play Store Download Button */}
-              {<Link href="https://play.google.com/store/apps/details?id=com.equal.ai" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex justify-center">
+              {<Link href="https://play.google.com/store/apps/details?id=in.equal.ai.assistant" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex justify-center">
                 <div className="group inline-flex items-center px-6 py-3 bg-black/30 border border-[#baff29]/70 text-white text-md md:text-lg font-semibold rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap hover:bg-white/10 hover:border-white/40 hover:shadow-lg hover:shadow-white/10 hover:bh-white/20 w-full sm:w-auto justify-center">
                   <Image
                     src="/playstore.png"
