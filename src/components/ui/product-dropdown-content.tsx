@@ -54,7 +54,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/moneyone/products/finpro"
+        href: "https://moneyone.in/products/finpro"
       },
       {
         id: "finshare-fip-tsp",
@@ -66,7 +66,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/moneyone/products/finshare"
+        href: "https://moneyone.in/products/finshare"
       },
       {
         id: "financial-analytics",
@@ -78,7 +78,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/moneyone/financial-services#financial-analytics-section"
+        href: "https://moneyone.in/financial-services#financial-analytics-section"
       }
     ]
   },

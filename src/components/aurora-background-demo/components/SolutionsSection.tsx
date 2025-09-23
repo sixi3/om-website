@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid"; 
+import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,7 +21,7 @@ const solutionsData = [
       width: 56,
       height: 56
     },
-    href: getDomainSpecificHref("/moneyone/financial-services"),
+    href: "https://moneyone.in/financial-services",
     icon: <Building size={24} />,
     colSpan: 2 as const,
     rowSpan: 1 as const,
@@ -72,7 +72,7 @@ const solutionsData = [
       width: 56,
       height: 56
     },
-    href: getDomainSpecificHref("/moneyone/financial-services#financial-analytics-section"),
+    href: "https://moneyone.in/financial-services#financial-analytics-section",
     icon: <BarChart3 size={24} />,
     colSpan: 2 as const,
     rowSpan: 1 as const,
@@ -92,8 +92,8 @@ export function SolutionsSection() {
     >
       <div className="container px-4 md:px-6 mx-auto">
         <div className="text-center mb-12 md:mb-16">
-        <span className="text-sm md:text-base font-semibold text-[#00b140] tracking-widest uppercase">
-          DATA SHARING SOLUTIONS     
+          <span className="text-sm md:text-base font-semibold text-[#00b140] tracking-widest uppercase">
+            DATA SHARING SOLUTIONS
           </span>
           <h2 className="text-2xl tracking-tight leading-tight sm:text-4xl md:text-5xl mb-4 mt-8">
             <span className={metallicBlackTextClasses}>Empowering businesses with </span>{" "}
@@ -102,7 +102,7 @@ export function SolutionsSection() {
             </span>
           </h2>
           <p className="w-4/5 mx-auto font-medium text-sm md:text-lg text-slate-700 dark:text-slate-300">
-          A unified suite tailored for BFSI, employment, and consumer needs - enabling data sharing for all Indians
+            A unified suite tailored for BFSI, employment, and consumer needs - enabling data sharing for all Indians
           </p>
         </div>
 
@@ -115,11 +115,10 @@ export function SolutionsSection() {
                   <span className="group-hover:text-[#00b140] transition-colors duration-300 text-md md:text-lg">
                     {item.title}
                   </span>
-                  <div className={`${
-                    item.id === "financial-services" || item.id === "financial-analytics"
-                      ? "rotate-0 group-hover:-rotate-45 group-hover:text-[#00b140]" 
-                      : "translate-x-0 group-hover:translate-x-1 group-hover:text-[#00b140]"
-                  } transition-all duration-300 ease-out`}>
+                  <div className={`${item.id === "financial-services" || item.id === "financial-analytics"
+                    ? "rotate-0 group-hover:-rotate-45 group-hover:text-[#00b140]"
+                    : "translate-x-0 group-hover:translate-x-1 group-hover:text-[#00b140]"
+                    } transition-all duration-300 ease-out`}>
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
@@ -137,8 +136,8 @@ export function SolutionsSection() {
               imageClassName={item.imageClassName}
               className="group cursor-pointer h-full bg-white/50 backdrop-blur-md border-slate-200/80 hover:border-[#00b140]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00b140]/10"
               header={
-                <div 
-                  className="absolute inset-0 z-10 cursor-pointer" 
+                <div
+                  className="absolute inset-0 z-10 cursor-pointer"
                   onClick={() => {
                     // Open financial services and financial analytics in new tab
                     if (item.id === "financial-services" || item.id === "financial-analytics") {

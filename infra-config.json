@@ -1,0 +1,10 @@
+{
+    "S3_BUCKET": "one-equal-website",
+    "DISTRIBUTION_ID": "E3CED6WX6SU9JL",
+    "DISTRIBUTION_DOMAIN": "dz99agkntwo9k.cloudfront.net",
+    "OAC_ID": "E1JX0TGECK826X",
+    "FUNCTION_NAME": "OneEqual-Redirection-Function",
+    "DOMAIN_FUNCTION_NAME": "OneEqual-Domain-Routing-Function",
+    "AWS_PROFILE": "Production",
+    "AWS_REGION": "us-east-1"
+}

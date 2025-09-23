@@ -77,7 +77,7 @@ const ResourcesDropdownContent: React.FC = () => {
         width: 40,
         height: 40
       },
-      href: currentCompany === 'moneyone' ? "/moneyone/trust-security" : "/equal/trust-security"
+      href: currentCompany === 'moneyone' ? "/trust-security" : "/equal/trust-security"
     },
     /* {
       id: "blog",

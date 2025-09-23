@@ -73,16 +73,7 @@ const getCompanySection = (pathname: string): CompanySection => {
 };
 
 const getHomeUrl = (section: CompanySection): string => {
-  switch (section) {
-    case 'moneyone':
-      return '/moneyone';
-    case 'onemoney':
-      return '/onemoney';
-    case 'equal':
-      return '/equal';
-    default:
-      return '/';
-  }
+  return '/';
 };
 
 const getTabConfigurations = (section: CompanySection): TabConfig[] => [
@@ -97,7 +88,7 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => [
     ]
   },
   {
-    trigger: "PRODUCTS", 
+    trigger: "PRODUCTS",
     content: ProductDropdownContent,
     mobileLinks: section === 'moneyone' ? [
       // BFSI Section only for MoneyOne - no new tab for internal links
@@ -265,15 +256,15 @@ const AnimatedHamburger = memo(({ isOpen, onClick }: { isOpen: boolean; onClick:
 AnimatedHamburger.displayName = 'AnimatedHamburger';
 
 // Mobile collapsible section component
-const MobileCollapsibleSection = memo(({ 
-  section, 
-  isOpen, 
-  onToggle, 
+const MobileCollapsibleSection = memo(({
+  section,
+  isOpen,
+  onToggle,
   pathname,
-  onLinkClick 
-}: { 
-  section: MobileSection; 
-  isOpen: boolean; 
+  onLinkClick
+}: {
+  section: MobileSection;
+  isOpen: boolean;
   onToggle: () => void;
   pathname: string;
   onLinkClick: () => void;
@@ -319,7 +310,7 @@ const MobileCollapsibleSection = memo(({
           <ChevronDown className="w-4 h-4 text-slate-600" />
         </motion.div>
       </button>
-      
+
       <motion.div
         variants={sectionVariants}
         animate={isOpen ? "open" : "closed"}
@@ -331,14 +322,14 @@ const MobileCollapsibleSection = memo(({
             <motion.div
               key={link.href}
               initial={{ opacity: 0, x: -20 }}
-              animate={{ 
-                opacity: isOpen ? 1 : 0, 
-                x: isOpen ? 0 : -20 
+              animate={{
+                opacity: isOpen ? 1 : 0,
+                x: isOpen ? 0 : -20
               }}
-              transition={{ 
-                duration: 0.3, 
+              transition={{
+                duration: 0.3,
                 delay: isOpen ? index * 0.05 + 0.1 : 0,
-                ease: "easeOut" 
+                ease: "easeOut"
               }}
             >
               {link.isHeader ? (
@@ -406,7 +397,7 @@ export function MainHeader({ className }: MainHeaderProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
   const pathname = usePathname();
-  
+
   // Get dynamic tab configuration based on current section
   const currentSection = getCompanySection(pathname);
   const tabConfigs = getTabConfigurations(currentSection);
@@ -490,18 +481,18 @@ export function MainHeader({ className }: MainHeaderProps) {
             <Link href={getHomeUrl(currentSection)} className="flex items-center">
               <Image
                 src={
-                  currentSection === 'onemoney' 
+                  currentSection === 'onemoney'
                     ? "/onemoney-logo.svg"
                     : currentSection === 'moneyone'
-                    ? "/moneyone-logo.svg"
-                    : "/equal-logo.svg"
+                      ? "/moneyone-logo.svg"
+                      : "/equal-logo.svg"
                 }
                 alt={
-                  currentSection === 'onemoney' 
+                  currentSection === 'onemoney'
                     ? "OneMoney Logo"
                     : currentSection === 'moneyone'
-                    ? "MoneyOne Logo"
-                    : "Equal Logo"
+                      ? "MoneyOne Logo"
+                      : "Equal Logo"
                 }
                 width={71}
                 height={21}
@@ -524,7 +515,7 @@ export function MainHeader({ className }: MainHeaderProps) {
         {/* Mobile Menu - Integrated into header container */}
         <AnimatePresence>
           {isMobileMenuOpen && (
-            <motion.div 
+            <motion.div
               className="border-t border-white/20 max-h-[80vh] overflow-y-auto"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
@@ -546,7 +537,7 @@ export function MainHeader({ className }: MainHeaderProps) {
 
                 {/* GET IN TOUCH Button for Mobile */}
                 <div className="p-4 border-t border-slate-200/30 lg:border-white/20">
-                  <ShimmerButton 
+                  <ShimmerButton
                     className="w-full justify-center"
                     onClick={() => {
                       closeMobileMenu();
@@ -577,7 +568,7 @@ export function MainHeader({ className }: MainHeaderProps) {
         animate={{
           borderRadius: isScrolled ? "9999px" : "0px"
         }}
-        transition={{ 
+        transition={{
           duration: 0.2
         }}
       >
@@ -587,18 +578,18 @@ export function MainHeader({ className }: MainHeaderProps) {
             <Link href={getHomeUrl(currentSection)} className="flex items-center">
               <Image
                 src={
-                  currentSection === 'onemoney' 
+                  currentSection === 'onemoney'
                     ? "/onemoney-logo.svg"
                     : currentSection === 'moneyone'
-                    ? "/moneyone-logo.svg"
-                    : "/equal-logo.svg"
+                      ? "/moneyone-logo.svg"
+                      : "/equal-logo.svg"
                 }
                 alt={
-                  currentSection === 'onemoney' 
+                  currentSection === 'onemoney'
                     ? "OneMoney Logo"
                     : currentSection === 'moneyone'
-                    ? "MoneyOne Logo"
-                    : "Equal Logo"
+                      ? "MoneyOne Logo"
+                      : "Equal Logo"
                 }
                 width={71}
                 height={21}
@@ -611,7 +602,7 @@ export function MainHeader({ className }: MainHeaderProps) {
               />
             </Link>
           </div>
-          
+
           {/* Center: Desktop Navigation with Dropdowns */}
           <nav className="flex items-center justify-center flex-1">
             <div className="flex items-center gap-2 md:gap-4">
@@ -621,7 +612,7 @@ export function MainHeader({ className }: MainHeaderProps) {
                     <Trigger key={index}>{config.trigger}</Trigger>
                   ))}
                 </TriggerWrapper>
-                
+
                 <TabsContainer>
                   {tabConfigs.map((config, index) => {
                     const ContentComponent = config.content;
@@ -635,7 +626,7 @@ export function MainHeader({ className }: MainHeaderProps) {
               </DropdownMenu>
             </div>
           </nav>
-          
+
           {/* Right: GET IN TOUCH Button (Desktop only) */}
           <div className="flex items-center flex-shrink-0 ml-auto pl-4">
             <ShimmerButton onClick={openDialog}>

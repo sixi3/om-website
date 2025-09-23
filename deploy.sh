@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# OneMoney Website Deployment Script
+# MoneyOne Website Deployment Script
 # This script builds the Next.js app, uploads to S3, and invalidates CloudFront cache
 # Usage: ./deploy.sh [--function] [--help]
 #   --function: Deploy CloudFront function before main deployment
@@ -9,11 +9,11 @@
 set -e  # Exit on any error
 
 # Configuration
-BUCKET_NAME="onemoney-site"
-DISTRIBUTION_ID="E1STWZPM97FGQV"
-AWS_PROFILE="client"
+BUCKET_NAME="one-equal-website"
+DISTRIBUTION_ID="E3CED6WX6SU9JL"
+AWS_PROFILE="Production"
 BUILD_DIR="out"
-FUNCTION_NAME="next-js-rewrite"
+FUNCTION_NAME="OneEqual-Domain-Routing-Function"
 
 # Colors for output
 RED='\033[0;31m'
@@ -45,7 +45,7 @@ for arg in "$@"; do
 done
 
 if [ "$SHOW_HELP" = true ]; then
-    echo "OneMoney Website Deployment Script"
+    echo "MoneyOne Website Deployment Script"
     echo ""
     echo "Usage: $0 [OPTIONS]"
     echo ""
@@ -59,7 +59,7 @@ if [ "$SHOW_HELP" = true ]; then
     exit 0
 fi
 
-echo -e "${BLUE}🚀 Starting OneMoney Website Deployment...${NC}"
+echo -e "${BLUE}🚀 Starting MoneyOne Website Deployment...${NC}"
 
 # Step 0: Deploy CloudFront function if requested
 if [ "$DEPLOY_FUNCTION" = true ]; then

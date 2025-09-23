@@ -11,15 +11,17 @@ export function getDomainSpecificHref(href: string): string {
   const host = window.location.host
 
   // Check for moneyone.in domain
-  const isMoneyOneDomain = host === 'moneyone.in' || host === 'www.moneyone.in'
+  const isMoneyOneDomain = host.includes('moneyone.in')
   if (isMoneyOneDomain && href.startsWith('/moneyone/')) {
-    return href.replace('/moneyone/', '')
+    const pathWithoutDomain = href.replace('/moneyone/', '')
+    return pathWithoutDomain.startsWith('/') ? pathWithoutDomain : `/${pathWithoutDomain}`
   }
 
   // Check for onemoney subdomain
-  const isOneMoneyDomain = host === 'onemoney.in' || host === 'www.onemoney.in'
+  const isOneMoneyDomain = host.includes('onemoney.in') || host.includes('d2bd7hfw4pwyvv.cloudfront.net')
   if (isOneMoneyDomain && href.startsWith('/onemoney/')) {
-    return href.replace('/onemoney/', '')
+    const pathWithoutDomain = href.replace('/onemoney/', '')
+    return pathWithoutDomain.startsWith('/') ? pathWithoutDomain : `/${pathWithoutDomain}`
   }
 
   return href
