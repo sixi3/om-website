@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image"; // Added for card headers
 import Link from "next/link"; // Added for navigation
 import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid"; // Added for product cards
+import { getDomainSpecificHref } from '@/lib/utils';
 import { motion } from "framer-motion";
 import { 
   Star, // Keep Star if TitlePill still uses it (user removed it, but keeping for safety if it's added back)
@@ -189,7 +190,7 @@ export function Products() {
         {/* Product Cards Section */}
         <BentoGrid className="mx-auto md:grid-cols-2"> {/* Using md:grid-cols-2 for two cards side-by-side */}
           {productsData.map((item) => (
-            <Link key={item.id} href={item.id === 1 ? "/moneyone/products/finpro" : "/moneyone/products/finshare"} className="block">
+            <Link key={item.id} href={getDomainSpecificHref(item.id === 1 ? "/moneyone/products/finpro" : "/moneyone/products/finshare")} className="block">
               <BentoGridItem
                 title={item.title}
                 description={item.description}
@@ -314,7 +315,7 @@ export function ProductsWithoutStats() {
         {/* Product Cards Section */}
         <BentoGrid className="mx-auto md:grid-cols-2"> {/* Using md:grid-cols-2 for two cards side-by-side */}
           {productsData.map((item) => (
-            <Link key={item.id} href={item.id === 1 ? "/moneyone/products/finpro" : "/moneyone/products/finshare"} className="block">
+            <Link key={item.id} href={getDomainSpecificHref(item.id === 1 ? "/moneyone/products/finpro" : "/moneyone/products/finshare")} className="block">
               <BentoGridItem
                 title={item.title}
                 description={item.description}

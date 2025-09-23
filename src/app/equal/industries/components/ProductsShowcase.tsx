@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { getDomainSpecificHref } from '@/lib/utils';
 import { ShieldCheck, LayoutDashboard, IndianRupee, Building2, ArrowRight, Send, UploadCloud, FileCheck, Link as LinkIcon, Settings, Fingerprint, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -84,7 +84,7 @@ export const allProducts: Product[] = [
       { icon: <ShieldCheck />, text: 'Automated income verification' },
       { icon: <FileCheck />, text: 'Credit risk assessment tools' },
     ],
-    cta: { text: 'Learn About FinPro', href: '/moneyone/products/finpro' }
+    cta: { text: 'Learn About FinPro', href: getDomainSpecificHref('/moneyone/products/finpro') }
   }
 ];
 

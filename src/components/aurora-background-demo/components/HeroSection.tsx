@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ClientLogosGrid } from "./ClientLogosGrid";
 import { AnimatedCounter } from "@/app/onemoney/components/ui/animated-counter";
+import { getDomainSpecificHref } from '@/lib/utils';
 import {
   METALLIC_GREEN_TEXT_CLASSES,
   METALLIC_BLACK_TEXT_CLASSES,
@@ -224,10 +225,10 @@ const LookingForSection = React.memo(() => {
   const buttons = [
     { text: "Employee Verifications", href: "#employment-verification" },
     { text: "Account Aggregator", href: "/onemoney" },
-    { text: "Financial Analytics", href: "/moneyone/financial-services#financial-analytics-section" },
+    { text: "Financial Analytics", href: getDomainSpecificHref("/moneyone/financial-services#financial-analytics-section") },
   ];
 
-  const newTabLinks = new Set<string>(["/onemoney", "/moneyone/financial-services#financial-analytics-section"]);
+  const newTabLinks = new Set<string>(["/onemoney", getDomainSpecificHref("/moneyone/financial-services#financial-analytics-section")]);
 
   // Ensure scroll position starts at the beginning on mobile and add scroll hint animation
   useEffect(() => {

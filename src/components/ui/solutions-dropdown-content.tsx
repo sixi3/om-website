@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { getDomainSpecificHref } from '@/lib/utils'
 
 interface SolutionItem {
   id: string
@@ -158,7 +159,7 @@ const SolutionItem: React.FC<{ item: SolutionItem; index: number }> = ({ item, i
       }}
     >
       <Link 
-        href={item.href}
+        href={getDomainSpecificHref(item.href)}
         target={shouldOpenInNewTab ? "_blank" : undefined}
         rel={shouldOpenInNewTab ? "noopener noreferrer" : undefined}
         role="menuitem"

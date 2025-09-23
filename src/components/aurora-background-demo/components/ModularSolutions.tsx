@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Users, Briefcase, Shield, Building, IndianRupee, BarChart3, Smartphone, Heart, Building2, AlertTriangle, UserCheck } from "lucide-react";
 import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
-import { cn } from "@/lib/utils";
+import { cn, getDomainSpecificHref } from "@/lib/utils";
 import { 
   METALLIC_BLACK_TEXT_CLASSES, 
   ANIMATION_CONFIG
@@ -552,12 +552,12 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
               {cta.primary ? (
                 // Dual CTA layout for financial section
                 <>
-                  <Link href={cta.primary.href} target="_blank" rel="noopener noreferrer">
+                  <Link href={getDomainSpecificHref(cta.primary.href)} target="_blank" rel="noopener noreferrer">
                     <ShimmerButton className="text-md 2xl:text-lg">
                       {cta.primary.text}
                     </ShimmerButton>
                   </Link>
-                  <Link href={cta.secondary.href} target="_blank" rel="noopener noreferrer">
+                  <Link href={getDomainSpecificHref(cta.secondary.href)} target="_blank" rel="noopener noreferrer">
                     <ShimmerButton className="text-md 2xl:text-lg">
                       {cta.secondary.text}
                     </ShimmerButton>
@@ -565,7 +565,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 </>
               ) : (
                 // Single CTA layout for other sections
-                <Link href={cta.href}>
+                <Link href={getDomainSpecificHref(cta.href)}>
                   <ShimmerButton className="text-md md:text-lg">
                     {cta.text}
                   </ShimmerButton>

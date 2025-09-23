@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { getDomainSpecificHref } from '@/lib/utils'
 
 interface ResourceItem {
   id: string
@@ -158,7 +159,7 @@ const ResourcesDropdownContent: React.FC = () => {
               transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
             >
               <Link 
-                href={item.href!}
+                href={getDomainSpecificHref(item.href!)}
                 target={item.external ? "_blank" : undefined}
                 rel={item.external ? "noopener noreferrer" : undefined}
                 role="menuitem"

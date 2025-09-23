@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { getDomainSpecificHref } from "@/lib/utils";
 
 interface FooterSection {
   title: string;
@@ -137,7 +138,7 @@ export function MainFooter() {
                       </div>
                     ) : (
                       <Link
-                        href={link.href}
+                        href={getDomainSpecificHref(link.href)}
                         className={`text-sm transition-colors duration-200 ${
                           pathname === link.href
                             ? "text-[#00b140] font-medium"

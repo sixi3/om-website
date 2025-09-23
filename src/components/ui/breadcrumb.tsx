@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight, Home } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, getDomainSpecificHref } from "@/lib/utils";
 
 interface BreadcrumbItem {
   title: string;
@@ -361,7 +361,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
               <span className="text-slate-400">...</span>
             ) : (
               <Link
-                href={item.href}
+                href={getDomainSpecificHref(item.href)}
                 className="hover:text-[#00b140] transition-colors duration-200"
               >
                 {index === 0 && homeIcon ? (
@@ -601,7 +601,7 @@ export const MoneyOneBreadcrumb: React.FC<BreadcrumbProps> = ({
               <span className="text-slate-400">...</span>
             ) : (
               <Link
-                href={item.href}
+                href={getDomainSpecificHref(item.href)}
                 className="hover:text-[#00b140] transition-colors duration-200"
               >
                 {index === 0 && homeIcon ? (
@@ -773,7 +773,7 @@ export const OneMoneyBreadcrumb: React.FC<BreadcrumbProps> = ({
               <span className="text-slate-400">...</span>
             ) : (
               <Link
-                href={item.href}
+                href={getDomainSpecificHref(item.href)}
                 className="hover:text-[#00b140] transition-colors duration-200"
               >
                 {index === 0 && homeIcon ? (

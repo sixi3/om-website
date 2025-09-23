@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Building, Users, Shield, BarChart3 } from "lucide-react";
+import { getDomainSpecificHref } from '@/lib/utils';
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
@@ -20,7 +21,7 @@ const solutionsData = [
       width: 56,
       height: 56
     },
-    href: "/moneyone/financial-services",
+    href: getDomainSpecificHref("/moneyone/financial-services"),
     icon: <Building size={24} />,
     colSpan: 2 as const,
     rowSpan: 1 as const,
@@ -71,7 +72,7 @@ const solutionsData = [
       width: 56,
       height: 56
     },
-    href: "/moneyone/financial-services#financial-analytics-section",
+    href: getDomainSpecificHref("/moneyone/financial-services#financial-analytics-section"),
     icon: <BarChart3 size={24} />,
     colSpan: 2 as const,
     rowSpan: 1 as const,

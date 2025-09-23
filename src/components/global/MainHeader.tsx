@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useState, useEffect, useCallback, memo } from "react";
 import { usePathname } from "next/navigation";
 import { ChevronDown, ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, getDomainSpecificHref } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -351,7 +351,7 @@ const MobileCollapsibleSection = memo(({
                       {link.subItems?.slice(0, 2).map((subItem, subIndex) => (
                         <Link
                           key={subItem.href}
-                          href={subItem.href}
+                          href={getDomainSpecificHref(subItem.href)}
                           className="inline-flex items-center gap-1 px-2 py-2 text-xs font-medium text-[#00b140] bg-[#00b140]/10 rounded-md hover:border-b-2 hover:border-[#00b140] transition-colors duration-200"
                           onClick={onLinkClick}
                         >
@@ -363,7 +363,7 @@ const MobileCollapsibleSection = memo(({
                     {link.subItems && link.subItems.length > 2 && (
                       <div className="flex justify-start">
                         <Link
-                          href={link.subItems[2].href}
+                          href={getDomainSpecificHref(link.subItems[2].href)}
                           className="inline-flex items-center gap-1 px-2 py-2 text-xs font-medium text-[#00b140] bg-[#00b140]/10 rounded-md hover:border-b-2 hover:border-[#00b140] transition-colors duration-200"
                           onClick={onLinkClick}
                         >
@@ -376,7 +376,7 @@ const MobileCollapsibleSection = memo(({
                 </div>
               ) : (
                 <Link
-                  href={link.href}
+                  href={getDomainSpecificHref(link.href)}
                   className={cn(
                     "flex items-center px-6 py-3 text-base font-medium transition-colors",
                     pathname === link.href
