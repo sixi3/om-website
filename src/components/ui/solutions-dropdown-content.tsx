@@ -67,7 +67,7 @@ const originalSolutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/products/identity-gateway"
+        href: "/employment/products/identity-gateway"
       },
       {
         id: "technology-provider",

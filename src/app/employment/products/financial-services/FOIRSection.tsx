@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 
 // Lazy load heavy components with error handling
 const AnimatedFOIRChartCard = dynamic(
-  () => import('@/app/equal/components/AnimatedFOIRChartCard').then(mod => ({ default: mod.AnimatedFOIRChartCard })),
+  () => import('@/app/employment/components/AnimatedFOIRChartCard').then(mod => ({ default: mod.AnimatedFOIRChartCard })),
   { 
     loading: () => <div className="w-full h-[400px] bg-slate-100 dark:bg-neutral-800 rounded-lg animate-pulse" />,
     ssr: true
@@ -16,7 +16,7 @@ const AnimatedFOIRChartCard = dynamic(
 );
 
 const AnimatedExpensePieChartCard = dynamic(
-  () => import('@/app/equal/components/AnimatedExpensePieChartCard').then(mod => ({ default: mod.AnimatedExpensePieChartCard })),
+  () => import('@/app/employment/components/AnimatedExpensePieChartCard').then(mod => ({ default: mod.AnimatedExpensePieChartCard })),
   { 
     loading: () => <div className="w-full h-[400px] bg-slate-100 dark:bg-neutral-800 rounded-lg animate-pulse" />,
     ssr: true
@@ -24,7 +24,7 @@ const AnimatedExpensePieChartCard = dynamic(
 );
 
 const AnimatedEODBarChartCard = dynamic(
-  () => import('@/app/equal/components/AnimatedEODBarChartCard').then(mod => ({ default: mod.AnimatedEODBarChartCard })),
+  () => import('@/app/employment/components/AnimatedEODBarChartCard').then(mod => ({ default: mod.AnimatedEODBarChartCard })),
   { 
     loading: () => <div className="w-full h-[400px] bg-slate-100 dark:bg-neutral-800 rounded-lg animate-pulse" />,
     ssr: true

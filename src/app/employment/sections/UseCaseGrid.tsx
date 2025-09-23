@@ -56,15 +56,15 @@ export function UseCaseGrid() {
             const getProductUrl = (id: string) => {
               switch (id) {
                 case "hrms":
-                  return "/equal/products/enterprise-hiring";
+                  return "/employment/products/enterprise-hiring";
                 case "gig-economy":
-                  return "/equal/products/gig-hiring";
+                  return "/employment/products/gig-hiring";
                 case "bfsi":
-                  return "/equal/products/financial-services";
+                  return "/employment/products/financial-services";
                 case "staffing":
-                  return "/equal/products/staffing";
+                  return "/employment/products/staffing";
                 default:
-                  return `/equal/solutions?tab=${id}`;
+                  return `/employment/solutions?tab=${id}`;
               }
             };
 

@@ -10,7 +10,7 @@ import { BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
 import { GlowingDivider } from "@/components/ui/glowing-divider";
 import { METALLIC_BLACK_TEXT_CLASSES, ANIMATION_CONFIG } from "../constants";
 
-import { industryContent } from "@/app/equal/industries/industryContent";
+import { industryContent } from "@/app/employment/industries/industryContent";
 import { 
   Home, 
   Briefcase, 

@@ -100,29 +100,29 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
   }
   
   // Special handling for Equal trust-security page - show "Equal > Resources > Trust & Security" breadcrumb
-  if (pathname === "/equal/trust-security") {
+  if (pathname === "/employment/trust-security") {
     // Add Resources breadcrumb
     items.push({
       title: "Resources",
-      href: "/equal",
+      href: "/employment",
     });
     items.push({
       title: "Trust & Security",
-      href: "/equal/trust-security",
+      href: "/employment/trust-security",
       isCurrentPage: true,
     });
     return items;
   }
   
   // Special handling for Equal product pages - add Products, Employment, and page name breadcrumbs
-  if (pathname.startsWith("/equal/products/")) {
+  if (pathname.startsWith("/employment/products/")) {
     items.push({
       title: "Products",
       href: "/#employment-verification",
     });
     items.push({
       title: "Employment",
-      href: "/equal",
+      href: "/employment",
     });
     
     // Get the product name from the URL
@@ -144,7 +144,7 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     // Add Resources breadcrumb
     items.push({
       title: "Resources",
-      href: "/equal",
+      href: "/employment",
     });
     
     // Add the specific page name
@@ -209,7 +209,7 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
   }
   
   // Special handling for Equal main page - add Products breadcrumb
-  if (pathname === "/equal") {
+  if (pathname === "/employment") {
     items.push({
       title: "Products",
       href: "/#employment-verification",
@@ -217,21 +217,21 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
   }
   
   // Special handling for Equal solutions pages - add Products and Employment breadcrumbs
-  if (pathname.startsWith("/equal/solutions")) {
+  if (pathname.startsWith("/employment/solutions")) {
     items.push({
       title: "Products",
       href: "/#employment-verification",
     });
     items.push({
       title: "Employment",
-      href: "/equal",
+      href: "/employment",
     });
     
     // Filter out "equal" and "solutions" from segments to avoid showing them in breadcrumbs
-    const filteredSegments = segments.filter(segment => segment !== "equal" && segment !== "solutions");
+    const filteredSegments = segments.filter(segment => segment !== "employment" && segment !== "solutions");
     
     // Build breadcrumb items from remaining segments (like "enterprise-hiring", "gig-hiring", etc.)
-    let currentPath = "/equal/solutions";
+    let currentPath = "/employment/solutions";
     
     filteredSegments.forEach((segment, index) => {
       currentPath += `/${segment}`;
@@ -275,8 +275,8 @@ const generateBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     if (segment === "products" && !isCurrentPage) {
       // Check if we're on any product detail page under /equal/products/
       // Use a more deterministic approach to avoid hydration mismatches
-      const isEqualProductPage = pathname.startsWith('/equal/products/') && pathname !== '/equal/products';
-      if (isEqualProductPage) {
+      const isEmploymentProductPage = pathname.startsWith('/employment/products/') && pathname !== '/employment/products';
+      if (isEmploymentProductPage) {
         href = "/#employment-verification"; // Link to ModularSolutions section on main page
       }
     }

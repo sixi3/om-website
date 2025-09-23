@@ -38,7 +38,7 @@ const solutionsData = [
       width: 56,
       height: 56
     },
-    href: "/equal",
+    href: "/employment",
     icon: <Users size={24} />,
     colSpan: 1 as const,
     rowSpan: 1 as const,
@@ -55,7 +55,7 @@ const solutionsData = [
       width: 56,
       height: 56
     },
-    href: "/equal/products/identity-gateway",
+    href: "/employment/products/identity-gateway",
     icon: <Shield size={24} />,
     colSpan: 1 as const,
     rowSpan: 1 as const,

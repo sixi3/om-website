@@ -62,7 +62,7 @@ export function TrustSecurity() {
             Built with enterprise-grade security and compliance at its core, Equal ensures your data is always protected
           </p>
           <div className="mt-8">
-            <Link href="/equal/trust-security" passHref>
+            <Link href="/employment/trust-security" passHref>
               <span className="group inline-flex items-center justify-center rounded-full bg-linear-to-br from-white to-slate-100 border border-b-4 border-slate-200 dark:border-neutral-700 px-4 py-2 text-md font-medium text-slate-600 hover:bg-[#00b140] hover:text-[#00b140] transition-colors duration-300">
                 Learn More
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />

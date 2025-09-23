@@ -60,7 +60,7 @@ interface MobileSection {
 
 const getCompanySection = (pathname: string): CompanySection => {
   const host = typeof window !== 'undefined' ? window.location.host : '';
-  if (pathname.startsWith('/equal') || pathname.startsWith('/solutions')) {
+  if (pathname.startsWith('/employment') || pathname.startsWith('/solutions')) {
     return 'equal';
   }
   if (pathname.startsWith('/moneyone') || host.includes("moneyone.in")) {
@@ -84,7 +84,7 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => [
       { title: "Team", href: "/common/team" },
       { title: "Vision", href: "/common/vision-mission" },
       { title: "Leadership", href: "/common/leadership" },
-      { title: "Values", href: "/equal/values" }
+      { title: "Values", href: "/employment/values" }
     ]
   },
   {
@@ -103,10 +103,10 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => [
       { title: "FinShare FIP TSP", href: "/moneyone/products/finshare", openInNewTab: true },
       { title: "Financial Services", href: "/moneyone/financial-services", openInNewTab: true },
       // Employment Section
-      { title: "Enterprise Hiring", href: "/equal/products/enterprise-hiring" },
-      { title: "Gig Hiring", href: "/equal/products/gig-hiring" },
-      { title: "Financial Analytics", href: "/equal/products/financial-services" },
-      { title: "Staffing & Contract", href: "/equal/products/staffing" }
+      { title: "Enterprise Hiring", href: "/employment/products/enterprise-hiring" },
+      { title: "Gig Hiring", href: "/employment/products/gig-hiring" },
+      { title: "Financial Analytics", href: "/employment/products/financial-services" },
+      { title: "Staffing & Contract", href: "/employment/products/staffing" }
     ]
   },
   {
@@ -121,8 +121,8 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => [
     ] : [
       // Original solutions for other sections
       { title: "Financial Services", href: "/moneyone/financial-services" },
-      { title: "Employee Verification", href: "/equal/solutions" },
-      { title: "Identity Verification", href: "/equal" },
+      { title: "Employee Verification", href: "/employment/solutions" },
+      { title: "Identity Verification", href: "/employment" },
       { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section" }
     ]
   },
@@ -132,13 +132,13 @@ const getTabConfigurations = (section: CompanySection): TabConfig[] => [
     mobileLinks: section === 'moneyone' ? [
       // For MoneyOne: exclude privacy policy and terms & conditions
       { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
-      { title: "Trust & Security", href: "/equal/trust-security" },
+      { title: "Trust & Security", href: "/employment/trust-security" },
       { title: "Blog", href: "/blog" },
       { title: "In The News", href: "/blog/in-the-news" }
     ] : [
       // For other sections: include all items
       { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
-      { title: "Trust & Security", href: "/equal/trust-security" },
+      { title: "Trust & Security", href: "/employment/trust-security" },
       { title: "Blog", href: "/blog" },
       { title: "In The News", href: "/blog/in-the-news" },
       { title: "Terms and Conditions", href: "/common/terms-conditions" },
@@ -156,7 +156,7 @@ const getMobileSections = (section: CompanySection): MobileSection[] => [
       { title: "Team", href: "/common/team" },
       { title: "Vision", href: "/common/vision-mission" },
       { title: "Leadership", href: "/common/leadership" },
-      { title: "Values", href: "/equal/values" }
+      { title: "Values", href: "/employment/values" }
     ]
   },
   {
@@ -175,10 +175,10 @@ const getMobileSections = (section: CompanySection): MobileSection[] => [
       { title: "FinShare FIP TSP", href: "/moneyone/products/finshare", openInNewTab: true },
       { title: "Financial Services", href: "/moneyone/financial-services", openInNewTab: true },
       // Employment Section
-      { title: "Enterprise Hiring", href: "/equal/products/enterprise-hiring" },
-      { title: "Gig Hiring", href: "/equal/products/gig-hiring" },
-      { title: "Financial Analytics", href: "/equal/products/financial-services" },
-      { title: "Staffing & Contract", href: "/equal/products/staffing" }
+      { title: "Enterprise Hiring", href: "/employment/products/enterprise-hiring" },
+      { title: "Gig Hiring", href: "/employment/products/gig-hiring" },
+      { title: "Financial Analytics", href: "/employment/products/financial-services" },
+      { title: "Staffing & Contract", href: "/employment/products/staffing" }
     ]
   },
   {
@@ -193,8 +193,8 @@ const getMobileSections = (section: CompanySection): MobileSection[] => [
     ] : [
       // Original solutions for other sections
       { title: "Financial Services", href: "/moneyone/financial-services" },
-      { title: "Employee Verification", href: "/equal/solutions" },
-      { title: "Identity Verification", href: "/equal" },
+      { title: "Employee Verification", href: "/employment/solutions" },
+      { title: "Identity Verification", href: "/employment" },
       { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section" }
     ]
   },
@@ -204,13 +204,13 @@ const getMobileSections = (section: CompanySection): MobileSection[] => [
     links: section === 'moneyone' ? [
       // For MoneyOne: exclude privacy policy and terms & conditions
       { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
-      { title: "Trust & Security", href: "/equal/trust-security" },
+      { title: "Trust & Security", href: "/employment/trust-security" },
       { title: "Blog", href: "/blog" },
       { title: "In The News", href: "/blog/in-the-news" }
     ] : [
       // For other sections: include all items
       { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
-      { title: "Trust & Security", href: "/equal/trust-security" },
+      { title: "Trust & Security", href: "/employment/trust-security" },
       { title: "Blog", href: "/blog" },
       { title: "In The News", href: "/blog/in-the-news" },
       { title: "Terms and Conditions", href: "/common/terms-conditions" },

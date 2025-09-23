@@ -31,7 +31,7 @@ const ProductsDropdownContent: React.FC = () => {
         width: 40,
         height: 40
       },
-      href: "#what-is-onemoney-section"
+      href: "https://onemoney.in/#what-is-onemoney-section"
     },
     {
       id: "use-cases",
@@ -43,7 +43,7 @@ const ProductsDropdownContent: React.FC = () => {
         width: 40,
         height: 40
       },
-      href: "#solutions"
+      href: "https://onemoney.in/#solutions"
     }
   ]
 
@@ -51,7 +51,7 @@ const ProductsDropdownContent: React.FC = () => {
     if (href.startsWith('#')) {
       const element = document.getElementById(href.slice(1));
       if (element) {
-        element.scrollIntoView({ 
+        element.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
         });
@@ -115,7 +115,7 @@ const ProductsDropdownContent: React.FC = () => {
                   </div>
                 </button>
               ) : (
-                <Link 
+                <Link
                   href={item.href}
                   role="menuitem"
                   className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"

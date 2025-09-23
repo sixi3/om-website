@@ -96,7 +96,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/products/enterprise-hiring"
+        href: "/employment/products/enterprise-hiring"
       },
       {
         id: "Gig Verification",
@@ -108,7 +108,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/products/gig-hiring"
+        href: "/employment/products/gig-hiring"
       },
       {
         id: "Staffing & Contract Roles",
@@ -120,7 +120,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/products/staffing"
+        href: "/employment/products/staffing"
       },
       {
         id: "Custom Workflows",
@@ -132,7 +132,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/industries"
+        href: "/employment/industries"
       }
     ]
   }

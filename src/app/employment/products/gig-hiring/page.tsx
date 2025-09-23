@@ -19,8 +19,8 @@ import {
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 
 // Lazy load heavy components
-const Stats = lazy(() => import('@/app/equal/sections/Stats').then(module => ({ default: module.Stats })));
-const ProductShowcase = lazy(() => import("@/app/equal/sections/ProductShowcase").then(module => ({ default: module.ProductShowcase })));
+const Stats = lazy(() => import('@/app/employment/sections/Stats').then(module => ({ default: module.Stats })));
+const ProductShowcase = lazy(() => import("@/app/employment/sections/ProductShowcase").then(module => ({ default: module.ProductShowcase })));
 const IndustrySection = lazy(() => import("@/components/aurora-background-demo/components/industries").then(module => ({ default: module.IndustrySection })));
 const Marquee = lazy(() => import("react-fast-marquee"));
 

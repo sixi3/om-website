@@ -216,7 +216,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/equal/products/enterprise-hiring",
+        href: "/employment/products/enterprise-hiring",
         icon: <Building size={24} />
       },
       {
@@ -229,7 +229,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/equal/products/gig-hiring",
+        href: "/employment/products/gig-hiring",
         icon: <Users size={24} />
       },
       {
@@ -242,7 +242,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/equal/products/staffing",
+        href: "/employment/products/staffing",
         icon: <Briefcase size={24} />
       },
       {
@@ -255,7 +255,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/equal/industries",
+        href: "/employment/industries",
         icon: <UserCheck size={24} />
       }
     ]
@@ -457,7 +457,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
   const getCTAForSection = (sectionId: string) => {
     switch (sectionId) {
       case "employment":
-        return { text: "Explore Equal BGV", href: "/equal" };
+        return { text: "Explore Equal BGV", href: "/employment" };
       case "financial":
         return {
           primary: { text: "Explore MoneyOne TSP", href: "/moneyone" },
