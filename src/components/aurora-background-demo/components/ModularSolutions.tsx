@@ -460,8 +460,8 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
         return { text: "Explore Equal BGV", href: "/employment" };
       case "financial":
         return {
-          primary: { text: "Explore MoneyOne TSP", href: "/moneyone" },
-          secondary: { text: "Explore OneMoney AA", href: "/onemoney" }
+          primary: { text: "Explore MoneyOne TSP", href: "https://moneyone.in" },
+          secondary: { text: "Explore OneMoney AA", href: "https://onemoney.in" }
         };
       case "industry":
         return { text: "Explore Solutions", href: "/solutions" };
