@@ -8,11 +8,32 @@ import { MoneyOneBreadcrumb } from "@/components/ui/breadcrumb";
 // MainHeader handles navigation dynamically based on the current route
 
 export const metadata: Metadata = {
-  title: "MoneyOne - Financial Solutions",
-  description: "Your all-in-one financial management solution",
+  title: "MoneyOne - India's Largest AA TSP",
+  description: "India's Largest Account Aggregator Technology Service Provider. Aggregate, Assess, Act with comprehensive financial solutions.",
   icons: {
     icon: "/mo-logo.png",
     shortcut: "/mo-logo.png",
+  },
+  openGraph: {
+    title: "MoneyOne - India's Largest AA TSP",
+    description: "India's Largest Account Aggregator Technology Service Provider. Aggregate, Assess, Act with comprehensive financial solutions.",
+    url: 'https://www.moneyone.in',
+    siteName: 'MoneyOne',
+    images: [
+      {
+        url: 'https://www.moneyone.in/moneyone-og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'MoneyOne - India\'s Largest AA TSP',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "MoneyOne - India's Largest AA TSP",
+    description: "India's Largest Account Aggregator Technology Service Provider. Aggregate, Assess, Act with comprehensive financial solutions.",
+    images: ['https://www.moneyone.in/moneyone-og-image.png'],
   },
 };
 

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, lazy, Suspense } from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
@@ -19,6 +20,30 @@ import {
 } from "@/app/onemoney/components/ui/dialog";
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 import { AnimatedCounter } from "@/app/onemoney/components/ui/animated-counter";
+
+export const metadata: Metadata = {
+  title: "Financial Advisory Solutions | MoneyOne",
+  description: "Intelligent financial advisory solutions with AI-driven insights, consolidated data, and goal-based planning powered by India's largest AA TSP.",
+  openGraph: {
+    title: "Financial Advisory Solutions | MoneyOne",
+    description: "Intelligent financial advisory solutions with AI-driven insights, consolidated data, and goal-based planning powered by India's largest AA TSP.",
+    url: 'https://www.moneyone.in/solutions/advisory',
+    images: [
+      {
+        url: 'https://www.moneyone.in/moneyone-og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'MoneyOne Financial Advisory Solutions',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Financial Advisory Solutions | MoneyOne",
+    description: "Intelligent financial advisory solutions with AI-driven insights and consolidated data.",
+    images: ['https://www.moneyone.in/moneyone-og-image.png'],
+  },
+};
 
 // Lazy load heavy components
 const Products = lazy(() => import("@/app/moneyone/sections/Products").then(module => ({ default: module.ProductsWithoutStats })));
