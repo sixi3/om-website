@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { getDomainSpecificHref } from '@/lib/utils'
 
 interface ResourceItem {
   id: string
@@ -24,7 +25,7 @@ interface ResourceItem {
 // Company section detection function (same as in MainHeader)
 const getCompanySection = (pathname: string): 'equal' | 'moneyone' | 'onemoney' | 'default' => {
   const host = typeof window !== 'undefined' ? window.location.host : '';
-  if (pathname.startsWith('/equal') || pathname.startsWith('/solutions')) {
+  if (pathname.startsWith('/employment') || pathname.startsWith('/solutions')) {
     return 'equal';
   }
   if (pathname.startsWith('/moneyone') || host.includes("moneyone.in")) {
@@ -76,7 +77,7 @@ const ResourcesDropdownContent: React.FC = () => {
         width: 40,
         height: 40
       },
-      href: currentCompany === 'moneyone' ? "/moneyone/trust-security" : "/equal/trust-security"
+      href: currentCompany === 'moneyone' ? "/trust-security" : "/employment/trust-security"
     },
     /* {
       id: "blog",
@@ -158,7 +159,7 @@ const ResourcesDropdownContent: React.FC = () => {
               transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
             >
               <Link 
-                href={item.href!}
+                href={getDomainSpecificHref(item.href!)}
                 target={item.external ? "_blank" : undefined}
                 rel={item.external ? "noopener noreferrer" : undefined}
                 role="menuitem"

@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { getDomainSpecificHref } from '@/lib/utils'
 
 interface ProductItem {
   id: string
@@ -41,7 +42,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/onemoney"
+        href: "https://www.onemoney.in"
       },
       {
         id: "finpro-fiu-tsp",
@@ -53,7 +54,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/moneyone/products/finpro"
+        href: "https://moneyone.in/products/finpro"
       },
       {
         id: "finshare-fip-tsp",
@@ -65,7 +66,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/moneyone/products/finshare"
+        href: "https://moneyone.in/products/finshare"
       },
       {
         id: "financial-analytics",
@@ -77,7 +78,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/moneyone/financial-services#financial-analytics-section"
+        href: "https://moneyone.in/financial-services#financial-analytics-section"
       }
     ]
   },
@@ -95,7 +96,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/products/enterprise-hiring"
+        href: "/employment/products/enterprise-hiring"
       },
       {
         id: "Gig Verification",
@@ -107,7 +108,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/products/gig-hiring"
+        href: "/employment/products/gig-hiring"
       },
       {
         id: "Staffing & Contract Roles",
@@ -119,7 +120,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/products/staffing"
+        href: "/employment/products/staffing"
       },
       {
         id: "Custom Workflows",
@@ -131,7 +132,7 @@ const productSections: ProductSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/industries"
+        href: "/employment/industries"
       }
     ]
   }
@@ -141,13 +142,13 @@ const productSections: ProductSection[] = [
 const ProductItem = memo<{ item: ProductItem; index: number; isMoneyOnePage: boolean }>(({ item, index, isMoneyOnePage }) => {
   // Simplified animation with GPU acceleration
   const itemVariants = useMemo(() => ({
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 15,
       scale: 0.95
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       scale: 1,
       transition: {
@@ -164,8 +165,8 @@ const ProductItem = memo<{ item: ProductItem; index: number; isMoneyOnePage: boo
       animate="visible"
       style={{ transform: 'translate3d(0,0,0)' }} // Force GPU acceleration
     >
-      <Link 
-        href={item.href}
+      <Link
+        href={getDomainSpecificHref(item.href)}
         role="menuitem"
         target={!isMoneyOnePage && (item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "financial-analytics") ? "_blank" : undefined}
         rel={!isMoneyOnePage && (item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "financial-analytics") ? "noopener noreferrer" : undefined}
@@ -188,11 +189,10 @@ const ProductItem = memo<{ item: ProductItem; index: number; isMoneyOnePage: boo
             <h3 className="font-semibold text-neutral-900 group-hover:text-[#00b140] transition-colors duration-150">
               {item.title}
             </h3>
-            <div className={`${
-              item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "financial-analytics"
-                ? "opacity-0 rotate-0 group-hover:opacity-100 group-hover:-rotate-45" 
-                : "opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0"
-            } transition-all duration-150 ease-out`}>
+            <div className={`${item.id === "onemoney-aa" || item.id === "finpro-fiu-tsp" || item.id === "finshare-fip-tsp" || item.id === "financial-analytics"
+              ? "opacity-0 rotate-0 group-hover:opacity-100 group-hover:-rotate-45"
+              : "opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0"
+              } transition-all duration-150 ease-out`}>
               <ArrowRight className="w-4 h-4 text-[#00b140]" />
             </div>
           </div>
@@ -208,19 +208,19 @@ const ProductItem = memo<{ item: ProductItem; index: number; isMoneyOnePage: boo
 ProductItem.displayName = 'ProductItem'
 
 // Memoized ProductSection to prevent unnecessary re-renders
-const ProductSection = memo<{ section: ProductSection; sectionIndex: number; isMoneyOnePage: boolean }>(({ 
-  section, 
+const ProductSection = memo<{ section: ProductSection; sectionIndex: number; isMoneyOnePage: boolean }>(({
+  section,
   sectionIndex,
   isMoneyOnePage
 }) => {
   // Simplified section animation
   const sectionVariants = useMemo(() => ({
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 20
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         duration: 0.25,
@@ -247,7 +247,7 @@ const ProductSection = memo<{ section: ProductSection; sectionIndex: number; isM
           {section.description}
         </p>
       </div>
-      <motion.div 
+      <motion.div
         className="grid grid-cols-1 md:grid-cols-2 gap-2"
         variants={{
           visible: {
@@ -272,7 +272,7 @@ export const ProductDropdownContent = memo(() => {
   const pathname = usePathname()
   const host = typeof window !== 'undefined' ? window.location.host : ''
   const isMoneyOnePage = pathname.startsWith('/moneyone') || host.includes("moneyone.in")
-  
+
   // Filter out employment section when on MoneyOne pages
   const filteredSections = useMemo(() => {
     if (isMoneyOnePage) {
@@ -295,7 +295,7 @@ export const ProductDropdownContent = memo(() => {
   }), [])
 
   return (
-    <motion.div 
+    <motion.div
       className="space-y-2 min-w-[300px] md:min-w-[600px]"
       variants={containerVariants}
       initial="hidden"
@@ -303,10 +303,10 @@ export const ProductDropdownContent = memo(() => {
       style={{ transform: 'translate3d(0,0,0)' }} // Force GPU acceleration
     >
       {filteredSections.map((section, index) => (
-        <ProductSection 
-          key={section.title} 
-          section={section} 
-          sectionIndex={index} 
+        <ProductSection
+          key={section.title}
+          section={section}
+          sectionIndex={index}
           isMoneyOnePage={isMoneyOnePage}
         />
       ))}

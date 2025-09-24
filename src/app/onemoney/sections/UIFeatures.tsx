@@ -1,7 +1,7 @@
 import React from "react";
 import { Settings2, SlidersHorizontal, MonitorSmartphone, Palette } from "lucide-react"; // Added icon imports
 import { TiltCard } from "../components/ui/tilt-card"; // Import TiltCard
-import { GreenMetallicPhoneMockup } from "../../equal/components/ui/GreenMetallicPhoneMockup"; // Import mockup
+import { GreenMetallicPhoneMockup } from "../../employment/components/ui/GreenMetallicPhoneMockup"; // Import mockup
 import { AnimatedScreenContent } from "../components/AnimatedScreenContent"; // Import new component
 
 // Copied from Solutions.tsx for consistency

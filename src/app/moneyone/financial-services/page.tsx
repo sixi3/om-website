@@ -23,7 +23,7 @@ const HowAAWorks = lazy(() => import("./HowAAWorks").then(module => ({ default: 
 const MoneyOneSection = lazy(() => import("./MoneyOneSection").then(module => ({ default: module.MoneyOneSection })));
 const Solutions = lazy(() => import("@/app/onemoney/sections/Solutions").then(module => ({ default: module.Solutions })));
 const ContactUs = lazy(() => import("@/app/moneyone/sections/ContactUs").then(module => ({ default: module.ContactUs })));
-const FinancialAnalyticsSection = lazy(() => import("@/app/equal/products/financial-services/FOIRSection").then(module => ({ default: module.FOIRSection })));
+const FinancialAnalyticsSection = lazy(() => import("@/app/employment/products/financial-services/FOIRSection").then(module => ({ default: module.FOIRSection })));
 
 // Loading component
 const SectionLoader = () => (

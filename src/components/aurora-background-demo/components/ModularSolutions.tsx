@@ -6,9 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Users, Briefcase, Shield, Building, IndianRupee, BarChart3, Smartphone, Heart, Building2, AlertTriangle, UserCheck } from "lucide-react";
 import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
-import { cn } from "@/lib/utils";
-import { 
-  METALLIC_BLACK_TEXT_CLASSES, 
+import { cn, getDomainSpecificHref } from "@/lib/utils";
+import {
+  METALLIC_BLACK_TEXT_CLASSES,
   ANIMATION_CONFIG
 } from "../constants";
 import { AnimatedCounter } from "@/app/onemoney/components/ui/animated-counter";
@@ -21,10 +21,10 @@ import { Component as EtherealShadow } from "@/components/ui/etheral-shadow";
 const MotionLink = motion(Link);
 
 // Custom MetricsCounter component with better viewport detection
-const MetricsCounter = React.memo<{ 
-  value: number; 
-  className?: string; 
-  fixedDecimals?: number; 
+const MetricsCounter = React.memo<{
+  value: number;
+  className?: string;
+  fixedDecimals?: number;
   duration?: number;
   id: string;
 }>(({ value, className, fixedDecimals, duration = 2, id }) => {
@@ -95,8 +95,8 @@ const MetricsGrid = React.memo<{ metrics: Array<{ id: string; value: number; lab
             {stat.id === 'fip' ? (
               <span className={metallicTextClasses}>1</span>
             ) : (
-              <MetricsCounter 
-                value={stat.value} 
+              <MetricsCounter
+                value={stat.value}
                 {...(stat.fixedDecimals !== undefined && { fixedDecimals: stat.fixedDecimals })}
                 className={metallicTextClasses}
                 id={stat.id}
@@ -122,7 +122,7 @@ interface SolutionItem {
   description: string;
   image: {
     src: string;
-    alt:string;
+    alt: string;
     width: number;
     height: number;
   };
@@ -139,7 +139,7 @@ interface SolutionSection {
 }
 
 const solutionSections: SolutionSection[] = [
-  
+
   {
     id: "financial",
     title: "Financial Services",
@@ -156,7 +156,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/moneyone/financial-services#financial-analytics-section",
+        href: "https://moneyone.in/financial-services#financial-analytics-section",
         icon: <BarChart3 size={24} />
       },
       {
@@ -169,7 +169,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/moneyone/products/finpro",
+        href: "https://moneyone.in/products/finpro",
         icon: <Building2 size={24} />
       },
       {
@@ -182,7 +182,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/moneyone/products/finshare",
+        href: "https://moneyone.in/products/finshare",
         icon: <Smartphone size={24} />
       },
       {
@@ -195,7 +195,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/onemoney",
+        href: "https://onemoney.in",
         icon: <IndianRupee size={24} />
       }
     ]
@@ -216,7 +216,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/equal/products/enterprise-hiring",
+        href: "/employment/products/enterprise-hiring",
         icon: <Building size={24} />
       },
       {
@@ -229,7 +229,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/equal/products/gig-hiring",
+        href: "/employment/products/gig-hiring",
         icon: <Users size={24} />
       },
       {
@@ -242,7 +242,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/equal/products/staffing",
+        href: "/employment/products/staffing",
         icon: <Briefcase size={24} />
       },
       {
@@ -255,7 +255,7 @@ const solutionSections: SolutionSection[] = [
           width: 80,
           height: 80
         },
-        href: "/equal/industries",
+        href: "/employment/industries",
         icon: <UserCheck size={24} />
       }
     ]
@@ -285,9 +285,9 @@ const IndustryInnovationSection = React.memo(() => {
           className="w-full h-full"
         />
       </div>
-      
+
       {/* Animated Gradient Overlay */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0 z-0"
         animate={{
           background: [
@@ -315,7 +315,7 @@ const IndustryInnovationSection = React.memo(() => {
 
       <div className="relative z-10 mx-auto transform skew-y-2">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
+
           {/* Left Column - Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -387,7 +387,7 @@ const IndustryInnovationSection = React.memo(() => {
                   {cta.text}
                 </ShimmerButton>
               </Link>
-              
+
               {/* Play Store Download Button */}
               {<Link href="https://play.google.com/store/apps/details?id=in.equal.ai.assistant" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex justify-center">
                 <div className="group inline-flex items-center px-6 py-3 bg-black/30 border border-[#baff29]/70 text-white text-md md:text-lg font-semibold rounded-full transition-all duration-300 overflow-hidden flex-shrink-0 whitespace-nowrap hover:bg-white/10 hover:border-white/40 hover:shadow-lg hover:shadow-white/10 hover:bh-white/20 w-full sm:w-auto justify-center">
@@ -457,11 +457,11 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
   const getCTAForSection = (sectionId: string) => {
     switch (sectionId) {
       case "employment":
-        return { text: "Explore Equal BGV", href: "/equal" };
+        return { text: "Explore Equal BGV", href: "/employment" };
       case "financial":
-        return { 
-          primary: { text: "Explore MoneyOne TSP", href: "/moneyone" },
-          secondary: { text: "Explore OneMoney AA", href: "/onemoney" }
+        return {
+          primary: { text: "Explore MoneyOne TSP", href: "https://moneyone.in" },
+          secondary: { text: "Explore OneMoney AA", href: "https://onemoney.in" }
         };
       case "industry":
         return { text: "Explore Solutions", href: "/solutions" };
@@ -476,13 +476,13 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
 
 
   return (
-    <section 
+    <section
       id={section.id === "employment" ? "employment-verification" : section.id === "financial" ? "bfsi-section" : undefined}
       className="relative w-full px-8 pt-4 pb-12 md:py-12 xl:px-12 2xl:px-24 scroll-mt-28 md:scroll-mt-32"
     >
       <div className=" mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-          
+
           {/* Title and Description Column - Always on the left */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -552,12 +552,12 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
               {cta.primary ? (
                 // Dual CTA layout for financial section
                 <>
-                  <Link href={cta.primary.href} target="_blank" rel="noopener noreferrer">
+                  <Link href={getDomainSpecificHref(cta.primary.href)} target="_blank" rel="noopener noreferrer">
                     <ShimmerButton className="text-md 2xl:text-lg">
                       {cta.primary.text}
                     </ShimmerButton>
                   </Link>
-                  <Link href={cta.secondary.href} target="_blank" rel="noopener noreferrer">
+                  <Link href={getDomainSpecificHref(cta.secondary.href)} target="_blank" rel="noopener noreferrer">
                     <ShimmerButton className="text-md 2xl:text-lg">
                       {cta.secondary.text}
                     </ShimmerButton>
@@ -565,7 +565,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                 </>
               ) : (
                 // Single CTA layout for other sections
-                <Link href={cta.href}>
+                <Link href={getDomainSpecificHref(cta.href)}>
                   <ShimmerButton className="text-md md:text-lg">
                     {cta.text}
                   </ShimmerButton>
@@ -609,11 +609,10 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                         <span className="group-hover:text-[#00b140] transition-colors duration-300 text-md md:text-lg">
                           {item.title}
                         </span>
-                        <div className={`${
-                          section.id === "financial" 
-                            ? "rotate-0 group-hover:-rotate-45" 
-                            : "translate-x-0 group-hover:translate-x-1"
-                        } group-hover:text-[#00b140] transition-all duration-300 ease-out`}>
+                        <div className={`${section.id === "financial"
+                          ? "rotate-0 group-hover:-rotate-45"
+                          : "translate-x-0 group-hover:translate-x-1"
+                          } group-hover:text-[#00b140] transition-all duration-300 ease-out`}>
                           <ArrowRight className="w-4 h-4" />
                         </div>
                       </div>
@@ -677,9 +676,9 @@ const ModularSolutions = React.memo(() => {
       {/* Solution Sections */}
       {solutionSections.map((section, index) => (
         <React.Fragment key={section.id}>
-          <SolutionSection 
-            section={section} 
-            sectionIndex={index} 
+          <SolutionSection
+            section={section}
+            sectionIndex={index}
           />
           {/* Add Industry Innovation Section after Employment */}
           {section.id === "employment" && <IndustryInnovationSection />}

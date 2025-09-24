@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { getDomainSpecificHref } from "@/lib/utils";
 
 interface FooterSection {
   title: string;
@@ -20,7 +21,7 @@ type CompanySection = 'equal' | 'moneyone' | 'onemoney' | 'default';
 
 const getCompanySection = (pathname: string): CompanySection => {
   const host = typeof window !== 'undefined' ? window.location.host : '';
-  if (pathname.startsWith('/equal') || pathname.startsWith('/solutions')) {
+  if (pathname.startsWith('/employment') || pathname.startsWith('/solutions')) {
     return 'equal';
   }
   if (pathname.startsWith('/moneyone') || host.includes("moneyone.in")) {
@@ -61,12 +62,12 @@ const getFooterSections = (section: CompanySection): FooterSection[] => [
       { title: "Financial Analytics", href: "/moneyone/financial-services#moneyone-section", openInNewTab: true },
       // Employment Section
       { title: "Employment", href: "#", isSubheading: true },
-      { title: "Enterprise Verification", href: "/equal/products/enterprise-hiring" },
-      { title: "Gig Verification", href: "/equal/products/gig-hiring" },
-      { title: "Custom Workflows", href: "/equal/Industries" },
+      { title: "Enterprise Verification", href: "/employment/products/enterprise-hiring" },
+      { title: "Gig Verification", href: "/employment/products/gig-hiring" },
+      { title: "Custom Workflows", href: "/employment/Industries" },
       // Consumer Section
       { title: "Consumer", href: "#", isSubheading: true },
-      { title: "Equal AI", href: "/equal" }
+      { title: "Equal AI", href: "/employment" }
     ]
   },
   {
@@ -81,7 +82,7 @@ const getFooterSections = (section: CompanySection): FooterSection[] => [
       // Original solutions for other sections - matching solutions-dropdown-content.tsx
       { title: "BFSI Services", href: "/#bfsi-section" },
       { title: "Employee Verification", href: "/#employment-verification" },
-      { title: "Identity Verification", href: "/equal/products/identity-gateway" },
+      { title: "Identity Verification", href: "/employment/products/identity-gateway" },
       { title: "Financial TSPs", href: "/moneyone", openInNewTab: true }
     ]
   },
@@ -89,7 +90,7 @@ const getFooterSections = (section: CompanySection): FooterSection[] => [
     title: "RESOURCES",
     links: [
       { title: "Our Newsletter", href: "https://equalidentity.substack.com/" },
-      { title: "Trust & Security", href: "/equal/trust-security" },
+      { title: "Trust & Security", href: "/employment/trust-security" },
       { title: "Terms and Conditions", href: "/common/terms-conditions" },
       { title: "Privacy Policy", href: "/common/policies" }
     ]
@@ -137,7 +138,7 @@ export function MainFooter() {
                       </div>
                     ) : (
                       <Link
-                        href={link.href}
+                        href={getDomainSpecificHref(link.href)}
                         className={`text-sm transition-colors duration-200 ${
                           pathname === link.href
                             ? "text-[#00b140] font-medium"

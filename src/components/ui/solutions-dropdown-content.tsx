@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { getDomainSpecificHref } from '@/lib/utils'
 
 interface SolutionItem {
   id: string
@@ -66,7 +67,7 @@ const originalSolutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/equal/products/identity-gateway"
+        href: "/employment/products/identity-gateway"
       },
       {
         id: "technology-provider",
@@ -79,7 +80,7 @@ const originalSolutionSections: SolutionSection[] = [
           height: 56
         },
         href: "/moneyone"
-        
+
       },
     ]
   }
@@ -101,7 +102,7 @@ const moneyOneSolutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/moneyone/solutions/wealth-management"
+        href: "/solutions/wealth-management"
       },
       {
         id: "lending",
@@ -113,7 +114,7 @@ const moneyOneSolutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/moneyone/solutions/lending"
+        href: "/solutions/lending"
       },
       {
         id: "advisory",
@@ -125,7 +126,7 @@ const moneyOneSolutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/moneyone/solutions/advisory"
+        href: "/solutions/advisory"
       },
       {
         id: "brokerage",
@@ -137,7 +138,7 @@ const moneyOneSolutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/moneyone/solutions/brokerage"
+        href: "/solutions/brokerage"
       },
     ]
   }
@@ -146,19 +147,19 @@ const moneyOneSolutionSections: SolutionSection[] = [
 const SolutionItem: React.FC<{ item: SolutionItem; index: number }> = ({ item, index }) => {
   // Check if this is the Financial Services item that should open in new tab
   const shouldOpenInNewTab = item.id === "technology-provider" && item.href === "/moneyone";
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ 
+      transition={{
         delay: index * 0.05,
         duration: 0.3,
         ease: "easeOut"
       }}
     >
-      <Link 
-        href={item.href}
+      <Link
+        href={getDomainSpecificHref(item.href)}
         target={shouldOpenInNewTab ? "_blank" : undefined}
         rel={shouldOpenInNewTab ? "noopener noreferrer" : undefined}
         role="menuitem"
@@ -180,11 +181,10 @@ const SolutionItem: React.FC<{ item: SolutionItem; index: number }> = ({ item, i
             <h3 className="font-semibold text-neutral-900 group-hover:text-[#00b140] transition-colors duration-200">
               {item.title}
             </h3>
-            <div className={`${
-              item.id === "bfsi-services" || item.id === "technology-provider"
-                ? "opacity-0 rotate-0 group-hover:opacity-100 group-hover:-rotate-45" 
+            <div className={`${item.id === "bfsi-services" || item.id === "technology-provider"
+                ? "opacity-0 rotate-0 group-hover:opacity-100 group-hover:-rotate-45"
                 : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
-            } transition-all duration-200 ease-out`}>
+              } transition-all duration-200 ease-out`}>
               <ArrowRight className="w-4 h-4 text-[#00b140]" />
             </div>
           </div>
@@ -197,15 +197,15 @@ const SolutionItem: React.FC<{ item: SolutionItem; index: number }> = ({ item, i
   )
 }
 
-const SolutionSection: React.FC<{ section: SolutionSection; sectionIndex: number }> = ({ 
-  section, 
-  sectionIndex 
+const SolutionSection: React.FC<{ section: SolutionSection; sectionIndex: number }> = ({
+  section,
+  sectionIndex
 }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ 
+      transition={{
         delay: sectionIndex * 0.1,
         duration: 0.4,
         ease: "easeOut"
@@ -231,19 +231,19 @@ const SolutionSection: React.FC<{ section: SolutionSection; sectionIndex: number
 
 export const SolutionsDropdownContent: React.FC = () => {
   const pathname = usePathname()
-  const host = window.location.host
+  const host = typeof window !== 'undefined' ? window.location.host : ''
   const isMoneyOnePage = pathname.startsWith('/moneyone') || host.includes("moneyone.in")
-  
+
   // Use MoneyOne specific sections when on MoneyOne pages, otherwise use original
   const solutionSections = isMoneyOnePage ? moneyOneSolutionSections : originalSolutionSections
 
   return (
     <div className="space-y-2 min-w-[300px] md:min-w-[600px]">
       {solutionSections.map((section, index) => (
-        <SolutionSection 
-          key={section.title} 
-          section={section} 
-          sectionIndex={index} 
+        <SolutionSection
+          key={section.title}
+          section={section}
+          sectionIndex={index}
         />
       ))}
     </div>

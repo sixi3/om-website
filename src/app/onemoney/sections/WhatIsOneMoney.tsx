@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { GreenMetallicPhoneMockup } from "../../equal/components/ui/GreenMetallicPhoneMockup"; // Added import
+import { GreenMetallicPhoneMockup } from "../../employment/components/ui/GreenMetallicPhoneMockup"; // Added import
 import { UserJourneyAnimation } from "../components/UserJourneyAnimation"; // Added import (will be created next)
 
 

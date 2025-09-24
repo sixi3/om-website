@@ -23,7 +23,7 @@ import { AnimatedCounter } from "@/app/onemoney/components/ui/animated-counter";
 // Lazy load heavy components
 const Products = lazy(() => import("@/app/moneyone/sections/Products").then(module => ({ default: module.ProductsWithoutStats })));
 const Marquee = lazy(() => import("react-fast-marquee"));
-const FOIRSection = lazy(() => import("@/app/equal/products/financial-services/FOIRSection").then(module => ({ default: module.FOIRSection })));
+const FOIRSection = lazy(() => import("@/app/employment/products/financial-services/FOIRSection").then(module => ({ default: module.FOIRSection })));
 const ContactUs = lazy(() => import("@/app/moneyone/sections/ContactUs").then(module => ({ default: module.ContactUs })));
 // Loading component
 const SectionLoader = () => (

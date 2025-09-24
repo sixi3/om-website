@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { getDomainSpecificHref } from '@/lib/utils'
 
 interface ResourceItem {
   id: string
@@ -31,7 +32,7 @@ const ResourcesDropdownContent: React.FC = () => {
         width: 40,
         height: 40
       },
-      href: "/onemoney/policies"
+      href: getDomainSpecificHref("/onemoney/policies")
     },
     {
       id: "terms-conditions",
@@ -43,7 +44,7 @@ const ResourcesDropdownContent: React.FC = () => {
         width: 40,
         height: 40
       },
-      href: "/onemoney/termsconditions"
+      href: getDomainSpecificHref("/onemoney/termsconditions")
     },
     {
       id: "timeline",
@@ -55,7 +56,7 @@ const ResourcesDropdownContent: React.FC = () => {
         width: 40,
         height: 40
       },
-      href: "/onemoney/timeline"
+      href: getDomainSpecificHref("/onemoney/timeline")
     },
     {
       id: "compliance",
@@ -67,7 +68,7 @@ const ResourcesDropdownContent: React.FC = () => {
         width: 40,
         height: 40
       },
-      href: "/onemoney/compliance"
+      href: getDomainSpecificHref("/onemoney/compliance")
     }
   ]
 
@@ -95,7 +96,7 @@ const ResourcesDropdownContent: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
             >
-              <Link 
+              <Link
                 href={item.href}
                 role="menuitem"
                 className="flex items-start gap-4 p-3 rounded-lg border-b-3 border-transparent hover:border-[#00b140] hover:bg-[#00b140]/10 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-[#00b140] focus:ring-offset-2"
