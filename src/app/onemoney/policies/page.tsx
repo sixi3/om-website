@@ -392,7 +392,8 @@ export default function PoliciesPage() {
                 thereunder.
               </p>
 
-              {/* POSH Policy Content Starts Here */}
+              {/* POSH Policy Content Starts Here - COMMENTED OUT */}
+              {/* 
               <hr className="my-8 border-slate-300 dark:border-neutral-600" />
               <h3 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100 mt-8 mb-6">
                 Policy on Prevention of Sexual Harassment (POSH)
@@ -504,6 +505,7 @@ export default function PoliciesPage() {
               <p className="mb-4">
                 <strong>19.</strong> The Head of the Human Resources Department may be contacted for any queries or clarifications about this Policy, its implementation and the general rights or remedies of an employee under this Policy.
               </p>
+              */}
             </div>
           </div>
         </div>

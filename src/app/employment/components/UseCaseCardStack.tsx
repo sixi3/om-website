@@ -47,13 +47,13 @@ export const UseCaseCardStack = ({
         </p>
       </div>
 
-      <div className="flex items-center justify-center pt-2 px-4">
+      <div className="flex items-center justify-center pt-2 px-2">
         <div className="flex items-center gap-2 sm:gap-4 p-2 rounded-full border-b-4 border border-slate-200 bg-linear-to-br from-white to-slate-100 backdrop-blur-md shadow-sm overflow-x-auto scrollbar-hide min-w-0 max-w-full">
           {items.map((item, index) => (
             <div
               key={item.id}
               onClick={() => handleTabChange(index)}
-              className={`relative px-4 sm:px-8 py-4 text-sm sm:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 flex-shrink-0 ${
+              className={`relative px-2 py-4 text-sm sm:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 flex-shrink-0 ${
                   activeIndex === index
                     ? "text-white font-semibold"
                     : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
