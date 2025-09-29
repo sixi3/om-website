@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import type { Metadata } from "next";
 import Image from "next/image";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { BentoGrid, BentoGridItem } from "@/app/onemoney/components/ui/bento-grid";
@@ -21,29 +20,6 @@ import {
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 import { AnimatedCounter } from "@/app/onemoney/components/ui/animated-counter";
 
-export const metadata: Metadata = {
-  title: "Financial Advisory Solutions | MoneyOne",
-  description: "Intelligent financial advisory solutions with AI-driven insights, consolidated data, and goal-based planning powered by India's largest AA TSP.",
-  openGraph: {
-    title: "Financial Advisory Solutions | MoneyOne",
-    description: "Intelligent financial advisory solutions with AI-driven insights, consolidated data, and goal-based planning powered by India's largest AA TSP.",
-    url: 'https://www.moneyone.in/solutions/advisory',
-    images: [
-      {
-        url: 'https://www.moneyone.in/moneyone-og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'MoneyOne Financial Advisory Solutions',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: "Financial Advisory Solutions | MoneyOne",
-    description: "Intelligent financial advisory solutions with AI-driven insights and consolidated data.",
-    images: ['https://www.moneyone.in/moneyone-og-image.png'],
-  },
-};
 
 // Lazy load heavy components
 const Products = lazy(() => import("@/app/moneyone/sections/Products").then(module => ({ default: module.ProductsWithoutStats })));
@@ -141,7 +117,7 @@ export default function AdvisoryHero() {
                   </DialogDescription>
                 </DialogHeader>
                 <div className="py-4">
-                  <TalkToUsForm />
+                  <TalkToUsForm source="moneyone-advisory" />
                 </div>
               </DialogContent>
             </Dialog>
@@ -178,7 +154,7 @@ export default function AdvisoryHero() {
               <span className={metallicBlackTextClasses}>Account Aggregator</span>
             </h2>
           </div>
-          
+
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 justify-items-center mx-auto">
             {combinedStatsData.map((stat) => (
               <div key={stat.id} className="flex flex-col items-center text-center p-4 mx-auto">
@@ -187,8 +163,8 @@ export default function AdvisoryHero() {
                   {stat.id === 'fip' ? (
                     <span className={moneyOneMetallicTextClasses}>1</span>
                   ) : (
-                    <AnimatedCounter 
-                      value={stat.value} 
+                    <AnimatedCounter
+                      value={stat.value}
                       fixedDecimals={stat.fixedDecimals}
                       className={moneyOneMetallicTextClasses}
                     />
@@ -202,7 +178,7 @@ export default function AdvisoryHero() {
             ))}
           </div>
         </div>
-        
+
         {/* Container for the title and lines */}
         <div className="w-full">
           <div className="flex items-center gap-2 sm:gap-4 md:gap-8 mt-12 mb-8">
@@ -213,7 +189,7 @@ export default function AdvisoryHero() {
             <div className="flex-grow h-px bg-foreground/20"></div>
           </div>
         </div>
-        
+
         {/* Pills Section */}
         <div className="mt-8 flex flex-col items-center space-y-4">
           {/* Row 1 (4 pills) */}
@@ -444,7 +420,7 @@ const advisoryReasons = [
     },
     icon: <ShieldCheck size={20} className="text-white" />
   }
-]; 
+];
 
 const advisoryServicesRow1 = [
   { name: "Financial Planning", icon: <Compass className="w-6 h-6" /> },
@@ -490,7 +466,7 @@ const ServiceCard = ({ name, icon }: { name: string; icon: React.ReactNode }) =>
       <span className="text-md font-medium text-slate-800 leading-tight">{name}</span>
     </div>
   </div>
-); 
+);
 
 
 

@@ -11,7 +11,7 @@ import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import emailjs from 'emailjs-com';
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 
-export function TalkToUsForm() {
+export function TalkToUsForm({ source }: { source?: string }) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -59,6 +59,10 @@ export function TalkToUsForm() {
     const TEMPLATE_ID = 'template_03xanma';
     const USER_ID = 'SIm8_MGgfQgEGjXhu'; // <-- Replace with your EmailJS public key
 
+    // Determine the source site
+    const siteName = source || (typeof window !== 'undefined' ? window.location.pathname.split('/')[1] || 'unknown' : 'unknown');
+    const siteUrl = typeof window !== 'undefined' ? window.location.href : 'unknown';
+    
     emailjs.send(
       SERVICE_ID,
       TEMPLATE_ID,
@@ -69,6 +73,8 @@ export function TalkToUsForm() {
         phone: formData.phone,
         purpose: formData.purpose,
         comments: formData.comments,
+        source_site: siteName,
+        source_url: siteUrl,
       },
       USER_ID
     )
@@ -199,6 +205,7 @@ export function TalkToUsForm() {
             placeholder="Let us know how we can help you..."
             value={formData.comments}
             onChange={handleChange}
+            required
             className="min-h-[100px] flex w-full border-none bg-gray-50 text-black dark:text-white rounded-md px-3 py-2 text-sm placeholder:text-neutral-400 dark:placeholder-text-neutral-600 focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600 disabled:cursor-not-allowed disabled:opacity-50 shadow-none group-hover/input:shadow-none transition duration-400"
           />
         </motion.div>

@@ -26,14 +26,14 @@ interface ProfileCardProps {
   className?: string;
 }
 
-const ProfileCard = React.memo<ProfileCardProps>(({ 
-  id, 
-  name, 
-  title, 
-  description, 
-  imageUrl, 
+const ProfileCard = React.memo<ProfileCardProps>(({
+  id,
+  name,
+  title,
+  description,
+  imageUrl,
   socialLinks = [],
-  className = "" 
+  className = ""
 }) => {
   const cardVariants = {
     default: {
@@ -84,7 +84,7 @@ const ProfileCard = React.memo<ProfileCardProps>(({
             <p className="text-sm text-gray-600 leading-relaxed line-clamp-3">
               {description}
             </p>
-            
+
             {/* Social Links Section - Part of content, revealed on card hover */}
             {/* Always show social links on mobile, hover on desktop */}
             {socialLinks.length > 0 && (
@@ -137,15 +137,15 @@ const FoundersTeam = () => {
   const foundersOnly = [
     {
       id: "co-founder-2",
-      name: "KP Atluri",
+      name: "Krishna Prasad Atluri",
       title: "FOUNDER",
       description: "A well-respected and innovative leader who has built one of India's largest financial service platforms.",
       imageUrl: "/team-pictures/KP.png",
       socialLinks: [
-        { 
-          id: "linkedin", 
-          platform: "LinkedIn", 
-          url: "https://www.linkedin.com/in/kpatluri?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", 
+        {
+          id: "linkedin",
+          platform: "LinkedIn",
+          url: "https://www.linkedin.com/in/kpatluri?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
           icon: <LinkedinIcon className="w-full h-full" />
         }
       ]
@@ -213,7 +213,7 @@ const FoundersTeam = () => {
           ))}
         </div>
       </motion.div>
-      
+
       {/* Custom scrollbar styles */}
       <style jsx>{`
         .scrollbar-hide {
@@ -232,74 +232,74 @@ const FoundersTeam = () => {
 export default function TeamPage() {
   return (
     <main className="relative w-full pb-12 md:pb-16 overflow-hidden mt-24">
-        {/* Hero Section */}
-        <div className="w-full max-w-7xl mx-auto px-4 md:px-6 relative z-10 justify-center items-center">
-          <div className="text-center mb-12 max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
-                <span className={metallicBlackTextClasses}>Meet Our</span>{" "}
-                <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Expert</span>{" "}
-                <span className={metallicBlackTextClasses}>Team</span>
-              </h1>
-              <p className="mt-6 text-lg md:text-xl text-foreground/80 max-w-3xl mx-auto">
-                We are a passionate team of innovators, engineers, and visionaries dedicated to transforming the future of digital identity and financial services.
-              </p>
-            </motion.div>
-            
+      {/* Hero Section */}
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-6 relative z-10 justify-center items-center">
+        <div className="text-center mb-12 max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <h1 className="text-4xl tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+              <span className={metallicBlackTextClasses}>Meet Our</span>{" "}
+              <span className="inline-block bg-[#baff29] px-2 text-black font-bold">Expert</span>{" "}
+              <span className={metallicBlackTextClasses}>Team</span>
+            </h1>
+            <p className="mt-6 text-lg md:text-xl text-foreground/80 max-w-3xl mx-auto">
+              We are a passionate team of innovators, engineers, and visionaries dedicated to transforming the future of digital identity and financial services.
+            </p>
+          </motion.div>
 
-            {/* Team Image Showcase */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="mt-12 md:mt-16"
-            >
-              <div className="flex items-center justify-center">
-                <h2 className="text-center font-semibold text-sm md:text-base tracking-widest mb-6 mx-auto text-[#00b140]">
-                  OUR AMAZING TEAM
-                </h2>
-              </div>
-              <div className="relative max-w-4xl mx-auto">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ 
-                    duration: 0.8, 
-                    delay: 0.4, 
-                    ease: "easeOut" 
-                  }}
-                  className="relative w-full h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl"
-                >
-                  <Image
-                    src="/team-pictures/onemoney-team.jpg"
-                    alt="Our amazing team"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 1200px"
-                  />
-                  {/* Gradient overlay for better text readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-        <GlowingDivider 
-            width="1/3" 
-            intensity="high" 
-            delay={0.2}
-            className="my-8 md:my-16 mx-auto"
-          />
 
-        {/* Team Showcase Section */}
-        <div className="mt-4">
-          
-          <FoundersTeam />
+          {/* Team Image Showcase */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            className="mt-12 md:mt-16"
+          >
+            <div className="flex items-center justify-center">
+              <h2 className="text-center font-semibold text-sm md:text-base tracking-widest mb-6 mx-auto text-[#00b140]">
+                OUR AMAZING TEAM
+              </h2>
+            </div>
+            <div className="relative max-w-4xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.4,
+                  ease: "easeOut"
+                }}
+                className="relative w-full h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl"
+              >
+                <Image
+                  src="/team-pictures/onemoney-team.jpg"
+                  alt="Our amazing team"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 1200px"
+                />
+                {/* Gradient overlay for better text readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
+      </div>
+      <GlowingDivider
+        width="1/3"
+        intensity="high"
+        delay={0.2}
+        className="my-8 md:my-16 mx-auto"
+      />
+
+      {/* Team Showcase Section */}
+      <div className="mt-4">
+
+        <FoundersTeam />
+      </div>
     </main>
   );
 } 

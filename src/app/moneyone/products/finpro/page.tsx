@@ -1,15 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import type { Metadata } from "next";
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { 
-  Database, 
-  Shield, 
-  Zap, 
-  BarChart3, 
-  MessageSquare, 
+import {
+  Database,
+  Shield,
+  Zap,
+  BarChart3,
+  MessageSquare,
   Route,
   FileText,
   CreditCard,
@@ -47,29 +46,6 @@ import {
 } from "@/app/onemoney/components/ui/dialog";
 import { TalkToUsForm } from "@/app/onemoney/components/forms/TalkToUsForm";
 
-export const metadata: Metadata = {
-  title: "FinPro - FIU TSP Solution | MoneyOne",
-  description: "India's leading FIU TSP solution for seamless Account Aggregator integration. Multi-AA interoperability, smart consent flows, and real-time data access.",
-  openGraph: {
-    title: "FinPro - FIU TSP Solution | MoneyOne",
-    description: "India's leading FIU TSP solution for seamless Account Aggregator integration. Multi-AA interoperability, smart consent flows, and real-time data access.",
-    url: 'https://www.moneyone.in/products/finpro',
-    images: [
-      {
-        url: 'https://www.moneyone.in/moneyone-og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'MoneyOne FinPro - FIU TSP Solution',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: "FinPro - FIU TSP Solution | MoneyOne",
-    description: "India's leading FIU TSP solution for seamless Account Aggregator integration.",
-    images: ['https://www.moneyone.in/moneyone-og-image.png'],
-  },
-};
 
 const metallicBlackTextClasses = "font-bold bg-gradient-to-b from-neutral-600 to-neutral-950 bg-clip-text text-transparent dark:from-neutral-700 dark:to-neutral-900";
 const highlightBgClass = "inline-block bg-[#baff29] px-2 py-1 text-black font-bold";
@@ -83,12 +59,12 @@ const tabsData = [
 
 // Pill texts for the marquee
 const finProFeaturesPillTexts = [
-  "Bank Statements", 
-  "Term & Recurring Deposits", 
-  "Mutual Fund", 
-  "Insurance", 
-  "Equities", 
-  "GSTN Data", 
+  "Bank Statements",
+  "Term & Recurring Deposits",
+  "Mutual Fund",
+  "Insurance",
+  "Equities",
+  "GSTN Data",
   "National Pension Scheme",
   "Consent Management",
   "Data Governance",
@@ -169,7 +145,7 @@ const useCases = [
     features: ["Instant Income Verification", "Cash Flow Analysis", "Credit Risk Assessment"]
   },
   {
-    title: "Wealth Management", 
+    title: "Wealth Management",
     description: "Tailor advice based on customer asset mix (MF, FDs, Stocks)",
     icon: <TrendingUp className="w-6 h-6" />,
     image: "/Staffing & Contract Roles.png",
@@ -300,7 +276,7 @@ export default function FinProPage() {
   return (
     <div className="relative">
       <BackgroundGrid />
-      
+
       {/* Hero Section */}
       <section className="relative w-full grid grid-cols-1 lg:grid-cols-2 items-center pt-12 pb-12 lg:min-h-[700px] overflow-hidden">
         <div className="container mx-auto px-6 md:px-6 lg:px-8 py-8">
@@ -324,7 +300,7 @@ export default function FinProPage() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-            <ShimmerButton onClick={openDialog} className='text-lg uppercase'>
+              <ShimmerButton onClick={openDialog} className='text-lg uppercase'>
                 Book FinPro Demo
               </ShimmerButton>
             </div>
@@ -343,15 +319,15 @@ export default function FinProPage() {
       </section>
 
       {/* Glowing Divider */}
-      <GlowingDivider 
-        width="3/4" 
-        intensity="high" 
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
         delay={0.2}
         className="my-8 md:my-16 mx-auto"
       />
 
       {/* What is FinPro Section */}
-      <motion.section 
+      <motion.section
         className="relative w-full py-12 md:py-20 overflow-hidden"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -378,11 +354,10 @@ export default function FinProPage() {
                   <div
                     key={tab.id}
                     onClick={() => setActiveTab(index)}
-                    className={`relative px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 md:py-4 text-xs sm:text-sm md:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 whitespace-nowrap flex-shrink-0 ${
-                      activeTab === index
-                        ? "text-white font-semibold"
-                        : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
-                    }`}
+                    className={`relative px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 md:py-4 text-xs sm:text-sm md:text-md font-medium rounded-full cursor-pointer transition-colors duration-300 whitespace-nowrap flex-shrink-0 ${activeTab === index
+                      ? "text-white font-semibold"
+                      : "bg-transparent text-slate-800 dark:text-slate-100 hover:bg-black/5 dark:hover:bg-white/5"
+                      }`}
                   >
                     {activeTab === index && (
                       <motion.div
@@ -421,14 +396,14 @@ export default function FinProPage() {
                 <span className={highlightBgClass}>Financial Leaders</span>
               </h3>
             </div>
-            
+
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 justify-items-center mx-auto">
               {finProStatsData.map((stat) => (
                 <div key={stat.id} className="flex flex-col items-center text-center p-4 mx-auto">
                   <div className="text-4xl md:text-5xl lg:text-6xl mb-2">
                     <span className={metallicTextClasses}>{stat.prefix}</span>
-                    <AnimatedCounter 
-                      value={stat.value} 
+                    <AnimatedCounter
+                      value={stat.value}
                       fixedDecimals={stat.fixedDecimals}
                       className={metallicTextClasses}
                     />
@@ -443,7 +418,7 @@ export default function FinProPage() {
           </div>
         </div>
 
-        {/* Container for the title and lines - Full width */} 
+        {/* Container for the title and lines - Full width */}
         <div className="w-full">
           <div className="flex items-center gap-2 sm:gap-4 md:gap-8 mt-12 mb-8">
             <div className="flex-grow h-px bg-foreground/20"></div>
@@ -498,9 +473,9 @@ export default function FinProPage() {
       </motion.section>
 
       {/* Glowing Divider */}
-      <GlowingDivider 
-        width="3/4" 
-        intensity="high" 
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
         delay={0.3}
         className="my-8 md:my-16 mx-auto"
       />
@@ -553,7 +528,7 @@ export default function FinProPage() {
                 imageSize="w-40 h-40 -top-10 -right-10 md:w-40 md:h-40 md:-top-10 md:-right-10 lg:w-48 lg:h-48 lg:-top-15 lg:-right-10 xl:w-48 xl:h-48 xl:-top-15 xl:-right-10 2xl:w-48 2xl:h-48 2xl:-top-15 2xl:-right-10"
               />
             </BentoGrid>
-            
+
             {/* Second Row - Short + Long */}
             <BentoGrid className="grid-cols-1 md:grid-cols-3 gap-4">
               <BentoGridItem
@@ -635,7 +610,7 @@ export default function FinProPage() {
           <div className="relative overflow-hidden bg-linear-to-r from-[#ce4257] to-[#720026] dark:bg-red-500/10 pt-2 pb-4 text-center">
             <h3 className="text-lg font-medium tracking-widest text-white uppercase mb-4 mt-2">WITHOUT FINPRO</h3>
             <HorizontalPointList items={withoutFinPro} textColor="text-white" />
-            <Image 
+            <Image
               src="/thumbs-up.png"
               alt="Thumbs Down"
               width={100}
@@ -646,7 +621,7 @@ export default function FinProPage() {
           <div className="relative overflow-hidden bg-linear-to-l from-[#40916c] to-[#2d6a4f] dark:bg-green-500/10 pt-2 pb-4 text-center">
             <h3 className="text-lg font-medium tracking-wider text-white uppercase mb-4 mt-2">WITH FINPRO</h3>
             <HorizontalPointList items={withFinPro} textColor="text-white" />
-            <Image 
+            <Image
               src="/thumbs-up.png"
               alt="Thumbs Up"
               width={100}
@@ -658,7 +633,7 @@ export default function FinProPage() {
       </section>
 
       {/* Use Cases Section */}
-      <motion.section 
+      <motion.section
         className="relative w-full py-12 md:py-20"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -733,9 +708,9 @@ export default function FinProPage() {
       </motion.section>
 
       {/* Glowing Divider */}
-      <GlowingDivider 
-        width="3/4" 
-        intensity="high" 
+      <GlowingDivider
+        width="3/4"
+        intensity="high"
         delay={0.6}
         className="my-8 md:my-16 mx-auto"
       />
@@ -786,7 +761,7 @@ export default function FinProPage() {
             </DialogDescription>
           </DialogHeader>
           <div className="py-1">
-            <TalkToUsForm />
+            <TalkToUsForm source="moneyone-finpro" />
           </div>
         </DialogContent>
       </Dialog>
