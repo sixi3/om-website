@@ -312,7 +312,7 @@ export function UseCaseLayout(props: UseCase) {
                     className="w-full mx-auto mb-12 border border-[#00b140]/30 bg-linear-to-br from-background/90 to-[#baff29]/20 backdrop-blur-lg rounded-xl overflow-hidden"
                     variants={itemVariants}
                 >
-                    <div className="p-8">
+                    <div className="p-4">
                         <div className="text-center mb-8">
                             <h2 className="text-2xl tracking-tight leading-tight sm:text-3xl md:text-4xl mb-4">
                                 <span className={metallicBlackTextClasses}>{heroHeadline}</span>
@@ -326,7 +326,7 @@ export function UseCaseLayout(props: UseCase) {
                                 <div className="w-full overflow-x-auto scrollbar-hide md:hidden">
                                     <div className="flex items-center gap-3 px-4 min-w-max">
                                         {bestFor.map((item, index) => (
-                                            <div key={index} className="inline-block px-4 py-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md flex-shrink-0">
+                                            <div key={index} className="inline-block px-2 py-2 rounded-full border border-[#00b140]/30 bg-linear-to-br from-background/50 to-[#baff29]/20 backdrop-blur-md flex-shrink-0">
                                                 <div className="flex items-center gap-2">
                                                     <span className="relative flex h-2 w-2">
                                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>

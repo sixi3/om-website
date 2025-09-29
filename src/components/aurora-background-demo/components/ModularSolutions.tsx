@@ -13,10 +13,10 @@ import {
 } from "../constants";
 import { AnimatedCounter } from "@/app/onemoney/components/ui/animated-counter";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { GlowingDivider } from "@/components/ui/glowing-divider";
 import { useEffect, useRef, useState } from "react";
 import { animate, useInView } from "framer-motion";
 import { Component as EtherealShadow } from "@/components/ui/etheral-shadow";
+
 
 const MotionLink = motion(Link);
 
@@ -269,14 +269,10 @@ const IndustryInnovationSection = React.memo(() => {
 
   return (
     <section className="relative w-full px-8 pt-16 mt-12 pb-16 md:py-20 xl:px-12 2xl:px-24 transform -skew-y-2 overflow-hidden mb-24">
-      {/* Ethereal Shadow Background */}
+      {/* Ethereal Shadow Background - Static (no animation) */}
       <div className="absolute inset-0 z-0">
         <EtherealShadow
           color="#00b140"
-          animation={{
-            scale: 60,
-            speed: 50
-          }}
           noise={{
             opacity: 0.8,
             scale: 1.2
@@ -286,30 +282,16 @@ const IndustryInnovationSection = React.memo(() => {
         />
       </div>
 
-      {/* Animated Gradient Overlay */}
-      <motion.div
+      {/* Static Gradient Overlay - Animation removed for performance */}
+      <div
         className="absolute inset-0 z-0"
-        animate={{
-          background: [
-            `linear-gradient(135deg, 
-              rgba(0, 120, 40, 0.95) 0%, 
-              rgba(186, 255, 41, 0.8) 35%,
-              rgba(0, 90, 30, 0.9) 70%,
-              rgba(186, 255, 41, 0.7) 100%
-            )`,
-            `linear-gradient(135deg, 
-              rgba(186, 255, 41, 0.85) 0%, 
-              rgba(0, 100, 35, 0.9) 30%,
-              rgba(186, 255, 41, 0.8) 65%,
-              rgba(0, 120, 40, 0.95) 100%
-            )`
-          ],
-          transition: {
-            duration: 4,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut"
-          }
+        style={{
+          background: `linear-gradient(135deg,
+            rgba(0, 120, 40, 0.95) 0%,
+            rgba(186, 255, 41, 0.8) 35%,
+            rgba(0, 90, 30, 0.9) 70%,
+            rgba(186, 255, 41, 0.7) 100%
+          )`
         }}
       />
 
@@ -375,7 +357,7 @@ const IndustryInnovationSection = React.memo(() => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.5
@@ -542,7 +524,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{
                 duration: ANIMATION_CONFIG.duration,
                 delay: 0.5
@@ -595,7 +577,7 @@ const SolutionSection = React.memo<{ section: SolutionSection; sectionIndex: num
                   rel={section.id === "financial" ? "noopener noreferrer" : undefined}
                   initial={{ opacity: 0, y: 30, scale: 0.95 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: false, margin: "-50px", amount: 0.3 }}
+                  viewport={{ once: true, margin: "-50px", amount: 0.3 }}
                   transition={{
                     duration: 0.5,
                     ease: [0.25, 0.46, 0.45, 0.94],

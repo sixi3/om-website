@@ -243,7 +243,7 @@ export default function LeadershipPage() {
             </motion.div>
           </div>
 
-          {/* Layout for xl screens only (3+3+1) */}
+          {/* Layout for xl screens only (3+3+3) */}
           <div className="hidden xl:block 2xl:hidden">
             {/* First row - 3 items */}
             <motion.div
@@ -283,7 +283,7 @@ export default function LeadershipPage() {
               ))}
             </motion.div>
 
-            {/* Third row - 1 item */}
+            {/* Third row - 3 items */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -292,9 +292,9 @@ export default function LeadershipPage() {
                 duration: 0.6,
                 delay: 0.6
               }}
-              className="flex justify-center mt-12"
+              className="flex justify-center items-center space-x-6 mt-12"
             >
-              {boardMembers.slice(6, 7).map((member, index) => (
+              {boardMembers.slice(6, 9).map((member, index) => (
                 <ProfileCard
                   key={member.id}
                   {...member}
