@@ -102,7 +102,7 @@ const moneyOneSolutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/solutions/wealth-management"
+        href: "/moneyone/solutions/wealth-management"
       },
       {
         id: "lending",
@@ -114,7 +114,7 @@ const moneyOneSolutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/solutions/lending"
+        href: "/moneyone/solutions/lending"
       },
       {
         id: "advisory",
@@ -126,7 +126,7 @@ const moneyOneSolutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/solutions/advisory"
+        href: "/moneyone/solutions/advisory"
       },
       {
         id: "brokerage",
@@ -138,7 +138,7 @@ const moneyOneSolutionSections: SolutionSection[] = [
           width: 56,
           height: 56
         },
-        href: "/solutions/brokerage"
+        href: "/moneyone/solutions/brokerage"
       },
     ]
   }
