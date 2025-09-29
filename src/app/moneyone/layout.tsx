@@ -17,11 +17,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "MoneyOne - India's Largest AA TSP",
     description: "India's Largest Account Aggregator Technology Service Provider. Aggregate, Assess, Act with comprehensive financial solutions.",
-    url: 'https://www.moneyone.in',
+    url: 'https://moneyone.in',
     siteName: 'MoneyOne',
     images: [
       {
-        url: 'https://www.moneyone.in/moneyone-og-image.png',
+        url: 'https://moneyone.in/moneyone-og-image.png',
         width: 1200,
         height: 630,
         alt: 'MoneyOne - India\'s Largest AA TSP',

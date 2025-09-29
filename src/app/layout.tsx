@@ -12,7 +12,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://om-website-ten.vercel.app'),
+  metadataBase: new URL('https://equal.in'),
   title: "Equal - India's Most Advanced Data Sharing Platform", // Generic Title
   description: "Equal is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.", // Generic Description
   icons: {
@@ -22,13 +22,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://om-website-ten.vercel.app',
+    url: 'https://equal.in',
     title: "Equal - India's Most Advanced Data Sharing Platform",
     description: "Equal is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.",
     siteName: 'Equal',
     images: [
       {
-        url: '/Open-Graph-Image.png',
+        url: 'https://equal.in/Open-Graph-Image.png',
         width: 1200,
         height: 630,
         alt: 'Equal - India\'s Largest Data Sharing Platform',
@@ -39,12 +39,12 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Equal - India's Most Advanced Data Sharing Platform",
     description: "Equal is India's Most Advanced Data Sharing Platform. It is a platform that allows you to share your data with others in a secure and private way.",
-    images: ['/Open-Graph-Image.png'],
+    images: ['https://equal.in/Open-Graph-Image.png'],
   },
   other: {
     'og:image:type': 'image/png',
-    'og:image:secure_url': 'https://om-website-ten.vercel.app/Open-Graph-Image.png',
-    'og:image:url': 'https://om-website-ten.vercel.app/Open-Graph-Image.png',
+    'og:image:secure_url': 'https://equal.in/Open-Graph-Image.png',
+    'og:image:url': 'https://equal.in/Open-Graph-Image.png',
     'og:image:width': '1200',
     'og:image:height': '630',
   },
@@ -64,7 +64,7 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/equal-icon.png" />
         <link rel="apple-touch-icon" href="/equal-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        
+
         <script
           dangerouslySetInnerHTML={{
             __html: `

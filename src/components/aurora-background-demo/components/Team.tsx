@@ -3,8 +3,8 @@
 import React, { useRef } from "react";
 import { motion, easeOut } from "framer-motion";
 import Image from "next/image";
-import { 
-  METALLIC_BLACK_TEXT_CLASSES, 
+import {
+  METALLIC_BLACK_TEXT_CLASSES,
   ANIMATION_CONFIG
 } from "../constants";
 import { ChevronLeft, ChevronRight, LinkedinIcon, Instagram, Linkedin } from "lucide-react";
@@ -25,14 +25,14 @@ interface ProfileCardProps {
   className?: string;
 }
 
-const ProfileCard = React.memo<ProfileCardProps>(({ 
-  id, 
-  name, 
-  title, 
-  description, 
-  imageUrl, 
+const ProfileCard = React.memo<ProfileCardProps>(({
+  id,
+  name,
+  title,
+  description,
+  imageUrl,
   socialLinks = [],
-  className = "" 
+  className = ""
 }) => {
   const cardVariants = {
     default: {
@@ -57,7 +57,7 @@ const ProfileCard = React.memo<ProfileCardProps>(({
       >
         <div className="relative w-80 h-96 rounded-lg overflow-hidden shadow-lg">
           {/* Background team photo with reduced opacity */}
-          <div 
+          <div
             className="absolute inset-0 bg-center"
             style={{
               backgroundImage: 'url("/team-pictures/WhatsApp Image 2025-08-25 at 5.05.13 PM.jpeg")',
@@ -121,7 +121,7 @@ const ProfileCard = React.memo<ProfileCardProps>(({
             <p className="text-sm text-gray-600 leading-relaxed line-clamp-3">
               {description}
             </p>
-            
+
             {/* Social Links Section - Part of content, revealed on card hover */}
             {/* Always show social links on mobile, hover on desktop */}
             {socialLinks.length > 0 && (
@@ -177,16 +177,16 @@ const teamMembers = [
     description: "Keshav Reddy is a seasoned entrepreneur having built, operated, and invested in over 30+ companies.",
     imageUrl: "/team-pictures/keshav-reddy.png",
     socialLinks: [
-      { 
-        id: "linkedin", 
-        platform: "LinkedIn", 
-        url: "https://www.linkedin.com/in/keshavreddy?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", 
+      {
+        id: "linkedin",
+        platform: "LinkedIn",
+        url: "https://www.linkedin.com/in/keshavreddy?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         icon: <LinkedinIcon className="w-full h-full" />
       },
-      { 
-        id: "instagram", 
-        platform: "Instagram", 
-        url: "https://www.instagram.com/gvkjr?igsh=MTlraHNzYm1ubjNh", 
+      {
+        id: "instagram",
+        platform: "Instagram",
+        url: "https://www.instagram.com/gvkjr?igsh=MTlraHNzYm1ubjNh",
         icon: <Instagram className="w-full h-full" />
       }
     ]
@@ -198,25 +198,25 @@ const teamMembers = [
     description: "A technology pioneer with 10+ years of experience in building some of India's largest platforms.",
     imageUrl: "/team-pictures/rajeev.png",
     socialLinks: [
-      { 
-        id: "linkedin", 
-        platform: "LinkedIn", 
-        url: "https://www.linkedin.com/in/rajeevjranjan?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", 
+      {
+        id: "linkedin",
+        platform: "LinkedIn",
+        url: "https://www.linkedin.com/in/rajeevjranjan?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         icon: <LinkedinIcon className="w-full h-full" />
       }
     ]
   },
   {
     id: "co-founder-2",
-    name: "KP Atluri",
+    name: "Krishna Prasad Atluri",
     title: "CO-FOUNDER",
     description: "A well-respected and innovative leader who has built one of India's largest financial service platforms.",
     imageUrl: "/team-pictures/KP.png",
     socialLinks: [
-      { 
-        id: "linkedin", 
-        platform: "LinkedIn", 
-        url: "https://www.linkedin.com/in/kpatluri?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", 
+      {
+        id: "linkedin",
+        platform: "LinkedIn",
+        url: "https://www.linkedin.com/in/kpatluri?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         icon: <LinkedinIcon className="w-full h-full" />
       }
     ]
@@ -324,7 +324,7 @@ const Team = React.memo(() => {
           </button>
         </div>
       </motion.div>
-      
+
       {/* Custom scrollbar styles */}
       <style jsx>{`
         .scrollbar-hide {

@@ -30,14 +30,14 @@ interface ProfileCardProps {
   className?: string;
 }
 
-const ProfileCard = React.memo<ProfileCardProps>(({ 
-  id, 
-  name, 
-  title, 
-  description, 
-  imageUrl, 
+const ProfileCard = React.memo<ProfileCardProps>(({
+  id,
+  name,
+  title,
+  description,
+  imageUrl,
   socialLinks = [],
-  className = "" 
+  className = ""
 }) => {
   const cardVariants = {
     default: {
@@ -88,7 +88,7 @@ const ProfileCard = React.memo<ProfileCardProps>(({
             <p className="text-sm text-gray-600 leading-relaxed line-clamp-3">
               {description}
             </p>
-            
+
             {/* Social Links Section - Part of content, revealed on card hover */}
             {/* Always show social links on mobile, hover on desktop */}
             {socialLinks.length > 0 && (
@@ -146,16 +146,16 @@ const FoundersTeam = () => {
       description: "Keshav Reddy is a seasoned entrepreneur having built, operated, and invested in over 30+ companies.",
       imageUrl: "/team-pictures/keshav-reddy.png",
       socialLinks: [
-        { 
-          id: "linkedin", 
-          platform: "LinkedIn", 
-          url: "https://www.linkedin.com/in/keshavreddy?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", 
+        {
+          id: "linkedin",
+          platform: "LinkedIn",
+          url: "https://www.linkedin.com/in/keshavreddy?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
           icon: <LinkedinIcon className="w-full h-full" />
         },
-        { 
-          id: "instagram", 
-          platform: "Instagram", 
-          url: "https://www.instagram.com/gvkjr?igsh=MTlraHNzYm1ubjNh", 
+        {
+          id: "instagram",
+          platform: "Instagram",
+          url: "https://www.instagram.com/gvkjr?igsh=MTlraHNzYm1ubjNh",
           icon: <Instagram className="w-full h-full" />
         }
       ]
@@ -167,25 +167,25 @@ const FoundersTeam = () => {
       description: "A technology pioneer with 10+ years of experience in building some of India's largest platforms.",
       imageUrl: "/team-pictures/rajeev.png",
       socialLinks: [
-        { 
-          id: "linkedin", 
-          platform: "LinkedIn", 
-          url: "https://www.linkedin.com/in/rajeevjranjan?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", 
+        {
+          id: "linkedin",
+          platform: "LinkedIn",
+          url: "https://www.linkedin.com/in/rajeevjranjan?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
           icon: <LinkedinIcon className="w-full h-full" />
         }
       ]
     },
     {
       id: "co-founder-2",
-      name: "KP Atluri",
+      name: "Krishna Prasad Atluri",
       title: "CO-FOUNDER",
       description: "A well-respected and innovative leader who has built one of India's largest financial service platforms.",
       imageUrl: "/team-pictures/KP.png",
       socialLinks: [
-        { 
-          id: "linkedin", 
-          platform: "LinkedIn", 
-          url: "https://www.linkedin.com/in/kpatluri?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", 
+        {
+          id: "linkedin",
+          platform: "LinkedIn",
+          url: "https://www.linkedin.com/in/kpatluri?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
           icon: <LinkedinIcon className="w-full h-full" />
         }
       ]
@@ -253,7 +253,7 @@ const FoundersTeam = () => {
           ))}
         </div>
       </motion.div>
-      
+
       {/* Custom scrollbar styles */}
       <style jsx>{`
         .scrollbar-hide {
@@ -274,7 +274,7 @@ export default function TeamPage() {
     <AuroraBackground>
       <BackgroundGrid />
       <MainHeader />
-      
+
       <main className="relative w-full pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
           <EqualBreadcrumb className="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-lg px-4 py-2 shadow-sm" />
@@ -296,7 +296,7 @@ export default function TeamPage() {
                 We are a passionate team of innovators, engineers, and visionaries dedicated to transforming the future of digital identity and financial services.
               </p>
             </motion.div>
-            
+
 
             {/* Team Image Showcase */}
             <motion.div
@@ -314,10 +314,10 @@ export default function TeamPage() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ 
-                    duration: 0.8, 
-                    delay: 0.4, 
-                    ease: "easeOut" 
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.4,
+                    ease: "easeOut"
                   }}
                   className="relative w-full h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl"
                 >
@@ -335,16 +335,16 @@ export default function TeamPage() {
             </motion.div>
           </div>
         </div>
-        <GlowingDivider 
-            width="1/3" 
-            intensity="high" 
-            delay={0.2}
-            className="my-8 md:my-16 mx-auto"
-          />
+        <GlowingDivider
+          width="1/3"
+          intensity="high"
+          delay={0.2}
+          className="my-8 md:my-16 mx-auto"
+        />
 
         {/* Team Showcase Section */}
         <div className="mt-4">
-          
+
           <FoundersTeam />
         </div>
       </main>
