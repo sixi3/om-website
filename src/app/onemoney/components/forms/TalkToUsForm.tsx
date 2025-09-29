@@ -25,10 +25,14 @@ export function TalkToUsForm({ source }: { source?: string }) {
   const [isMounted, setIsMounted] = useState(false);
   const [textareaVisible, setTextareaVisible] = useState(false);
   const [purposeDropdownOpen, setPurposeDropdownOpen] = useState(false);
+  const [host, setHost] = useState<string>('');
   const purposeDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
+    if (typeof window !== 'undefined') {
+      setHost(window.location.host);
+    }
   }, []);
 
   useEffect(() => {
@@ -50,6 +54,28 @@ export function TalkToUsForm({ source }: { source?: string }) {
   const handlePurposeSelect = (value: string) => {
     setFormData((prev) => ({ ...prev, purpose: value }));
     setPurposeDropdownOpen(false);
+  };
+
+  // Define purpose options based on host
+  const getPurposeOptions = () => {
+    if (host === 'equal.in') {
+      return [
+        { value: "Employment", label: "Employment" },
+        { value: "BFSI", label: "BFSI" },
+        { value: "AI Assistant", label: "AI Assistant" },
+        { value: "General", label: "General" }
+      ];
+    } else if (host === 'onemoney.in' || host === 'moneyone.in') {
+      return [
+        { value: "General", label: "General" },
+        { value: "Business Enquiry", label: "Business Enquiry" },
+        { value: "Customer Query", label: "Customer Query" }
+      ];
+    }
+    // Default fallback
+    return [
+      { value: "General", label: "General" }
+    ];
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -168,12 +194,7 @@ export function TalkToUsForm({ source }: { source?: string }) {
           
           {purposeDropdownOpen && (
             <div className="absolute z-10 w-full mt-1 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-neutral-700 rounded-md shadow-lg">
-              {[
-                { value: "Employment", label: "Employment" },
-                { value: "BFSI", label: "BFSI" },
-                { value: "Consumer", label: "Consumer" },
-                { value: "General", label: "General" }
-              ].map((option) => (
+              {getPurposeOptions().map((option) => (
                 <button
                   key={option.value}
                   type="button"
