@@ -122,7 +122,7 @@ export const EqualAIPortrait = memo<EqualAIPortraitProps>(({
       {/* Title at the top */}
       <div className="absolute top-6 left-0 w-full flex justify-start z-20 pointer-events-none">
         <h2 className="text-md font-semibold tracking-widest text-white uppercase px-4 py-1 rounded">
-          CONSUMER PRODUCT
+          CONSUMER
         </h2>
       </div>
       {/* Etheral Shadow Background - Simplified */}
