@@ -1,0 +1,11 @@
+.equal-primary { color: #00D26A; }
+.equal-primary-bg { background-color: #00D26A; }
+.equal-primary-dark { color: #00B55A; }
+.equal-secondary-bg { background-color: #F0FFF5; }
+.equal-text-secondary { color: #4A5568; }
+.equal-accent { color: #A7F3D0; }
+.equal-highlight { background-color: #D4FF00; }
+.equal-border { border-color: #E6FFFA; }
+.equal-gradient { background: linear-gradient(135deg, #00D26A 0%, #10E87A 100%); }
+.equal-gradient-light { background: linear-gradient(135deg, rgba(230, 255, 250, 0.5) 0%, rgba(240, 255, 244, 0.8) 100%); }
+.equal-card-shadow { box-shadow: 0 1px 3px 0 rgba(0, 210, 106, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }

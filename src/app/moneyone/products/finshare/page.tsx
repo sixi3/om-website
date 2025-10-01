@@ -75,7 +75,7 @@ const finShareFeaturesPillTexts = [
 const finShareStatsData = [
   { id: "fips", value: 25, label: "FIPs use FinShare", prefix: "", suffix: "+" },
   { id: "aas", value: 10, label: "Exclusive FIP Integrations", prefix: "", suffix: "+" },
-  { id: "requests", value: 1.8, label: "Data Requests Monthly", prefix: "", suffix: "M", fixedDecimals: 1 },
+  { id: "requests", value: 1.8, label: "Data Requests Monthly", prefix: "", suffix: "Mn", fixedDecimals: 1 },
   { id: "uptime", value: 99.9, label: "Uptime Guarantee", prefix: "", suffix: "%", fixedDecimals: 1 },
 ];
 

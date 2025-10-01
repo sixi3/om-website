@@ -79,7 +79,7 @@ const finProFeaturesPillTexts = [
 const finProStatsData = [
   { id: "banks", value: 50, label: "Banks & NBFCs use FinPro", prefix: "", suffix: "+" },
   { id: "integrations", value: 8, label: "AA Integrations", prefix: "", suffix: "+" },
-  { id: "requests", value: 2.5, label: "Consent Requests Monthly", prefix: "", suffix: "M", fixedDecimals: 1 },
+  { id: "requests", value: 2.5, label: "Consent Requests Monthly", prefix: "", suffix: "Mn", fixedDecimals: 1 },
   { id: "uptime", value: 99.9, label: "Uptime Guarantee", prefix: "", suffix: "%", fixedDecimals: 1 },
 ];
 

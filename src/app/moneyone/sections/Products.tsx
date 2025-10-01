@@ -144,7 +144,7 @@ const productsData = [
 const moneyOneStatsData = [
   { id: "fips", value: 120, label: "FIPs use MoneyOne", prefix: "", suffix: "+" },
   { id: "traffic", value: 50, label: "of all AA traffic", prefix: "", suffix: "%" },
-  { id: "transfers", value: 160, label: "Data transfers complete", prefix: "", suffix: "M" },
+  { id: "transfers", value: 160, label: "Data transfers complete", prefix: "", suffix: "Mn" },
 ];
 
 // ADDED: Features pills from MoneyOne

@@ -34,16 +34,33 @@ const getCompanySection = (pathname: string): CompanySection => {
 };
 
 // Dynamic footer sections based on company section
-const getFooterSections = (section: CompanySection): FooterSection[] => [
-  {
-    title: "ABOUT US",
-    links: [
-      { title: "Vision", href: "/common/vision-mission" },
-      { title: "Team & Leadership", href: "/common/team" },
-      { title: "Board", href: "/common/leadership" },
-      { title: "Values", href: "/common/values" }
-    ]
-  },
+const getFooterSections = (section: CompanySection, pathname: string): FooterSection[] => {
+  // Check if we're on moneyone.in domain (including any subdomain)
+  const isMoneyOneDomain = typeof window !== 'undefined' && window.location.hostname.includes('moneyone.in');
+
+  const aboutUsLinks = isMoneyOneDomain ? [
+    { title: "Vision", href: "/moneyone/vision-mission" },
+    { title: "Team & Leadership", href: "/moneyone/team" },
+    { title: "Board", href: "/moneyone/leadership" },
+    { title: "Values", href: "/moneyone/values" }
+  ] : [
+    { title: "Vision", href: "/common/vision-mission" },
+    { title: "Team & Leadership", href: "/common/team" },
+    { title: "Board", href: "/common/leadership" },
+    { title: "Values", href: "/common/values" }
+  ];
+
+  // Only show Equal RIA link on main landing page (/), employment pages, or www.equal.in domain
+  const isEqualDomain = typeof window !== 'undefined' && window.location.hostname === 'www.equal.in';
+  if (pathname === "/" || pathname.includes("/employment") || isEqualDomain) {
+    aboutUsLinks.push({ title: "Equal RIA", href: "/ia" });
+  }
+
+  return [
+    {
+      title: "ABOUT US",
+      links: aboutUsLinks
+    },
   {
     title: "PRODUCTS",
     links: section === 'moneyone' ? [
@@ -96,13 +113,14 @@ const getFooterSections = (section: CompanySection): FooterSection[] => [
     ]
   }
 ];
+}
 
 export function MainFooter() {
   const pathname = usePathname();
   
   // Get dynamic footer sections based on current section
   const currentSection = getCompanySection(pathname);
-  const footerSections = getFooterSections(currentSection);
+  const footerSections = getFooterSections(currentSection, pathname);
 
   return (
     <footer className="bg-linear-b from-white to-[#00b140]/10 border-t-2 border-gray-200 py-12">

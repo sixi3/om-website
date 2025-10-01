@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EQUAL IDENTITY PRIVATE LIMITED - SEBI Registered Investment Adviser</title>
+    <style>
+        :root {
+            --primary-color: #00D26A; /* Equal's signature green */
+            --primary-dark: #00B55A; /* Darker green for hover */
+            --secondary-color: #F0FFF5; /* Very light green background */
+            --text-color: #1A202C; /* Dark text */
+            --text-secondary: #4A5568; /* Gray text */
+            --header-text-color: #ffffff;
+            --accent-color: #A7F3D0; /* Light green accent */
+            --gradient-start: #00D26A;
+            --gradient-end: #10E87A;
+            --gradient-light-start: #E6FFFA;
+            --gradient-light-end: #F0FFF4;
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --border-color: #E6FFFA;
+            --card-shadow: 0 1px 3px 0 rgba(0, 210, 106, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --card-hover-shadow: 0 10px 15px -3px rgba(0, 210, 106, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --highlight-yellow: #D4FF00; /* Neon yellow/green for highlights */
+        }
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background: linear-gradient(180deg, #F0FFF4 0%, #E6FFFA 50%, #F0FFF4 100%);
+            min-height: 100vh;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+        header {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: var(--header-text-color);
+            padding: 1.2rem 0;
+            box-shadow: 0 2px 8px 0 rgba(0, 210, 106, 0.15);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header a {
+            color: var(--header-text-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: opacity 0.2s ease;
+        }
+        header a:hover {
+            opacity: 0.8;
+        }
+        
+        .cta-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 24px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(0, 210, 106, 0.3);
+        }
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 210, 106, 0.4);
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+            margin: 0;
+        }
+        header li {
+            display: inline;
+            padding: 0 15px;
+        }
+        header #logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .hero {
+            background: linear-gradient(135deg, rgba(230, 255, 250, 0.5) 0%, rgba(240, 255, 244, 0.8) 100%);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 50%, var(--highlight-yellow) 100%);
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 255, 0, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: var(--text-color);
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 .highlight {
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 12px;
+            display: inline-block;
+            border-radius: 6px;
+            margin: 0 4px;
+            font-size: 0.9em;
+        }
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+        }
+        section {
+            padding: 40px 0;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: var(--text-color);
+            font-weight: 600;
+            position: relative;
+        }
+        h2 span.highlight {
+            background: var(--highlight-yellow);
+            padding: 0 12px;
+            display: inline-block;
+            transform: skew(-5deg);
+            margin: 0 8px;
+        }
+        .section-gray {
+            background-color: var(--secondary-color);
+        }
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .service-card {
+            background: #fff;
+            padding: 24px;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+        .service-card:hover::before {
+            transform: translateY(0);
+        }
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-hover-shadow);
+            border-color: var(--primary-color);
+        }
+        .service-card h3 {
+            color: var(--text-color);
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .service-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Investor Zone and Contact Page Styles */
+        .content-box {
+            background: #fff;
+            padding: 32px;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            margin-top: 24px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+        }
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border-radius: 16px 16px 0 0;
+        }
+        .content-box h3 {
+            margin-top: 8px;
+            color: var(--text-color);
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .content-box h4 {
+            color: var(--text-color);
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+        .content-box ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .content-box .dos-donts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .dos-donts h4 {
+            color: var(--text-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            font-weight: 600;
+        }
+        .dos-donts ul {
+            padding: 0;
+            list-style: none;
+        }
+        .dos-donts li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .dos-donts .dos li::before {
+            content: '✓';
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .dos-donts .donts li::before {
+            content: '✗';
+            color: red;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: var(--header-text-color);
+            padding: 40px 0 20px;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(212, 255, 0, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        footer .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        footer h4 {
+            margin-bottom: 16px;
+            color: #fff;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 8px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: var(--header-text-color);
+        }
+        .footer-disclaimer {
+            grid-column: 1 / -1;
+            margin-top: 24px;
+            text-align: center;
+            font-size: 12px;
+            background-color: rgba(255,255,255,0.1);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Responsive footer for mobile */
+        @media (max-width: 768px) {
+            footer .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Page Navigation */
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .nav-link {
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div id="logo">EQUAL IDENTITY</div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#investor-zone" class="nav-link">Investor Zone</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div id="home" class="page active">
+            <section class="hero">
+                <div class="container">
+                    <h1>EQUAL IDENTITY PRIVATE LIMITED</h1>
+                    <p>SEBI Registered Investment Adviser</p>
+                    <p>Your Fiduciary Partner in Strategic Growth and Investment</p>
+                </div>
+            </section>
+            
+            <section id="about">
+                <div class="container">
+                    <h2>About Us</h2>
+                    <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+                        Equal Identity Private Limited is a <strong>SEBI Registered Investment Advisor (RIA)</strong> offers expert investment advisory services with a core principle to offer custom, unbiased investment products for every type of investor. Grow your wealth with our investment advisory services, including stock, mutual fund, and fixed income products tailored to meet your financial goals.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <div id="services" class="page">
+            <section>
+                <div class="container">
+                    <h2>Our Services</h2>
+                    <p style="text-align: center; max-width: 800px; margin: 0 auto 30px auto;">
+                        Our advisory services are tailored for individuals, family offices, and institutions. We act as a fiduciary, providing unbiased and strategic guidance across a spectrum of investment and business-building activities.
+                    </p>
+                    <div class="service-grid">
+                        <div class="service-card">
+                            <h3>Early-Stage Startup Advisory</h3>
+                            <p>Identifying and evaluating high-growth, early-stage investment opportunities in sectors like Fintech, Consumer Tech, Healthcare, and Manufacturing.</p>
+                        </div>
+                        <div class="service-card">
+                            <h3>Business Incubation</h3>
+                            <p>We work hands-on with founders to build businesses from first principles, providing strategic, operational, and compliance support from the ground up.</p>
+                        </div>
+                        <div class="service-card">
+                            <h3>Founder Support</h3>
+                            <p>Providing comprehensive, hands-on support to founders across strategy, operations, compliance, and capital structuring to navigate the complexities of building a successful enterprise.</p>
+                        </div>
+                        <div class="service-card">
+                            <h3>Capital Structuring</h3>
+                            <p>Advising on optimal capital structures, financial modeling, and preparing businesses for future funding rounds and sustainable growth.</p>
+                        </div>
+                        <div class="service-card">
+                            <h3>Investment Evaluation</h3>
+                            <p>Leading rigorous investment evaluations, due diligence processes, and legal documentation (SSA/SHA) to ensure investments are sound and structured for success.</p>
+                        </div>
+                        <div class="service-card">
+                            <h3>Financial Services Advisory</h3>
+                            <p>Specialized advisory for entities in the financial services sector, including NBFCs and insurance, focusing on business model innovation and regulatory compliance.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <div id="investor-zone" class="page">
+            <section>
+                <div class="container">
+                    <h2>Investor Zone</h2>
+                    <p style="text-align: center;">Information for our valued clients and prospective investors.</p>
+                    
+                    <div class="content-box">
+                        <h3>Investor Charter</h3>
+                        <p>In accordance with SEBI guidelines, we are committed to upholding the Investor Charter. This charter outlines our vision, mission, and commitment to you, the investor.</p>
+                        <h4>A. Vision and Mission Statements for Investors</h4>
+                        <ul>
+                            <li><strong>Vision:</strong> Invest with knowledge & safety.</li>
+                            <li><strong>Mission:</strong> Every investor should be able to invest in right investment products based on their needs, manage and monitor them to meet their goals, access reports and enjoy financial wellness.</li>
+                        </ul>
+                        
+                        <div class="dos-donts">
+                            <div class="dos">
+                                <h4>Do's for Investors</h4>
+                                <ul>
+                                    <li>Always deal with SEBI registered Investment Advisers.</li>
+                                    <li>Ensure that the Investment Adviser has a valid registration certificate.</li>
+                                    <li>Pay only advisory fees through banking channels and maintain receipts.</li>
+                                    <li>Always ask for your risk profiling before accepting investment advice.</li>
+                                    <li>Read the terms and conditions carefully before dealing with any Investment Adviser.</li>
+                                    <li>Be vigilant in your transactions.</li>
+                                </ul>
+                            </div>
+                            <div class="donts">
+                                <h4>Don'ts for Investors</h4>
+                                <ul>
+                                    <li>Don't fall for stock tips offered under the pretext of investment advice.</li>
+                                    <li>Do not provide funds for investment to the Investment Adviser.</li>
+                                    <li>Don't fall for the promise of indicative or exorbitant or assured returns.</li>
+                                    <li>Don't fall prey to luring advertisements or market rumors.</li>
+                                    <li>Don't rush into making investments that do not match your risk-taking appetite.</li>
+                                    <li>Do not share login credentials and passwords of your trading, demat, or bank accounts with the Investment Adviser.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-box">
+                        <h3>Grievance Redressal Mechanism</h3>
+                        <p>We are committed to resolving all client grievances in a timely and efficient manner.</p>
+                        <p><strong>Dear Investor,</strong></p>
+                        <p>In case of any grievance/complaint against the Investment Adviser:</p>
+                        <ul>
+                            <li>
+                                <strong>Step 1:</strong> Please contact the Principal Officer / Compliance Officer of the Investment Adviser:
+                                <br><strong>Name:</strong> Abhishek Sambangi
+                                <br><strong>Email:</strong> abhishek.s@equal.in
+                                <br><strong>Phone:</strong> 022229840842236
+                            </li>
+                            <li>
+                                <strong>Step 2:</strong> If you are not satisfied with the response, you can lodge your grievances with SEBI on the SCORES platform at <a href="http://scores.gov.in" target="_blank" rel="noopener noreferrer">http://scores.gov.in</a> or you may also write to any of the offices of SEBI.
+                            </li>
+                             <li>
+                                <strong>Step 3:</strong> If you remain dissatisfied with the outcome of the SCORES complaint, you may consider Online Dispute Resolution (ODR) through the Smart ODR portal.
+                            </li>
+                        </ul>
+                        <p>For any queries, feedback or assistance, please contact SEBI Office on Toll-Free Helpline at 1800 22 7575 / 1800 266 7575.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="contact" class="page">
+            <section>
+                 <div class="container">
+                    <h2>Contact Us</h2>
+                    <div class="content-box" style="text-align: center;">
+                        <h3>EQUAL IDENTITY PRIVATE LIMITED</h3>
+                        <p><strong>Registered Address:</strong><br>
+                           2nd floor The sky view sky view 10 SY No 83 1 Raidurg Hyderabad, HYDERABAD, TELANGANA, 500081
+                        </p>
+                        <p>
+                            <strong>Telephone:</strong> 022229840842236<br>
+                            <strong>Fax No.:</strong> 022229840842236
+                        </p>
+                         <p>
+                            <strong>Principal Officer:</strong> Abhishek Sambangi<br>
+                            <strong>Email:</strong> abhishek.s@equal.in
+                        </p>
+                         <div style="margin-top: 30px;">
+                            <a href="mailto:abhishek.s@equal.in" class="cta-button">GET IN TOUCH</a>
+                         </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div>
+                <h4>Company Details</h4>
+                <p><strong>EQUAL IDENTITY PRIVATE LIMITED</strong></p>
+                <p><strong>Type of Registration:</strong> Non-Individual</p>
+                <p><strong>SEBI Registration No.:</strong> INA000018124</p>
+                <p><strong>Validity of Registration:</strong> Perpetual</p>
+            </div>
+            <div>
+                <h4>Contact Information</h4>
+                <p><strong>Address:</strong> 2nd floor The sky view sky view 10 SY No 83 1 Raidurg Hyderabad, HYDERABAD, TELANGANA, 500081</p>
+                <p><strong>Phone:</strong> 022229840842236</p>
+                <p><strong>Email:</strong> abhishek.s@equal.in</p>
+            </div>
+            <div>
+                <h4>Principal Officer</h4>
+                <p><strong>Name:</strong> Abhishek Sambangi</p>
+                <p><strong>Contact No:</strong> 022229840842236</p>
+                <p><strong>Email:</strong> abhishek.s@equal.in</p>
+            </div>
+            <div class="footer-disclaimer">
+                <p><strong>Standard Warning:</strong> Investment in securities market are subject to market risks. Read all the related documents carefully before investing.</p>
+                <p><strong>Disclaimer:</strong> Registration granted by SEBI, enlistment with IAASB and certification from NISM in no way guarantee performance of the IA or provide any assurance of returns to investors.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+
+            function showPage(pageId) {
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                const activePage = document.getElementById(pageId);
+                if (activePage) {
+                    activePage.classList.add('active');
+                }
+                window.scrollTo(0, 0);
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('href').substring(1);
+                    showPage(pageId);
+                });
+            });
+
+            // Initial page load
+            showPage('home');
+        });
+    </script>
+</body>
+</html>

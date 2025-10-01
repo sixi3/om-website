@@ -40,8 +40,8 @@ const moneyOneMetallicTextClasses = "font-bold bg-gradient-to-b from-[#3cd070] t
 const combinedStatsData = [
   { id: "fip", value: 1, label: "FIP Coverage in India", prefix: "#", suffix: "" },
   { id: "fiu", value: 49, label: "FIUs use MoneyOne", prefix: "", suffix: "%" },
-  { id: "data", value: 79.9, label: "Monthly Data Packets Delivered", prefix: "", suffix: "M", fixedDecimals: 1 },
-  { id: "consents", value: 28, label: "Consents Fulfilled Monthly", prefix: "", suffix: "M" },
+  { id: "data", value: 79.9, label: "Monthly Data Packets Delivered", prefix: "", suffix: "Mn", fixedDecimals: 1 },
+  { id: "consents", value: 28, label: "Consents Fulfilled Monthly", prefix: "", suffix: "Mn" },
 ];
 
 // Features pills from both files
